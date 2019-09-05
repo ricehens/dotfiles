@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ -z "$1" ]
+then
+    chromium
+else
+    if [[ $1 == "http:*" ]] || [[ $1 == "https:*" ]]; then
+        command=(chromium --app=\'$1\')
+    else
+        command=(chromium --app=\'https://$1\')
+    fi
+    eval "${command[@]}"
+fi

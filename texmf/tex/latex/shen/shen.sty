@@ -1,0 +1,868 @@
+\ProvidesPackage{shen}
+
+% Arguments and Options
+\newif\iftheorembychapter\theorembychapterfalse
+\newif\iftheorembysection\theorembysectionfalse
+\newif\iftitleandauthor\titleandauthorfalse
+\newif\ifcodeused\codeusedfalse
+\newif\iffancyused\fancyusedfalse
+\newif\ifmathpazofontused\mathpazofontusedfalse
+\newif\ifnomarginset\nomarginsetfalse
+\newif\ifcolorthmon\colorthmonfalse
+\newif\ifthmenabled\thmenabledtrue
+\newif\ifindenting\indentingtrue
+\newif\ifendproofnow\endproofnowtrue
+\newif\ifcolorsecstyle\colorsecstylefalse
+\newif\ifplainsol\plainsolfalse
+\newif\iffillqedsymbol\fillqedsymbolfalse
+\DeclareOption{default}{\fancyusedtrue\mathpazofontusedtrue
+    \colorthmontrue\indentingtrue\colorsecstyletrue
+    \endproofnowfalse}
+\DeclareOption{chthm}{\theorembychaptertrue}
+\DeclareOption{secthm}{\theorembysectiontrue}
+\DeclareOption{noparthm}{\theorembysectionfalse}
+\DeclareOption{titauth}{\titleandauthortrue}
+\DeclareOption{code}{\codeusedtrue}
+\DeclareOption{fancy}{\fancyusedtrue}
+\DeclareOption{font}{\mathpazofontusedtrue}
+\DeclareOption{nomargin}{\nomarginsettrue}
+\DeclareOption{colorthm}{\colorthmontrue}
+\DeclareOption{nothm}{\thmenabledfalse}
+\DeclareOption{indent}{\indentingtrue}
+\DeclareOption{noindent}{\indentingfalse}
+\DeclareOption{rightqed}{\endproofnowfalse}
+\DeclareOption{nowqed}{\endproofnowtrue}
+\DeclareOption{colorsec}{\colorsecstyletrue}
+\DeclareOption{plainsol}{\plainsoltrue}
+\DeclareOption{fillqed}{\fillqedsymboltrue}
+\ProcessOptions\relax
+
+% Imports
+\ifnomarginset
+\else
+    \usepackage[margin=1in,bottom=0.75in]{geometry}
+\fi
+\usepackage{amsmath, amsfonts, amssymb}
+\ifthmenabled
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+\fi
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{asymptote}
+\usepackage{cases}
+\usepackage{csquotes}
+\usepackage{gensymb}
+\usepackage{mathdots}
+\usepackage[final]{pdfpages}
+\usepackage{fancyhdr}
+%\usepackage{indentfirst}
+\usepackage{siunitx}
+\usepackage{titling}
+\usepackage{mdframed}
+\usepackage[normalem]{ulem}
+\usepackage{enumitem}
+\usepackage{version}
+\usepackage{mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage[T1]{fontenc}
+%\usepackage{hanging}
+
+% Default Values; stores title in \THETITLE
+\author{Eric Shen}
+\date{\vspace{-5ex}}
+\def\title#1{\gdef\@title{#1}\gdef\THETITLE{#1}}
+
+% Colorful text
+\definecolor{astral}{RGB}{46,116,181}
+\definecolor{royalblue}{RGB}{0,35,102}
+\definecolor{turtle}{RGB}{0,64,64}
+
+% Useful commands
+\newcommand{\reci}[1]{\frac{1}{#1}}
+\newcommand{\hypot}[2]{\sqrt{#1^2+#2^2}}
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\da}[0]{\measuredangle}
+\newcommand{\ans}[5]{\textbf{(A) }#1\qquad\textbf{(B) }#2\qquad\textbf{(C) }#3\qquad\textbf{(D) }#4\qquad\textbf{(E) }#5}
+\newcommand{\half}[0]{\frac{1}{2}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\vphi}{\varphi}
+\newcommand{\cycsum}{\sum_\mathrm{cyc}}
+\newcommand{\symsum}{\sum_\mathrm{sym}}
+\newcommand{\cycprod}{\prod_\mathrm{cyc}}
+\newcommand{\symprod}{\prod_\mathrm{sym}}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\ray}[1]{\overrightarrow{#1}} 
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\widehat{#1}}
+\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
+\newcommand{\ts}{\textsuperscript}
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\lthen}{\rightarrow}
+\newcommand{\opname}{\operatorname}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ta}{\triangle}
+\newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
+\newcommand{\sh}{\texttt{\color{MidnightBlue}\$\hspace{8pt}}}
+\newcommand{\shh}{\texttt{\color{MidnightBlue}\$\hspace{3pt}}}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\pow}{Pow}
+\DeclareMathOperator{\rad}{rad}
+
+% varying sizes in \pmod
+\makeatletter
+\DeclarePairedDelimiterX{\pmodx}[1]{(}{)}{{\operator@font mod}\mkern6mu#1}
+\renewcommand{\pmod}{
+    \allowbreak
+    \if@display\mkern18mu\else\mkern8mu\fi
+    \pmodx
+}
+\makeatother
+
+% Fancy setup
+\iffancyused
+    \pagestyle{fancy}
+    \fancyhf{}
+    \iftheorembychapter
+        \fancyhead[LO]{Ch. \thechapter: \nouppercase{\leftmark}}
+        \fancyhead[RE]{Ch. \thechapter: \nouppercase{\leftmark}}
+    \else
+        \iftitleandauthor
+            \fancyhead[LO]{\theauthor}
+            \fancyhead[RE]{\theauthor}
+        \fi
+    \fi
+    \chead{}
+    %\fancyhead[LE]{\thepage}
+    %\fancyhead[RO]{\thepage}
+    \lhead{\THETITLE}
+    \rhead{\theauthor}
+    \lfoot{}
+    \cfoot{\thepage}
+    \rfoot{}
+    \renewcommand{\headrulewidth}{0.4pt}
+
+    \setlength{\headsep}{10pt}
+    \setlength{\oddsidemargin}{0in}
+    \setlength{\evensidemargin}{0in}
+\fi
+
+\iftheorembychapter
+    \renewcommand{\chaptermark}[1]{%
+    \markboth{#1}{}}
+\fi
+
+% colorsec style setup
+\ifcolorsecstyle
+    \hypersetup{
+        colorlinks,
+        citecolor=astral,
+        filecolor=astral,
+        linkcolor=astral,
+        urlcolor=astral
+    }
+
+    \newcommand{\announcefont}{\bfseries
+    \fontfamily{lmss}\selectfont\color{royalblue}}
+    \newcommand{\boldseriffont}{\bfseries
+    \fontfamily{lmss}\selectfont}		
+    \newcommand{\seriffont}{\fontfamily{lmss}\selectfont}
+
+    \titleformat{\section}{\announcefont\Large}
+    {{\sffamily\S}\thesection}{1em}{}
+    \titleformat{\subsection}{\announcefont\large}
+    {{\sffamily\S}\thesubsection}{1em}{}
+    \titleformat{\subsubsection}{\announcefont\normalsize}
+    {{\sffamily\S}\thesubsubsection}{1em}{}
+
+%	\makeatletter
+%	\def\@seccntformat#1{\numerofont\textbf\S\csname the#1\endcsname\quad}
+%	\makeatother
+
+    \pretitle{\begin{center}\LARGE\boldseriffont}
+    \posttitle{\par\end{center}\vskip 0.5em}
+    \preauthor{\begin{center}
+            \large \lineskip 0.5em%
+            \begin{tabular}[t]{c}
+            \seriffont}
+    \postauthor{\end{tabular}\par\end{center}}
+    \predate{\begin{center}\large\seriffont}
+    \postdate{\par\end{center}}
+\fi
+
+% Formatting
+\ifindenting
+    \renewcommand{\baselinestretch}{1.05}
+    %\setlength{\parskip}{1pt}
+\else
+    \setlength{\parindent}{0.5pt}
+    \setlength{\parskip}{\baselineskip}
+\fi
+
+% Font
+\ifmathpazofontused
+    \usepackage{mathpazo}
+\fi
+
+\ifthmenabled %%%% BEGINNING OF THEOREMS
+% Theorem Styles
+    \ifcolorthmon
+        \ifindenting % Linebreaking for indention
+            \mdfdefinestyle{mdbluebox}{%
+                roundcorner = 10pt,
+                linewidth=0pt, %1pt,
+                skipabove=12pt,
+                innerbottommargin=9pt,
+                skipbelow=2pt,
+                linecolor=blue,
+                nobreak=true,
+                backgroundcolor=TealBlue!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{MidnightBlue},
+                mdframed={style=mdbluebox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt}
+            ]{thmbluebox}
+            \declaretheoremstyle[
+                headfont=\ttfamily\color{MidnightBlue},
+                bodyfont=\ttfamily,
+                mdframed={style=mdbluebox},
+                headpunct={},
+                postheadspace={8pt}
+            ]{thminlinebluebox}
+
+            \mdfdefinestyle{mdpurplebox}{%
+                roundcorner = 10pt,
+                linewidth=0pt, %1pt,
+                skipabove=12pt,
+                innerbottommargin=9pt,
+                skipbelow=2pt,
+                linecolor=blue,
+                nobreak=true,
+                backgroundcolor=RoyalPurple!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{Violet},
+                mdframed={style=mdpurplebox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt}
+            ]{thmpurplebox}
+
+            \mdfdefinestyle{mdredbox}{%
+                linewidth=0pt, %0.5pt,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=4pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=Salmon!5,
+                linecolor=RawSienna,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{RawSienna},
+                mdframed={style=mdredbox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmredbox}
+
+            \mdfdefinestyle{mdorangebox}{%
+                linewidth=0pt, %0.5pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=4pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=Peach!5,
+                linecolor=BurntOrange,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{BurntOrange},
+                mdframed={style=mdorangebox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmorangebox}
+
+            \mdfdefinestyle{mdinlineorangebox}{%
+                skipabove=8pt,
+                linewidth=3pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=black,
+                linecolor=BurntOrange,
+                backgroundcolor=Peach!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{BurntOrange},
+                spaceabove=0pt,
+                spacebelow=0pt,
+                mdframed={style=mdinlineorangebox},
+                headpunct={.\;},
+            ]{thminlineorangebox}
+
+            \mdfdefinestyle{mdgreenbox}{%
+                skipabove=8pt,
+                linewidth=2pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=ForestGreen,
+                backgroundcolor=ForestGreen!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{ForestGreen!70!black},
+                bodyfont=\normalfont,
+                spaceabove=2pt,
+                spacebelow=1pt,
+                mdframed={style=mdgreenbox},
+                %headpunct={ --- },
+                headpunct={\\[3pt]},
+            ]{thmgreenbox}
+
+            \mdfdefinestyle{mdgreenborder}{%
+                linewidth=0.5pt,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=4pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=ForestGreen!5,
+                linecolor=ForestGreen,
+            }
+            \declaretheoremstyle[
+                headfont=\bfseries\color{ForestGreen},
+                mdframed={style=mdgreenborder},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmgreenborder}
+
+            \mdfdefinestyle{mdlimebox}{%
+                skipabove=8pt,
+                linewidth=2pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=LimeGreen,
+                backgroundcolor=LimeGreen!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{LimeGreen!70!black},
+                bodyfont=\normalfont,
+                spaceabove=2pt,
+                spacebelow=1pt,
+                mdframed={style=mdlimebox},
+                %headpunct={ --- },
+                headpunct={\\[3pt]},
+            ]{thmlimebox}
+
+            \mdfdefinestyle{mdlimeborder}{%
+                linewidth=0.5pt,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=4pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=LimeGreen!5,
+                linecolor=LimeGreen,
+            }
+            \declaretheoremstyle[
+                headfont=\bfseries\color{LimeGreen!70!black},
+                mdframed={style=mdlimeborder},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmlimeborder}
+
+            \mdfdefinestyle{mdblackbox}{%
+                skipabove=8pt,
+                linewidth=3pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=black,
+                backgroundcolor=RedViolet!5!gray!5,
+            }
+            \declaretheoremstyle[
+                headfont=\bfseries,
+                bodyfont=\normalfont\small,
+                spaceabove=0pt,
+                spacebelow=0pt,
+                mdframed={style=mdblackbox}
+            ]{thmblackbox}
+
+        \else % Linebreaking for no indention
+            \mdfdefinestyle{mdbluebox}{%
+                roundcorner = 10pt,
+                linewidth=0pt,
+                skipabove=12pt,
+                innertopmargin=20pt,
+                innerbottommargin=9pt,
+                skipbelow=2pt,
+                linecolor=blue,
+                nobreak=true,
+                backgroundcolor=TealBlue!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{MidnightBlue},
+                mdframed={style=mdbluebox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt}
+            ]{thmbluebox}
+
+            \mdfdefinestyle{mdredbox}{%
+                linewidth=0pt,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=20pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=Salmon!5,
+                linecolor=RawSienna,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{RawSienna},
+                mdframed={style=mdredbox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmredbox}
+
+            \mdfdefinestyle{mdorangebox}{%
+                linewidth=0pt,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=20pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=Peach!5,
+                linecolor=BurntOrange,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{BurntOrange},
+                mdframed={style=mdorangebox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmorangebox}
+
+            \mdfdefinestyle{mdinlineorangebox}{%
+                skipabove=8pt,
+                linewidth=3pt,
+                rightline=false,
+                leftline=false,
+                topline=false,
+                bottomline=false,
+                innertopmargin=18pt,
+                linecolor=BurntOrange,
+                backgroundcolor=Peach!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{BurntOrange},
+                spaceabove=0pt,
+                spacebelow=0pt,
+                mdframed={style=mdinlineorangebox},
+            ]{thminlineorangebox}
+
+            \mdfdefinestyle{mdgreenbox}{%
+                skipabove=8pt,
+                linewidth=2pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                innertopmargin=18pt,
+                linecolor=ForestGreen,
+                backgroundcolor=ForestGreen!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{ForestGreen!70!black},
+                bodyfont=\normalfont,
+                spaceabove=2pt,
+                spacebelow=1pt,
+                mdframed={style=mdgreenbox},
+                %headpunct={ --- },
+                headpunct={\\[3pt]}
+            ]{thmgreenbox}
+
+            \mdfdefinestyle{mdlimebox}{%
+                skipabove=8pt,
+                linewidth=2pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                innertopmargin=18pt,
+                linecolor=LimeGreen,
+                backgroundcolor=LimeGreen!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{LimeGreen!70!black},
+                bodyfont=\normalfont,
+                spaceabove=2pt,
+                spacebelow=1pt,
+                mdframed={style=mdlimebox},
+                %headpunct={ --- },
+                headpunct={\\[3pt]}
+            ]{thmlimebox}
+
+            \mdfdefinestyle{mdblackbox}{%
+                skipabove=8pt,
+                linewidth=3pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                innertopmargin=18pt,
+                linecolor=black,
+                backgroundcolor=RedViolet!5!gray!5,
+            }
+            \declaretheoremstyle[
+                headfont=\bfseries,
+                bodyfont=\normalfont\small,
+                spaceabove=0pt,
+                spacebelow=0pt,
+                mdframed={style=mdblackbox}
+            ]{thmblackbox}
+        \fi
+    \fi
+
+% Theorems
+    \ifplainsol
+        \newcommand{\wowsol}{}
+    \else
+        \newcommand{\wowsol}{\fontfamily{lmss}\selectfont}
+    \fi
+    \theoremstyle{plain}
+    \iftheorembychapter
+        \newtheorem{theorem}{Theorem}[chapter]
+    \else
+        \iftheorembysection
+            \newtheorem{theorem}{Theorem}[section]
+        \else
+            \newtheorem{theorem}{Theorem}
+        \fi
+    \fi
+    \newtheorem{axiom}[theorem]{Axiom}
+    \newtheorem{corollary}{Corollary}[theorem]
+    \newtheorem*{lemma}{Lemma}
+    \newtheorem{numlemma}[theorem]{Lemma}
+    \newtheorem{fact}[theorem]{Fact}
+    \newtheorem*{remark}{Remark}
+
+    \theoremstyle{definition}
+    \newtheorem{definition}[theorem]{Definition}
+    \newtheorem*{claim}{Claim}
+    \newtheorem*{example}{Example}
+    \newtheorem{theoremdef}[theorem]{Theorem}
+
+    \newtheorem{exercise}[theorem]{Exercise}
+    \newtheorem{problem}[theorem]{Problem}
+    \newtheorem*{challenge}{Challenge}
+    \newtheorem{numsol}{\wowsol Solution}
+    \newtheorem*{solution}{\wowsol Solution}
+    \newtheorem*{warning}{Warning}
+    \newtheorem*{alternative}{Alternative}
+    \newtheorem{algorithm}{Algorithm}
+    \newtheorem*{walkthrough}{Walkthrough}
+
+    \ifcolorthmon
+    %\theoremstyle{plain}
+        \declaretheorem[style=thmbluebox,%
+            sibling=theorem,%
+        name=Theorem]{boxthm}
+        \declaretheorem[style=thmbluebox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Theorem]{boxthm*}
+        \declaretheorem[style=thmbluebox,%
+            sibling=corollary,%
+        name=Corollary]{boxcoro}
+        %\declaretheorem[style=thmbluebox,%
+        %parent=section,%
+        %name=Theorem]{boxsecthm}
+        \declaretheorem[style=thminlinebluebox,%
+            numbered=no,
+        name=\$]{shell}
+        \declaretheorem[style=thmbluebox,%
+        %sibling=theorem,%
+        name=Algorithm]{boxalgo}
+        \declaretheorem[style=thmbluebox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Algorithm]{boxalgo*}
+        \declaretheorem[style=thmbluebox,%
+            parent=section,%
+        name=Algorithm]{boxsecalgo}
+        %\theoremstyle{definition}
+        \declaretheorem[style=thmgreenbox,%
+        %sibling=theorem,%
+        name=Problem]{boxprob}
+        \declaretheorem[style=thmgreenbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Problem]{boxprob*}
+        \declaretheorem[style=thmgreenbox,%
+            parent=section,%
+        name=Problem]{boxsecprob}
+        \declaretheorem[style=thmgreenborder,%
+        %parent=section,
+            sibling=boxthm,
+        name=Example]{boxexample}
+        \declaretheorem[style=thmlimebox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Restated Problem]{boxrprob}
+        \declaretheorem[style=thmlimeborder,%
+            numbered=no,
+        name=Solution]{boxsol}
+        \declaretheorem[style=thmlimeborder,%
+            numbered=no,
+        name=Proof]{boxproof}
+        \declaretheorem[style=thmlimebox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Generalization]{boxgprob}
+        \declaretheorem[style=thmredbox,%
+        sibling=theorem,%
+        name=Lemma]{boxlemma}
+        \declaretheorem[style=thmredbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Lemma]{boxlemma*}
+        \declaretheorem[style=thmredbox,%
+            numbered=no,
+        name=Warning]{boxwarn}
+        \declaretheorem[style=thmorangebox,%
+        %sibling=theorem,%
+        name=Claim]{boxclaim}
+        \declaretheorem[style=thmorangebox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Claim]{boxclaim*}
+        \declaretheorem[style=thminlineorangebox,%
+        name=Claim]{iclaim}
+        \declaretheorem[style=thminlineorangebox,%
+            numbered=no,
+        name=Claim]{iclaim*}
+        \declaretheorem[style=thmblackbox,%
+        %sibling=theorem,
+            numbered=no,
+        name=Remark]{boxremark}
+        \declaretheorem[style=thmblackbox,%
+            numbered=no,
+        name=Note]{boxnote}
+        \declaretheorem[style=thmpurplebox,
+            sibling=theorem,
+        name=Definition]{boxdef}
+        \declaretheorem[style=thmpurplebox,
+        %sibling=theorem,
+            numbered=no,
+        name=Definition]{boxdef*}
+
+        \declaretheorem[style=thmbluebox,%
+        name=Theorem]
+        {innercustomboxthm}
+        \newenvironment{customboxthm}[1]
+        {\renewcommand\theinnercustomboxthm{#1}
+        \innercustomboxthm}
+        {\endinnercustomboxthm}
+
+        \declaretheorem[style=thmgreenbox,%
+        name=Problem]
+        {innercustomboxprob}
+        \newenvironment{customboxprob}[1]
+        {\renewcommand\theinnercustomboxprob{#1}
+        \innercustomboxprob}
+        {\endinnercustomboxprob}
+
+        \declaretheorem[style=thmlimeborder,%
+        name=Solution]
+        {innercustomboxsol}
+        \newenvironment{customboxsol}[1]
+        {\renewcommand\theinnercustomboxsol{#1}
+        \innercustomboxsol}
+        {\endinnercustomboxsol}
+
+        \declaretheorem[style=thmlimeborder,%
+        name=Proof]
+        {innercustomboxproof}
+        \newenvironment{customboxproof}[1]
+        {\renewcommand\theinnercustomboxproof{#1}
+        \innercustomboxproof}
+        {\endinnercustomboxproof}
+
+        \declaretheorem[style=thmpurplebox,%
+        name=Definition]
+        {innercustomboxdef}
+        \newenvironment{customboxdef}[1]
+        {\renewcommand\theinnercustomboxdef{#1}
+        \innercustomboxdef}
+        {\endinnercustomboxdef}
+    \else
+    %\theoremstyle{plain}
+        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+            rightmargin=1,%backgroundcolor=blue,%
+            outerlinecolor=blue,innertopmargin=\topskip,%
+            splittopskip=\topskip,skipbelow=\baselineskip,%
+            skipabove=\baselineskip,
+        ntheorem,]{boxthm}{Theorem}
+        %\theoremstyle{definition}
+        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+            rightmargin=1,%backgroundcolor=blue,%
+            outerlinecolor=blue,innertopmargin=\topskip,%
+            splittopskip=\topskip,skipbelow=\baselineskip,%
+            skipabove=\baselineskip,
+        ntheorem,]{boxprob}{Problem}
+        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+            rightmargin=1,%backgroundcolor=blue,%
+            outerlinecolor=blue,innertopmargin=\topskip,%
+            splittopskip=\topskip,skipbelow=\baselineskip,%
+            skipabove=\baselineskip,
+        ntheorem,]{boxlemma}{Lemma}
+        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+            rightmargin=1,%backgroundcolor=blue,%
+            outerlinecolor=blue,innertopmargin=\topskip,%
+            splittopskip=\topskip,skipbelow=\baselineskip,%
+            skipabove=\baselineskip,
+        ntheorem,]{boxclaim}{Claim}
+    \fi
+
+% Black square for proof environment
+    \iffillqedsymbol
+        \renewcommand\qedsymbol{$\blacksquare$}
+    \fi
+    \ifendproofnow
+        \makeatletter
+        \renewenvironment{proof}[1][\proofname]{\par
+            \normalfont \topsep6\p@\@plus6\p@\relax
+            \trivlist
+        \item[\hskip\labelsep
+                \itshape
+            #1\@addpunct{.}]\ignorespaces
+        }{%
+            \nolinebreak\qedsymbol\endtrivlist\@endpefalse
+        }
+    \fi
+
+% Absolutely no page break
+    \newenvironment{absolutelynopagebreak}
+    {\par\nobreak\vfil\penalty0\vfilneg
+    \vtop\bgroup}
+    {\par\xdef\tpd{\the\prevdepth}\egroup
+    \prevdepth=\tpd}
+
+% custom numbers
+    \newtheorem{innercustomthm}{Theorem}
+    \newenvironment{customthm}[1]
+    {\renewcommand\theinnercustomthm{#1}\innercustomthm}
+    {\endinnercustomthm}
+
+    \newtheorem{innercustomprob}{Problem}
+    \newenvironment{customprob}[1]
+    {\renewcommand\theinnercustomprob{#1}\innercustomprob}
+    {\endinnercustomprob}
+
+    \newtheorem{innercustomsol}{\wowsol Solution}
+    \newenvironment{customsol}[1]
+    {\renewcommand\theinnercustomsol{\wowsol #1}\innercustomsol}
+    {\endinnercustomsol}
+
+    \newtheorem{innercustomenv}{}
+    \newenvironment{customenv}[1]
+    {\renewcommand\theinnercustomenv{\wowsol #1}\innercustomenv}
+    {\endinnercustomenv}
+
+    \newenvironment{subproof}[1][Proof]{%
+        \begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%
+    {\end{proof}}
+    \newenvironment{parlist}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
+    \newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
+
+\fi %%%% END OF THEOREMS
+
+% Asymptote
+\begin{asydef}
+    import olympiad;
+\end{asydef}
+
+% Code
+\ifcodeused
+    \usepackage{listings}
+    \usepackage{color}
+
+    \definecolor{dkgreen}{rgb}{0,0.6,0}
+    \definecolor{gray}{rgb}{0.5,0.5,0.5}
+    \definecolor{mauve}{rgb}{0.58,0,0.82}
+
+    \lstset{frame=tb,
+        language=Java,
+        aboveskip=3mm,
+        belowskip=3mm,
+        showstringspaces=false,
+        columns=flexible,
+        basicstyle={\small\ttfamily},
+        numbers=left,
+        numbersep=5pt,
+        numberstyle=\tiny\color{gray},
+        keywordstyle=\color{blue},
+        commentstyle=\color{dkgreen},
+        stringstyle=\color{mauve},
+        breaklines=true,
+        breakatwhitespace=true,
+        tabsize=4,
+        frame=single
+    }
+\fi
+
+% Arc
+\DeclareFontFamily{OMX}{yhex}{}
+\DeclareFontShape{OMX}{yhex}{m}{n}{<->yhcmex10}{}
+\DeclareSymbolFont{yhlargesymbols}{OMX}{yhex}{m}{n}
+\DeclareMathAccent{\wideparen}{\mathord}{yhlargesymbols}{"F3}

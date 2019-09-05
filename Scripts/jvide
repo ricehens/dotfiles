@@ -1,0 +1,2 @@
+#!/bin/bash
+/home/ericshen/Scripts/ideasig/signal-reset /opt/intellij-idea-ultimate-edition/bin/idea.sh &>/tmp/idea.out & disown

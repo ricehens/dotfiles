@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+if pgrep i3lock > /dev/null
+then
+    echo "Already running"
+    exit
+fi
+
+# Take a screenshot
+rm -f /tmp/screen_locked.png 
+scrot /tmp/screen_locked.png
+
+# Blur
+mogrify -blur 0x6 -brightness-contrast -20 /tmp/screen_locked.png
+
+# Lock screen
+i3lock -b -e -p win -i /tmp/screen_locked.png

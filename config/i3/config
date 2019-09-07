@@ -28,7 +28,7 @@ font pango:DejaVu Sans Mono 10
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- /home/ericshen/bin/cya --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -40,7 +40,7 @@ exec --no-startup-id nm-applet
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioRaiseVolume exec amixer set Master 5%+ && killall -USR1 i3status
 bindsym XF86AudioLowerVolume exec amixer set Master 5%- && killall -USR1 i3status
-bindsym XF86AudioMute exec amixer set Master toggle
+bindsym XF86AudioMute exec amixer set Master toggle && killall -USR1 i3status
 bindsym XF86MonBrightnessUp exec /usr/local/bin/bright -inc 100
 bindsym XF86MonBrightnessDown exec /usr/local/bin/bright -dec 100
 
@@ -217,11 +217,12 @@ bar {
 }
 
 # Custom shortcuts
-bindsym $mod+Control+k exec '/home/ericshen/Scripts/cya' &
+bindsym $mod+Control+k exec '/home/ericshen/bin/cya' &
 bindsym $mod+Control+j exec chromium
+bindsym $mod+Control+s exec '/home/ericshen/bin/capture'
 
 # Auto-lock
-exec xautolock -time 7 -corners ---- -locker '/home/ericshen/Scripts/cya' &
+exec xautolock -time 7 -corners ---- -locker '/home/ericshen/bin/cya' &
 
 # Wallpaper
 exec_always feh --bg-fill ~/Images/Wallpapers/Fuji.jpg

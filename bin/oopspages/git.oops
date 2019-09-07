@@ -1,0 +1,12 @@
+git init			Initialize and create .git/
+git status			All modified files to be added to local repository
+git add <dir/file>		Add new/modified files to index
+git add -A			Add all files in directory.
+git commit -m <msg>		Commit staged snapshot with message
+git commit -a			Add more files if not done
+git remote add origin "<link>"	Set central repository as origin
+git pull origin master		Copy all files from master branch of remote repository to local repository
+git pull origin <branch-name>	See above
+    --allow-unrelated-histories	Self explanatory
+git push origin master		Publish changes to central repository
+git clone <link> [<dir>]	Self explanatory

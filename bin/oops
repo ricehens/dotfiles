@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ -z "$1" ]
+then
+    cat /home/ericshen/bin/oopspages/oops.oops
+else
+    cat /home/ericshen/bin/oopspages/$1.oops
+fi

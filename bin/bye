@@ -1,0 +1,2 @@
+#!/bin/bash
+/home/ericshen/bin/cya && /usr/bin/systemctl suspend

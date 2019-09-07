@@ -1,0 +1,16 @@
+- Use vim keybindings (h,j,k,l) to navigate.
+- Use J and K for PgDn and PgUp, respectively.
+- Use C-t, C-d, C-u, C-y to scroll half-pages
+- Use gg, G, nG, :n to jump pages (like vim)
+- Use H,L to go to top/bottom of page
+- Use C-o, C-i to jump back/forwards through jump list
+- Use a,s to adjust in best-fit/width mode
+- /,? to search for text and n,N for forward/back
+- f to follow links, F to display target
+- r to rotate
+- C-r to recolor
+- R to reload
+- d for dual-page
+- F5 for presentation
+- ^m for input bar
+- ^n for status bar

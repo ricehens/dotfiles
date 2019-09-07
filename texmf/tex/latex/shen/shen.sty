@@ -1,3 +1,17 @@
+%% shen.sty %% Copyright 2019 Eric Shen %
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Eric Shen.
+%
+% This work consists of the file shen.sty.
 \ProvidesPackage{shen}
 
 % Arguments and Options
@@ -82,37 +96,22 @@
 \definecolor{turtle}{RGB}{0,64,64}
 
 % Useful commands
-\newcommand{\reci}[1]{\frac{1}{#1}}
-\newcommand{\hypot}[2]{\sqrt{#1^2+#2^2}}
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\da}[0]{\measuredangle}
 \newcommand{\ans}[5]{\textbf{(A) }#1\qquad\textbf{(B) }#2\qquad\textbf{(C) }#3\qquad\textbf{(D) }#4\qquad\textbf{(E) }#5}
-\newcommand{\half}[0]{\frac{1}{2}}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
-\newcommand{\ol}{\overline}
-\newcommand{\ul}{\underline}
-\newcommand{\wt}{\widetilde}
-\newcommand{\wh}{\widehat}
-\newcommand{\eps}{\varepsilon}
 \newcommand{\vphi}{\varphi}
 \newcommand{\cycsum}{\sum_\mathrm{cyc}}
 \newcommand{\symsum}{\sum_\mathrm{sym}}
 \newcommand{\cycprod}{\prod_\mathrm{cyc}}
 \newcommand{\symprod}{\prod_\mathrm{sym}}
-\newcommand{\CC}{\mathbb C}
-\newcommand{\FF}{\mathbb F}
-\newcommand{\NN}{\mathbb N}
-\newcommand{\QQ}{\mathbb Q}
-\newcommand{\RR}{\mathbb R}
-\newcommand{\ZZ}{\mathbb Z}
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\ray}[1]{\overrightarrow{#1}} 
 \newcommand{\seg}[1]{\overline{#1}}
 \newcommand{\arc}[1]{\widehat{#1}}
 \newcommand{\defeq}{\overset{\mathrm{def}}{=}}
-\newcommand{\ts}{\textsuperscript}
 \newcommand{\dg}{^\circ}
 \newcommand{\ii}{\item}
 \newcommand{\liff}{\leftrightarrow}
@@ -127,7 +126,6 @@
 \newcommand{\shh}{\texttt{\color{MidnightBlue}\$\hspace{3pt}}}
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\cis}{cis}
-\DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\pow}{Pow}
 \DeclareMathOperator{\rad}{rad}
@@ -228,7 +226,7 @@
 \fi
 
 \ifthmenabled %%%% BEGINNING OF THEOREMS
-% Theorem Styles
+% Theorem Styles --- Based on Evan's pretty boxes
     \ifcolorthmon
         \ifindenting % Linebreaking for indention
             \mdfdefinestyle{mdbluebox}{%
@@ -434,6 +432,8 @@
             ]{thmblackbox}
 
         \else % Linebreaking for no indention
+            % THIS SECTION IS DEPRECATED AND NO LONGER MAINTAINED
+            % It is only here for backwards compatability.
             \mdfdefinestyle{mdbluebox}{%
                 roundcorner = 10pt,
                 linewidth=0pt,
@@ -791,13 +791,6 @@
         }
     \fi
 
-% Absolutely no page break
-    \newenvironment{absolutelynopagebreak}
-    {\par\nobreak\vfil\penalty0\vfilneg
-    \vtop\bgroup}
-    {\par\xdef\tpd{\the\prevdepth}\egroup
-    \prevdepth=\tpd}
-
 % custom numbers
     \newtheorem{innercustomthm}{Theorem}
     \newenvironment{customthm}[1]
@@ -826,6 +819,13 @@
     \newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
 
 \fi %%%% END OF THEOREMS
+
+% Absolutely no page break
+\newenvironment{absolutelynopagebreak}
+{\par\nobreak\vfil\penalty0\vfilneg
+\vtop\bgroup}
+{\par\xdef\tpd{\the\prevdepth}\egroup
+\prevdepth=\tpd}
 
 % Asymptote
 \begin{asydef}

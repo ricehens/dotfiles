@@ -209,6 +209,10 @@
     \postauthor{\end{tabular}\par\end{center}}
     \predate{\begin{center}\large\seriffont}
     \postdate{\par\end{center}}
+
+    
+%    \usepackage[tocindentauto]{tocstyle}
+%    \newcommand{\autodot}{\sffamily}
 \fi
 
 % Formatting
@@ -611,6 +615,19 @@
     \newtheorem*{alternative}{Alternative}
     \newtheorem{algorithm}{Algorithm}
     \newtheorem*{walkthrough}{Walkthrough}
+
+    \newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\ \egroup}
+    \newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\ \egroup}
+    \newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\ \egroup}
+
+    \newtheorem{probE}[problem]{\clubs{2} Problem}
+    \newtheorem{probM}[problem]{\clubs{3} Problem}
+    \newtheorem{probH}[problem]{\clubs{5} Problem}
+    \newtheorem{probZ}[problem]{\clubs{9} Problem}
+    \newtheorem{probER}[problem]{\clubr{2} Problem}
+    \newtheorem{probMR}[problem]{\clubr{3} Problem}
+    \newtheorem{probHR}[problem]{\clubr{5} Problem}
+    \newtheorem{probZR}[problem]{\clubr{9} Problem}
 
     \ifcolorthmon
     %\theoremstyle{plain}

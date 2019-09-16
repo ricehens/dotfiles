@@ -10,7 +10,7 @@ urxvt.boldFont:	xft:DejaVu Sans Mono:pixelsize=22:weight=bold
 urxvt.letterSpace:	-1
 
 !! Larger history limit
-urxvt.saveLines:	10000
+urxvt.saveLines:	100000
 
 !! Transparency
 urxvt.shading:	15

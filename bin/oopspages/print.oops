@@ -17,7 +17,7 @@ To print, use CUPS:
     	lpstat -p
     	lpc status
     To resume printer if paused:
-    	cupsenable printer
+    	cupsenable <printer>
     To print from zathura:
     	Type :print
 

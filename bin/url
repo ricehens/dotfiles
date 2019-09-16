@@ -4,9 +4,9 @@ then
     chromium
 else
     if [[ $1 == "http:*" ]] || [[ $1 == "https:*" ]]; then
-        command=(chromium --app=\'$1\')
+        command=(google-chrome-stable --app=\'$1\')
     else
-        command=(chromium --app=\'https://$1\')
+        command=(google-chrome-stable --app=\'https://$1\')
     fi
     eval "${command[@]}"
 fi

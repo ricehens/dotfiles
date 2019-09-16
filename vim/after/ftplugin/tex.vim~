@@ -1,6 +1,3 @@
-""" Soft wrapping
-set wrap linebreak nolist " soft wrap
-
 """ Based on the dotfiles of Evan Chen.
 
 " Always use \\dots
@@ -14,7 +11,6 @@ set wrap linebreak nolist " soft wrap
 " call IMAP('SS2', 'SS2', 'tex')
 " call IMAP('SPG', 'SPG', 'tex')
 " call IMAP('SSP', 'SSP', 'tex')
-call IMAP('EFI', 'EFI', 'tex')
 
 " Standard macros
 let @d = '0i€kb	j'
@@ -156,8 +152,8 @@ call IMAP('Bprob::', "\\begin{boxprob*}\<CR><++>\<CR>\\end{boxprob*}<++>", 'tex'
 call IMAP('Bprob[]::', "\\begin{boxprob*}[<++>]\<CR><++>\<CR>\\end{boxprob*}<++>", 'tex')
 call IMAP('prob::', "\\begin{problem}\<CR><++>\<CR>\\end{problem}<++>", 'tex')
 call IMAP('prob[]::', "\\begin{problem}[<++>]\<CR><++>\<CR>\\end{problem}<++>", 'tex')
-call IMAP('thmd::', "\\begin{theoremdef}\<CR><++>\<CR>\\end{theoremdef}<++>", 'tex')
-call IMAP('thmd[]::', "\\begin{theoremdef}[<++>]\<CR><++>\<CR>\\end{theoremdef}<++>", 'tex')
+call IMAP('thmd::', "\\begin{thmdef}\<CR><++>\<CR>\\end{thmdef}<++>", 'tex')
+call IMAP('thmd[]::', "\\begin{thmdef}[<++>]\<CR><++>\<CR>\\end{thmdef}<++>", 'tex')
 call IMAP('Bthm::', "\\begin{boxthm*}\<CR><++>\<CR>\\end{boxthm*}<++>", 'tex')
 call IMAP('Bthm[]::', "\\begin{boxthm*}[<++>]\<CR><++>\<CR>\\end{boxthm*}<++>", 'tex')
 call IMAP('cthm::', "\\begin{customthm}{<++>}\<CR><++>\<CR>\\end{customthm}<++>", 'tex')
@@ -168,8 +164,6 @@ call IMAP('bthm::', "\\begin{boxthm}\<CR><++>\<CR>\\end{boxthm}<++>", 'tex')
 call IMAP('bthm[]::', "\\begin{boxthm}[<++>]\<CR><++>\<CR>\\end{boxthm}<++>", 'tex')
 call IMAP('thm::', "\\begin{theorem}\<CR><++>\<CR>\\end{theorem}<++>", 'tex')
 call IMAP('thm[]::', "\\begin{theorem}[<++>]\<CR><++>\<CR>\\end{theorem}<++>", 'tex')
-call IMAP('bcoro::', "\\begin{boxcoro}\<CR><++>\<CR>\\end{boxcoro}<++>", 'tex')
-call IMAP('bcoro[]::', "\\begin{boxcoro}[<++>]\<CR><++>\<CR>\\end{boxcoro}<++>", 'tex')
 call IMAP('bcl::', "\\begin{boxclaim}\<CR><++>\<CR>\\end{boxclaim}<++>", 'tex')
 call IMAP('Bcl::', "\\begin{boxclaim*}\<CR><++>\<CR>\\end{boxclaim*}<++>", 'tex')
 call IMAP('icl::', "\\begin{iclaim}\<CR><++>\<CR>\\end{iclaim}<++>", 'tex')
@@ -195,11 +189,3 @@ call IMAP('algo::', "\\begin{algorithm}\<CR><++>\<CR>\\end{algorithm}<++>", 'tex
 call IMAP('algo[]::', "\\begin{algorithm}[<++>]\<CR><++>\<CR>\\end{algorithm}<++>", 'tex')
 call IMAP('bexmp::', "\\begin{boxexample}\<CR><++>\<CR>\\end{boxexample}<++>", 'tex')
 call IMAP('bexmp[]::', "\\begin{boxexample}[<++>]\<CR><++>\<CR>\\end{boxexample}<++>", 'tex')
-call IMAP('wt::', "\\begin{walkthrough}\<CR><++>\<CR>\\end{walkthrough}<++>", 'tex')
-call IMAP('sh::', "\\begin{shell}\<CR><++>\<CR>\\end{shell}<++>", 'tex')
-call IMAP('bwarn::', "\\begin{boxwarn}\<CR><++>\<CR>\\end{boxwarn}<++>", 'tex')
-call IMAP('bnote::', "\\begin{boxnote}\<CR><++>\<CR>\\end{boxnote}<++>", 'tex')
-
-call IMAP('sc::', "\\setcounter{<++>}{<++>}<++>", 'tex')
-call IMAP('sc0::', "\\setcounter{<++>}0<++>", 'tex')
-

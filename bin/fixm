@@ -32,3 +32,4 @@ do
 done
 
 xrandr --output $screen --mode $resolution --scale $scale --$locat eDP-1
+xrandr --auto

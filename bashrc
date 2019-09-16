@@ -11,19 +11,23 @@ alias ls='ls --color=auto'
 # Custom scripts
 export VISUAL='vim'
 export EDITOR='vim'
-export PATH="~/Scripts:$PATH"
+export PATH="/home/ericshen/bin:$PATH"
 
 # Java PATH
 export PATH="/usr/lib/jvm/default-runtime/bin:$PATH"
 
-# Allow opacity in ASY
-alias asy='asy -nosafe'
-
 # Cleanup
-alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class'
+alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *~'
 
-# Terminal Emacs
+# Utils
+alias asy='asy -nosafe'
 alias tmacs='emacs -nw'
+alias pdf='zathura'
+
+# Be careful
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
 
 # Fun!
 alias please='sudo $(fc -ln -1)'

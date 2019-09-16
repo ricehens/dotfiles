@@ -22,24 +22,6 @@ Plugin 'vim-latex/vim-latex'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-""""" VimRC example
-
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2017 Sep 20
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
 " Get the defaults that most users want.
 source $VIMRUNTIME/defaults.vim
 
@@ -65,7 +47,7 @@ if has("autocmd")
   au!
 
   " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+  " autocmd FileType text setlocal textwidth=78
 
   augroup END
 
@@ -90,7 +72,7 @@ endif
 set showcmd incsearch wildmenu
 set ic hls " incomplete, highlight search
 
-""" Set TAB to ESC // Just swap the system keys :P
+""" Set TAB to ESC // or just swap the system keys :P
 nnoremap <Tab> <Esc>
 vnoremap <Tab> <Esc>gV
 onoremap <Tab> <Esc>
@@ -100,6 +82,11 @@ inoremap <Tab> <Esc>`^
 """ Syntax highlighting
 syntax on
 set background=dark
+
+""" Line wrapping
+set wrap
+set linebreak
+set nolist
 
 """ LaTeX
 filetype plugin on
@@ -119,7 +106,6 @@ set cindent
 " Indention
 filetype plugin indent on
 set expandtab ts=4 sw=4 ai
-set wrap linebreak nolist " soft wrap
 
 " Code Folding looks shitty
 highlight Folded ctermbg=LightBlue ctermfg=DarkBlue

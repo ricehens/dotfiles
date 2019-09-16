@@ -1,0 +1,7 @@
+#!/bin/bash
+tsz="10"
+if [[ ! -z "$1" ]]
+then
+    tsz="$1"
+fi
+expac -HM '%m|%n' | sort -hr | head -n $tsz | column -s '|' -t

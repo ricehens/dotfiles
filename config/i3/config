@@ -34,7 +34,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- /home/ericshen/bin/cya --
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# Use pactl to adjust volume in PulseAudio.
+# Use amixer to adjust volume and bright to adjust brightness
 # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 # bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -61,7 +61,7 @@ bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -185,12 +185,16 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # move windows around
-# move windows around
 mode "move" {
         bindsym h move workspace to output left
         bindsym j move workspace to output down
         bindsym k move workspace to output up
         bindsym l move workspace to output right
+
+        bindsym Left move workspace to output left
+        bindsym Down move workspace to output down
+        bindsym Up move workspace to output up
+        bindsym Right move workspace to output right
 
         # switch to workspace
         bindsym 1 workspace $ws1
@@ -217,9 +221,12 @@ bar {
 }
 
 # Custom shortcuts
+bindsym $mod+Control+l exec '/home/ericshen/bin/bye' &
 bindsym $mod+Control+k exec '/home/ericshen/bin/cya' &
-bindsym $mod+Control+j exec chromium
-bindsym $mod+Control+s exec '/home/ericshen/bin/capture'
+bindsym $mod+Control+j exec google-chrome-stable
+bindsym $mod+Control+m exec '/home/ericshen/bin/fixm' && restart
+bindsym $mod+Control+a exec '/home/ericshen/bin/capture'
+bindsym $mod+Control+s exec /home/ericshen/bin/capture -i
 
 # Auto-lock
 exec xautolock -time 7 -corners ---- -locker '/home/ericshen/bin/cya' &

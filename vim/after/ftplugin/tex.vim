@@ -131,7 +131,7 @@ nnoremap <C-M> i$<Esc>ea$<Esc>
 syntax spell toplevel
 set nospell
 
-" amsthm environments defined in evan.sty
+" amsthm environments
 call IMAP('pf::', "\\begin{proof}\<CR><++>\<CR>\\end{proof}<++>", 'tex')
 call IMAP('pf[]::', "\\begin{proof}[<++>]\<CR><++>\<CR>\\end{proof}<++>", 'tex')
 call IMAP('cbpf::', "\\begin{customboxproof}{<++>}\<CR><++>\<CR>\\end{customboxproof}<++>", 'tex')

@@ -22,7 +22,7 @@
 \newif\iffancyused\fancyusedfalse
 \newif\ifmathpazofontused\mathpazofontusedfalse
 \newif\ifnomarginset\nomarginsetfalse
-\newif\ifcolorthmon\colorthmonfalse
+\newif\ifcolorthmon\colorthmontrue
 \newif\ifthmenabled\thmenabledtrue
 \newif\ifindenting\indentingtrue
 \newif\ifendproofnow\endproofnowtrue
@@ -30,7 +30,7 @@
 \newif\ifplainsol\plainsolfalse
 \newif\iffillqedsymbol\fillqedsymbolfalse
 \DeclareOption{default}{\fancyusedtrue\mathpazofontusedtrue
-    \colorthmontrue\indentingtrue\colorsecstyletrue
+    \indentingtrue\colorsecstyletrue
     \endproofnowfalse}
 \DeclareOption{chthm}{\theorembychaptertrue}
 \DeclareOption{secthm}{\theorembysectiontrue}
@@ -38,15 +38,19 @@
 \DeclareOption{titauth}{\titleandauthortrue}
 \DeclareOption{code}{\codeusedtrue}
 \DeclareOption{fancy}{\fancyusedtrue}
+\DeclareOption{nofancy}{\fancyusedfalse}
 \DeclareOption{font}{\mathpazofontusedtrue}
+\DeclareOption{nofont}{\mathpazofontusedfalse}
 \DeclareOption{nomargin}{\nomarginsettrue}
 \DeclareOption{colorthm}{\colorthmontrue}
+\DeclareOption{plainthm}{\colorthmonfalse}
 \DeclareOption{nothm}{\thmenabledfalse}
 \DeclareOption{indent}{\indentingtrue}
 \DeclareOption{noindent}{\indentingfalse}
 \DeclareOption{rightqed}{\endproofnowfalse}
 \DeclareOption{nowqed}{\endproofnowtrue}
 \DeclareOption{colorsec}{\colorsecstyletrue}
+\DeclareOption{plainsec}{\colorsecstylefalse}
 \DeclareOption{plainsol}{\plainsoltrue}
 \DeclareOption{fillqed}{\fillqedsymboltrue}
 \ProcessOptions\relax
@@ -163,9 +167,12 @@
     \rfoot{}
     \renewcommand{\headrulewidth}{0.4pt}
 
-    \setlength{\headsep}{10pt}
-    \setlength{\oddsidemargin}{0in}
-    \setlength{\evensidemargin}{0in}
+    \ifnomarginset
+    \else
+        \setlength{\headsep}{10pt}
+        \setlength{\oddsidemargin}{0in}
+        \setlength{\evensidemargin}{0in}
+    \fi
 \fi
 
 \iftheorembychapter
@@ -773,26 +780,27 @@
     %\theoremstyle{plain}
         \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
             rightmargin=1,%backgroundcolor=blue,%
-            outerlinecolor=blue,innertopmargin=\topskip,%
-            splittopskip=\topskip,skipbelow=\baselineskip,%
+            outerlinecolor=blue,innertopmargin=0,%\topskip
+            splittopskip=\topskip,
+            skipbelow=\baselineskip,%
             skipabove=\baselineskip,
         ntheorem,]{boxthm}{Theorem}
         %\theoremstyle{definition}
         \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
             rightmargin=1,%backgroundcolor=blue,%
-            outerlinecolor=blue,innertopmargin=\topskip,%
+            outerlinecolor=blue,innertopmargin=0,%
             splittopskip=\topskip,skipbelow=\baselineskip,%
             skipabove=\baselineskip,
         ntheorem,]{boxprob}{Problem}
         \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
             rightmargin=1,%backgroundcolor=blue,%
-            outerlinecolor=blue,innertopmargin=\topskip,%
+            outerlinecolor=blue,innertopmargin=0,%
             splittopskip=\topskip,skipbelow=\baselineskip,%
             skipabove=\baselineskip,
         ntheorem,]{boxlemma}{Lemma}
         \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
             rightmargin=1,%backgroundcolor=blue,%
-            outerlinecolor=blue,innertopmargin=\topskip,%
+            outerlinecolor=blue,innertopmargin=0,%
             splittopskip=\topskip,skipbelow=\baselineskip,%
             skipabove=\baselineskip,
         ntheorem,]{boxclaim}{Claim}

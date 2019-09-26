@@ -221,12 +221,22 @@ bar {
 }
 
 # Custom shortcuts
-bindsym $mod+Control+l exec '/home/ericshen/bin/bye' &
+bindsym $mod+Mod1+l exec systemctl suspend &
 bindsym $mod+Control+k exec '/home/ericshen/bin/cya' &
 bindsym $mod+Control+j exec google-chrome-stable
-bindsym $mod+Control+m exec '/home/ericshen/bin/fixm' && restart
+bindsym $mod+Control+m exec '/home/ericshen/bin/fixm'
 bindsym $mod+Control+a exec '/home/ericshen/bin/capture'
 bindsym $mod+Control+s exec /home/ericshen/bin/capture -i
+bindsym $mod+Control+t exec '/home/ericshen/bin/texyou'
+
+# Toggle playback
+# bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+# bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+# bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym XF86AudioPlay exec playerctl play-pause
+# bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # Auto-lock
 exec xautolock -time 7 -corners ---- -locker '/home/ericshen/bin/cya' &

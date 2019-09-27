@@ -1,0 +1,4 @@
+evdev:input:b0003*
+  KEYBOARD_KEY_7003d=sysrq
+  KEYBOARD_KEY_70039=leftctrl
+  KEYBOARD_KEY_700e0=capslock

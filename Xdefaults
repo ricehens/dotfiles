@@ -5,7 +5,7 @@ urxvt.background:	black
 urxvt.foreground:	gray
 
 !! Font preferences
-urxvt.font:	xft:DejaVu Sans Mono:pixelsize=22
+urxvt.font:	xft:DejaVu Sans Mono:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
 urxvt.boldFont:	xft:DejaVu Sans Mono:pixelsize=22:weight=bold
 urxvt.letterSpace:	-1
 

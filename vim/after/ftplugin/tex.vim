@@ -50,14 +50,15 @@ call IMAP('.beg ', "\\begin{<++>}\<CR><++>\<CR>\\end{<++>}<++>", 'tex') " BEST I
 call IMAP('<C-/>', "\\frac{<++>}{<++>}<++>", 'tex')
 call IMAP('[]', "[]", 'tex')
 call IMAP('\[', "\\[<++>\\]<++>", 'tex')
-call IMAP('<.<', "\\left<<++>\\right><++>", 'tex')
-call IMAP('|.|', "\\left\\lvert<++>\\right\\rvert<++>", 'tex')
-call IMAP('.floor ', "\\left\\lfloor<++>\\right\\rfloor<++>", 'tex')
-call IMAP('.ceil ', "\\left\\lceil<++>\\right\\rceil<++>", 'tex')
+call IMAP('<<', "\\left<<++>\\right><++>", 'tex')
+call IMAP('||', "\\left\\lvert<++>\\right\\rvert<++>", 'tex')
+call IMAP('.floor ', "\\left\\lfloor <++>\\right\\rfloor<++>", 'tex')
+call IMAP('.ceil ', "\\left\\lceil <++>\\right\\rceil<++>", 'tex')
 call IMAP('.cycsum ', "\\sum_\\mathrm{cyc}", 'tex')
 call IMAP('.symsum ', "\\sum_\\mathrm{sym}", 'tex')
 call IMAP('.cycprod ', "\\prod_\\mathrm{cyc}", 'tex')
 call IMAP('.symprod ', "\\prod_\\mathrm{sym}", 'tex')
+call IMAP('.si ', "\\SI[per-mode=symbol]{<++>}{<++>}<++>", 'tex')
 
 " TeX Customizations
 let g:Tex_FoldedEnvironments='titlepage,abstract,asy,usamts' " Folding of certain environments

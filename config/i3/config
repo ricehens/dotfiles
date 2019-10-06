@@ -32,7 +32,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- /home/ericshen/bin/cya --
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+exec_always --no-startup-id nm-applet
 
 # Use amixer to adjust volume and bright to adjust brightness
 # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -55,6 +55,7 @@ bindsym $mod+Shift+Return exec i3-sensible-terminal +tr
 
 # kill focused window
 bindsym $mod+Shift+q kill
+bindsym --release $mod+Shift+w exec xkill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
@@ -218,7 +219,11 @@ bindsym $mod+m mode "move"
 # finds out, if available)
 bar {
         status_command i3status
+#        status_command i3blocks
 }
+
+# Polybar
+# exec_always --no-startup-id /home/ericshen/.config/polybar/launch.sh
 
 # Custom shortcuts
 bindsym $mod+Mod1+l exec systemctl suspend &
@@ -228,6 +233,7 @@ bindsym $mod+Control+m exec '/home/ericshen/bin/fixm'
 bindsym $mod+Control+a exec '/home/ericshen/bin/capture'
 bindsym $mod+Control+s exec /home/ericshen/bin/capture -i
 bindsym $mod+Control+t exec '/home/ericshen/bin/texyou'
+bindsym $mod+Control+i exec '/home/ericshen/bin/jvide'
 
 # Toggle playback
 # bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
@@ -239,7 +245,10 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Auto-lock
-exec xautolock -time 7 -corners ---- -locker '/home/ericshen/bin/cya' &
+exec_always xautolock -time 7 -corners ---- -locker '/home/ericshen/bin/cya' &
+
+# ibus Chinese input
+exec ibus-daemon -drx
 
 # Wallpaper
 exec_always feh --bg-fill ~/Images/Wallpapers/Fuji.jpg

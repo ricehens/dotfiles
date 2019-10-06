@@ -16,6 +16,13 @@ export PATH="/home/ericshen/bin:$PATH"
 # Java PATH
 export PATH="/usr/lib/jvm/default-runtime/bin:$PATH"
 
+# Defaults
+export SITE='eh2z5z1c0mo2@ericshen.net'
+
+# My name
+export ME='Eric Shen'
+export CN='沈皓彦'
+
 # Cleanup
 alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *~'
 
@@ -23,6 +30,13 @@ alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *~'
 alias asy='asy -nosafe'
 alias tmacs='emacs -nw'
 alias pdf='zathura'
+alias img='feh --scale-down --auto-zoom'
+alias ytdl="youtube-dl -f bestaudio[ext=m4a] --embed-thumbnail --add-metadata -o '%(title)s.%(ext)s'"
+
+# List
+alias ll='ls -l'
+alias la='ls -a'
+alias l='ls -al'
 
 # Be careful
 alias rm='rm -i'
@@ -33,6 +47,12 @@ alias cp='cp -i'
 alias please='sudo $(fc -ln -1)'
 alias dog='pygmentize -g'
 alias what='ping -c 3 google.com'
+alias rvim='sudo -E vim' # sudo vim while preserving environment
+
+# ibus
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
 
 # --------------
 # Color terminal

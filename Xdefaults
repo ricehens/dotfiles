@@ -10,7 +10,7 @@ urxvt.boldFont:	xft:DejaVu Sans Mono:pixelsize=22:weight=bold
 urxvt.letterSpace:	-1
 
 !! Larger history limit
-urxvt.saveLines:	100000
+urxvt.saveLines:	10000
 
 !! Transparency
 urxvt.shading:	15
@@ -20,7 +20,7 @@ urxvt.transparent:	true
 urxvt.perl-lib:	/usr/bin/perl
 urxvt.perl-ext-common:	default,pasta,matcher,keyboard-select
 urxvt.keysym.M-u:	perl:url-select:select_next
-urxvt.url-launcher:	/usr/bin/chromium
+urxvt.url-launcher:	/usr/bin/google-chrome-stable
 urxvt.underlineURLs:	True
 urxvt.matcher.button:	1
 urxvt.keysym.M-Escape:	perl:keyboard-select:activate

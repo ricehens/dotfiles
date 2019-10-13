@@ -1,0 +1,34 @@
+To print, use CUPS:
+    To set up HP printers:
+    	hp-setup
+    To configure drivers:
+    	system-config-printer
+    To print:
+        lpr [-E] [-H server[:port]] [-U username] [-P destination[/instance]] [-# num-copies [-h] [-l] [-m] [-o option[=value]] [-p] [-q] [-r] [-C title] [-J title] [-T title] [file(s)]
+    lpr options:
+    	-o job-sheets=<name>			Prints a cover page (classified, confidential, secret, standard, topsecret, or unclassified)
+    	-o media=<size>				Sets size (a4, letter, legal)
+    	-o number-up={2|4|6|10|16}		Prints number of document pages per output page
+        -o orientation-requested={4|5|6}	Denote landscape (90 deg ccw), landscape (90 deg cw), or reverse portrait resp.
+        -o print-quality={3|4|5}		Draft(3), normal(4), best(5)
+        -o saturation=<sat>			Sets saturation (0=black&white, 100=default, 200=intense)
+    	-o sides={one-sided|two-sided-long-edge|two-sided-short-edge}
+    Printer status: Use one of the following
+    	lpstat -p
+    	lpc status
+    To resume printer if paused:
+    	cupsenable <printer>
+    To print from zathura:
+    	Type :print
+
+To scan, use SANE:
+    To find printer:
+    	scanimage -L
+    To scan:
+    	scanimage --format=png > test.png
+    If invalid argument, specify device
+    	scaninage --device "hpaio:/net/HP_Officejet_Pro_8610?ip=10.0.0.212" --format=tiff > test.tiff
+    To check options:
+    	scanimage -A
+    To use optionts:
+    	scanimage --mode=Color --resolution=300 --format=png > test.png

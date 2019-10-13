@@ -44,6 +44,8 @@ alias mv='mv -i'
 alias cp='cp -i'
 
 # Fun!
+alias caps='xdotool key Caps_Lock'
+alias CAPS='xdotool key Caps_Lock'
 alias please='sudo $(fc -ln -1)'
 alias dog='pygmentize -g'
 alias what='ping -c 3 google.com'

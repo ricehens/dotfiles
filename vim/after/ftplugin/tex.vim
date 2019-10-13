@@ -58,7 +58,8 @@ call IMAP('.cycsum ', "\\sum_\\mathrm{cyc}", 'tex')
 call IMAP('.symsum ', "\\sum_\\mathrm{sym}", 'tex')
 call IMAP('.cycprod ', "\\prod_\\mathrm{cyc}", 'tex')
 call IMAP('.symprod ', "\\prod_\\mathrm{sym}", 'tex')
-call IMAP('.si ', "\\SI[per-mode=symbol]{<++>}{<++>}<++>", 'tex')
+"call IMAP('.si ', "\\SI[per-mode=symbol]{<++>}{<++>}<++>", 'tex')
+call IMAP('.si ', "\\;\\si[per-mode=symbol]{<++>}<++>", 'tex')
 
 " TeX Customizations
 let g:Tex_FoldedEnvironments='titlepage,abstract,asy,usamts' " Folding of certain environments

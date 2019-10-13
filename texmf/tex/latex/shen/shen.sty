@@ -29,9 +29,13 @@
 \newif\ifcolorsecstyle\colorsecstylefalse
 \newif\ifplainsol\plainsolfalse
 \newif\iffillqedsymbol\fillqedsymbolfalse
-\DeclareOption{default}{\fancyusedtrue\mathpazofontusedtrue
-    \indentingtrue\colorsecstyletrue
-    \endproofnowfalse}
+\DeclareOption{default}{
+    \fancyusedtrue
+    \mathpazofontusedtrue
+    \indentingtrue
+    \colorsecstyletrue
+    \endproofnowfalse
+}
 \DeclareOption{chthm}{\theorembychaptertrue}
 \DeclareOption{secthm}{\theorembysectiontrue}
 \DeclareOption{noparthm}{\theorembysectionfalse}
@@ -42,16 +46,21 @@
 \DeclareOption{font}{\mathpazofontusedtrue}
 \DeclareOption{nofont}{\mathpazofontusedfalse}
 \DeclareOption{nomargin}{\nomarginsettrue}
+\DeclareOption{plain}{
+    \colorthmonfalse
+    \colorsecstylefalse
+    \plainsoltrue
+}
 \DeclareOption{colorthm}{\colorthmontrue}
+\DeclareOption{colorsec}{\colorsecstyletrue}
 \DeclareOption{plainthm}{\colorthmonfalse}
+\DeclareOption{plainsec}{\colorsecstylefalse}
+\DeclareOption{plainsol}{\plainsoltrue}
 \DeclareOption{nothm}{\thmenabledfalse}
 \DeclareOption{indent}{\indentingtrue}
 \DeclareOption{noindent}{\indentingfalse}
 \DeclareOption{rightqed}{\endproofnowfalse}
 \DeclareOption{nowqed}{\endproofnowtrue}
-\DeclareOption{colorsec}{\colorsecstyletrue}
-\DeclareOption{plainsec}{\colorsecstylefalse}
-\DeclareOption{plainsol}{\plainsoltrue}
 \DeclareOption{fillqed}{\fillqedsymboltrue}
 \ProcessOptions\relax
 
@@ -87,6 +96,7 @@
 \usepackage{titlesec}
 \usepackage{hyperref}
 \usepackage[T1]{fontenc}
+\usepackage{epigraph}
 %\usepackage{hanging}
 
 % Default Values; stores title in \THETITLE
@@ -125,7 +135,11 @@
 \newcommand{\injto}{\hookrightarrow}
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\ta}{\triangle}
-\newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
+\ifcolorsecstyle
+    \newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
+\else
+    \newcommand{\vocab}[1]{\textbf{#1}}
+\fi
 \newcommand{\sh}{\texttt{\color{MidnightBlue}\$\hspace{8pt}}}
 \newcommand{\shh}{\texttt{\color{MidnightBlue}\$\hspace{3pt}}}
 \DeclareMathOperator{\lcm}{lcm}
@@ -582,6 +596,34 @@
                 mdframed={style=mdblackbox}
             ]{thmblackbox}
         \fi
+    \else
+        \mdfdefinestyle{mdbox}{%
+            linewidth=0.5pt,
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            %                nobreak=true,
+%            backgroundcolor=ForestGreen!5,
+%            linecolor=ForestGreen,
+        }
+        \declaretheoremstyle[
+            headfont=\bfseries,
+            bodyfont=\normalfont,
+            spaceabove=2pt,
+            spacebelow=1pt,
+            mdframed={style=mdbox},
+        ]{thmbox}
+        \declaretheoremstyle[
+            headfont=\bfseries,
+            bodyfont=\normalfont\small,
+            spaceabove=2pt,
+            spacebelow=1pt,
+            mdframed={style=mdbox},
+        ]{thmsmallbox}
     \fi
 
 % Theorems
@@ -673,7 +715,7 @@
         name=Algorithm]{boxsecalgo}
         %\theoremstyle{definition}
         \declaretheorem[style=thmgreenbox,%
-        %sibling=theorem,%
+        sibling=theorem,%
         name=Problem]{boxprob}
         \declaretheorem[style=thmgreenbox,%
         %sibling=theorem,%
@@ -778,32 +820,137 @@
         {\endinnercustomboxdef}
     \else
     %\theoremstyle{plain}
-        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-            rightmargin=1,%backgroundcolor=blue,%
-            outerlinecolor=blue,innertopmargin=0,%\topskip
-            splittopskip=\topskip,
-            skipbelow=\baselineskip,%
-            skipabove=\baselineskip,
-        ntheorem,]{boxthm}{Theorem}
+%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+%            rightmargin=1,%backgroundcolor=blue,%
+%            outerlinecolor=blue,innertopmargin=0,%\topskip
+%            splittopskip=\topskip,
+%            skipbelow=\baselineskip,%
+%            skipabove=\baselineskip,
+%        ntheorem,]{boxthm}{Theorem}
+%        %\theoremstyle{definition}
+%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+%            rightmargin=1,%backgroundcolor=blue,%
+%            outerlinecolor=blue,innertopmargin=0,%
+%            splittopskip=\topskip,skipbelow=\baselineskip,%
+%            skipabove=\baselineskip,
+%        ntheorem,]{boxprob}{Problem}
+%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+%            rightmargin=1,%backgroundcolor=blue,%
+%            outerlinecolor=blue,innertopmargin=0,%
+%            splittopskip=\topskip,skipbelow=\baselineskip,%
+%            skipabove=\baselineskip,
+%        ntheorem,]{boxlemma}{Lemma}
+%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+%            rightmargin=1,%backgroundcolor=blue,%
+%            outerlinecolor=blue,innertopmargin=0,%
+%            splittopskip=\topskip,skipbelow=\baselineskip,%
+%            skipabove=\baselineskip,
+%        ntheorem,]{boxclaim}{Claim}
+%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+%            rightmargin=1,%backgroundcolor=blue,%
+%            outerlinecolor=blue,innertopmargin=0,%
+%            splittopskip=\topskip,skipbelow=\baselineskip,%
+%            skipabove=\baselineskip,
+%        ntheorem,]{boxdef}{Definition}
+%%        \theoremstyle{nonumberplain}
+%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+%            rightmargin=1,%backgroundcolor=blue,%
+%            outerlinecolor=blue,innertopmargin=0,%
+%            splittopskip=\topskip,skipbelow=\baselineskip,%
+%            skipabove=\baselineskip,
+%        ntheorem,]{boxremark}{Remark}
+        \declaretheorem[style=thmbox,%
+            sibling=theorem,%
+        name=Theorem]{boxthm}
+        \declaretheorem[style=thmbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Theorem]{boxthm*}
+        \declaretheorem[style=thmbox,%
+            sibling=corollary,%
+        name=Corollary]{boxcoro}
+        %\declaretheorem[style=thmbluebox,%
+        %parent=section,%
+        %name=Theorem]{boxsecthm}
+        \declaretheorem[style=thmbox,%
+            numbered=no,
+        name=\$]{shell}
+        \declaretheorem[style=thmbox,%
+        sibling=theorem,%
+        name=Algorithm]{boxalgo}
+        \declaretheorem[style=thmbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Algorithm]{boxalgo*}
+        \declaretheorem[style=thmbox,%
+            parent=section,%
+        name=Algorithm]{boxsecalgo}
         %\theoremstyle{definition}
-        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-            rightmargin=1,%backgroundcolor=blue,%
-            outerlinecolor=blue,innertopmargin=0,%
-            splittopskip=\topskip,skipbelow=\baselineskip,%
-            skipabove=\baselineskip,
-        ntheorem,]{boxprob}{Problem}
-        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-            rightmargin=1,%backgroundcolor=blue,%
-            outerlinecolor=blue,innertopmargin=0,%
-            splittopskip=\topskip,skipbelow=\baselineskip,%
-            skipabove=\baselineskip,
-        ntheorem,]{boxlemma}{Lemma}
-        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-            rightmargin=1,%backgroundcolor=blue,%
-            outerlinecolor=blue,innertopmargin=0,%
-            splittopskip=\topskip,skipbelow=\baselineskip,%
-            skipabove=\baselineskip,
-        ntheorem,]{boxclaim}{Claim}
+        \declaretheorem[style=thmbox,%
+        sibling=theorem,%
+        name=Problem]{boxprob}
+        \declaretheorem[style=thmbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Problem]{boxprob*}
+        \declaretheorem[style=thmbox,%
+            parent=section,%
+        name=Problem]{boxsecprob}
+        \declaretheorem[style=thmbox,%
+        %parent=section,
+            sibling=boxthm,
+        name=Example]{boxexample}
+        \declaretheorem[style=thmbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Restated Problem]{boxrprob}
+        \declaretheorem[style=thmbox,%
+            numbered=no,
+        name=Solution]{boxsol}
+        \declaretheorem[style=thmbox,%
+            numbered=no,
+        name=Proof]{boxproof}
+        \declaretheorem[style=thmbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Generalization]{boxgprob}
+        \declaretheorem[style=thmbox,%
+        sibling=theorem,%
+        name=Lemma]{boxlemma}
+        \declaretheorem[style=thmbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Lemma]{boxlemma*}
+        \declaretheorem[style=thmbox,%
+            numbered=no,
+        name=Warning]{boxwarn}
+        \declaretheorem[style=thmbox,%
+        %sibling=theorem,%
+        name=Claim]{boxclaim}
+        \declaretheorem[style=thmbox,%
+        %sibling=theorem,%
+            numbered=no,
+        name=Claim]{boxclaim*}
+        \declaretheorem[style=thmbox,%
+        name=Claim]{iclaim}
+        \declaretheorem[style=thmbox,%
+            numbered=no,
+        name=Claim]{iclaim*}
+        \declaretheorem[style=thmsmallbox,%
+        %sibling=theorem,
+            numbered=no,
+        name=Remark]{boxremark}
+        \declaretheorem[style=thmbox,%
+            numbered=no,
+        name=Note]{boxnote}
+        \declaretheorem[style=thmbox,
+            sibling=theorem,
+        name=Definition]{boxdef}
+        \declaretheorem[style=thmbox,
+        %sibling=theorem,
+            numbered=no,
+        name=Definition]{boxdef*}
+
     \fi
 
 % Black square for proof environment

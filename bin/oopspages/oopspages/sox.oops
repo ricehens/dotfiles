@@ -1,0 +1,2 @@
+To record audio using sox, use
+	sox -t alsa default output.wav

@@ -17,7 +17,6 @@
 % ======== Arguments and Options ========
 \newif\iftheorembychapter\theorembychapterfalse
 \newif\iftheorembysection\theorembysectionfalse
-\newif\iftitleandauthor\titleandauthorfalse
 \newif\ifcodeused\codeusedfalse
 \newif\iffancyused\fancyusedtrue
 \newif\ifmathpazofontused\mathpazofontusedfalse
@@ -43,9 +42,6 @@
 \DeclareOption{chthm}{\theorembychaptertrue}
 \DeclareOption{secthm}{\theorembysectiontrue}
 \DeclareOption{noparthm}{\theorembysectionfalse}
-
-% Set title and author
-\DeclareOption{titauth}{\titleandauthortrue}
 
 % Allow lstlisting
 \DeclareOption{code}{\codeusedtrue}
@@ -120,11 +116,6 @@
 \usepackage{hyperref} % Referrences
 
 % ======== BASIC FORMATTING ========
-% Default Values; stores title in \THETITLE
-\author{Eric Shen}
-\date{\vspace{-5ex}}
-\def\title#1{\gdef\@title{#1}\gdef\THETITLE{#1}}
-
 % Colorful text
 \definecolor{astral}{RGB}{46,116,181}
 \definecolor{royalblue}{RGB}{0,35,102}
@@ -187,16 +178,11 @@
     \iftheorembychapter
         \fancyhead[LO]{Ch. \thechapter: \nouppercase{\leftmark}}
         \fancyhead[RE]{Ch. \thechapter: \nouppercase{\leftmark}}
-    \else
-        \iftitleandauthor
-            \fancyhead[LO]{\theauthor}
-            \fancyhead[RE]{\theauthor}
-        \fi
     \fi
     \chead{}
     %\fancyhead[LE]{\thepage}
     %\fancyhead[RO]{\thepage}
-    \lhead{\THETITLE}
+    \lhead{\thetitle}
     \rhead{\theauthor}
     \lfoot{}
     \cfoot{\thepage}
@@ -775,7 +761,7 @@
             numbered=no,
         name=Generalization]{boxgprob}
         \declaretheorem[style=thmredbox,%
-        sibling=theorem,%
+%        sibling=theorem,%
         name=Lemma]{boxlemma}
         \declaretheorem[style=thmredbox,%
         %sibling=theorem,%
@@ -1075,14 +1061,19 @@
     \usepackage{von}
 
     \makeatletter
-    % boxprob for von
-    \def\vonbox{\@ifstar\@vonboxstar\@vonbox}
-    \newcommand{\vonboxenvname}{boxprob}
-    \newcommand{\@vonbox}[2][]{%
+    % custom environment von
+    \def\vonenv{\@ifstar\@vonenvstar\@vonenv}
+    \newcommand{\@vonenv}[3][]{%
         \ifthenelse{\isempty{#1}}%
-        {\begin{\vonboxenvname}[#2] \voninclude{#2} \end{\vonboxenvname}}%
-    {\begin{\vonboxenvname}[#1] \voninclude{#2} \end{\vonboxenvname}}}
-    \newcommand{\@vonboxstar}[1]{\begin{\vonboxenvname} \voninclude{#1} \end{\vonboxenvname}}
+        {\begin{#3}[#2] \voninclude{#2} \end{#3}}%
+        {\begin{#3}[#1] \voninclude{#2} \end{#3}}
+    }
+    \newcommand{\@vonenvstar}[2]{\begin{#2} \voninclude{#1} \end{#2}}
+
+    % von with boxprob
+    \def\vonbox{\@ifstar\@vonboxstar\@vonbox}
+    \newcommand{\@vonbox}[2][]{\vonenv[#1]{#2}{boxprob}}
+    \newcommand{\@vonboxstar}[1][]{\vonenv*{#1}{boxprob}}
 
     % boxprob open solution
     \newcommand\vonsol[1]{\voninclude[1]{#1}}
@@ -1096,6 +1087,40 @@
     \def\vonfull{\@ifstar\@vonfullstar\@vonfull}
     \newcommand{\@vonfull}[2][]{\vonall[#1]{#2}\newpage}
     \newcommand{\@vonfullstar}[1]{\vonall*{#1}\newpage}
+
+    % von with blue point-values
+    \def\vonE{\@ifstar\@vonEstar\@vonE}
+    \newcommand{\@vonE}[2][]{\vonenv[#1]{#2}{probE}}
+    \newcommand{\@vonEstar}[1][]{\vonenv*{#1}{probE}}
+
+    \def\vonM{\@ifstar\@vonMstar\@vonM}
+    \newcommand{\@vonM}[2][]{\vonenv[#1]{#2}{probM}}
+    \newcommand{\@vonMstar}[1][]{\vonenv*{#1}{probM}}
+
+    \def\vonH{\@ifstar\@vonHstar\@vonH}
+    \newcommand{\@vonH}[2][]{\vonenv[#1]{#2}{probH}}
+    \newcommand{\@vonHstar}[1][]{\vonenv*{#1}{probH}}
+
+    \def\vonZ{\@ifstar\@vonZstar\@vonZ}
+    \newcommand{\@vonZ}[2][]{\vonenv[#1]{#2}{probZ}}
+    \newcommand{\@vonZstar}[1][]{\vonenv*{#1}{probZ}}
+
+    % von with red point-values
+    \def\vonER{\@ifstar\@vonERstar\@vonER}
+    \newcommand{\@vonER}[2][]{\vonenv[#1]{#2}{probER}}
+    \newcommand{\@vonERstar}[1][]{\vonenv*{#1}{probER}}
+
+    \def\vonMR{\@ifstar\@vonMRstar\@vonMR}
+    \newcommand{\@vonMR}[2][]{\vonenv[#1]{#2}{probMR}}
+    \newcommand{\@vonMRstar}[1][]{\vonenv*{#1}{probMR}}
+
+    \def\vonHR{\@ifstar\@vonHRstar\@vonHR}
+    \newcommand{\@vonHR}[2][]{\vonenv[#1]{#2}{probHR}}
+    \newcommand{\@vonHRstar}[1][]{\vonenv*{#1}{probHR}}
+
+    \def\vonZR{\@ifstar\@vonZRstar\@vonZR}
+    \newcommand{\@vonZR}[2][]{\vonenv[#1]{#2}{probZR}}
+    \newcommand{\@vonZRstar}[1][]{\vonenv*{#1}{probZR}}
     \makeatother
 \fi
 
@@ -1104,3 +1129,10 @@
 \DeclareFontShape{OMX}{yhex}{m}{n}{<->yhcmex10}{}
 \DeclareSymbolFont{yhlargesymbols}{OMX}{yhex}{m}{n}
 \DeclareMathAccent{\wideparen}{\mathord}{yhlargesymbols}{"F3}
+
+% ======== IT'S ME! ========
+% Default Values
+\author{Eric Shen}
+\date{\vspace{-5ex}}
+%\def\title#1{\gdef\@title{#1}\gdef\THETITLE{#1}}
+

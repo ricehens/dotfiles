@@ -1,9 +1,9 @@
-""""" Defaults
+""""" ===== Standard Options
 set nocompatible
 set backspace=indent,eol,start
 set smartcase
 
-""""" Vundle
+""""" ===== VUNDLE
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -16,8 +16,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
 Plugin 'vim-latex/vim-latex'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -67,18 +67,20 @@ if has('syntax') && has('eval')
   packadd! matchit
 endif
 
-""""" END DEFAULTS
+""""" ===== END VUNDLE
 
+""""" ===== RECOMMENDATIONS
 set showcmd incsearch wildmenu
 set ic hls " incomplete, highlight search
 
-""" Set TAB to ESC // or just swap the system keys :P
+""" Set TAB to ESC 
 nnoremap <Tab> <Esc>
 vnoremap <Tab> <Esc>gV
 onoremap <Tab> <Esc>
 inoremap <Tab> <Esc>`^
 "inoremap <Leader><Tab> <Tab>
 
+""""" ===== STYLE
 """ Syntax highlighting
 syntax on
 set background=dark
@@ -88,7 +90,10 @@ set wrap
 set linebreak
 set nolist
 
-""" LaTeX
+""" Code folding looks shitty
+highlight Folded ctermbg=LightBlue ctermfg=DarkBlue
+
+""""" ===== LaTeX
 filetype plugin on
 filetype indent on
 let g:tex_flavor='latex'
@@ -96,6 +101,7 @@ set sw=2
 set iskeyword+=:
 set shellcmdflag=-ic
 
+""""" ===== INDENTION
 """ Recognize indention while hard-breaking lines
 set breakindent
 "set showbreak=\ \
@@ -103,9 +109,14 @@ set breakindent
 """ C++/Java
 set cindent
 
-" Indention
+""" Indention standard
 filetype plugin indent on
 set expandtab ts=4 sw=4 ai
 
-" Code Folding looks shitty
-highlight Folded ctermbg=LightBlue ctermfg=DarkBlue
+""""" ===== PLUGIN MANAGEMENT
+""" Don't kill my tab
+let g:ycm_key_list_select_completion = ['<Down>', '<C-n>']
+let g:ycm_key_list_stop_completion = ['<up>', '<C-p>'] 
+
+""" Disable YouCompleteMe 
+set runtimepath-=~/.vim/bundle/YouCompleteMe

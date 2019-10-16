@@ -14,91 +14,112 @@
 % This work consists of the file shen.sty.
 \ProvidesPackage{shen}
 
-% Arguments and Options
+% ======== Arguments and Options ========
 \newif\iftheorembychapter\theorembychapterfalse
 \newif\iftheorembysection\theorembysectionfalse
 \newif\iftitleandauthor\titleandauthorfalse
 \newif\ifcodeused\codeusedfalse
-\newif\iffancyused\fancyusedfalse
+\newif\iffancyused\fancyusedtrue
 \newif\ifmathpazofontused\mathpazofontusedfalse
-\newif\ifnomarginset\nomarginsetfalse
+\newif\ifmarginset\marginsettrue
 \newif\ifcolorthmon\colorthmontrue
 \newif\ifthmenabled\thmenabledtrue
 \newif\ifindenting\indentingtrue
-\newif\ifendproofnow\endproofnowtrue
-\newif\ifcolorsecstyle\colorsecstylefalse
+\newif\ifendproofnow\endproofnowfalse
+\newif\ifcolorsecstyle\colorsecstyletrue
 \newif\ifplainsol\plainsolfalse
 \newif\iffillqedsymbol\fillqedsymbolfalse
+\newif\ifvonenabled\vonenabledfalse
+\newif\ifasyenabled\asyenabledtrue
+
+% ======== OPTIONS ========
+% Loads preferred options
 \DeclareOption{default}{
     \fancyusedtrue
     \mathpazofontusedtrue
-    \indentingtrue
-    \colorsecstyletrue
-    \endproofnowfalse
 }
+
+% Number theorems by chapter, section, or nothing
 \DeclareOption{chthm}{\theorembychaptertrue}
 \DeclareOption{secthm}{\theorembysectiontrue}
 \DeclareOption{noparthm}{\theorembysectionfalse}
+
+% Set title and author
 \DeclareOption{titauth}{\titleandauthortrue}
+
+% Allow lstlisting
 \DeclareOption{code}{\codeusedtrue}
+
+% Fancy formatting
 \DeclareOption{fancy}{\fancyusedtrue}
 \DeclareOption{nofancy}{\fancyusedfalse}
+
+% Font selection (palatino, roman)
 \DeclareOption{font}{\mathpazofontusedtrue}
 \DeclareOption{nofont}{\mathpazofontusedfalse}
-\DeclareOption{nomargin}{\nomarginsettrue}
+
+% Do not set margin
+\DeclareOption{nomargin}{\marginsetfalse}
+
+% No asymptote
+\DeclareOption{noasy}{\asyenabledfalse}
+
+% Create plain document w/o fancy formatting
 \DeclareOption{plain}{
     \colorthmonfalse
     \colorsecstylefalse
     \plainsoltrue
 }
+
+% Colorful theorems and section titles
 \DeclareOption{colorthm}{\colorthmontrue}
 \DeclareOption{colorsec}{\colorsecstyletrue}
+
+% Plain formatting modules
 \DeclareOption{plainthm}{\colorthmonfalse}
 \DeclareOption{plainsec}{\colorsecstylefalse}
 \DeclareOption{plainsol}{\plainsoltrue}
+
+% Do not create theorems
 \DeclareOption{nothm}{\thmenabledfalse}
 \DeclareOption{indent}{\indentingtrue}
+
+% DEPRECATED -- do not indent
 \DeclareOption{noindent}{\indentingfalse}
+
+% Where to place qedsymbol (right, now)
 \DeclareOption{rightqed}{\endproofnowfalse}
 \DeclareOption{nowqed}{\endproofnowtrue}
+
+% Fill qed symbol?
 \DeclareOption{fillqed}{\fillqedsymboltrue}
+
+% Evan's ``von'' problem manager
+\DeclareOption{von}{\vonenabledtrue}
 \ProcessOptions\relax
 
-% Imports
-\ifnomarginset
-\else
+% ======== DEFAULT IMPORTS ========
+\ifmarginset
     \usepackage[margin=1in,bottom=0.75in]{geometry}
 \fi
-\usepackage{amsmath, amsfonts, amssymb}
-\ifthmenabled
-    \usepackage{amsthm}
-    \usepackage{thmtools}
-\fi
+\usepackage{amsmath,amsfonts,amssymb}
+\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
+\usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{asymptote}
-\usepackage{cases}
-\usepackage{csquotes}
-\usepackage{gensymb}
-\usepackage{mathdots}
-\usepackage[final]{pdfpages}
-\usepackage{fancyhdr}
-%\usepackage{indentfirst}
-\usepackage{siunitx}
-\usepackage{titling}
-\usepackage{mdframed}
-\usepackage[normalem]{ulem}
-\usepackage{enumitem}
-\usepackage{version}
-\usepackage{mathtools}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{titlesec}
-\usepackage{hyperref}
-\usepackage[T1]{fontenc}
-\usepackage{epigraph}
-%\usepackage{hanging}
+\usepackage{mathdots} % Fancy dots
+\usepackage[final]{pdfpages} % Inserting PDF's
+\usepackage{siunitx} % SI Units
+\usepackage{mdframed} % MDFramed
+\usepackage{enumitem} % enum customization
+\usepackage{version} % Hiding specific text
+\usepackage{mathtools} % Math tools
+\usepackage[T1]{fontenc} % Make serif look ok
+\usepackage{epigraph} % Quotes!
+\usepackage{hyperref} % Referrences
 
+% ======== BASIC FORMATTING ========
 % Default Values; stores title in \THETITLE
 \author{Eric Shen}
 \date{\vspace{-5ex}}
@@ -160,6 +181,7 @@
 
 % Fancy setup
 \iffancyused
+    \usepackage{fancyhdr}
     \pagestyle{fancy}
     \fancyhf{}
     \iftheorembychapter
@@ -181,8 +203,7 @@
     \rfoot{}
     \renewcommand{\headrulewidth}{0.4pt}
 
-    \ifnomarginset
-    \else
+    \ifmarginset
         \setlength{\headsep}{10pt}
         \setlength{\oddsidemargin}{0in}
         \setlength{\evensidemargin}{0in}
@@ -196,6 +217,8 @@
 
 % colorsec style setup
 \ifcolorsecstyle
+    \usepackage{titlesec}
+    \usepackage{titling}
     \hypersetup{
         colorlinks,
         citecolor=astral,
@@ -236,7 +259,14 @@
 %    \newcommand{\autodot}{\sffamily}
 \fi
 
-% Formatting
+% Absolutely no page break
+\newenvironment{absolutelynopagebreak}
+{\par\nobreak\vfil\penalty0\vfilneg
+\vtop\bgroup}
+{\par\xdef\tpd{\the\prevdepth}\egroup
+\prevdepth=\tpd}
+
+% ======== PAGE SETUP ========
 \ifindenting
     \renewcommand{\baselinestretch}{1.05}
     %\setlength{\parskip}{1pt}
@@ -250,7 +280,9 @@
     \usepackage{mathpazo}
 \fi
 
-\ifthmenabled %%%% BEGINNING OF THEOREMS
+% ======== THEOREMS! <3 ========
+\ifthmenabled 
+    \usepackage{amsthm,thmtools}
 % Theorem Styles --- Based on Evan's pretty boxes
     \ifcolorthmon
         \ifindenting % Linebreaking for indention
@@ -606,7 +638,7 @@
             frametitlefont=\bfseries,
             innertopmargin=4pt,
             innerbottommargin=8pt,
-            %                nobreak=true,
+%                nobreak=true,
 %            backgroundcolor=ForestGreen!5,
 %            linecolor=ForestGreen,
         }
@@ -618,7 +650,7 @@
             mdframed={style=mdbox},
         ]{thmbox}
         \declaretheoremstyle[
-            headfont=\bfseries,
+            headfont=\bfseries\small,
             bodyfont=\normalfont\small,
             spaceabove=2pt,
             spacebelow=1pt,
@@ -626,7 +658,7 @@
         ]{thmsmallbox}
     \fi
 
-% Theorems
+% Theorems definitions
     \ifplainsol
         \newcommand{\wowsol}{}
     \else
@@ -999,17 +1031,14 @@
 
 \fi %%%% END OF THEOREMS
 
-% Absolutely no page break
-\newenvironment{absolutelynopagebreak}
-{\par\nobreak\vfil\penalty0\vfilneg
-\vtop\bgroup}
-{\par\xdef\tpd{\the\prevdepth}\egroup
-\prevdepth=\tpd}
-
+% ======== SMALLER UTILS ========
 % Asymptote
-\begin{asydef}
-    import olympiad;
-\end{asydef}
+\ifasyenabled
+    \usepackage{asymptote}
+    \begin{asydef}
+        import olympiad;
+    \end{asydef}
+\fi
 
 % Code
 \ifcodeused
@@ -1038,6 +1067,36 @@
         tabsize=4,
         frame=single
     }
+\fi
+
+% Von
+\ifvonenabled
+    % \von, \voninclude
+    \usepackage{von}
+
+    \makeatletter
+    % boxprob for von
+    \def\vonbox{\@ifstar\@vonboxstar\@vonbox}
+    \newcommand{\vonboxenvname}{boxprob}
+    \newcommand{\@vonbox}[2][]{%
+        \ifthenelse{\isempty{#1}}%
+        {\begin{\vonboxenvname}[#2] \voninclude{#2} \end{\vonboxenvname}}%
+    {\begin{\vonboxenvname}[#1] \voninclude{#2} \end{\vonboxenvname}}}
+    \newcommand{\@vonboxstar}[1]{\begin{\vonboxenvname} \voninclude{#1} \end{\vonboxenvname}}
+
+    % boxprob open solution
+    \newcommand\vonsol[1]{\voninclude[1]{#1}}
+
+    % Show everything
+    \def\vonall{\@ifstar\@vonallstar\@vonall}
+    \newcommand{\@vonall}[2][]{\vonbox[#1]{#2}\vonsol{#2}}
+    \newcommand{\@vonallstar}[1]{\vonbox*{#1}\vonsol{#1}}
+
+    % vonall with \newpage
+    \def\vonfull{\@ifstar\@vonfullstar\@vonfull}
+    \newcommand{\@vonfull}[2][]{\vonall[#1]{#2}\newpage}
+    \newcommand{\@vonfullstar}[1]{\vonall*{#1}\newpage}
+    \makeatother
 \fi
 
 % Arc

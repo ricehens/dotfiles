@@ -1076,7 +1076,7 @@
     % von with boxprob
     \def\vonbox{\@ifstar\@vonboxstar\@vonbox}
     \newcommand{\@vonbox}[2][]{\vonenv[#1]{#2}{boxprob}}
-    \newcommand{\@vonboxstar}[1][]{\vonenv*{#1}{boxprob}}
+    \newcommand{\@vonboxstar}[1]{\vonenv*{#1}{boxprob}}
 
     % boxprob open solution
     \newcommand\vonprob[1]{\voninclude[0]{#1}}

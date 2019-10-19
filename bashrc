@@ -12,6 +12,7 @@ alias ls='ls --color=auto'
 export VISUAL='vim'
 export EDITOR='vim'
 export PATH="/home/ericshen/bin:$PATH"
+export PYTHONPATH="/home/ericshen/.von:$PATH"
 
 # Java PATH
 export PATH="/usr/lib/jvm/default-runtime/bin:$PATH"
@@ -24,14 +25,16 @@ export ME='Eric Shen'
 export CN='沈皓彦'
 
 # Cleanup
-alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *~'
+alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *~'
 
 # Utils
-alias asy='asy -nosafe'
+alias asy='asy -nosafe -noprc -render=0'
 alias tmacs='emacs -nw'
-alias pdf='zathura'
+alias pdf='zathura &>/dev/null'
 alias img='feh --scale-down --auto-zoom'
 alias ytdl="youtube-dl -f bestaudio[ext=m4a] --embed-thumbnail --add-metadata -o '%(title)s.%(ext)s'"
+alias gvim="gvim &>/dev/null"
+alias von="python -m von"
 
 # List
 alias ll='ls -l'

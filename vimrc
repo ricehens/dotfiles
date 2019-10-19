@@ -119,4 +119,8 @@ let g:ycm_key_list_select_completion = ['<Down>', '<C-n>']
 let g:ycm_key_list_stop_completion = ['<up>', '<C-p>'] 
 
 """ Disable YouCompleteMe 
-set runtimepath-=~/.vim/bundle/YouCompleteMe
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_filetype_whitelist = {
+            \ 'java': 1,
+            \ 'cpp': 1
+            \ }

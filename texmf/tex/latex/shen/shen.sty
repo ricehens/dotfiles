@@ -30,6 +30,7 @@
 \newif\iffillqedsymbol\fillqedsymbolfalse
 \newif\ifvonenabled\vonenabledfalse
 \newif\ifasyenabled\asyenabledtrue
+\newif\ifrollingboxprob\rollingboxprobfalse
 
 % ======== OPTIONS ========
 % Loads preferred options
@@ -89,6 +90,9 @@
 
 % Fill qed symbol?
 \DeclareOption{fillqed}{\fillqedsymboltrue}
+
+% Rolling boxprob?
+\DeclareOption{rollprob}{\rollingboxprobtrue}
 
 % Evan's ``von'' problem manager
 \DeclareOption{von}{\vonenabledtrue}
@@ -734,9 +738,14 @@
             parent=section,%
         name=Algorithm]{boxsecalgo}
         %\theoremstyle{definition}
-        \declaretheorem[style=thmgreenbox,%
-        sibling=theorem,%
-        name=Problem]{boxprob}
+        \ifrollingboxprob
+            \declaretheorem[style=thmgreenbox,%
+                sibling=theorem,%
+            name=Problem]{boxprob}
+        \else
+            \declaretheorem[style=thmgreenbox,%
+            name=Problem]{boxprob}
+        \fi
         \declaretheorem[style=thmgreenbox,%
         %sibling=theorem,%
             numbered=no,
@@ -763,7 +772,7 @@
             numbered=no,
         name=Generalization]{boxgprob}
         \declaretheorem[style=thmredbox,%
-%        sibling=theorem,%
+        %        sibling=theorem,%
         name=Lemma]{boxlemma}
         \declaretheorem[style=thmredbox,%
         %sibling=theorem,%
@@ -906,9 +915,14 @@
             parent=section,%
         name=Algorithm]{boxsecalgo}
         %\theoremstyle{definition}
-        \declaretheorem[style=thmbox,%
-        sibling=theorem,%
-        name=Problem]{boxprob}
+        \ifrollingboxprob
+            \declaretheorem[style=thmbox,%
+                sibling=theorem,%
+            name=Problem]{boxprob}
+        \else
+            \declaretheorem[style=thmbox,%
+            name=Problem]{boxprob}
+        \fi
         \declaretheorem[style=thmbox,%
         %sibling=theorem,%
             numbered=no,

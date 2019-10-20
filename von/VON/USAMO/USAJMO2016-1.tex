@@ -1,0 +1,56 @@
+desc: Fact 5 PI_BI_C
+source: USAJMO 2016/1
+tags: [2019-10, oly, easy, geo, spiral-sim, angle-chasing]
+
+---
+
+The isosceles triangle $ABC$, with $AB=AC$, is inscribed in the circle $\omega$. Let $P$ be a variable point on the arc $BC$ that does not contain $A$, and let $I_B$ and $I_C$ denote the incenters of triangles $ABP$ and $ACP$, respectively. Prove that as $P$ varies, the circumcircle of triangle $PI_BI_C$ passes through a fixed point.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
+        pen pri=blue;
+        pen sec=royalblue;
+        pen tri=purple;
+        pen fil=blue+opacity(0.05);
+        pen sfil=royalblue+opacity(0.05);
+        pen tfil=purple+opacity(0.05);
+        pair A, B, C, M, MB, MC, P, IB, IC;
+        A=dir(90);
+        B=dir(190);
+        C=dir(-10);
+        M=dir(270);
+        MB=dir(140);
+        MC=dir(40);
+        P=dir(220);
+        IB=incenter(A, B, P);
+        IC=incenter(A, C, P);
+
+        draw(A -- B -- C -- A -- P, pri);
+        filldraw(circumcircle(A, B, C), fil, pri);
+        filldraw(incircle(A, B, P), sfil, sec);
+        filldraw(incircle(A, C, P), sfil, sec);
+        draw(arc(MB,A, B, CW), sec);
+        draw(arc(MC, A, C, CCW), sec);
+        draw(IB -- P -- IC, sec); draw(B -- P -- C, pri);
+        filldraw(M -- IB -- MB -- cycle, tfil, tri);
+        filldraw(M -- IC -- MC -- cycle, tfil, tri);
+
+        dot("$A$", A, A);
+        dot("$B$", B, B);
+        dot("$C$", C, C);
+        dot("$M$", M, M);
+        dot("$M_B$", MB, MB);
+        dot("$M_C$", MC, MC);
+        dot("$P$", P, P);
+        dot("$I_B$", IB, SW);
+        dot("$I_C$", IC, N);
+    \end{asy}
+\end{center}
+
+I claim that the fixed point is $M$, the midpoint of $\widehat{BPC}$. Let $\seg{PI_B}$ and $\seg{PI_C}$ intersect $(ABC)$ again at $M_B$ and $M_C$, respectively. By the Incenter-Excenter Lemma, \[M_BI_B=M_BA=M_CA=M_CI_C.\]
+Furthermore, $MM_B=MM_C$ and \[\da MM_BI_B=\da MM_BP=\da MM_CP=\da MM_CI_C,\]
+so $\triangle MM_BI_B\cong\triangle MM_CI_C$. Since spiral similarities come in pairs, $M$ is the center of spiral similarity sending $\overline{I_BI_C}$ to $\overline{M_BM_C}$. Hence, $\overline{M_BI_B}\cap\overline{M_CI_C}=P$ lies on $(MI_BI_C)$, and we are done.

@@ -1,0 +1,60 @@
+desc: AH^2=2AO^2
+source: USAJMO 2016/5
+tags: [2019-10, oly, easy, geo]
+
+---
+
+Let $\triangle ABC$ be an acute triangle, with $O$ as its circumcenter. Point $H$ is the foot of the perpendicular from $A$ to line $BC$, and points $P$ and $Q$ are the feet of the perpendiculars from $H$ to the lines $AB$ and $AC$, respectively. Given that $AH^2=2\cdot AO^2$, prove that the points $O$, $P$, and $Q$ are collinear.
+
+---
+
+Let $M$ and $N$ denote the midpoints of $\overline{AB}$ and $\overline{AC}$, respectively.
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        pair O, A, H, B, C, P, Q, X, Y, M, NN;
+        defaultpen(fontsize(10pt));
+
+        pen pri=deepgreen;
+        pen sec=darkgreen;
+        pen tri=springgreen;
+        pen fil=springgreen+opacity(0.05);
+
+        O=(0, 0);
+        A=dir(110);
+        path w=circle(O, 1);
+        path wA=circle(A, sqrt(2));
+        H=A+(0, -sqrt(2));
+        B=intersectionpoint(H -- (H-(69, 0)), w);
+        C=intersectionpoint(H -- (H+(69, 0)), w);
+        P=foot(H, A, B);
+        Q=foot(H, A, C);
+        X=intersectionpoint(P -- (P+100*(P-O)), w);
+        Y=intersectionpoint(Q -- (Q+100*(Q-O)), w);
+        M=foot(O, A, B);
+        NN=foot(O, A, C);
+
+        draw(A -- B -- C -- A, pri);
+        draw(A -- O, tri);
+        draw(A -- H, sec);
+        draw(P -- H -- Q, tri);
+        draw(P -- Q, tri);
+        filldraw(w, fil, pri);
+        draw(M -- O -- NN, tri);
+        //draw(arc(A, sqrt(2), 240, -20, CCW), sec);
+
+        dot("$A$", A, A);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$O$", O, -A);
+        dot("$H$", H, S);
+        dot("$P$", P, NW);
+        dot("$Q$", Q, NE);
+        dot("$M$", M, NW);
+        dot("$N$", NN, NE);
+        //dot("$X$", X, SW);
+        //dot("$Y$", Y, E);
+    \end{asy}
+\end{center}
+Notice that \[AM\cdot AP=\frac{AB\cdot AP}2=\frac{AH^2}2=AO^2,\]
+so $\angle AOP=90^\circ$. Similarly, $\angle AOQ=90^\circ$, thus $O\in\overline{PQ}$, as desired.

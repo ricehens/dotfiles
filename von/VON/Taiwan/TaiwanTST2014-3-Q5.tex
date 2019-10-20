@@ -1,0 +1,23 @@
+desc: Bounding averages
+source: Taiwan TST 2014/3/Q5
+tags: [2019-10, oly, medium, alg, ineq, induction, equality]
+
+---
+
+Positive integers $x_1$, $x_2$, $\ldots$, $x_n$ ($n\ge4$) are arranged in a circle such that each $x_i$ divides the sum of the numbers; that is, $\frac{x_{i-1}+x_{i+1}}{x_i}=k_i$ is an integer for each $i$, where $x_0=x_n$ and $x_{n+1}=x_1$. Prove that \[2\le\frac{k_1+\cdots+k_n}n<3.\]
+
+---
+
+For the lower bound, note that \[\frac{k_1+\cdots+k_n}n=\frac1n\left(\sum_{i=1}^n\frac{x_i}{x_{i+1}}+\sum_{i=1}^n\frac{x_{i+1}}{x_i}\right)\ge2\]
+by AM-GM.
+
+For the upper bound, we induct on $n$ (base case ). Suppose that the hypothesis is true for $n-1$. Then assume WLOG that $x_n$ is maximal, but $\{x_{n-1},x_1\}\ne\{x_n\}$. If such a $x_n$ does not exist, then $x_i$ is constant, and the average of $k_1$ is $2<3$.
+\begin{iclaim*}
+    $x_n=x_{n-1}+x_1$.
+\end{iclaim*}
+\begin{proof}
+    Observe that $x_{n-1}+x_1<x_n+x_n=2x_n$, and thus $x_{n-1}+x_1=x_n$. The inequality is strict by the assumption that $\{x_{n-1},x_1\}\ne\{x_n\}$.
+\end{proof}
+
+Denote $j_i=k_i$ for $2\le i\le n-2$, and $j_1=\frac{x_{n-1}+x_2}{x_1}$ and $j_{n-1}=\frac{x_{n-2}+x_1}{x_{n-1}}$. By hypothesis, $\sum_{i=1}^{n-1}j_i<3(n-1)$. To finish, note that \[\sum_{i=1}^nk_i=\sum_{i=1}^{n-1}j_i-\left(\frac{x_{n-1}}{x_1}-\frac{x_n}{x_1}\right)-\left(\frac{x_1}{x_{n-1}}-\frac{x_n}{x_{n-1}}\right)+\left(\frac{x_{n-1}}{x_n}+\frac{x_1}{x_n}\right)>3(n-1)+3=3n.\]
+We are done.

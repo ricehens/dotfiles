@@ -1,0 +1,129 @@
+desc: Gergonne point madness
+source: TSTST 2016/6
+tags: [2019-10, oly, brutal, geo, angle-chasing, pop, incidence]
+
+---
+
+Let $ABC$ be a triangle with incenter $I$, and whose incircle is tangent to $\overline{BC}$, $\overline{CA}$, $\overline{AB}$ at $D$, $E$, $F$, respectively. Let $K$ be the foot of the altitude from $D$ to $\overline{EF}$. Suppose that the circumcircle of $\triangle AIB$ meets the incircle at two distinct points $C_1$ and $C_2$, while the circumcircle of $\triangle AIC$ meets the incircle at two distinct points $B_1$ and $B_2$. Prove that the radical axis of the circumcircles of $\triangle BB_1B_2$ and $\triangle CC_1C_2$ passes through the midpoint $M$ of $\overline{DK}$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(9pt));
+
+        pen pri=royalblue;
+        pen sec=Cyan;
+        pen tri=green;
+        pen qua=springgreen;
+        pen qui=deepgreen;
+        pen sex=deepcyan;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+        pen qfil=qua+opacity(0.05);
+        pen qifil=qui+opacity(0.05);
+        pen sefil=sex+opacity(0.05);
+
+        pair O,A,B,C,MA,MB,MC,I,D,EE,F,
+        B1,B2,C1,C2,X,Y,Z,K,M,P,Q,G;
+        O=(0,0);
+        A=dir(130);
+        B=dir(200);
+        C=dir(340);
+        MA=dir(270);
+        MB=intersectionpoint((A+C)/2 -- (O+((A+C)/2-O)*100),circle(O,1));
+        MC=intersectionpoint((A+B)/2 -- (O+((A+B)/2-O)*100),circle(O,1));
+        I=incenter(A,B,C);
+        D=foot(I,B,C);
+        EE=foot(I,C,A);
+        F=foot(I,A,B);
+        B1=intersectionpoints(circumcircle(A,I,C),
+        circumcircle(D,EE,F))[0];
+        B2=intersectionpoints(circumcircle(A,I,C),
+        circumcircle(D,EE,F))[1];	C1=intersectionpoints(circumcircle(A,I,B),
+        circumcircle(D,EE,F))[0];	C2=intersectionpoints(circumcircle(A,I,B),
+        circumcircle(D,EE,F))[1];
+        X=(EE+F)/2;
+        Y=(F+D)/2;
+        Z=(D+EE)/2;
+        K=foot(D,EE,F);
+        M=(D+K)/2;
+        P=intersectionpoints(circumcircle(B,B1,B2),
+        circumcircle(C,C1,C2))[0];
+        Q=intersectionpoints(circumcircle(B,B1,B2),
+        circumcircle(C,C1,C2))[1];
+        G=extension(B,EE,C,F);
+
+        filldraw(circumcircle(A,B,C),fil,pri);
+        filldraw(circumcircle(B,I,C),sfil,sec);
+        filldraw(circumcircle(C,I,A),sfil,sec);
+        filldraw(circumcircle(A,I,B),sfil,sec);
+        filldraw(circumcircle(B,B1,B2),qfil,qua);
+        filldraw(circumcircle(C,C1,C2),qfil,qua);
+        filldraw(incircle(A,B,C),sfil,sec);
+        clip((-1.1,-1.1)--(-1.1,1.1)--(1.1,1.1)--(1.1,-1.1)-- cycle);
+        draw(A--MA,sec+dashed);
+        draw(B--MB,sec+dashed);
+        draw(C--MC,sec+dashed);
+        draw(P--Q,sex);
+        draw(B1--B2,qui);
+        draw(C1--C2,qui);
+        draw(Y--Z,qui);
+        draw(Y--X,qui);
+        draw(B--EE,tri);
+        draw(C--F,tri);
+        draw(D--K,sec);
+        draw(A--B--C--A,pri);
+        draw(D--EE--F--D,pri);
+
+        dot("$A$",A,unit(A-I));
+        dot("$B$",B,unit(B-I));
+        dot("$C$",C,unit(C-I));
+        dot("$D$",D,S);
+        dot("$E$",EE,NE);
+        dot("$F$",F,dir(210));
+        dot("$I$",I,N);
+        dot("$M_A$",MA,S);
+        dot("$M_B$",MB,MB);
+        dot("$M_C$",MC,MC);
+        dot("$X$",X,dir(50));
+        dot("$Y$",Y,dir(190));
+        dot("$Z$",Z,dir(15));
+        dot("$B_1$",B1,N);
+        dot("$B_2$",B2,S);
+        dot("$C_1$",C1,N);
+        dot("$C_2$",C2,dir(240));
+        dot("$P$",P,W);
+        dot("$Q$",Q,dir(250));
+        dot("$G$",G,SE);
+        dot("$M$",(D+K)/2,dir(300));
+    \end{asy}
+\end{center}
+Let $\overline{AI}$, $\overline{BI}$, $\overline{CI}$ intersect $(ABC)$ again at $M_A$, $M_B$, $M_C$, respectively, and let $X$, $Y$, $Z$ be the midpoints of $\overline{EF}$, $\overline{FD}$, $\overline{DE}$, respectively. Denote by $G$ the Gergonne point of $\triangle ABC$, and let $(BB_1B_2)$ and $(CC_1C_2)$ intersect at $P$ and $Q$.
+
+By the Incenter-Excenter Lemma, $M_A$, $M_B$, $M_C$ are the circumcenters of triangles $BIC$, $CIA$, and $AIB$, respectively.
+\setcounter{iclaim}0
+\begin{iclaim}
+    $\overline{AI}$, $\overline{EF}$, $\overline{B_1B_2}$, $\overline{C_1C_2}$, and $\overline{PQ}$ concur at $X$.
+\end{iclaim}
+\begin{proof}
+    Clearly $\overline{AI}$ and $\overline{EF}$ intersect at $X$. By the Radical Axis Theorem on $(AEIF)$, $(DEF)$, and $(AIC)$, $\overline{B_1B_2}$ passes through $X$, and similarly $C\in\overline{C_1C_2}$. Finally, $XB_1\cdot XB_2=XC_1\cdot XC_2$, so $X$ lies on the radical axis of $(BB_1B_2)$ and $(CC_1C_2)$, which is $\overline{PQ}$, as desired.
+\end{proof}
+\begin{iclaim}
+    $\overline{B_1B_2}$ and $\overline{C_1C_2}$ are the $E$- and $F$-midsegments of $\triangle DEF$.
+\end{iclaim}
+\begin{proof}
+    Note that $\overline{B_1B_2}$ is the radical axis of $(AIC)$ and $(DEF)$, so $\overline{B_1B_2}$ is perpendicular to $\overline{BIM_B}$. However, so is $\overline{FD}$, so $\overline{FD}\parallel\overline{B_1B_2}$. By Claim 1, $X\in\overline{B_1B_2}$, so the claim is proven.
+\end{proof}
+\begin{iclaim}
+    $G$ lies on $\overline{PQ}$.
+\end{iclaim}
+\begin{proof}
+    First, since $B_1Z\cdot B_2Z=IZ\cdot CZ$, $\overline{BZ}$ is the radical axis of $(BB_1B_2)$ and $(BIC)$. By the Radical Axis Theorem on $(BB_1B_2)$, $(CC_1C_2)$, and $(BIC)$, $\overline{BZ}\cap\overline{CY}$ lies on $\overline{PQ}$.
+
+    Now, by Cevian Nest on $\triangle GBC$, $\triangle DEF$, and $\triangle XYZ$, $\overline{GX}$ lies on $\overline{PQ}$, whence $G$ lies on $\overline{PQ}$, as desired.
+\end{proof}
+
+Since $G$ is the symmedian point of $\triangle DEF$, it is well-known that $M$, $G$, $X$ are collinear, whence $M$ lies on $\overline{PQ}$, as desired.

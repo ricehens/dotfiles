@@ -1,0 +1,16 @@
+desc: B-J >= 2
+source: AIME I 2019/2
+tags: [2019-10, answer, ceasy, combo, casework]
+
+---
+
+Jenn randomly choose a number $J$ from $1,2,3,\ldots,19,20$. Bela then randomly chooses a number $B$ from $1,2,3,\ldots,19,20$ distinct from $J$. The value of $B-J$ is at least $2$ with a probability that can be expressed in the form $\tfrac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+---
+
+Bela must pick $J+2,J+3,\ldots,20$, so the number of successful outcomes is \[\sum_{J=1}^{18}\big(20-(J+2)+1\big)=\frac{18\cdot 19}2=9\cdot 19,\]
+so the answer is $(9\cdot 19)/(20\cdot 19)=9/20$, and the requested sum is $9+20=29$.
+
+---
+
+029

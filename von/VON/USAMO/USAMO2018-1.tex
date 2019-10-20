@@ -1,0 +1,18 @@
+desc: Min inequality
+source: USAMO 2018/1
+tags: [2019-10, oly, easy, alg, ineq]
+
+---
+
+Let $a,b,c$ be positive real numbers such that $a+b+c=4\sqrt[3]{abc}$. Prove that \[2(ab+bc+ca)+4\min(a^2,b^2,c^2)\ge a^2+b^2+c^2.\]
+
+---
+
+The inequality is homogeneous; assume WLOG that $abc=1$, so that $a+b+c=4$. Suppose that $a\le b\le c$. Then, by AM-GM
+\begin{align*}
+    4a+\frac1a&\ge 4\\
+    a(a+b+c)+bc&\ge 4\\
+    4(a^2+ab+bc+ca)&\ge (a+b+c)^2\\
+    2(ab+bc+ca)+4a^2&\ge a^2+b^2+c^2,
+\end{align*}
+as desired.

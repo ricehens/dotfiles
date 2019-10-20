@@ -1,0 +1,75 @@
+desc: Magical Iranian spiral similarity
+source: Iran TST 2010/5
+tags: [2019-10, oly, medium, geo, spiral-sim, construction]
+
+---
+
+Circles $\omega_1$ and $\omega_2$ intersect at points $P$ and $K$. Line $XY$ is tangent to $\omega_1$ at $X$ and $\omega_2$ at $Y$. Let lines $YP$ and $XP$ meet $\omega_1$ and $\omega_2$, respectively, again at $B$ and $C$, respectively, and let lines $BX$ and $CY$ meet at $A$. Prove that if the circumcircles of $\triangle ABC$ and $\triangle AXY$ meet again at $Q$, then $\angle QXA=\angle QKP$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=deepgreen+linewidth(0.5);
+        pen sec=royalblue+linewidth(0.5);
+        pen tri=rgb(41, 207, 255)+linewidth(0.5);
+        pen fil=deepgreen+opacity(0.05);
+        pen sfil=royalblue+opacity(0.05);
+        pen tfil=rgb(41, 207, 255)+opacity(0.05);
+
+        pair X, Y, O1, O2, P, K, B, C, A, Q, L;
+        X=(-1, 0);
+        Y=(1, 0);
+        O1=(-1, -0.9);
+        O2=(1, -1.3);
+        P=intersectionpoints(circle(O1, length(X-O1)), circle(O2, length(Y-O2)))[0];
+        K=intersectionpoints(circle(O1, length(X-O1)), circle(O2, length(Y-O2)))[1];
+        B=intersectionpoint(circle(O1, length(X-O1)), (P+(P-Y)*0.01) -- (P+(P-Y)*100));
+        C=intersectionpoint(circle(O2, length(Y-O2)), (P+(P-X)*0.01) -- (P+(P-X)*100));
+        A=extension(B, X, C, Y);
+        Q=intersectionpoints(circumcircle(A, B, C), circumcircle(A, X, Y))[1];
+        L=intersectionpoint(K -- (K+(K-P)*100), circumcircle(B, C, P));
+
+        X=(X-B)/(C-B);
+        Y=(Y-B)/(C-B);
+        O1=(O1-B)/(C-B);
+        O2=(O2-B)/(C-B);
+        P=(P-B)/(C-B);
+        K=(K-B)/(C-B);
+        A=(A-B)/(C-B);
+        Q=(Q-B)/(C-B);
+        L=(L-B)/(C-B);
+        B=(0,0);
+        C=(1,0);
+
+        filldraw(circle(O1, length(X-O1)), fil, pri);
+        filldraw(circle(O2, length(Y-O2)), fil, pri);
+        draw(B -- Y -- X -- C, pri);
+        draw(B -- A -- C -- B, sec);
+        filldraw(circumcircle(A, B, C), sfil, sec);
+        filldraw(circumcircle(A, X, Y), sfil, sec);
+        draw(P -- L, tri);
+        draw(B -- L -- C, tri);
+        filldraw(circumcircle(B, P, C), tfil, tri);
+
+        dot("$X$", X, dir(100));
+        dot("$Y$", Y, dir(80));
+        dot("$P$", P, dir(100));
+        dot("$K$", K, dir(-30));
+        dot("$B$", B, dir(210));
+        dot("$C$", C, dir(-30));
+        dot("$A$", A, N);
+        dot("$Q$", Q, dir(120));
+        dot("$L$", L, S);
+    \end{asy}
+\end{center}
+Note that $K$ is the Miquel point of $BXCY$ and $Q$ is the Miquel point of $BXYC$. Let the spiral similarity at $Q$ sending $\overline{XY}$ to $\overline{BC}$ send $K$ to $L$, so $\triangle BLC\sim\triangle XKY$. Note that
+\begin{align*}
+    \measuredangle BLC&=\measuredangle XKY=\measuredangle XKP+\measuredangle XKP+\measuredangle PKY\\
+    &=\measuredangle YXP+\measuredangle PYX=\measuredangle YPX=\measuredangle BPC,
+\end{align*}
+so $BPCL$ is cyclic. Moreover, \[\measuredangle BPL=\measuredangle BCL=\measuredangle XYK=\measuredangle YCK=\measuredangle BXK=\measuredangle BPK,\]
+whence $L$ lies on $\overline{PK}$. It follows that $\measuredangle QKP=\measuredangle QKL=\measuredangle QXB=\measuredangle QXA$, as required.

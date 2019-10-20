@@ -1,0 +1,21 @@
+desc: Incenters concyclic iff excenters concyclic
+source: India TST 2015/1
+tags: [2019-10, oly, trivial, geo, pop]
+
+---
+
+Diagonals $\seg{AC}$ and $\seg{BD}$ of convex quadrilateral $ABCD$ meet at $P$. Prove that the incenters of triangles $\triangle PAB$, $\triangle PBC$, $\triangle PCD$, and $\triangle PDA$ are concyclic if and only if their $P$-excenters are concyclic.
+
+---
+
+The pith of this problem is this lemma:
+\begin{boxlemma*}
+    If $I$ and $I_A$ are the incenter and $A$-excenter of a triangle $ABC$, then $AB\cdot AC=AI\cdot AI_A$.
+\end{boxlemma*}
+\begin{proof}
+    Since $\angle BAI=\angle I_AAC$ and $\angle ABI=\angle IBC=\da II_AC=\da AI_AC$, $\triangle ABI\sim\triangle AI_AC$ by AA, whence \[\frac{AB}{AI}=\frac{AI_A}{AC}\implies AB\cdot AC=AI\cdot AI_A,\]
+    as requested.
+\end{proof}
+
+Applying the lemma, \[(PI_1\cdot PI_3)\cdot(PJ_1\cdot PJ_3)=PA\cdot PB\cdot PC\cdot PD=(PI_2\cdot PI_4)\cdot(PJ_2\cdot PJ_4),\]
+and the desired result is obvious.

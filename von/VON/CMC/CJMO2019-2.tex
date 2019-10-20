@@ -1,0 +1,19 @@
+desc: (b-1)^2<=((a^2-2b)/3+1)^3
+source: CJMO 2019/2
+tags: [2019-10, oly, easy, alg, ineq]
+author: Justin Lee
+
+---
+
+Prove that if $a,b,c$ are real numbers, and the polynomial $P(x)=x^3+ax^2+bx+c$ has only real roots, then \[(b-1)^2 \le \left(\frac{a^2-2b}{3}+1\right)^3,\]
+and determine when equality occurs.
+
+---
+
+Let $P$'s roots be $r_1,r_2,r_3$. Then, by AM-GM,
+\begin{align*}
+    \left(\frac{a^2-2b}{3}+1\right)^3&=\left(\frac{(r_1^2+1)+(r_2^2+1)+(r_3^2+1)}{3}\right)^3\\
+    &\ge (r_1^2 + 1)(r_2^2 + 1)(r_3^2+1)\\
+    &=P(i)P(-i)=(c-a)^2+(b-1)^2\ge (b-1)^2,
+\end{align*}
+where equality holds iff $a=c$ and $|r_1|=|r_2|=|r_3|$. It is not hard to check that equality holds iff $(a,b,c)=(0,0,0),(3\sqrt{3},9,3\sqrt{3}),(-3\sqrt{3},9,-3\sqrt{3})$.

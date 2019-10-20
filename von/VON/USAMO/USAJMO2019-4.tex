@@ -1,0 +1,51 @@
+desc: Can EF be tangent to excircle?
+source: USAJMO 2019/4
+tags: [2019-10, oly, trivial, geo]
+
+---
+
+Let $ABC$ be a triangle with $\angle ABC$ obtuse. The $A$-\emph{excircle} is a circle in the exterior of $\triangle ABC$ that is tangent to side $\overline{BC}$ and and tangent to the extensions of the other two sides. Let $E,F$ be the feet of the altitudes from $B$ and $C$ to lines $AC$ and $AB$, respectively. Can line $EF$ be tangent to the $A$-excircle?
+
+---
+
+The answer is no.
+\begin{center}
+    \begin{asy}
+        size(6cm);
+        defaultpen(fontsize(9pt));
+
+        pen pri=royalblue;
+        pen sec=Cyan;
+        pen tri=deepgreen;
+        pen fil=royalblue+opacity(0.05);
+
+        pair A, B, C, EE, IA, Bp, Cp, SS, F;
+        A=dir(140);
+        B=dir(230);
+        C=dir(310);
+        EE=foot(B, A, C);
+        IA=2*dir(270)-incenter(A, B, C);
+        Bp=foot(IA, A, C);
+        Cp=foot(IA, A, B);
+        SS=intersectionpoints(circle(IA, length(Bp-IA)), circle((EE+IA)/2, length(EE-IA)/2))[1];
+        F=extension(A, B, EE, SS);
+
+        draw(extension(A, B, IA-(0, length(IA-Bp)), IA-(1, length(IA-Bp))) -- A -- extension(A, C, IA-(0, length(IA-Bp)), IA-(1, length(IA-Bp))), pri);
+        draw(B -- C, pri);
+        filldraw(circle(IA, length(Bp-IA)), fil, pri);
+        fill(A--B--C--cycle,fil);
+        draw(B -- EE, sec); draw(C -- F, sec); 
+        draw(EE -- F, tri); draw(Bp -- IA -- Cp, pri); draw(SS -- IA, tri);
+
+        dot("$A$", A, N);
+        dot("$B$", B, W);
+        dot("$C$", C, NE);
+        dot("$E$", EE, NE);
+        dot("$I_A$", IA, SE);
+        dot("$B'$", Bp, NE);
+        dot("$C'$", Cp, W);
+        dot("$S$", SS, NW);
+        dot("$F'$", F, W);
+    \end{asy}
+\end{center}
+Assume for the sake of contradiction such a configuration exists. Since $\overline{BC}$ and $\overline{EF}$ are antiparallel with respect to $\angle A$, $\triangle ABC\sim\triangle AEF$. Note that the problem states that $\triangle ABC$ and $\triangle AEF$ share an $A$-excircle and therefore an $A$-exradius. Thus, $\triangle ABC\cong\triangle AEF$, so $\cos A=AE/AB=1,$ whence $\angle A=0^\circ$, a contradiction.

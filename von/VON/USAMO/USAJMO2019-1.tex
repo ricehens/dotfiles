@@ -1,0 +1,25 @@
+desc: Apples and pears invariant
+source: USAJMO 2019/1
+tags: [2019-10, oly, trivial, combo, invariant]
+
+---
+
+There are $a+b$ bowls arranged in a row, numbered $1$ through $a+b$, where $a$ and $b$ are given positive integers. Initially, each of the first $a$ bowls contains an apple, and each of the last $b$ bowls contains a pear.
+
+A legal move consists of moving an apple from bowl $i$ to bowl $i+1$ and a pear from bowl $j$ to bowl $j-1$, provided that the difference $i-j$ is even. We permit multiple fruits in the same bowl at the same time. The goal is to end up with the first $b$ bowls each containing a pear and the last $a$ bowls each containing an apple. Show that this is possible if and only if the product $ab$ is even.
+
+---
+
+We first show that if $ab$ is even, then the problem is possible. In this case at least one of $a$ and $b$ is even, so assume WLOG it is $a$. If $a$ is odd, we can take the mirror image of the problem, which is identical. We use induction on $b$.
+
+The base case, $b=0$, is trivial, as we are done already. Now, assume that this problem is possible with $b-1$ pears. We will show that it is possible with $b$ pears.
+
+We take the pear in $a+1$, and move it down to $1$ without affecting the other pears. When the pear is in bowl $t$, move the $a+2-t^\text{th}$ apple. This way, each apple moves up exactly once, and since \[i-j\equiv (a+2-t)-t\equiv a+2-2t\equiv 0\pmod2,\]
+these moves are valid. Now, a pear is in bowl $1$, apple occupy bowls $2,3,\ldots,a+1$, and bowls $a+2,\ldots,a+b$ contain the remaining pears. Since $(i-1)-(j-1)=i-j$, we can ignore the pear in bowl $1$, and shift the remaining fruits down one bucket so that the problem has been reduced to $b-1$ pears, which is possible by our inductive hypothesis.
+
+Now, assume that $a$ and $b$ are both odd. Note that in total, $ab$ moves must occur. Each move is one of two types:
+\begin{itemize}[itemsep=0em]
+    \item Moving two odd-positioned fruit to even-positioned bowls.
+    \item Moving two even-positioned fruit to odd-positioned bowls.
+\end{itemize}
+Since at the beginning and at the end, there is a fruit in every bowl, the two types of moves must occur an equal number of times, but this is impossible, since an odd number of moves occur.

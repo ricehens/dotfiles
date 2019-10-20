@@ -1,0 +1,44 @@
+desc: Process graph theory
+source: IMO 2019/3
+tags: [2019-10, oly, brutal, combo, graph, process]
+
+---
+
+A social network has $2019$ users, some pairs of whom are friends. Whenever user $A$ is friends with user $B$, user $B$ is also friends with user $A$. Events of the following kind may happen repeatedly, one at a time: Three users $A$, $B$, and $C$ such that $A$ is friends with both $B$ and $C$, but $B$ and $C$ are not friends, change their friendship statuses such that $B$ and $C$ are now friends, but $A$ is no longer friends with $B$, and no longer friends with $C$. All other friendship statuses are unchanged.
+
+Initially, $1010$ users have $1009$ friends each, and $1009$ users have $1010$ friends each. Prove that there exists a sequence of such events after which each user is friends with at most one other user.
+
+---
+
+This problem can be expressed in terms of a graph $G$ of size $2019$. Call the event described in the problem a \textit{move} on $ABC$, and call a connected component \textit{exhausted} if it is impossible to perform a move without disconnecting it.
+\begin{boxlemma*}
+    If a connected graph $G$ is exhausted, then it is either a tree, a cycle, or a complete graph.
+\end{boxlemma*}
+\begin{proof}
+    Assume that $G$ is not a tree, a cycle, or a complete graph. We will show that there exists a legal move. Since $G$ is not a tree, take the smallest cycle $C$. Then there are two cases to consider.
+
+    First assume that $C$ is not a triangle, and hence $G$ contains no triangles. Take an edge $\seg{ab}$, with $a\in C$ and $b\notin C$. Now let $c\in C$ be a neighbor of $a$. Hence we may move $abc$, as desired.
+
+    Now assume that $C$ is a triangle, and let $K$ be the maximal clique; by hypothesis $K\ne G$. Then since $G$ is connected, we can choose an edge $\seg{ab}$ with $a\in K$ and $b\notin K$. Some vertex $c$ of $K$ is not a neighbor of $b$, as otherwise $b$ would be connected to every node in $K$ and thus part of $K$. Thus we may move $abc$.
+\end{proof}
+%\begin{proof}[Second proof, by contradiction]
+%Assume that $G$ is not a tree, hence $G$ has a cycle $C$. Let $u$, $v$, $w$ be consecutive vertices of $C$. First I claim that either $\deg v=2$ or $\seg{uw}\in G$. Assume that both are false, and that $v$ is connected to another node $v'$. Note that $v'\notin C$, as otherwise $vuw$ does not disconnect the graph. Analogously $\seg{uv'}$ and $\seg{wv'}$ are not edges. Thus we may move $vuv'$, a contradiction.
+%
+%Now if $\deg v=2$, inducting around $C$ shows that every node of $C$ has degree $2$. But $G$ is connected, so $G=C$. In particular $G$ is a cycle. Otherwise, inducting around the circle we can show that $u$ is connected to every node in $C$. Since $u$ is arbitrary, $C$ is connected.
+%
+%Therefore if $G$ is not a tree nor a cycle, then the clique number of $G$ is at least $3$, so we may finish as in the first proof.
+%\end{proof}
+\begin{iclaim}
+    $G$ is connected.
+\end{iclaim}
+\begin{proof}
+    Assume for the sake of contradiction $G$ has at least $2$ connected components. By the Pigeonhole Principle some connected component $C$ has size not exceeding $1009$. But every node has either $1009$ or $1010$ neighbors, a contradiction.
+\end{proof}
+\begin{iclaim}
+    We can turn $G$ into a tree.
+\end{iclaim}
+\begin{proof}
+    Obviously $G$ is not a tree, cycle, or complete graph, so by the lemma we can apply moves until $G$ transforms into an exhausted graph $G'$. But each move preserves the parity of the degree of each node, and since some nodes have odd degree, $G'$ cannot be a cycle. Furthermore the number of edges in $G$ is strictly decreasing as we perform moves, and initially $G$ is not connected, so $G'$ cannot be a complete graph. Hence by the lemma, $G'$ is a tree.
+\end{proof}
+
+Now we can easily finish once $G$ is a tree. In particular $G$ is acyclic, and so it will forever be acyclic. Perform arbitrary moves breaking $G$ into smaller subtrees until each subtree has size at most $2$. Thus each node has degree at most $1$, the end.

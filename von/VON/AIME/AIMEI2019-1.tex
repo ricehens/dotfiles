@@ -1,0 +1,17 @@
+desc: 9+99+999+9999
+source: AIME I 2019/1
+tags: [2019-10, answer, ceasy, alg, sequence]
+
+---
+
+Consider the integer \[N=9+99+999+9999+\cdots+\underbrace{99\ldots 99}_\text{321 digits}.\]
+Find the sum of the digits of $N$.
+
+---
+
+Notice that \[N=\sum_{i=0}^{321}(10^i-1)=\frac{10^{322}-1}9-322=\underbrace{11\cdots 110789}_\text{322 digits},\]
+so the answer is $318+7+8+9=342$.
+
+---
+
+342

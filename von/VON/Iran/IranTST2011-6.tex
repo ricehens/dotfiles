@@ -1,0 +1,120 @@
+desc: Angle chasing madness
+source: Iran TST 2011/6
+tags: [2019-10, oly, brutal, geo, angle-chasing]
+
+---
+
+Let $\omega$ be a circle with center $O$, and let $T$ be a point outside of $\omega$. Points $B$ and $C$ lie on $\omega$ such that $\overline{TB}$ and $\overline{TC}$ are tangent to $\omega$. Let $K$ and $H$ be two points on $\overline{TB}$ and $\overline{TC}$, respectively.
+\begin{itemize}
+    \item[(a)] Let lines $BO$ and $CO$ meet $\omega$ again at $B'$ and $C'$, and let $K'$ and $H'$ lie on the angle bisectors of $\angle BCO$ and $\angle CBO$, respectively, such that $\overline{KK'}$ and $\overline{HH'}$ are perpendicular to $\overline{BC}$. Prove that $K,H',B'$ are collinear if and only if $H,K',C'$ are collinear.
+        \vspace{-0.5em}
+    \item[(b)] Let $I$ be the incenter of $\triangle OBC$. Two circles lie on the interior of $\triangle TBC$ and are externally tangent to each other at $J$; both circles are externally tangent to $\omega$. Given that one of them is tangent to $\overline{TB}$ at $K$ and the other is tangent to $\overline{TC}$ at $H$, prove that quadrilaterals $BKJI$ and $CHJI$ are cyclic.
+\end{itemize}
+
+---
+
+\begin{customsol}{to part (a)}
+    Let $\overline{KK'}$ and $\overline{HH'}$ intersect $\overline{BC}$ at $X$ and $Y$, respectively, and rays $BI$ and $CI$ meet $\omega$ again at $M$ and $N$, respectively. Also let $P$ and $Q$ denote the feet of the perpendiculars from $B$ and $C$, respectively, to $\overline{KB'}$ and $\overline{HC'}$, respectively.
+    \begin{center}
+        \begin{asy}
+            size(12cm);
+            defaultpen(fontsize(9pt));
+
+            pen pri=deepblue;
+            pen sec=royalblue;
+            pen tri=blue;
+            pen qua=Cyan;
+            pen qui=deepcyan;
+            pen fil=pri+opacity(0.05);
+            pen sfil=sec+opacity(0.05);
+            pen tfil=tri+opacity(0.05);
+            pen qfil=qua+opacity(0.05);
+            pen qifil=qui+opacity(0.05);
+
+            pair O, T, B, C, Bp, Cp, I, K, Kp, H, Hp, M, NN, X, Y, P, Q, O1, O2, J, Kq, Hq;
+            O=(0, 0); T=(1.7, 0);
+            B=intersectionpoints(circle(O, 1), circle(T/2, length(T)/2))[0];
+            C=intersectionpoints(circle(O, 1), circle(T/2, length(T)/2))[1];
+            Bp=-B; Cp=-C;
+            I=incenter(O, B, C);
+            K=(2B+7T)/9;
+            Kp=extension(C, I, K, foot(K, B, C));
+            H=extension(Kp, Cp, T, C);
+            Hp=extension(B, I, H, foot(H, B, C));
+            M=dir(270);
+            NN=dir(90);
+            X=foot(K, B, C);
+            Y=foot(H, B, C);
+            P=foot(B, Bp, K);
+            Q=foot(C, Cp, H);
+            O1=extension(O, P, K, K+O-B);
+            O2=extension(O, Q, H, H+O-C);
+            J=intersectionpoint(O1 -- O2, circle(O1, length(K-O1)));
+            Kq=extension(K, J, H, Hp);
+            Hq=extension(H, J, K, Kp);
+
+            filldraw(circle(O, 1), fil, pri);
+            filldraw(circumcircle(B, X, P), sfil, sec);
+            filldraw(circumcircle(C, Y, Q), sfil, sec);
+            filldraw(circumcircle(P, X, Y), sfil, sec);
+            filldraw(circumcircle(B, Y, P), tfil, tri);
+            filldraw(circumcircle(C, X, Q), tfil, tri);
+            filldraw(circle(O1, length(K-O1)), qfil, qua);
+            filldraw(circle(O2, length(H-O2)), qfil, qua);
+            filldraw(circumcircle(B, K, Q), qifil, qui);
+            filldraw(circumcircle(C, H, P), qifil, qui);
+            draw(K -- Bp, tri);
+            draw(H -- Cp, tri);
+            draw(B -- Bp, pri);
+            draw(C -- Cp, pri);
+            draw(B -- T -- C -- B, pri);
+            draw(K -- Kp, pri);
+            draw(H -- Hp, pri);
+            draw(B -- M, sec);
+            draw(C -- NN, sec);
+            draw(M -- P -- Cp, qua);
+            draw(NN -- Q -- Bp, qua);
+            draw(B -- Kq -- K, qui);
+            draw(C -- Hq -- H, qui);
+
+            dot("$O$", O, W);
+            dot("$T$", T, E);
+            dot("$B$", B, N);
+            dot("$C$", C, S);
+            dot("$B'$", Bp, Bp);
+            dot("$C'$", Cp, Cp);
+            dot("$I$", I, W);
+            dot("$K$", K, dir(10));
+            dot("$H$", H, dir(-10));
+            dot("$K'$", Kp, dir(160));
+            dot("$H'$", Hp, dir(120));
+            dot("$M$", M, M);
+            dot("$N$", NN, NN);
+            dot("$X$", X, NE);
+            dot("$Y$", Y, SE);
+            dot("$P$", P, SE);
+            dot("$Q$", Q, dir(12));
+            dot("$J$", J, unit(O1-O2));
+            dot("$K^+$", Kq, dir(260));
+            dot("$H^+$", Hq, N);
+        \end{asy}
+    \end{center}
+    Assume that $H,K',C'$ are collinear. By symmetry, it suffices to prove that $K,H',B'$ are collinear. Check that $CQXK'$, $CYQH$, and $BXPK$ are cyclic with diameters $\overline{CK'}$, $\overline{CH}$, and $\overline{BK}$, respectively. Notice that \[\measuredangle CQY=\measuredangle CHY=90^\circ-\measuredangle YCH=\measuredangle OCB=\measuredangle CBO=\measuredangle CBB'=\measuredangle CQB',\]
+    so $Q,Y,B'$ are collinear, and similarly, $P,X,C'$ are collinear. Since $BCB'C'$ is a rectangle, \[\measuredangle XPY=\measuredangle C'PM=\measuredangle NPB=\measuredangle NQB=\measuredangle XQY,\]
+    whene $XPQY$ is cyclic. Since $\overline{NN}\parallel\overline{XK'}$, by Reim's Theorem on $\omega$ and $(CQXK')$, $Q,X,N$ are collinear. By Reim's Theorem on $\omega$ and $(XPQY)$, $P,Y,M$ are collinear. Since $BCB'C'$ is a rectangle, \[\measuredangle BPY=\measuredangle BPM=\measuredangle NQC=\measuredangle XQC=\measuredangle XK'C=90^\circ-\measuredangle NCB=90^\circ-\measuredangle CBM=\measuredangle BH'Y,\]
+    so $BPYH'$ is cyclic. Hence, $\measuredangle BPH'=\measuredangle BYH'=90^\circ=\measuredangle B'PK$, so $K,H',B'$ are collinear, and we win.
+\end{customsol}
+\begin{customsol}{to part (b)}
+    Notice that \[\measuredangle BQK'=\measuredangle BQC'=\measuredangle B'QC=\measuredangle B'BC=90^\circ-\measuredangle CBK=90^\circ-\measuredangle XBK=\measuredangle BKX=\measuredangle BKK',\]
+    whence $BKQK'$ is cyclic. Let $\omega$ and the circle tangent to $\overline{TB}$ intersect at $P'$. Then, the negative homothety at $P'$ between the two circles takes $K$ to $B'$, so $K,P,B'$ are collinear. This implies that $P=P'$, and similarly the circle tangent to $\overline{TC}$ touches $\omega$ at $Q$.
+
+    The key observation is that when two circles are tangent, the tangency point is the insimilicenter. Let $(JPK)$ intersect $\overline{XK}$ again at $H^+$ and $(JQH)$ intersect $\overline{YH}$ again at $K^+$. Since $\overline{KH^+}\parallel\overline{HK^+}$ and \[\measuredangle HJK^+=\measuredangle CHK^+=\measuredangle CHY=90^\circ-\measuredangle BCT=90^\circ-\measuredangle TBC=\measuredangle XKB=\measuredangle H^+KB=\measuredangle H^+JK,\]
+    we must have that $J=\overline{KK^+}\cap\overline{HH^+}$. Let $O_1$ and $O_2$ be the centers of $(JPK)$ and $(JQH)$, respectively. Notice that by homothety,
+    \begin{align*}
+        \measuredangle BOQ&=\measuredangle B'OQ=\measuredangle POQ+\measuredangle B'OP=\measuredangle POQ+\measuredangle KO_1P=\measuredangle POQ+\measuredangle JO_1P+\measuredangle KO_1J\\
+        &=\measuredangle POQ+\measuredangle JO_1P+\measuredangle K^+O_2P=\measuredangle POQ+\measuredangle JO_1P+\measuredangle QOJ+\measuredangle K^+O_2Q=\measuredangle K^+O_2Q,
+    \end{align*}
+    so $B,Q,K^+$ are collinear. Hence, \[\measuredangle BQJ=\measuredangle K^+QJ=\measuredangle KPJ=\measuredangle BKJ,\]
+    whence $J\in(BKQK')$. Finally, using cyclic quadrilateral $BION$ we can find that \[\measuredangle BIK'=\measuredangle BIN=\measuredangle BON=\measuredangle BMC'=\measuredangle BQC'=\measuredangle BQK',\]
+    and $BKJQIK'$ is cyclic. By symmetry, we are done.
+\end{customsol}

@@ -1,0 +1,76 @@
+desc: 3D Volume Comparison
+source: No. 2 HS of ECNU
+tags: [2019-10, answer, cmedium, geo, 3D]
+
+---
+
+A pyramid has apex $S$ and parallelogram base $ABCD$. Point $K$ denotes the midpoint of $\overline{SC}$. A plane through $A$ and $K$ cuts segments $SB$ and $SD$ at $M$ and $N$, respectively. Suppose that $U$ and $V$ denote the volumes of the pyramids with apex $S$ and bases $AMKN$ and $ABCD$, respectively. Find, with proof, the set of all possible values of $U/V$.
+
+---
+
+The answer is $\dfrac UV\in\left[\dfrac13,\dfrac38\right)$.
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+        import three;
+        import solids;
+
+        pen pri=darkgreen;
+        pen sec=royalblue;
+        pen fil=green+opacity(0.05);
+        pen sfil=royalblue+opacity(0.05);
+
+        currentprojection=orthographic(1250,1000,250);
+
+        triple SS, A, B, C, D, O, G, K, M, NN, M0, N0;
+        SS=(4, 3, 5);
+        A=(0, 0, 0);
+        B=(5, 0, 0);
+        C=(6, 4, 0);
+        D=(1, 4, 0);
+        O=(A+C)/2;
+        G=(SS+B+D)/3;
+        K=(SS+C)/2;
+        M=(2*SS+3*B)/5;
+        NN=intersectionpoint(M -- (G+(G-M)*100), SS -- D);
+        M0=(SS+2B)/3;
+        N0=(SS+2D)/3;
+
+        draw(A -- SS -- C, pri);
+        //draw(B -- SS -- D, pri);
+        draw(A -- B -- C -- D -- A -- C, pri);
+        draw(surface(SS -- A -- B -- cycle), fil);
+        draw(surface(SS -- B -- C -- cycle), fil);
+        draw(surface(SS -- C -- D -- cycle), fil);
+        draw(surface(SS -- D -- A -- cycle), fil);
+        draw(surface(A -- B -- C -- D -- cycle), fil);
+        draw(SS -- B -- D -- SS, sec);
+        draw(A -- K, pri);
+        draw(M -- NN, sec);
+        draw(M0 -- N0, sec);
+        draw(SS -- O, pri);
+
+        dot("$S$", SS, N);
+        dot("$A$", A, NE);
+        dot("$B$", B, W);
+        dot("$C$", C, S);
+        dot("$D$", D, E);
+        dot("$O$", O, dir(300));
+        dot("$G$", G, dir(232.5));
+        dot("$K$", K, W);
+        dot("$M$", M, NW);
+        dot("$N$", NN, NE);
+        dot("$M_0$", M0, NW);
+        dot("$N_0$", N0, NE);
+    \end{asy}
+\end{center}
+Let $O$ be the center of parallelogram $ABCD$, $M_0,N_0$ be the midpoints of $\overline{SB},\overline{SD}$, respectively, and $G$ be the common centroid of $\triangle SAC$ and $\triangle SBD$ with $\vec G=\tfrac13\left(\vec S+2\vec O\right)$. Since $A,M,K,N$ are coplanar, $G$ must lie on $\overline{MN}$. Furthermore check that \[\frac UV=\frac12\left(\frac{SA\cdot SM\cdot SN}{SA\cdot SB\cdot SD}+\frac{SK\cdot SM\cdot SN}{SC\cdot SB\cdot SD}\right)=\frac{3[SMN]}{4[SBD]}.\]
+Now, remark that \[[SMN]-[SM_0N_0]=\Big|[GMM_0]-[GNN_0]\Big|=\frac{MN\cdot |GM-GN|\cdot\sin\angle(\overline{MN},\overline{M_0N_0})}4.\]
+It is not hard to check that $[SMN]\ge [SM_0N_0]$, with equality iff $(M,N)=(M_0,N_0)$, and $[SMN]$ is maximal when $S$ approaches $M$ or $N$. The minimal case yields \[\frac UV=\frac{3[SMN]}{4[SBD]}\ge\frac34\cdot\left(\frac23\right)^2=\frac13,\]
+and the maximal case yields\[\frac UV=\frac{3[SMN]}{4[SBD]}<\frac34\cdot 1\cdot\frac12=\frac38,\]
+so we are done.
+
+---
+
+$\left[\dfrac13,\dfrac38\right)$

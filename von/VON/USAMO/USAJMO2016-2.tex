@@ -1,0 +1,14 @@
+desc: Six consecutive 0's
+source: USAJMO 2016/2
+tags: [2019-10, oly, tricky, nt]
+
+---
+
+Prove that there exists a positive integer $n<10^6$ such that $5^n$ has six consecutive zeros in its decimal representation.
+
+---
+
+We claim that $n=2^{19}+20$ works. It is easy to check that $n<10^6$. Clearly \[5^{2^{19}+20}\equiv 5^{20}\pmod{5^{20}}.\]
+Furthermore, since $\phi(2^{20})=2^{19}$, \[5^{2^{19}+20}\equiv 5^{20}\pmod{2^{20}}.\]
+Hence, $5^n\equiv 5^{20}\pmod{10^{20}}$. It is easy to check that \[\frac{10^{20}}{5^{20}}=2^{20}>10^6,\]
+so $n$ works.

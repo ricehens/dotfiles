@@ -1,0 +1,16 @@
+desc: Subset is strongly connected
+source: Russia 2004
+tags: [2019-10, oly, easy, combo, global, graph]
+
+---
+
+A country has 1001 cities, and each two citiees are connected by a one-way street. From each city exactly 500 roads begin, and in each city 500 roadsd end. Now an independent republic splits itself off the country, and has 668 of the 1001 cities. Prove that one can reach every other city of the republic from each city of the republic without being forced to leave the republic.
+
+---
+
+This is obviously a graph theory problem; we want to show all subgraphs of size $668$ strongly connected. Assume for the sake of contradiction we have two disjoint subsets of the nodes of the graph, $X$ and $Y$, with $|X|+|Y|=668$, such that all nodes in $Y$ point to nodes in $X$. WLOG $|X|\le|Y|$ (otherwise flip all the arrows).
+
+Say that $|X|=334-L$ and $|Y|=334+L$ for some $L$, and consider the average in-degree of a node $v$ in $X$. Each node in $Y$ points to $v$, so $Y$ contributes $334+L$ edges. Furthermore the average in-degree of every node within $Y$ is $\tfrac12(333-L)$, so the average in-degree of $L$ is at least \[(334+L)+\frac{333-L}2=\frac{1001}2+\frac L2>500,\]
+contradiction.
+
+To finish, note that if there exist two nodes $U$ and $V$, such that the edge between them points from $V$ to $U$, then the subset $S(U)$ of nodes in the republic that $U$ points to and the subset $S(V)$ of nodes in the republic that point to $V$ have sizes at least $167$ each. Then the result is obvious.

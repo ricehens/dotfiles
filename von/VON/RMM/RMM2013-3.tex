@@ -1,0 +1,50 @@
+desc: Tangent to polar circle
+source: RMM 2013/3
+tags: [2019-10, oly, hard, geo, queue-point, pop]
+
+---
+
+Let $ABCD$ be a quadrilateral inscribed in a circle $\omega$. The lines $AB$ and $CD$ meet at $P$, the lines $AD$ and $BC$ meet at $Q$, and the diagonals $AC$ and $BD$ meet at $R$. Let $M$ be the midpoint of the segment $PQ$, and let $K$ be the common point of the segment $MR$ and the circle $\omega$. Prove that the circumcircle of the triangle $KPQ$ and $\omega$ are tangent to one another.
+
+---
+
+\begin{center}
+\begin{asy}
+    size(8cm);
+    defaultpen(fontsize(10pt));
+    pair H,P,Q,R,X,M,D,EE,T,SS,K;
+    H=dir(110);
+    P=dir(220);
+    Q=dir(320);
+    R=H+P+Q;
+    X=foot(R,P,Q);
+    M=(P+Q)/2;
+    D=foot(P,H,Q);
+    EE=foot(Q,H,P);
+    T=extension(P,Q,D,EE);
+    SS=foot(M,H,T);
+    K=intersectionpoint(M--R,circle(H,sqrt(length(X-H)*length(R-H))));
+
+    draw(circle((0,0),1));
+    draw(arc(H,length(K-H),180,0,CCW),gray);
+    draw(T--Q--H--P--D--T--H);
+    draw(Q--EE);
+    draw(X--H--M--SS,gray);
+    draw(T--K,gray);
+
+    dot("$H$",H,H);
+    dot("$P$",P,P);
+    dot("$Q$",Q,Q);
+    dot("$X$",X,S);
+    dot("$M$",M,S);
+    dot("$T$",T,SW);
+    dot("$D$",D,unit(D-P));
+    dot("$E$",EE,NW);
+    dot("$R$",R,S);
+    dot("$K$",K,S);
+    dot("$S$",SS,dir(150));
+\end{asy}
+\end{center}
+The existence of $ABCD$ is irrelevent; $\omega$ is the polar circle of $\triangle PQR$. Let $H$ be the orthocenter of $\triangle PQR$, $X$ the foot from $H$ to $\seg{PQ}$, and $T$ the harmonic conjugate of $X$ with respect to $\seg{PQ}$. Furthermore let $S=\seg{HT}\cap\seg{MR}$. It is known that $S$ is the Miquel point of $PQDE$ as a result.
+
+Since inversion about $\omega$ swaps $T$ and $S$, and $\seg{HT}\perp\seg{SK}$, $\seg{SK}$ is the polar of $T$, so $\seg{TK}$ is tangent to $\omega$. Finally $TK^2=\pow(T,\omega)=TH^2-SH\cdot HT=TS\cdot TH=TP\cdot TQ$, so $\seg{TK}$ is also tangent to $(KPQ)$, and we are done.

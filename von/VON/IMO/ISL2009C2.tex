@@ -1,0 +1,16 @@
+desc: Very different triplets
+source: ISL 2009 C2
+tags: [2019-10, oly, medium, combo, global]
+
+---
+
+For each integer $n\ge2$, find the maximum number $N$ of triples $(a_i,b_i,c_i)$ of nonnegative integers (for $i=1,\ldots,N$) with the following two properties:
+\begin{itemize}[itemsep=0em]
+    \item For each $i$, $a_i+b_i+c_i=n$.
+    \item Whenever $i\ne j$, we have $a_i\ne a_j$, $b_i\ne b_j$, $c_i\ne c_j$.
+\end{itemize}
+
+---
+
+The answer is $\left\lfloor\frac{2n}3\right\rfloor+1$. To see that this is maximal, note that if we have $N$ triplets, then the sum of the elements of all the triplets is $N\cdot n$. However the sum of all $a_i$, $b_i$, $c_i$ are each at least $N(N-1)/2$. Hence \[N\cdot n\ge\frac{3N(N-1)}2\implies N\le\frac{2n}3+1\implies N\le\left\lfloor\frac{2n}3\right\rfloor+1.\]
+It suffices to construct this. It is equivalent to find $N$ ordered pairs $(a_i,b_i)$ such that $a_i$ are all distinct, $b_i$ are all distinct, and $a_i+b_i\le n$ are all distinct. If $n=3k-r$, with $0\le r\le2$, take all the ordered pairs in $\{(k,0),(k+1,1),\ldots,(2k+1),k)\}\cup\{(0,k+1),(1,k+2),\ldots,(k-1,2k)\}$ with $a_i+b_i\le n$. It is not hard to check that this construction is valid, and produces $2k-r+1=\left\lfloor\frac23(3k-r)\right\rfloor$ ordered triples. This completes the proof.

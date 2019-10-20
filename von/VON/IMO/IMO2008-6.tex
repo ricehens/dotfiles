@@ -1,0 +1,75 @@
+desc: Common external tangents intersect on excircle
+source: IMO 2008/6
+tags: [2019-10, oly, medium, geo, homothety]
+
+---
+
+Let $ABCD$ be a convex quadrilateral with $BA\ne BC$. Denote the incircles of triangles $ABC$ and $ADC$ by $\omega_1$ and $\omega_2$ respectively. Suppose that there exists a circle $\omega$ tangent to the extension of ray $BA$ past $A$, to the extension of ray $BC$ past $C$, to the line $AD$, and to the line $CD$. Prove that the common external tangents to $\omega_1$ and $\omega_2$ intersect on $\omega$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=deepblue;
+        pen sec=royalblue;
+        pen tri=blue;
+        pen qua=Cyan;
+        pen qui=deepcyan;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+        pen qfil=qua+opacity(0.05);
+        pen qifil=qui+opacity(0.05);
+
+        pair O, T1, T2, T3, T4, A, B, C, D, I, J, K, L, Kp, Lp, T;
+        O=(0, 0);
+        T1=dir(70);
+        T2=dir(290);
+        T3=dir(30);
+        T4=dir(320);
+        A=2*(T4+T1)/length(T4+T1)^2;
+        B=2*(T1+T2)/length(T1+T2)^2;
+        C=2*(T2+T3)/length(T2+T3)^2;
+        D=2*(T3+T4)/length(T3+T4)^2;
+        I=incenter(B, A, C);
+        J=incenter(D, A, C);
+        K=foot(I, A, C);
+        L=foot(J, A, C);
+        Kp=2I-K;
+        Lp=2J-L;
+        T=extension(O, foot(O, A, C), I, J);
+
+
+        filldraw(circle(O, 1), sfil, sec);
+        filldraw(incircle(B, A, C), tfil, tri);
+        filldraw(incircle(D, A, C), tfil, tri);
+        draw(T1 -- B -- T2, pri);
+        draw(extension(D, A, B, C) -- D -- extension(D, C, B, A), pri);
+        draw(A -- B -- C -- D -- A -- C, pri+linewidth(2));
+        draw(K -- Kp, qua);
+        draw(L -- Lp, qua);
+        draw(K -- T -- B, qui);
+
+        clip(T1 -- (T1+(100, 0)) -- (T2+(100, 0)) -- T2 -- cycle);
+
+        dot("$A$", A, N);
+        dot("$B$", B, E);
+        dot("$C$", C, SE);
+        dot("$D$", D, dir(170));
+        dot("$K$", K, NW);
+        dot("$L$", L, SE);
+        dot("$K'$", Kp, SE);
+        dot("$L'$", Lp, dir(110));
+        dot("$T$", T, W);
+    \end{asy}
+\end{center}
+Let $\omega$ touch $\overline{AB},\overline{BC},\overline{CD},\overline{DA}$ at $T_1,T_2,T_3,T_4$, respectively. Also let $\omega_1$ and $\omega_2$ touch $\overline{AC}$ at $K$ and $L$, respectively, and let $K'$ and $L'$ be their respective antipodes. Denote by $T$ the point on $\omega$ closest to $\overline{AC}$. Check that
+\begin{align*}
+    AB+AD&=BT_1-AT_1+AT_4-DT_4=BT_2-DT_3\\
+    &=BT_2-CT_2+CT_3-DT_3=CB+CD.
+\end{align*}
+Note that \[AK=\frac{AC+AB-CB}2=\frac{AC+CD-AD}2=CL,\]
+so $L$ is the $B$-extouch point of $\triangle ABC$. Analogously, $K$ is the $D$-extouch point of $\triangle ADC$, so $K'\in\overline{BL}$ and $L'\in\overline{DK}$. The homothety at $B$ between $\omega$ and $\omega_1$ maps $T$ to $K'$, so $T\in\overline{BK'L}$. Similarly, the negative homothety at $D$ between $\omega$ and $\omega_2$ maps $T$ to $L'$, so $T\in\overline{DL'K}$. It follows that $T=\overline{K'L}\cap\overline{KL'}$. However, since $\overline{KK'}\parallel\overline{LL'}$, $T$ is the center of homothety between $\overline{KK'}$ and $\overline{LL'}$, and since $\overline{KK'}$ and $\overline{LL'}$ are diameters of $\omega_1$ and $\omega_2$, $T$ is the exsimilicenter of $\omega_1$ and $\omega_2$, which lies on $\omega$, as desired.

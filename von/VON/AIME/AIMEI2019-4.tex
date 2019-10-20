@@ -1,0 +1,16 @@
+desc: Forming soccer teams
+source: AIME I 2019/4
+tags: [2019-10, answer, ceasy, combo]
+
+---
+
+A soccer team has $22$ available players. A fixed set of $11$ players starts the game, while the other $11$ are available as substitutes. During the game, the coach may make as many as $3$ substitutions, where any one of the $11$ players in the game is replaced by one of the substitutes. No player removed from the game may reenter the game, although a substitute entering the game may be replaced later. No two substitutions can happen at the same time. The players involved and the order of substitutions matter. Let $n$ be the number of ways the coach can make substitutions during the game (including the possibility of making no substitutions). Find the remainder when $n$ is divided by $1000$.
+
+---
+
+At every point, the coach can stop making substitutions or continue, so the answer is \[1+11\cdot 11\Big(1+11\cdot 10\big(1+11\cdot 9\big)\Big)\equiv 1+11\cdot 11\equiv 122\pmod{1000},\]
+the requested remainder.
+
+---
+
+122

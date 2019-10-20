@@ -1,0 +1,87 @@
+desc: Amazing conditional geometry
+source: USAMO 2019/2
+tags: [2019-10, oly, medium, geo, conditional-geo, symmedians]
+
+---
+
+Let $ABCD$ be a cyclic quadrilateral satisfying $AD^2+BC^2=AB^2$. The diagonals of $ABCD$ intersect at $E$. Let $P$ be a point on side $\overline{AB}$ satisfying $\angle APD=\angle BPC$. Show that line $PE$ bisects $\overline{CD}$.
+
+---
+
+\begin{customenv}{First solution, using symmedians}
+    Let $P$ lie on side $AB$ such that $AP=AD^2/AB$, and thus $BP=BC^2/AB$. Notice that \[\frac{PA}{PB}=\frac{AD^2}{BC^2}=\frac{EA^2}{EB^2},\]
+    whence $\overline{EP}$ is the $E$-symmedian of $\triangle EAB$. Since $\overline{AB}$ and $\overline{CD}$ are antiparallel with respect to $\angle E$, line $PE$ is the $E$-median of $\triangle ECD$; that is, $\overline{PE}$ bisects $\overline{CD}$.
+
+    By monotonicity it suffices to check that $\angle APD=\angle BPC$; however, note that $AP\cdot AB=AD^2$, so $\triangle APD\sim\triangle ADB$. Similarly, $\triangle BPC\sim\triangle BCA$, so $\measuredangle APD=\measuredangle BDA=\measuredangle BCA=\measuredangle CPB$, and we are done. 
+\end{customenv}
+\begin{customenv}{Second solution, using angles}
+    Again define $P$ such that $AP=AD^2/AB$ and $BP=BC^2/AB$, and let $K=\overline{AC}\cap\overline{PD}$ and $L=\overline{AB}\cap\overline{PC}$. It follows that $\triangle APD\sim\triangle ADB$ and $\triangle BPC\sim\triangle BCA$, and $\measuredangle APD=\measuredangle BDA=\measuredangle BCA=\measuredangle CPB$, so we only need to show that line $PE$ bisects $\overline{CD}$.
+
+    However, notice that $\measuredangle BPK=\measuredangle APD=\measuredangle BCA=\measuredangle BCK$, whence $BPKC$ is cyclic. Similarly, $APLD$ is cyclic, and furthermore \[\measuredangle AKB=\measuredangle CKB=\measuredangle CPB=\measuredangle APD=\measuredangle ALD=\measuredangle ALB.\]
+    Thus $ABKL$ is cyclic, and by Reim's Theorem on $(ABCD)$ and $(ABKL)$, $\overline{CD}\parallel\overline{KL}$. To finish, note that by Ceva's Theorem on $\triangle PCD$, $\overline{PE}$ bisects $\overline{CD}$, as desired. 
+\end{customenv}
+\begin{customenv}{Third solution, using radical axes}\ 
+    \begin{center}
+        \begin{asy}
+            size(12cm);
+            defaultpen(fontsize(9pt));
+
+            pen pri=red;
+            pen sec=orange;
+            pen tri=fuchsia;
+            pen fil=red+opacity(0.05);
+            pen sfil=orange+opacity(0.05);
+            pen tfil=fuchsia+opacity(0.05);
+
+            pair O, A, B, C, Y, D, P, EE, U, V, Z;
+            O=(0, 0);
+            path omega=circle(O, 1);
+            A=dir(130);
+            B=dir(50);
+            path gamma=circle((A+B)/2, length(A-B)/2);
+            C=dir(-20);
+            path wb=circle(B, length(C-B));
+            Y=intersectionpoints(gamma, wb)[1];
+            path wa=circle(A, length(Y-A));
+            D=intersectionpoints(omega, wa)[1];
+            P=foot(Y, A, B);
+            EE=extension(A, C, B, D);
+            U=intersectionpoints(omega, wa)[0];
+            V=intersectionpoints(omega, wb)[0];
+            Z=2*circumcenter(A, B, O)-O;
+
+            draw(A -- B -- C -- D -- A -- C, pri); draw(B -- D, pri);
+            filldraw(omega, fil, pri);
+            draw(D -- U, sec); draw(C -- V, sec); draw(A -- Y -- B, tri); draw(Y -- (2P-Y), tri);
+            filldraw(gamma, tfil, tri);
+            filldraw(wa, sfil, sec); filldraw(wb, sfil, sec);
+            draw(A -- Z -- B, sec);
+
+            dot("$A$", A, dir(150));
+            dot("$B$", B, dir(30));
+            dot("$C$", C, SE);
+            dot("$D$", D, dir(210));
+            dot("$Y$", Y, dir(255));
+            dot("$Z$", 2P-Y, dir(105));
+            dot("$E$", EE, N);
+            dot("$P$", P, dir(67.5));
+            dot("$U$", U, NE);
+            dot("$V$", V, NW);
+            dot("$X$", Z, N);
+        \end{asy}
+    \end{center}
+    Let $\Omega$ be the circumcircle of $ABCD$, $(A)$ the circle centered at $A$ passing through $D$, $(B)$ the circle centered at $B$ passing through $C$, and $\Gamma$ the circle with diameter $\overline{AB}$. Let $Y,Z$ be the points of intersection between $(A)$ and $(AB)$. Since \[BY^2=AB^2-AY^2=AB^2-AD^2=BC^2,\]
+    $Y\in(B)$, and similarly, $Z\in\Gamma$. Let $P'=\overline{YZ}\cap\overline{AB}$ be the radical center of $\Omega,\Gamma,(A),(B)$. We claim that $P=P'$. Let $(A)$ and $(B)$ intersect $\Omega$ again at $U\ne D$ and $V\ne C$, respectively. Then, $P=\overline{DU}\cap\overline{CV}$. If the tangents to $\Omega$ at $A$ and $B$ intersect at $X$, note that since $\overline{XA}\parallel\overline{DU}$ and $\overline{XB}\parallel\overline{CV}$, \[\measuredangle APD=\measuredangle PAX=\measuredangle XBP=\measuredangle CPB.\]
+    It is obvious $P$ is unique, so $P=P'$, and our claim has been proven.
+
+    Since $\triangle AYB$ is a right triangle, and $\triangle EAD\sim\triangle EBC$, \[\frac{PA}{PB}=\left(\frac{YA}{YB}\right)^2=\left(\frac{AD}{BC}\right)^2=\left(\frac{EA}{EB}\right)^2,\]
+    so since $P$ lies on segment $AB$, by Steiner we deduce that $\overline{EP}$ is a symmedian of $\triangle EAB$. Since $\overline{AB}$ and $\overline{CD}$ are antiparallel with respect to $\angle E$, line $EP$ is a median of $\triangle ECD$, so $\overline{EP}$ bisects $\overline{CD}$, as required. 
+\end{customenv}
+\begin{customenv}{Fourth solution, using inversion}[Evan Chen]
+    By the hypothesis, the circle $\omega_a$ centered at $A$ with radius $AD$ is orthogonal to the circle $\omega_b$ centered at $B$ with radius $BC$. For brevity, we let $\mathbf{I}_a$ and $\mathbf{I}_b$ denote inversion with respect to $\omega_a$ and $\omega_b$. We let $P$ denote the intersection of $\overline{AB}$ with the radical axis of $\omega_a$ and $\omega_b$; hence $P = \mathbf I_a(B) = \mathbf I_b(A)$. This already implies that \[\measuredangle DPA \overset{\mathbf{I}_a}=\measuredangle ADB=\measuredangle ACB \overset{\mathbf{I}_b}=\measuredangle BPC,\]
+    so $P$ satisfies the angle condition.
+
+    The key claim is that the point $K=\mathbf I_a(C)$ lies on $\omega_b$ and $\overline{DP}$. The first assertion follows from the fact that $\omega_b$ is orthogonal to $\omega_a$. For the other, since $(BCD)$ passes through $A$, it follows $P=\mathbf I_a(B)$, $K=\mathbf I_a(C)$, and $D=\mathbf I_a(D)$ are collinear. Similarly $L=\mathbf I_b(D)$ lies on  $\omega_a$ and $\overline{CP}$.
+
+    Finally, since $C$, $L$, $P$ are collinear, we get $A$ is concyclic with $K=\mathbf I_a(C)$, $L=\mathbf I_a(L)$, $B=\mathbf I_a(B)$, i.e.\ that $AKLB$ is cyclic, so $\overline{KL}\parallel\overline{CD}$ by Reim's theorem, and hence $\overline{PE}$ bisects $\overline{CD}$ by Ceva's theorem.
+\end{customenv}

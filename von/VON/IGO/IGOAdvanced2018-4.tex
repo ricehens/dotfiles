@@ -1,0 +1,98 @@
+desc: Bicentric chaos
+source: IGO Advanced 2018/4
+tags: [2019-10, oly, hard, geo, projective, weird]
+
+---
+
+Let $ABCD$ be a tangential quadrilateral, and assume that diagonals $\overline{AC}$ and $\overline{BD}$ are not perpendicular. The angle bisectors formed by these two diagonals intersect sides $\overline{AB}$, $\overline{BC}$, $\overline{CD}$, and $\overline{DA}$ at points $K$, $L$, $M$, and $N$, respectively. Show that if quadrilateral $KLMN$ is cyclic, then quadrilateral $ABCD$ is also cyclic.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=red;
+        pen sec=orange;
+        pen tri=fuchsia;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair I, K, L, M, NN, A, B, C, D, EE, F, G, X, Y;
+        I=(0, 0);
+        K=dir(100);
+        L=dir(20);
+        M=2*foot(I, K, K-(0, 1))-K;
+        NN=2*foot(I, L, foot(L, K, M))-L;
+        A=2*(NN+K)/length(NN+K)^2;
+        B=2*(K+L)/length(K+L)^2;
+        C=2*(L+M)/length(L+M)^2;
+        D=2*(M+NN)/length(M+NN)^2;
+        EE=extension(K, M, L, NN);
+        F=extension(K, L, M, NN);
+        G=extension(K, NN, L, M);
+        X=extension(A, B, C, D);
+        Y=extension(A, D, B, C);
+
+        filldraw(circumcircle(A, B, C), fil, pri);
+        filldraw(circle(I, 1), sfil, sec);
+        draw(F -- L -- M -- F, sec);
+        draw(G -- M -- NN -- G, sec);
+        draw(X -- B -- C -- X, pri);
+        draw(Y -- C -- D -- Y, pri);
+        draw(G -- X, tri);
+        draw(F -- C, tri);
+        draw(G -- D, tri);
+        draw(K -- M, sec);
+        draw(NN -- L, sec);
+
+        dot("$A$", A, dir(100));
+        dot("$B$", B, dir(80));
+        dot("$C$", C, SE);
+        dot("$D$", D, SW);
+        dot("$K$", K, 2*N);
+        dot("$L$", L, dir(-20));
+        dot("$M$", M, S);
+        dot("$N$", NN, SW/4);
+        dot("$X$", X, W);
+        dot("$Y$", Y, N);
+        dot("$F$", F, NW);
+        dot("$G$", G, NE);
+        dot("$E$", EE, S);
+    \end{asy}
+\end{center}
+Denote $E=\overline{AC}\cap\overline{BD}$, and let the incircle touch $\overline{AB}$, $\overline{BC}$, $\overline{CD}$, and $\overline{DA}$ at $K'$, $L'$ ,$M'$, and $N$, respectively. Let line $KM$ intersect $\overline{BC}$ and $\overline{DA}$ at $L^*$ and $N^*$, respectively, and let line $LN$ intersect $\overline{AB}$ and $\overline{CD}$ at $K^*$ and $M^*$, respectively.
+\setcounter{iclaim}0
+\begin{iclaim}
+    $\overline{AC}$, $\overline{KL}$, and $\overline{MN}$ concur at point $F$, the harmonic conjugate of $E$ with respect to $\overline{AC}$. Similarly, $\overline{BD}$, $\overline{LM}$, and $\overline{NK}$ concur at point $G$, the harmonic conjugate of $E$ with respect to $\overline{BD}$.
+\end{iclaim}
+\begin{proof}
+    The myriad angle bisectors yield the harmonic bundles $(AB;KK^*)$ and $(CB;LL^*)$, so $\overline{AC}$, $\overline{KL}$, and $\overline{K^*L^*}$  concur at a point $F$. Now, \[-1=(AB;KK^*)\stackrel{L^*}=(AC;EF).\]
+    By symmetry, $\overline{AC}$, $\overline{KL}$, and $\overline{MN}$ concur at the harmonic conjugate of $E$ with respect to $\overline{AC}$.
+\end{proof}
+\begin{iclaim}
+    $\overline{K'M'}$ and $\overline{L'N'}$ intersect at $E$; $\overline{AC}$, $\overline{K'L'}$, and $\overline{M'N'}$ concur at point $F$; and $\overline{BD}$, $\overline{L'M'}$, $\overline{N'K'}$ concur at point $G$.
+\end{iclaim}
+\begin{proof}
+    By Brianchon's Theorem on $AKBCMD$ and $ABLCDN$, $E=\overline{K'M'}\cap\overline{L'N'}$. By Pascal's Theorem on $K'K'L'N'N'M'$, $F'=\overline{K'L'}\cap\overline{M'N'}$ lies on $\overline{AEC}$. It suffices to check that $-1=(AC;EF')$.
+
+    Let $X=\overline{AB}\cap\overline{CD}$ and $Y=\overline{BC}\cap\overline{DA}$. By Pascal's Theorem on $K'K'L'M'M'N'$ and $K'L'L'M'N'N'$, $X$ and $Y$ lie on $\overline{FG}$. By Ceva-Menelaus, \[-1=(XY;GF')\stackrel B=(AC;EF'),\]
+    as required.
+\end{proof}
+\begin{iclaim}
+    $K=K'$, and similarly for cyclic variations.
+\end{iclaim}
+\begin{proof}
+    We have proven that $(KLMN)$ and $(K'L'M'N')$ coincide as the polar circle of $\triangle EFG$. Since $K'$ lies on $\overline{AB}$, $K=K'$, and by symmetry our claim has been proven.
+\end{proof}
+\begin{iclaim}
+    Quadrilateral $ABCD$ is cyclic.
+\end{iclaim}
+\begin{proof}
+    This is just angle chasing: \[\angle BAD=180^\circ-\widehat{NK}=\widehat{LM}=180^\circ-\angle DCB,\]
+    as desired.
+\end{proof}
+
+Hence, if quadrilateral $KLMN$ is cyclic, so is $ABCD$, and we are done.

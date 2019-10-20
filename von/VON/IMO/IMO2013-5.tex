@@ -1,0 +1,41 @@
+desc: AM-GM Identity FE
+source: IMO 2013/5
+tags: [2019-10, oly, hard, alg, FE]
+
+---
+
+Suppose a function $f:\mathbb Q_{>0}\to\mathbb R$ satisfies:
+\begin{enumerate}[label=(\roman*),itemsep=0em]
+    \item If $x,y\in\mathbb Q_{>0}$, then $f(x)f(y)\ge f(xy)$.
+    \item If $x,y\in\mathbb Q_{>0}$, then $f(x+y)\ge f(x)+f(y)$.
+    \item There exists a rational number $a>1$ with $f(a)=a$.
+\end{enumerate}
+Prove that $f$ is the identity function.
+
+---
+
+Note that by iterating the given assertions, we find $f(x)^n\ge f(x^n)$ and $f(nx)\ge nf(x)$ for all positive integers $n$.
+\setcounter{iclaim}0
+\begin{iclaim}
+    $f(n)>0$ for all $n$, and thus $f$ is strictly increasing. 
+\end{iclaim}
+\begin{proof}
+    First $af(1)=f(a)f(1)\ge f(a)$, so $f(1)\ge1$. Then $f(n)\ge nf(1)\ge n$, so $f(n)\ge n$ for all integers $n$. Finally \[f\left(\frac pq\right)f(q)\ge f(p)\implies f\left(\frac pq\right)\ge\frac{f(p)}{f(q)}>0,\]
+    so $f$ is positive. Then by condition (ii) $f$ is strictly increasing.
+\end{proof}
+\begin{iclaim}
+    If $x\ge1$, then $f(x)\ge x$.
+\end{iclaim}
+\begin{proof}
+    Hypothesis clearly true if $x=1$; henceforth assume $x>1$. Suppose that $f(x)=x-\varepsilon$, where $\varepsilon>0$. Note that $f(x)\ge f(\left\lfloor x\right\rfloor)\ge\left\lfloor x\right\rfloor$. Consequently \[(x-\varepsilon)^t=f(x)^t\ge f(x^t)\ge\left\lfloor x^t\right\rfloor>x^t-1.\]
+    However \[x^t-(x-\varepsilon)^t=\varepsilon\left[x^{t-1}+x^{t-2}(x-\varepsilon)+\cdots+(x-\varepsilon)^{t-1}\right]\ge\varepsilon(x-\varepsilon)^{t-1}.\]
+    Since $f(x)>f(1)\ge1$, taking $t$ sufficiently large gives that this is at least $1$. Recalling that $f(x)\ge\left\lfloor x\right\rfloor$ gives a contradiction.
+\end{proof}
+\begin{iclaim}
+    If $f(b)=b$ for some $b$, then for all $x\le b-1$, $f(x)\ge x$ implies $f(x)=x$.
+\end{iclaim}
+\begin{proof}
+    Just note that if $x\ge1$, then $b=f(b)\ge f(b-x)+f(x)\ge f(b-x)+x$, so $f(b-x)\le b-x$. However $f(b-x)\ge1$, so $f(b-x)\ge b-x$, and hence $b-x$ is a fixed point.
+\end{proof}
+
+Apply Claim 3 to all $x\ge1$. Now since $a^2=f(a)^2\ge f(a^2)\ge a^2$, $f(a^2)=a^2$, so we may take $a$ arbitrary large. It follows that $f(x)=x$ for all $x\ge1$. Finally $f(p/q)f(q)\ge f(p)$, so $f(p/q)\ge p/q$ for all $p$ and $q$, and we are done by Claim 3.

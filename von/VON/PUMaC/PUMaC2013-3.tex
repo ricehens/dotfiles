@@ -1,0 +1,13 @@
+desc: Star matching
+source: PUMaC 2013/3
+tags: [2019-10, oly, medium, combo, local]
+
+---
+
+Let $G$ be a graph and let $k$ be a positive integer. A \emph{$k$-star} is a set of $k$ edges with a common endpoint and a \emph{$k$-matching} is a set of $k$ edges such that no two have a common endpoint. Prove that if $G$ has more than $2(k-1)^2$ edges then it either has a $k$-star or a $k$-matching.
+
+---
+
+Assume there is no star; that is, the degree of every node is at most $k-1$. Then we greedily construct a $k$-matching: At any point, take any edge $\seg{PQ}$, and delete $P$ and $Q$ completely from the graph. It is easy to check that this operation removes at most $2k-3$ edges.
+
+Thus this operation can be done $k$ times, since after performing this $k-1$ times, we have removed at most $(k-1)(2k-3)<2(k-1)^2$ edges. This completes the proof.

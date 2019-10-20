@@ -1,0 +1,13 @@
+desc: Titu completes the square
+source: USAJMO 2018/4
+tags: [2019-10, oly, medium, alg, ineq]
+
+---
+
+Triangle $ABC$ is inscribed in a circle of radius $2$ and obeys $\angle ABC\ge90^\circ$, and $x$ is a real number satisfying the equation $x^4+ax^3+bx^2+cx+1=0$, where $a=BC$, $b=CA$, $c=AB$. Find all possible values of $x$.
+
+---
+
+The answer is $\tfrac12(-\sqrt6\pm\sqrt2)$. We complete the square: \[0=x^4+ax^3+bx^2+cx+1=x^2\left(x+\frac a2\right)^2+\left(\frac c2x+1\right)^2+\left(b-\frac{a^2+c^2}4\right).\]
+However since $\angle B\ge90^\circ$ and $b\le 4$, $a^2+c^2\le b^2\le 4b$, so $b-\tfrac14(a^2+c^2)\ge0$. Then by the Trivial Inequality all terms of the above expression are zero. In particular, $\angle B=90^\circ$, and since $x\ne 0$ (as $x=0$ contradicts $\tfrac c2x+1=0$), \[0=x+\frac a2=\frac c2x+1\implies x=-\frac a2=-\frac2c.\]
+Thus we have $ac=4$ and $a^2+c^2=16$. Solving, $\{a,c\}=\{\sqrt6\pm\sqrt2\}$, and the desired result follows.

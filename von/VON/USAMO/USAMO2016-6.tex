@@ -1,0 +1,21 @@
+desc: Unexpectedly easy wizard game
+source: USAMO 2016/6
+tags: [2019-10, oly, easy, combo]
+
+---
+
+Integers $n$ and $k$ are given, with $n\ge k\ge2$. You play the following game against an evil wizard.
+
+The wizard has $2n$ cards; for each $i=1,\ldots,n$, there are two cards labeled $i$. Initially, the wizard places all cards face down in a row, in unknown order.
+
+You may repeatedly make moves of the following form: you point to any $k$ of the cards. The wizard then turns those cards face up. If any two of the cards match, the game is over and you win. Otherwise, you must look away, while the wizard arbitrarily permutes the $k$ chosen cards and then turns them back face-down. Then, it is your turn again.
+
+We say this game is winnable if there exist some positive integer $m$ and some strategy that is guaranteed to win in at most $m$ moves, no matter how the wizard responds.
+
+For which values of $n$ and $k$ is the game winnable?
+
+---
+
+The answer is $n>k$. First assume that $n>k$, and point to cards $1$ to $k$, $2$ to $k+1$, and so on, up to $2n-k+1$ to $2n$. Note that if any of the intervals contains a repeat element, we are done. Otherwise, we now know the cards in indices $1$ through $2n-k$. But $2n-k>n$, so two of these are the same, and the game is winnable.
+
+Now assume that $n=k$, and suppose that $S=\{1,2,\ldots,2n\}$ is the universal set. At any step after the first, we know a partitioning of $S$ into two sets $A$ and $A^c$ of size $n$ such that no two cards with indices in $A$ have the same label. We know nothing about the orders, so if we pick $X\subseteq A$ and $Y\subseteq A^C$, and point to $X\cup Y$, then it is possible that the cards we pointed to have labels $1,2,\ldots,n$, and we are in the same exact scenario as before ($A\mapsto X\cup Y$). Hence the game is not winnable, as it is determined purely by the wizard's actions.

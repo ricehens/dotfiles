@@ -1,0 +1,47 @@
+desc: Circle at M with radius 0
+source: Iran TST 2011/1
+tags: [2019-10, oly, easy, geo, pop]
+
+---
+
+In acute triangle $ABC$, let $E$ and $F$ be the feet of the altitudes from $B$ and $C$, respectively. Let $M,K,L$ denote the midpoints of $\overline{BC}$, $\overline{ME}$, and $\overline{MF}$, respectively. Line $KL$ intersects the line through $A$ parallel to $\overline{BC}$ at $T$. Prove that $TA=TM$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+        pair A, B, C, D, EE, F, H, M, NN, K, L, T;
+        A=(0, 16);
+        B=(-28+12sqrt(3), 0);
+        C=(12sqrt(3)-4, 0);
+        D=foot(A, B, C);
+        EE=foot(B, C, A);
+        F=foot(C, A, B);
+        H=extension(B, EE, C, F);
+        M=(B+C)/2;
+        NN=circumcenter(A, F, EE);
+        K=(M+EE)/2;
+        L=(M+F)/2;
+        T=extension(A, B+(0, 16), K, L);
+        filldraw(A -- B -- C -- cycle, red+opacity(0.05), red);
+        draw(A -- D, orange); draw(B -- EE, orange); draw(C -- F, orange);
+        draw(L -- T -- A, red);
+        draw(F -- M -- EE -- NN -- cycle, orange);
+        draw(F -- EE, orange);
+        draw(M -- A, red);
+        filldraw(circumcircle(A, F, EE), orange+opacity(0.05), orange);
+        dot("$A$", A, N);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$D$", D, S);
+        dot("$E$", EE, NE);
+        dot("$F$", F, W);
+        dot("$M$", M, S);
+        dot("$K$", K, dir(60));
+        dot("$L$", L, S);
+        dot("$T$", T, NE);
+    \end{asy}
+\end{center}
+Let $\omega$ be the circle centered at $M$ with radius $0$. It is well-known that $\overline{TA}$, $\overline{ME}$, and $\overline{MF}$ are tangent to $(AEF)$, so line $KL$ is the radical axis of $(AEF)$ and $\omega$. It follows that $TA^2=\operatorname{Pow}(T,(AEF))=\operatorname{Pow}(T,\omega)=TM^2$, as desired.

@@ -1,0 +1,77 @@
+desc: Symmedian points concyclic
+source: Sharygin 2014/10.8
+tags: [2019-10, oly, hard, geo, symmedian, projective, weird]
+
+---
+
+Let $ABCD$ be a cyclic quadrilateral. Prove that if the symmedian points of $\triangle ABC$, $\triangle BCD$, $\triangle CDA$, and $\triangle DAB$ are concyclic, then quadrilateral $ABCD$ has two parallel sides.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=red;
+        pen sec=orange;
+        pen tri=fuchsia;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair O, A, B, C, D, P, Q, R, EE, F, G, H, KA, KB, KC, KD;
+        O=(0,0);
+        A=dir(150);
+        B=dir(95);
+        C=dir(325);
+        D=dir(205);
+        P=extension(A,B,C,D);
+        Q=extension(A,D,B,C);
+        R=extension(A,C,B,D);
+        EE=2*circumcenter(O,A,B);
+        F=2*circumcenter(O,B,C);
+        G=2*circumcenter(O,C,D);
+        H=2*circumcenter(O,D,A);
+        KA=extension(B,G,D,F);
+        KB=extension(A,G,C,H);
+        KC=extension(B,H,D,EE);
+        KD=extension(A,F,C,EE);
+
+        draw(H--B--G--C--EE--D--F--A--G,sec+dashed);
+        draw(KB--Q--KA--P--KD--KB,tri);
+        draw(KA--KC,tri);
+        draw(B--Q--A--P--D,pri);
+        draw(EE--G,sec);
+        draw(F--H,sec);
+        filldraw(circumcircle(A,B,C),fil,pri);
+        filldraw(A--B--C--D--cycle,fil,pri);
+        filldraw(EE--F--G--H--cycle,sfil,sec);
+        filldraw(KA--KB--KC--KD--cycle,tfil,tri);
+
+        dot("$A$",A,A);
+        dot("$B$",B,NE);
+        dot("$C$",C,C);
+        dot("$D$",D,SW);
+        dot("$E$",EE,N);
+        dot("$F$",F,NE);
+        dot("$G$",G,S);
+        dot("$H$",H,W);
+        dot("$P$",P,W);
+        dot("$Q$",Q,N);
+        dot("$R$",R,unit(G-R));
+        dot("$K_A$",KA,SE);
+        dot("$K_B$",KB,dir(240));
+        dot("$K_C$",KC,dir(240));
+        dot("$K_D$",KD,dir(60));
+    \end{asy}
+\end{center}
+Let $K_A$, $K_B$, $K_C$, and $K_D$ be the symmedian points of $\triangle BCD$, $\triangle CDA$, $\triangle DAB$, and $\triangle ABC$ respectively, and let $E=\overline{AA}\cap\overline{BB}$, $F=\overline{BB}\cap\overline{CC}$, $G=\overline{CC}\cap\overline{DD}$, $H=\overline{DD}\cap\overline{AA}$, $P=\overline{AB}\cap\overline{CD}$, $Q=\overline{AD}\cap\overline{BC}$, and $R=\overline{AC}\cap\overline{BD}$. Assume for the sake of contradiction that $ABCD$ has no two sides parallel (i.e.\ $P$ and $Q$ are not infinity) but $K_AK_BK_CK_D$ is cyclic. The key claim is this:
+\begin{iclaim*}
+    $P=\overline{K_AK_B}\cap\overline{K_CK_D}$, $Q=\overline{K_AK_D}\cap\overline{K_BK_C}$, and $R=\overline{K_AK_C}\cap\overline{K_BK_D}$.
+\end{iclaim*}
+\begin{proof}
+    By definition of symmedian point, $K_A=\overline{BG}\cap\overline{DF}$ and $K_C=\overline{BH}\cap\overline{DE}$. Applying Brianchon's Theorem on hexagons $EBFGDH$ and $EFCGHA$ shows that $R=\overline{EG}\cap\overline{RH}$, so by Pappus' Theorem on $\overline{EBF}$ and $\overline{HDG}$, points $K_A$, $R$, $K_C$ are collinear. By symmetry, $R=\overline{K_AK_C}\cap\overline{K_BK_D}$, and analogous arguments show that $P=\overline{K_AK_B}\cap\overline{K_CK_D}$ and $Q=\overline{K_AK_D}\cap\overline{K_BK_C}$, as desired.
+\end{proof}
+
+Now, this implies that $(K_AK_BK_CK_D)$ is the polar circle of $\triangle PQR$; however, by definition so is $(ABCD)$. Since the polar circle is unique, $(ABCD)$ and $(K_AK_BK_CK_D)$ coincide, but this is impossible, as the symmedian point of a triangle must lie inside the triangle.

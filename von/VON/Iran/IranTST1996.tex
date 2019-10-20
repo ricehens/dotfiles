@@ -1,0 +1,13 @@
+desc: f(x^2+y)=f(f(x)-y)+4f(x)y
+source: Iran TST 1996
+tags: [2019-10, oly, easy, alg, FE]
+
+---
+
+Find all functions $f:\mathbb R\to\mathbb R$ satisfying \[f(x^2+y)=f(f(x)-y)+4f(x)y\]
+for all real numbers $x$ and $y$.
+
+---
+
+The answer is $f\equiv0$ and $f(x)=x^2$, which work. Let $P(x,y)$ denote the assertion. $P(0,f(0))$ gives $f(0)=0$ and $P(0,y)$ subsequently gives $f$ even. By $P(x,f(x))$ and $P(x,-x^2)$, \[4f(x)x^2=f\left(x^2+f(x)\right)=4f(x)^2,\]
+whence either $f(x)=0$ or $f(x)=x^2$ for all $x$. Say there is a $z\ne0$ with $f(z)=0$. Then $f(z^2+y)f(y)$ for all $y$. Taking $y=0$ says $f(z^2)=0$, so if $y\ne0$ and $y\ne-z^2$, then $(z^2+y)^2=y^2$, implying either $f(y)=0$ or $y=-z^2/2$. However $f(-z^2/2)=f(z^2/2)=0$, and thus $f\equiv0$.

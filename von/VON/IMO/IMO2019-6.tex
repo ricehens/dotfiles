@@ -1,0 +1,464 @@
+desc: IMO 2019 Geometry Finale
+source: IMO 2019/6
+tags: [2019-10, oly, hard, geo, spiral-sim, inversion, iran-lemma, queue-point, linearity, elliptic-curves]
+
+---
+
+Let $I$ be the incenter of acute triangle $ABC$ with $AB\neq AC$. The incircle $\omega$ of $\triangle ABC$ is tangent to sides $BC$, $CA$, and $AB$ at $D$, $E$, and $F$, respectively. The line through $D$ perpendicular to $\overline{EF}$ meets $\omega$ at $R$. Line $AR$ meets $\omega$ again at $P$. The circumcircles of triangles $PCE$ and $PBF$ meet again at $Q$.
+
+Prove that lines $DI$ and $PQ$ meet on the line through $A$ perpendicular to $AI$.
+
+---
+
+\begin{customenv}{First solution, by spiral similarity}\
+    \begin{center}
+        \begin{asy}
+            size(10.5cm);
+            defaultpen(fontsize(9pt));
+
+            pen pri=red;
+            pen sec=orange;
+            pen tri=fuchsia;
+            pen qua=heavyred;
+            pen fil=pri+opacity(0.05);
+            pen sfil=sec+opacity(0.05);
+            pen tfil=tri+opacity(0.05);
+            pen qfil=qua+opacity(0.05);
+
+            pair O, A, B, C, K, KK, I, IA, D, EE, F, M, R, P, L, X, T, DD, SS, BB, CC, Bp, Cp, Dp, Y, Q, NN, H, J, Z;
+            O=(0,0);
+            A=dir(125);
+            B=dir(220);
+            C=dir(320);
+            K=dir(90);
+            KK=dir(270);
+            I=incenter(A,B,C);
+            IA=2*KK-I;
+            D=foot(I,B,C);
+            EE=foot(I,C,A);
+            F=foot(I,A,B);
+            M=(EE+F)/2;
+            R=2*foot(I,D,foot(D,EE,F))-D;
+            P=2*foot(I,A,R)-R;
+            L=2*foot(O,A,P)-A;
+            X=2*foot(KK,I,K)-I;
+            T=extension(D,M,P,X);
+            DD=2I-D;
+            SS=extension(A,K,D,I);
+            Bp=reflect(A,I)*C;
+            Cp=reflect(A,I)*B;
+            Dp=foot(I,Bp,Cp);
+            Y=extension(Bp,Cp,EE,F);
+            Q=extension(I,Y,P,T);
+            BB=extension(B,Q,EE,F);
+            CC=extension(C,Q,EE,F);
+            NN=(Bp+Cp)/2;
+            H=extension(Bp,CC,Cp,BB);
+            J=2*foot(KK,I,D)-I;
+            Z=intersectionpoints(circle(O,1),circumcircle(A,EE,F))[1];
+
+            fill(D--EE--F--cycle,sfil);
+            fill(A--B--C--cycle,fil);
+            filldraw(circumcircle(B,P,F),tfil,tri);
+            filldraw(circumcircle(C,P,EE),tfil,tri);
+            filldraw(circumcircle(A,Z,D),qfil,qua);
+            filldraw(circumcircle(B,I,C),sfil,sec);
+            filldraw(circumcircle(A,EE,F),sfil,sec);
+            filldraw(circle(O,1),fil,pri);
+            filldraw(incircle(A,B,C),fil,pri);
+            draw(R--D,tri+dashed);
+            draw(J--SS,qua);
+            draw(X--SS,sec);
+            draw(P--A--K,pri);
+            draw(K--X,pri+dashed);
+            draw(A--IA,pri+dashed);
+            draw(B--C--A--B,pri);
+            draw(EE--D--F--EE,pri);
+
+            dot("$A$",A,dir(100));
+            dot("$B$",B,dir(200));
+            dot("$C$",C,E);
+            dot("$K$",K,N);
+            dot("$I$",I,dir(-30));
+            dot("$I_A$",IA,unit(IA-I));
+            dot("$D$",D,SW);
+            dot("$E$",EE,dir(100));
+            dot("$F$",F,dir(120));
+            dot("$M$",M,dir(70));
+            dot("$R$",R,NW);
+            dot("$P$",P,dir(120));
+            dot("$X$",X,unit(X-L));
+            dot("$S$",SS,SE);
+            dot("$Q$",Q,dir(-20));
+            dot("$J$",J,S);
+            dot("$Z$",Z,dir(160));
+        \end{asy}
+    \end{center}
+    \setcounter{iclaim}0
+    \begin{iclaim}
+        $BCIQ$ is cyclic.
+    \end{iclaim}
+    \begin{proof}
+        Just notice that
+        \begin{align*}
+            \measuredangle BQC&=\measuredangle BQP+\measuredangle PQC=\measuredangle BFP+\measuredangle PEC\\
+            &=\measuredangle FEP+\measuredangle PFE=\measuredangle FPE=\measuredangle FDE=\measuredangle BIC,
+        \end{align*}
+        as desired.
+    \end{proof}
+    \begin{iclaim}
+        $\triangle RFE\sim\triangle IBC$.
+    \end{iclaim}
+    \begin{proof}
+        Again this is just angle chasing: \[\measuredangle RFE=\measuredangle RDE=90^\circ-\measuredangle DEF=\measuredangle FDI=\measuredangle FBI=\measuredangle IBC,\]
+        and similarly $\measuredangle FER=\measuredangle BCI$, as desired.
+    \end{proof}
+
+    Let $Z=(ABC)\cap(AEF)$ be the Miquel point of $BCEF$, and let $\psi$ be the spiral similarity at $Z$ sending $\overline{FE}$ to $\overline{BC}$. By Claim 2, $\psi$ sends $R$ to $Q$. Also let it send $D$ to $J$, $A$ to $K$, and $P$ to $X$. It is not hard to see that $J$ lies on $(BIC)$ with $\overline{IJ}\perp\overline{BC}$ and $K$ is the midpoint of arc $BAC$ on the circumcircle. Furthermore, since $(EF;PR)$ is harmonic, so is $(BC;XI)$; but $\overline{KB}$ and $\overline{KC}$ are tangent to $(BIC)$, so $X$ lies on both $(BIC)$ and $\overline{KI}$.
+
+    Let $S=\overline{DJ}\cap\overline{AK}$. It suffices to show that $S$ lies on line $PQ$.
+    \begin{iclaim}
+        $A$, $S$, $D$, $P$, $Z$ are concyclic.
+    \end{iclaim}
+    \begin{proof}
+        By the spiral similarity at $Z$, points $A$, $S$, $D$, $Z$ are already concyclic. But \[\measuredangle APD=\measuredangle RPD=\measuredangle RDB=\measuredangle(\overline{AI},\overline{BC})=\measuredangle(\overline{AS},\overline{DG})=\measuredangle AZD,\]
+        as desired.
+    \end{proof}
+    \begin{iclaim}
+        $X$, $P$, $Q$, $S$ are collinear.
+    \end{iclaim}
+    \begin{proof}
+        By the spiral similarity at $Z$, $\measuredangle ZPX=\measuredangle ZAK=\measuredangle ZAS=\measuredangle ZPS$, so $X$, $P$, $S$ are collinear. Finally, notice that $\measuredangle BQX=\measuredangle BCX=\measuredangle FEP=\measuredangle BFP=\measuredangle BQP$.
+    \end{proof}
+
+    Claim 4 is exactly what we want to show, so we are done.
+\end{customenv}
+\begin{customenv}{Second solution, by inversion}
+    Let $\Omega$ be the circumcircle of $\triangle BIC$ and $D'$ the antipode of $D$ on $\omega$. First we claim that $Q\in\Omega$. This follows from
+    \begin{align*}
+        \measuredangle BQC&=\measuredangle BQP+\measuredangle PQC=\measuredangle BFP+\measuredangle PEC\\
+        &=\measuredangle FEP+\measuredangle PFE=\measuredangle FPE=\measuredangle FDE=\measuredangle BIC.
+    \end{align*}
+    Furthermore, the systems $(A,F,E,\omega)$ and $(K,B,C,\Omega)$ are similar since $\overline{KB}$ and $\overline{KC}$ are tangent to $\Omega$ and $\measuredangle FAE=\measuredangle BKC$. Noting that $\overline{IK}$ is the $K$-symmedian of $\triangle IBC$, \[\measuredangle BQP=\measuredangle BFP=\measuredangle FRP=\measuredangle FRA=\measuredangle BIK=\measuredangle BIX=\measuredangle BQX,\]
+    so points $X$, $P$, $Q$ are collinear. Let $S=\overline{DI}\cap\overline{AK}$. It suffices to show that $S$ lies on line $PX$.
+
+    Invert about $\omega$, sending $A$, $B$, $C$ to $A'$, $B'$, $C'$, the midpoints of $\overline{EF}$, $\overline{FD}$, $\overline{DE}$ respectively. Since $BICX$ is harmonic, $X$ is sent to the midpoint of $\overline{B'C'}$ (which also happens to be the midpoint of $\overline{DA'}$). Also $S$ is sent to $S'$, the projection of $A'$ onto $\overline{DD'}$. It is sufficient to show that $PX'IS'$ is cyclic. From here on we omit the prime symbol from images of the inversion for readability.
+    \begin{center}
+        \begin{asy}
+            size(6cm);
+            defaultpen(fontsize(9pt));
+
+            pen pri=red;
+            pen sec=orange;
+            pen tri=fuchsia;
+            pen fil=pri+opacity(0.05);
+            pen sfil=sec+opacity(0.05);
+
+            pair I, D, EE, F, A, B, C, Dp, H, R, P, X, SS;
+            I=(0,0);
+            D=dir(120);
+            EE=dir(200);
+            F=dir(340);
+            A=(EE+F)/2;
+            B=(F+D)/2;
+            C=(D+EE)/2;
+            Dp=-D;
+            H=D+EE+F;
+            R=reflect(EE,F)*H;
+            P=2*foot(I,A,Dp)-Dp;
+            SS=(A+D)/2;
+            X=foot(A,D,I);
+
+            filldraw(circle(I,1),fil,pri);
+            filldraw(circumcircle(D,P,A),sfil,sec);
+            draw(D--EE--F--D,pri);
+            draw(D--A,sec+dashed);
+            draw(B--C,sec+dashed);
+            draw(R--D--Dp--P,tri);
+            draw(SS--I,sec);
+            draw(A--X,tri);
+            draw(circumcircle(P,X,I),tri+dashed);
+            real lim=-1.1;
+            clip((-lim,-lim)--(-lim,lim)--(lim,lim)--(lim,-lim)--cycle);
+
+            dot("$D$",D,D);
+            dot("$E$",EE,EE);
+            dot("$F$",F,F);
+            dot("$R$",R,R);
+            dot("$P$",P,dir(120));
+            dot("$D'$",Dp,Dp);
+            dot("$I$",I,NE);
+            dot("$A$",A,dir(240));
+            dot("$B$",B,NE);
+            dot("$C$",C,NW);
+            dot("$X$",SS,dir(220));
+            dot("$S$",X,E);
+            dot("$H$",H,SW);
+        \end{asy}
+    \end{center}
+    Since $ERFP$ is harmonic, it is well-known that $P$ lies on line $HAD'$. Note that $\overline{SI}$ is the $D$-midsegment of $\triangle MAD'$, so $\overline{SI}\parallel\overline{AD'}$. However, $IP=ID'$, so $\overline{SI}$ is the external angle bisector of $\angle PIX$. Thus it suffices to show that $SP=SX$. However, $D$, $P$, $A$, $X$ all lie on the circle with diameter $\overline{DA}$ and center $S$, so $SP=SX$, and we are done.
+\end{customenv}
+\begin{customenv}{Third solution, by the Iran Lemma}\
+    \begin{center}
+        \begin{asy}
+            size(11cm);
+            defaultpen(fontsize(9pt));
+
+            pen pri=red;
+            pen sec=orange;
+            pen tri=fuchsia;
+            pen qua=heavyred;
+            pen fil=pri+opacity(0.05);
+            pen sfil=sec+opacity(0.05);
+            pen tfil=tri+opacity(0.05);
+            pen qfil=qua+opacity(0.05);
+
+            pair O, A, B, C, K, KK, I, IA, D, EE, F, M, R, P, L, X, T, DD, SS, BB, CC, Bp, Cp, Dp, Y, Q, NN, H;
+            O=(0,0);
+            A=dir(125);
+            B=dir(210);
+            C=dir(330);
+            K=dir(90);
+            KK=dir(270);
+            I=incenter(A,B,C);
+            IA=2*KK-I;
+            D=foot(I,B,C);
+            EE=foot(I,C,A);
+            F=foot(I,A,B);
+            M=(EE+F)/2;
+            R=2*foot(I,D,foot(D,EE,F))-D;
+            P=2*foot(I,A,R)-R;
+            L=2*foot(O,A,P)-A;
+            X=2*foot(KK,I,K)-I;
+            T=extension(D,M,P,X);
+            DD=2I-D;
+            SS=extension(A,K,D,I);
+            Bp=reflect(A,I)*C;
+            Cp=reflect(A,I)*B;
+            Dp=foot(I,Bp,Cp);
+            Y=extension(Bp,Cp,EE,F);
+            Q=extension(I,Y,P,T);
+            BB=extension(B,Q,EE,F);
+            CC=extension(C,Q,EE,F);
+            NN=(Bp+Cp)/2;
+            H=extension(Bp,CC,Cp,BB);
+
+            fill(D--EE--F--cycle,sfil);
+            fill(A--Bp--Cp--cycle,qfil);
+            fill(A--B--C--cycle,fil);
+            filldraw(circumcircle(Bp,Cp,BB),qfil,qua);
+            filldraw(circumcircle(B,P,F),tfil,tri);
+            filldraw(circumcircle(C,P,EE),tfil,tri);
+            filldraw(circumcircle(B,I,C),sfil,sec);
+            filldraw(circle(O,1),fil,pri);
+            filldraw(incircle(A,B,C),fil,pri);
+            draw(Bp--BB,qua);
+            draw(Cp--CC,qua);
+            draw(B--BB,sec);
+            draw(C--CC,sec);
+            draw(Bp--Cp,qua);
+            draw(IA--Q,qua+dashed);
+            draw(R--D--T,tri+dashed);
+            draw(D--SS,tri);
+            draw(P--SS,sec);
+            draw(P--A--K,pri);
+            draw(A--IA,pri+dashed);
+            draw(B--C--A--Bp,pri);
+            draw(F--D--EE--CC,pri);
+
+            dot("$A$",A,dir(100));
+            dot("$B$",B,dir(200));
+            dot("$C$",C,E);
+            dot("$K$",K,N);
+            dot("$I$",I,dir(-30));
+            dot("$I_A$",IA,unit(IA-I));
+            dot("$D$",D,SW);
+            dot("$E$",EE,dir(80));
+            dot("$F$",F,NW/2);
+            dot("$M$",M,dir(70));
+            dot("$R$",R,NW);
+            dot("$P$",P,dir(120));
+            dot("$T$",T,dir(120));
+            dot("$D^+$",DD,NE);
+            dot("$S$",SS,SE);
+            dot("$B^+$",BB,N);
+            dot("$C^+$",CC,N);
+            dot("$B'$",Bp,dir(210));
+            dot("$C'$",Cp,dir(80));
+            dot("$D'$",Dp,SE);
+            dot("$Q$",Q,dir(-30));
+            dot("$N$",NN,dir(-15));
+        \end{asy}
+    \end{center}
+    Let $I_A$ be the $A$-excenter, $\Omega$ the circumcircle of $\triangle BIC$, and let $\overline{PQ}$ and $\overline{DI}$ intersect $\omega$ again at $T$ and $D^+$ respectively. Denote by $D'$ the reflection of $D$ over $\overline{AI}$ and $M$ the midpoint of $\overline{EF}$. Let $K$ be the midpoint of arc $BAC$ on the circumcircle, and let $Q'$ lie on $\Omega$ such that $\overline{IQ'}\perp\overline{B'C'}$. Denote $B^+=\overline{BQ}\cap\overline{EF}$ and $C^+=\overline{CQ}\cap\overline{EF}$, and let $\overline{IB^+}$ and $\overline{IC^+}$ intersect $\Omega$ again at $B'$ and $C'$ respectively. 
+    \setcounter{iclaim}0
+    \begin{iclaim}
+        $BCIQ$ is cyclic.
+    \end{iclaim}
+    \begin{proof}
+        Just notice that
+        \begin{align*}
+            \measuredangle BQC&=\measuredangle BQP+\measuredangle PQC=\measuredangle BFP+\measuredangle PEC\\
+            &=\measuredangle FEP+\measuredangle PFE=\measuredangle FPE=\measuredangle FDE=\measuredangle BIC,
+        \end{align*}
+        as desired.
+    \end{proof}
+    \begin{iclaim}
+        $B^+$ lies on $(CPQE)$ and $C^+$ lies on $(BPQF)$.
+    \end{iclaim}
+    \begin{proof}
+        $\measuredangle CEB^+=\measuredangle AEF=\measuredangle CIB=\measuredangle CQB=\measuredangle CQB^+$ and similarly $\measuredangle BFC^+=\measuredangle BQC^+$.
+    \end{proof}
+    \begin{iclaim}
+        $B'$ and $C'$ are the reflections of $C$ and $B$ respectively across $\overline{AI}$.
+    \end{iclaim}
+    \begin{proof}
+        By Reim's Theorem on $(BPQFC^+)$ and $\Omega$, $\overline{FC^+}\parallel\overline{B'C}$. Then $\overline{BC'}$ and $\overline{B'C}$ are both perpendicular to $\overline{AI}$, and the desired result follows.
+    \end{proof}
+    \begin{iclaim}
+        $QIB^+C^+$ is cyclic.
+    \end{iclaim}
+    \begin{proof}
+        $\measuredangle QIB^+=\measuredangle QIB'=\measuredangle QBB'=\measuredangle QBF=\measuredangle QC^+F=\measuredangle QC^+B^+$.
+    \end{proof}
+    \begin{iclaim}
+        $\overline{I_AQ}$ bisects $\overline{B'C'}$.
+    \end{iclaim}
+    \begin{proof}
+        By the Iran Lemma on $\triangle AB'C'$, $B^+$ and $C^+$ lie on $(B'C')$. Since $Q$ is the Miquel point of $B'C'C^+B^+$, this is just a well-known result applied to $\triangle IB'C'$: If $H$ denotes the orthocenter of $\triangle IB'C'$, then $Q$ lies on the circle with diameter $\seg{IH}$ (since $H=\seg{B'C^+}\cap\seg{C'B^+}$). But it is well-known that $I_A$ is the reflection of $H$ over the midpoint $N$ of $\seg{B'C'}$. Thus $N$ lies on $\seg{QI_A}$, as desired.
+    \end{proof}
+
+    Notice that \[\measuredangle I_AB'C'=\measuredangle I_ACC'=\measuredangle I_ACA=\measuredangle BIA=\measuredangle DFE,\]so $\triangle I_AB'C'\sim\triangle DFE$. Since \[\measuredangle B'I_AQ=\measuredangle B'BQ=\measuredangle FBQ=\measuredangle FPQ=\measuredangle FPT\]but $\overline{I_AQ}$ bisects $\overline{B'C'}$, $T$ lies on $\overline{PQ}$.
+
+    By Brocard's Theorem on $DPTD^+$, $S=\overline{DD^+}\cap\overline{PT}$ lies on the polar of $M$, which is the line through $A$ perpendicular to $\overline{AI}$. This completes the proof.
+\end{customenv}
+\begin{customenv}{Fourth solution, by two inversions}[Brandon Wang, Luke Robitaille, Michael Ren, Evan Chen]
+    Invert about $\omega$ and then invert about $P$. It is not hard to check that this gives the following problem.
+    \begin{boxrprob}
+        Let $PEF$ be a triangle and let the $P$-symmedian meet $\seg{EF}$ and $(PEF)$ at $K$ and $L$ respectively. Let $D$ lie on $\seg{EF}$ with $\angle DPK=90^\circ$, and let $T$ be the foot from $K$ to $\seg{DL}$. Denote by $I$ the reflection of $P$ about $\seg{EF}$. Finally, let $M$ and $N$ be the harmonic conjugates of $P$ with respect to $\seg{DE}$ and $\seg{DF}$ respectively. Prove that lines $EM$, $FN$, $TI$ are concurrent
+    \end{boxrprob}
+    \begin{center}
+        \begin{asy}
+            import cse5;
+            size(9cm);
+            defaultpen(fontsize(9pt));
+            pen pri=red;
+            pen sec=orange;
+            pen tri=fuchsia;
+            pen qua=heavyred;
+            pen fil=pri+opacity(0.05);
+            pen sfil=sec+opacity(0.05);
+            pen tfil=tri+opacity(0.05);
+            pen qfil=qua+opacity(0.05);
+
+            pair harmonic(pair A, pair B, pair C) {
+                pair O = circumcenter(A,B,C);
+                pair X = extension(B, B + (O-B)*dir(90), C, C + (O-C)*dir(90));
+                return (2*foot(O, A, X)-A);
+            }
+
+            pair P = dir(195), E = dir(220), F = dir(320), R = harmonic(P,E,F), W = foot(R,E,F), K = extension(P,R,E,F), D = IP(unitcircle, R--(1001*W-1000*R)), I = 0, L = (E+F)/2, T = foot(L,D,I), D1 = extension(E,F,P,P+(R-P)*dir(90)), N = harmonic(P,D1,E), M = harmonic(P, D1, F), I1 = 2*foot(P,E,F)-P, T1 = foot(K,D1,R), Q = extension(P,D,T1,I1), A = extension(P, R, I, L), Y = extension(P,Q,E,F);
+
+            filldraw(circumcircle(P,D1,E),tfil,tri);
+            filldraw(circumcircle(P,D1,F),tfil,tri);
+            filldraw(unitcircle,fil,pri);
+            draw(P--E--F--P,pri);
+            draw(P--R--D--D--Q,sec);
+            draw(E--F--P--E--D1,sec);
+            draw(D--E--F--D,sec);
+            draw(Q--E,tri);
+            draw(M--F,tri);
+            draw(W--Q--N,tri);
+            draw(D1--P--R--D1,qua);
+            draw(K--T1,qua);
+
+            clip((M-(-100,0.2))--(M-(100,0.2))--(M-(100,-100))--(M-(-100,-100))--cycle);
+
+            dot("$Z$", D, D);
+            dot("$E$", E, dir(225));
+            dot("$F$",F,dir(5));
+            dot("$P$",P,dir(85));
+            dot("$I$",I1,dir(280));
+            dot("$L$",R,dir(270));
+            dot("$K$",K,dir(75));
+            dot("$W$",W,dir(45));
+            dot("$M$",N,dir(125));
+            dot("$N$",M,dir(180));
+            dot("$Q$",Q,dir(290));
+            dot("$D$",D1,dir(180));
+            dot("$T$",T1,dir(280));
+        \end{asy}
+    \end{center}
+    Since $DPWL$ is cyclic, $\da ZEP=\da ZLP=\da WLP=\da WDP=\da EDP$, so $\seg{ZE}$ is tangent to $(DPE)$; similarly, $\seg{ZF}$ is tangent to $(DPF)$.
+
+    Note that $\triangle WTP$ is the orthic triangle of $\triangle DKL$, so it is well-known that $\seg{WD}$ bisects $\angle PTK$. However $I$ is the reflection of $P$ over $\seg{WD}$, so $W$, $T$, $I$ are collinear.
+
+    Finally, $-1=E(PM;DZ)=F(PN;DZ)=W(PI;DZ)$, so $\seg{EM}$, $\seg{FN}$, $\seg{WI}$ concur on $\seg{PZ}$, as desired.
+\end{customenv}
+\begin{customenv}{Fourth solution, by linearity}[Edward Wan]
+    Let $(BPE)$ and $(CPF)$ intersect $\seg{BC}$ again at $B_1$ and $C_1$ respectively. We start with this claim from Solution 1.
+    \setcounter{iclaim}0
+    \begin{iclaim}
+        $\triangle RFE\sim\triangle IBC$.
+    \end{iclaim}
+    \begin{proof}
+        This is just angle chasing: \[\measuredangle RFE=\measuredangle RDE=90^\circ-\measuredangle DEF=\measuredangle FDI=\measuredangle FBI=\measuredangle IBC,\]
+        and similarly $\measuredangle FER=\measuredangle BCI$, as desired.
+    \end{proof}
+    \begin{iclaim}
+        $DB_1:DC_1=AC:AB$.
+    \end{iclaim}
+    \begin{proof}
+        First $\da PB_1C_1=\da PB_1B=\da PFB=\da PEF$, so $\triangle PB_1C_1\sim\triangle PEF$. But $PERF$ is harmonic, so \[\frac{PB_1}{PC_1}=\frac{PE}{PF}=\frac{RE}{RF}=\frac{IC}{IB}=\frac{\sin\tfrac12B}{\sin\tfrac12C}.\]
+        However
+        \begin{align*}
+            \da B_1PD&=\da B_1PF+\da FPD=\da B_1BF+\da FED=\da DBF+\da FED\\\ &=\da DIF+\da FED=2\da DEF+\da FED=\da DEF,
+        \end{align*}
+        so $\angle B_1PD=90^\circ\pm\tfrac12B$ and $\angle C_1PD=90^\circ\mp\tfrac12C$. Thus by the Ratio Lemma, \[\frac{DB_1}{DC_1}=\frac{PB_1\sin\angle B_1PD}{PC_1\sin\angle C_1PD}=\frac{\sin\tfrac12B\cos\tfrac12B}{\sin\tfrac12C\cos\tfrac12C}=\frac{\sin B}{\sin C}=\frac{AC}{AB},\]
+        as desired.
+    \end{proof}
+
+    Now define functions $f_1,f_2:\mathbb R^2\to\mathbb R$ by
+    \begin{align*}
+        f_1(\bullet)&=\pow(\bullet,(BI))-\pow(\bullet,(CI)),\\
+        f_2(\bullet)&=\pow(\bullet,(BPF))-\pow(\bullet,(CPE)).
+    \end{align*}
+    It is well-known that $f_1$ and $f_2$ are linear. Also let the external angle bisector of $\angle A$ intersect $\seg{BC}$ at $Y$ and $\seg{DI}$ at $S$. It suffices to show that $f_2(S)=0$.
+    \begin{iclaim}
+        For all points $\bullet$ on $\seg{AS}$, $f_1(\bullet)=f_2(\bullet)$.
+    \end{iclaim}
+    \begin{proof}
+        Clearly $f_1(A)=AB\cdot AF-AC\cdot AE=f_2(A)$, so it suffices to show that $f_1(Y)=f_2(Y)$. But this is equivalent to \[YB\cdot YD-YC\cdot YD=YB\cdot YB_1\cdot YC\cdot YC_1,\]
+        or rather $YB\cdot DB_1=YC\cdot DC_1$. However $YB:YC=AB:AC$ by the Angle Bisector Theorem, so our claim has been reduced to Claim 2.
+    \end{proof}
+
+    Finally $S$ lies on $\seg{DI}$, the radical axis of $(BI)$ and $(CI)$. Hence $f_2(S)=f_1(S)=0$, and we are done.
+\end{customenv}
+\newpage
+\begin{customenv}{Fifth solution, by elliptic curves}[yaron235]
+    Instead we prove the following generalization:
+    \begin{boxgprob}
+        Let $ABC$ be a triangle and let $E$ and $F$ be points on $\seg{AC}$ and $\seg{AB}$ respectively. Let $D$ be a point in the plane and let $K$ be the intersection of the circumcircles of $\triangle DEC$ and $\triangle DFB$. Let $S$ be the intersection point of $\seg{DK}$ and a line through $A$ and parallel to $\seg{EF}$, and let $P$ be the second intersection of the circumcircles of $\triangle ASD$ and $\triangle FED$. Denote by $Q$ the second intersection of the circumcircles of $\triangle PEC$ and $\triangle PFB$. Prove that $S$ lies on $\seg{PQ}$.
+    \end{boxgprob}
+    It is not hard to check that the problem is a special case of this generalization; the only work that needs to be done is to prove this claim:
+    \setcounter{iclaim}0
+    \begin{iclaim}
+        In the language of the original problem, $ASDP$ is cyclic.
+    \end{iclaim}
+    \begin{proof}
+        Fortunately this is not hard. Just notice that \[\da APD=\da RPD=90^\circ+\da EFD+\da FED=\da(\seg{AI},\seg{BC})=\da ASD,\]
+        done. 
+    \end{proof}
+
+    Now let's prove the generalization. Work in $\mathbb C\mathrm P^2$, and let $I=(1:i:0)$ and $J=(1:-i:0)$ denote the two circular points at infinity, i.e. the two points at infinity common to every circle. Let $\gamma$ be the locus of points $X$ with the property that $S$ lies on the radical axis of the circumcircles of $\triangle XEC$ and $\triangle XFB$. We only need to prove that $P$ lies on this locus.
+    \begin{iclaim}
+        $\gamma$ is an elliptic curve.
+    \end{iclaim}
+    \begin{proof}
+        Indeed, if $X$ moves with degree $1$, then $Y$ moves with degree $2$ by homography. Thus the collinearity of points $X$, $Y$, $S$ has degree $3$, as desired.
+    \end{proof}
+
+    By construction, points $S$, $D$, $K$ already lie on $\gamma$. Of course points $B$, $F$, $C$, $E$, $I$, $J$ lie on $\gamma$ as well, since we can select arbitrary circles through two points. Also note that for all points $X$ in $\gamma$, the second intersection $Y$ of $(XEC)$ and $(XFB)$ also lies on $\gamma$, so in the group of $\gamma$, $X+Y+C+E+I+J=X+Y+B+F+I+J=0$. In particular, $C+E=B+F$, so $A=\seg{CE}\cap\seg{BF}$ lies on $\gamma$. Also $X$, $Y$, $S$ are collinear by definition, so $X+Y+S=0$ and thus $C+E+I+J=B+F+I+J=S$. Moreover $A$, $C$, $E$ are collinear, so $A+C+E=0$ and $I+J=A+S$. It follows that $\infty_{EF}$, the point at infinity along $\seg{EF}$, lies on $\gamma$.
+
+    Recall that we want to prove that $P$ lies on $\gamma$. But $(DEF)$ intersects $\gamma$ again at $-(D+E+F+I+J)$ and $(ATD)$ intersects $\gamma$ again at $-(A+S+D+I+J)$. It is sufficient to show that these are the same point. But $\infty_{EF}=\seg{EF}\cap\seg{AS}$ lies on $\gamma$, so $E+F=A+S$, and we are done.
+\end{customenv}

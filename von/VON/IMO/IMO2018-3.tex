@@ -1,0 +1,63 @@
+desc: Anti-pascal triangles
+source: IMO 2018/3
+tags: [2019-10, oly, tricky, combo, arrows]
+
+---
+
+An anti-Pascal triangle is an equilateral triangular array of numbers such that, except for the numbers in the bottom row, each number is the absolute value of the difference of the two numbers immediately below it. For example, the following is an anti-Pascal triangle with four rows which contains every integer from $1$ to $10$.
+\[\begin{array}{
+            c@{\hspace{4pt}}c@{\hspace{4pt}}
+            c@{\hspace{4pt}}c@{\hspace{2pt}}c@{\hspace{2pt}}c@{\hspace{4pt}}c
+        } \vspace{4pt}
+        & & & 4 & & &  \\\vspace{4pt}
+        & & 2 & & 6 & &  \\\vspace{4pt}
+        & 5 & & 7 & & 1 & \\\vspace{4pt}
+        8 & & 3 & & 10 & & 9
+\end{array}\]
+Does there exist an anti-Pascal triangle with $2018$ rows which contains every integer from $1$ to $1+2+3+\ldots+2018$?
+
+---
+
+The answer is no. Let $N=2018$, and assume for the sake of contradiction such a triangle exists. For each number $x$ not at the bottom, let its children be $y$ and $z$. Draw an arrow from $x$ to $\max(y,z)$, so that if $y>z$, we draw an arrow from $x$ to $y$, and also $y=x+z$.
+
+Let the chain starting from the top element be $a_1$, $a_2$, $\ldots$, $a_N$ (so that $a_N$ is in the bottom row). Since at each step we increment by a different positive integer, it can be shown by induction that $a_i\ge1+2+\cdots+i$. That is, $a_N\ge1+2+\cdots+N$. Since every number in the triangle does not exceed $1+2+\cdots+N$, equality holds, and the numbers $1$ through $2018$ are all adjacent to some number in the chain. Consider the two subtriangles shown below.
+\begin{center}
+    \begin{asy}
+        size(6cm); defaultpen(fontsize(10pt));
+        pair A, B, C, A1, A2, A3, A4, A5, X, Y, D, EE, D1, E1, D2, D3, D4, D5;
+        A=dir(90);
+        B=dir(210);
+        C=dir(330);
+        A1=A+(0,-0.12);
+        A2=A1+0.2*sqrt(3)*unit(C-A);
+        A3=A2+0.27*sqrt(3)*unit(B-A);
+        A4=A3+0.3*sqrt(3)*unit(C-A);
+        A5=A4+0.15*sqrt(3)*unit(B-A);
+        X=A5+(-0.1,0);
+        Y=A5+(0.1,0);
+        D=extension(A,B,X,X+unit(C-A));
+        EE=extension(A,C,Y,Y+unit(B-A));
+        D1=D+(0,-0.12);
+        E1=EE+(0,-0.12);
+        D2=D1+0.2*unit(B-A);
+        D3=D2+0.15*unit(C-A);
+        D4=D3+0.1*unit(B-A);
+        D5=extension(B,C,D4,D4+unit(C-A));
+
+        fill(A--B--C--cycle,yellow);
+        fill(D--X--B--cycle,cyan);
+        fill(EE--Y--C--cycle,cyan);
+        draw(A--B--C--A); draw(A1--A2--A3--A4--A5);
+        draw(D--X); draw(EE--Y);
+        draw(D1--D2--D3--D4--D5);
+    \end{asy}
+\end{center}
+We do not include $1+2+\cdot+N$ nor the two adjacent numbers, so neither triangle contains any integer $1$ through $2018$. By the Pigeonhole Principle one triangle has at least $1008$ elements in its bottom row, so the number $X$ at the bottom of the chain from the triangle's topmost element is greater than
+\begin{align*}
+    X&\ge(N+1)+(N+2)+\cdots+(N+1008)\\
+    &=1008N+504\cdot1009\\
+    &=1009(N+504)-N\\
+    &>1009(N+1)\\
+    =1+2+\cdots+N,
+\end{align*}
+a contradiction.

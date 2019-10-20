@@ -5,8 +5,14 @@ urxvt.background:	black
 urxvt.foreground:	gray
 
 !! Font preferences
-urxvt.font:	xft:DejaVu Sans Mono:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
-urxvt.boldFont:	xft:DejaVu Sans Mono:pixelsize=22:weight=bold
+!urxvt.font:	xft:DejaVu Sans Mono:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
+!urxvt.boldFont:	xft:DejaVu Sans Mono:pixelsize=22:weight=bold
+!URxvt*font:                 xft:Hack:style=Regular:size=8,xft:DejaVu Sans Mono:regular:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*font:                 xft:DejaVu Sans Mono:regular:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*imFont:               xft:DejaVu Sans Mono:regular:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*boldFont:             xft:DejaVu Sans Mono:bold:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*italicFont:           xft:DejaVu Sans Mono:italic:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*boldItalicFont:       xft:DejaVu Sans Mono:bold:italic:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
 urxvt.letterSpace:	-1
 
 !! Larger history limit

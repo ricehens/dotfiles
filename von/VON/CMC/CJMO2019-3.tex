@@ -1,0 +1,74 @@
+desc: Iran Lemma flagship
+source: CJMO 2019/3
+tags: [2019-10, oly, medium, geo, iran-lemma, projective, angle-chasing]
+author: Eric Shen
+
+---
+
+Let $I$ be the incenter of $\triangle ABC$, and $M$ be the midpoint of $\overline{BC}$. Let $\Omega$ be the nine-point circle of $\triangle BIC$. Suppose that $\overline{BC}$ intersects $\Omega$ at a point $D\ne M$. If $Y$ is the intersection of $\overline{BC}$ and the $A$-intouch chord, and $X$ is the projection of $Y$ onto $\overline{AM}$, prove that $X$ lies on $\Omega$, and the intersection of the tangents to $\Omega$ at $D$ and $X$ lies on the $A$-intouch chord of $\triangle ABC$.
+
+(The nine-point circle of $\triangle ABC$ is the circumcircle of its medial triangle, and if the incircle touches $\overline{AC}$ and $\overline{AB}$ at $E$ and $F$, respectively, then $\overline{EF}$ is the $A$-intouch chord.)
+
+---
+
+\begin{customenv}{First solution, by harmonic bundles}
+    Let the incircle of $\triangle ABC$ touch $\overline{AC}$ and $\overline{AB}$ at $E$ and $F$, respectively. Furthermore, let $P=\overline{BI}\cap\overline{EF}$ and $Q=\overline{CI}\cap\overline{EF}$. By the Iran Lemma, $\angle BPC=\angle BQC=90^\circ$, so $MP=MQ$. Let $T=\overline{AM}\cap\overline{EF}$. Obviously the incircle of $\triangle ABC$ touches $\overline{BC}$ at $D$.
+    \begin{center}
+        \begin{asy}
+            import olympiad;
+            size(12cm);
+            pen pri=red+linewidth(0.5);
+            pen sec=orange+linewidth(0.5);
+            pen tri=fuchsia+linewidth(0.5);
+            pen qua=pink+linewidth(0.5);
+            pen fil=red+opacity(0.05);
+            pen sfil=orange+opacity(0.05);
+            pen tfil=fuchsia+opacity(0.05);
+            defaultpen(fontsize(10pt));
+
+            pair O, A, B, C, M, I, D, EE, F, P, Q, X, Y;
+            O=(0, 0);
+            A=dir(150);
+            B=dir(220);
+            C=dir(320);
+            M=(B+C)/2;
+            I=incenter(A, B, C);
+            D=foot(I, B, C); EE=foot(I, C, A); F=foot(I, A, B);
+            P=extension(B, I, EE, F); Q=extension(C, I, EE, F);
+            X=intersectionpoints(A -- M, circumcircle(M, P, Q))[0];
+            Y=extension(B, C, EE, F);
+
+            draw(A -- B -- C -- A, pri); draw(B -- P, sec); draw(C -- Q, sec); draw(A -- M, tri); filldraw(circumcircle(M, P, Q), sfil, sec); draw(P -- Y, sec); draw(Y -- B, pri); filldraw(incircle(A, B, C), fil, pri);
+
+            pair K=2*circumcenter(D, X, circumcenter(D, P, Q))-circumcenter(D, P, Q);
+            draw(D -- K -- X, qua); draw(P -- K, sec);
+
+            pair T=extension(A, M, EE, F);
+            draw(D -- T, tri);
+
+            draw(P -- M -- Q, sec);
+
+            dot("$A$", A, N);
+            dot("$B$", B, S);
+            dot("$C$", C, SE);
+            dot("$M$", M, SE);
+            dot("$I$", I, SE);
+            dot("$D$", D, SW);
+            dot("$E$", EE, N);
+            dot("$F$", F, NW);
+            dot("$P$", P, N);
+            dot("$Q$", Q, NW);
+            dot("$X$", X, W);
+            dot("$Y$", Y, SW);
+            dot("$K$", K, NW);
+            dot("$T$", T, N);
+        \end{asy}
+    \end{center}
+    It is well-known that $T$ lies on $\overline{ID}$. Then, by Ceva-Menelaus, \[-1=(B,C;D,Y)\stackrel{I}{=}(P,Q;T,Y).\]However, by construction, $\angle TXY=90^\circ$, so by a well-known lemma, $\overline{XT}$ bisects $\angle PXQ$. Since $\triangle DPQ$ is the orthic triangle of $\triangle BIC$, $(DPQ)=\Omega$. However, because $MP=MQ$, $M$ is the midpoint of $\widehat{PQ}$ in $\Omega$. By Apollonian circles, $X$ is unique point on $\overline{AM}$ such that $\overline{XM}$ bisects $\angle PXQ$, whence $X\in(PMQ)$. Then, notice that \[-1=(P,Q;T,Y)\stackrel{M}{=}(P,Q;X,D),\]and it follows that the intersection of the tangents to $\Omega$ at $D$ and $X$ lies on $\overline{PQ}$, which is the $A$-intouch chord, as required. 
+\end{customenv}
+\begin{customenv}{Second solution, by angle chasing}
+    Assume WLOG $\angle B>\angle C$. Clearly $D$ is the point where the incircle touches $\overline{BC}$. Let $\overline{EF}$ be the $A$-intouch chord, $H$ be the orthocenter of $\triangle BIC$, and $N$ and $S$ be the midpoints of $\overline{HI}$ and $\overline{HC}$, respectively. It is well-known that $\overline{AM},\overline{EF},\overline{ID}$ concur at a point, say $T$. Since $TXYD$ is cyclic, \[\angle MXD=\angle TXD=\angle TYD=180-\angle CEY-\angle YCE=90-\frac{A}2-C.\]
+    However, if $H_I$ and $I_A$ denote the reflections of $H$ over $D$ and $M$, respectively, so that they lie on the circumcircle of $\triangle BIC$. If $L$ is the intersection of the angle bisector of $\angle BIC$ with $(BIC)$, since $\widehat{H_IL}=\widehat{LI_A}$, \[\angle MND=\angle I_AIH_I=2\angle LIH_I=2\angle CID-2\angle LIC=90-\frac{A}2-C,\]
+    and $X\in\Omega$. If $K$ is the midpoint of $\overline{YT}$ so that $K$ is the circumcenter of $YDTX$, then \[\measuredangle KXD=90-\measuredangle DYX=90-\measuredangle DTX=90-\measuredangle DTM=\measuredangle TMD=\measuredangle XMD,\]
+    so $\overline{KX}$ is tangent to $\Omega$. Furthermore, $KD^2=KX^2$, so we are done.
+\end{customenv}

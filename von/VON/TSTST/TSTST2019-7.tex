@@ -1,0 +1,17 @@
+desc: v_p FE
+source: TSTST 2019/7
+tags: [2019-10, oly, trivial, nt, fe, p-adic]
+
+---
+
+Let $f:\mathbb Z\to\{1,\,2,\,\ldots,\,10^{100}\}$ be a function satisfying \[\gcd\big(f(x),\,f(y)\big)=\gcd\big(f(x),\,x-y\big)\]
+for all integers $x$ and $y$. Show that there exist positive integers $m$ and $n$ such that $f(x)=\gcd(m+x,\,n)$ for all integers $x$.
+
+---
+
+Let $p\le 10^{100}$ be a prime. Set $x$ such that $\nu_p\big(f(x)\big)$ is maximal, so that for all $y$, \[\nu_p\big(f(y)\big)=\min\big[\nu_p\big(f(x)\big),\,\nu_p(x-y)\big].\]
+It is immediate that all $y$ of the form $x+kp^{\nu_p(f(x))}$ have maximal $\nu_p\big(f(y)\big)$, so $\nu_p\big(f(y)\big)$ is maximal when
+\begin{equation}
+    y\equiv x\pmod[\Big]{p^{\nu_p(f(x))}}.\tag{$*$}
+\end{equation}
+By the Chinese Remainder Theorem, there exists negative $z$ obeying $(*)$, so taking $m=-z$ and $n=f(z)$ yields $f(y)=\gcd(n,\,y+m)$, as desired.

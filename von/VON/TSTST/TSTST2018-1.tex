@@ -1,0 +1,18 @@
+desc: "\u03B8(p(x))=p(\u03B8(x))"
+source: TSTST 2018/1
+tags: [2019-10, oly, medium, nt, FE]
+
+---
+
+As usual, let $\mathbb Z[x]$ denote the set of single-variable polynomials in $x$ with integer coefficients. Find all functions $\theta:\mathbb Z[x]\to\mathbb Z$ such that for any polynomials $p,q\in\mathbb Z[x]$,
+\begin{itemize}[itemsep=0em]
+    \item $\theta(p+1)=\theta(p)+1$, and
+    \item if $\theta(p)\ne0$ then $\theta(p)$ divides $\theta(p\cdot q)$
+\end{itemize}
+
+---
+
+The answer is $\theta(p)=p(c)$ for some $c$. These clearly work, so we show these are the only solutions; it is sufficient to show that $\theta(p(x))=p(\theta(x))$.
+
+The first condition says $\theta(p+a)=\theta(p)+a$ for all integers $a$; to obtain negative $a$, write $\theta(p)=\theta(p+a)-a$. For all $a$, $x-a\mid p(x)-p(a)$, so $\theta(x)-a\mid\theta(p(x))-p(a)$. But $a\equiv\theta(x)\pmod{\theta(x)-a}$, so \[0\equiv\theta(p(x))-p(a)\equiv\theta(p(x))-p(\theta(x))\pmod{\theta(x)-a}\]
+for all $a$. Hence it is zero.

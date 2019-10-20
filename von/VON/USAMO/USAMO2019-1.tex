@@ -1,0 +1,42 @@
+desc: Arrow-based FE
+source: USAMO 2019/1
+tags: [2019-10, oly, easy, alg, FE, arrows]
+
+---
+
+Let $\mathbb N$ be the set of positive integers. A function $f:\mathbb N\to\mathbb N$ satisfies the equation \[\underbrace{f(f(\ldots f}_{f(n)\text{ times}}(n)\ldots))=\frac{n^2}{f(f(n))}\]
+for all positive integers $n$. Given this information, determine all possible values of $f(1000)$.
+
+---
+
+The answer is all positive evens, achieved by all functions that fix odds and are involutions on evens.
+\setcounter{iclaim}0
+\begin{iclaim}
+    $f$ is injective.
+\end{iclaim}
+\begin{proof}
+    Suppose that $f(a)=f(b)$. Now write \[a^2=f^2(a)f^{f(a)}(a)=f^2(b)f^{f(b)}(b)=b^2,\]
+    hence $a^2=b^2$. Since $f$ is defined only on positive integers, this is sufficient.
+\end{proof}
+\begin{iclaim}
+    For all odd $n$, $f(n)=n$.
+\end{iclaim}
+\begin{proof}
+    Apply strong induction on $n$. Suppose that for all odd $m<n$, $f(m)=m$. Then write the given functional equation as $f^2(n)f^{f(n)}(n)=n^2$. If $n=1$, then $f^2(n)=f^{f(n)}(n)$. Otherwise note that by injectivity and hypothesis, if $f^2(n)<n$, then $f^{f(n)}(n)=f^2(n)<n$, and vice versa; furthermore if $f^2(n)\ne f^{f(n)}(n)$ then one of them is less than $n$, contradiction.
+
+    Hence $f^2(n)=f^{f(n)}(n)$. Now if $f(n)$ is odd, $f(n)=n$, the end. Otherwise let $k=f(n)$ be even. Then $k^2=f^2(k)f^n(k)=kn$, whence $k=n$, impossible.
+\end{proof}
+
+Now, we may conclude that by injectivity, $f(1000)$ cannot be odd.
+\begin{boxremark}[Describing all $f$]
+    Analogously we may show that $f$ is an involution on evens. Apply strong induction on $n$, and write $f^2(n)f^{f(n)}(n)=n^2$. Now by Claim 2 $f(n)$ is even, so if $f^2(n)<n$ then $f^{f(n)}=f^2(n)<n^2$ and vice versa. Hence $f^2(n)=n$ as claimed.
+\end{boxremark}
+\begin{boxremark}[MOP Homework]
+    Consider the functional equation \[\underbrace{f(f(\ldots f}_{n\text{ times}}(n)\ldots))=\frac{n^2}{f(f(n))}.\]
+    This functional equation has the same solution: $f$ fixes odds and is an involution on evens. The solution is essentially the same, except injectivity is not freely given. Instead we can use strong induction to show that
+    \begin{itemize}
+        \item For all odd $n$, $f(k)=n\iff k=n$.
+        \item For all even $n$, $f^2(k)=n\iff k=n$.
+    \end{itemize}
+    We can also eliminante the last paragraph of the proof of Claim 2, since $n$ is always odd.
+\end{boxremark}

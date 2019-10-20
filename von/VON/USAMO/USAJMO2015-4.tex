@@ -1,0 +1,23 @@
+desc: Cauchy arithmetic sequence FE
+source: USAJMO 2015/4
+tags: [2019-10, oly, trivial, alg, FE]
+
+---
+
+Find all functions $f:\mathbb Q\to\mathbb Q$ such that \[f(x)+f(t)=f(y)+f(z)\]
+for all rational numbers $x<y<z<t$ that form an arithmetic progression.
+
+---
+
+The answer is $f$ linear. It is easy to check that this works. Now, by the given condition, for all $a,d\in\mathbb Q$,
+\begin{align}
+f\left(a-\frac32d\right)+f\left(a+\frac32d\right)&=f\left(a-\frac12d\right)+f\left(a+\frac12d\right),\\
+f\left(a-\frac32d\right)+f(a)&=f\left(a-\frac12d\right)+f(a-d),\\
+f(a)+f\left(a+\frac32d\right)&=f(a+d)+f\left(a+\frac12d\right).
+\end{align}
+Taking $(2)+(3)-(1)$, \[2f(a)=f(a+d)+f(a-d).\]
+This is Jensen's Functional Equation, which is linear.
+
+For completeness, we will prove that Jensen's Functional Equation is linear. Let $g(x)=f(x)-f(0)$. Then, \[2g(a)=g(a+d)+g(a-d)\]
+as well, but $g(0)=0$. If $a=d$, we find that $2g(a)=g(2a)$, so \[g(2a)=g(a+d)+g(a-d),\]
+which is Cauchy's Functional Equation, done.

@@ -1,0 +1,38 @@
+desc: Coin splitting
+source: TSTST 2019/4
+tags: [2019-10, oly, tricky, combo, local, optimization]
+
+---
+
+Consider coins with positive real denominations not exceeding $1$. Find the smallest $C>0$ such that the following holds: if we are given any $100$ such coins with total value $50$, then we can always split them into two stacks of $50$ coins each such that the absolute difference between the total values of the two stacks is at most $C$.
+
+---
+
+The answer is $\tfrac{50}{51}$. This is possible by giving $49$ coins a value of $1$ and $51$ coins a value of $\tfrac1{51}$. Now, suppose the values of the coins are denoted $a_1\le a_2\le\cdots\le a_{100}$. Call a gap between two consecutive elements $a_n$ and $a_{n+1}$ \emph{big} if $a_{n+1}-a_n>\tfrac{50}{51}$.
+\begin{iclaim*}
+    A gap can be big only if $n=50$.
+\end{iclaim*}
+\begin{proof}
+    Assume that $k<50$ is a big gap. Then, $a_i<\tfrac1{51}$ for all $i\le k$ and $a_i>\tfrac{50}{51}$ for all $i>k$. Hence, \[\sum_{i=1}^{100}a_i>\frac{50}{51}(100-k)\ge\frac{50\cdot51}{51}=50,\]
+    a contradiction. Similarly, if $k>50$ is a big gap, then \[\sum_{i=1}^{100}a_k<\frac1{51}k+(100-k)=100-\frac{50}{51}k\ge100-\frac{50\cdot 51}{51}=50,\]
+    the desired contradiction.
+\end{proof}
+
+It is immediate that $a_{50}\le\tfrac{50}{51}$ and $a_{51}\ge\tfrac1{51}$. Consider
+\begin{align*}
+    L&=(a_1+a_3+\cdots+a_{49})+(a_{52}+a_{54}+\cdots+a_{100}),\\
+    R&=(a_2+a_4+\cdots+a_{50})+(a_{51}+a_{53}+\cdots+a_{99}).
+\end{align*}
+Compute that
+\begin{align*}
+    L-R&=a_1+(a_3-a_2)+(a_5-a_4)+\cdots+(a_{49}-a_{48})\\
+    &\quad-a_{50}+(a_{52}-a_{51})+(a_{54}-a_{53})+\cdots+(a_{100}-a_{99})\\
+    &\ge a_1-a_{50}\ge-\frac{50}{51},
+\end{align*}
+and
+\begin{align*}
+    R-L&=(a_2-a_1)+(a_4-a_3)+\cdots+(a_{50}-a_{49})+a_{51}\\
+    &\quad+(a_{53}-a_{52})+(a_{55}-a_{54})+\cdots+(a_{99}-a_{98})-a_{100}\\
+    &\ge a_{51}-a_{100}\ge-\frac{50}{51},
+\end{align*}
+whence $|L-R|\le\tfrac{50}{51}$, and we are done.

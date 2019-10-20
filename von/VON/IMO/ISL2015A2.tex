@@ -1,0 +1,16 @@
+desc: f(x-f(y))=f(f(x))-f(y)-1
+source: ISL 2015 A2
+tags: [2019-10, oly, tricky, alg, FE]
+
+---
+
+Determine all functions $f:\mathbb Z\to\mathbb Z$ with the property that \[f(x-f(y))=f(f(x))-f(y)-1\]
+holds for all $x,y\in\mathbb Z$.
+
+---
+
+The answer is $f\equiv0$ and $f(x)=x+1$, which work. Let $P(x,y)$ denote assertion. $P(x,f(x))$ gives $f(x-f(f(x)))=-1$, so there is an $a$ for which $f(a)=-1$. Then $P(x,a)$ gives $f(x+1)=f(f(x))$.
+
+Now $P(f(y)-1,y)$ gives \[f(-1)=f(f(f(y)-1))-f(y)-1=f(y+1)-f(y)-1,\]
+so $f$ is linear. Furthermore $y=-2$ gives $f(-2)=-1$, so there is a constant $m$ for which $f(x)=mx+2m-1$. Finally $P(0,0)$ yields \[-m(2m-1)+2m-1=(m+1)(2m-1)-(2m-1)-1,\]
+or rather $1=(2m-1)^2$. This completes the proof.

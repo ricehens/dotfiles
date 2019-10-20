@@ -1,0 +1,83 @@
+desc: Super anti-Steiner with explosive diagram
+source: EGMO 2017/6
+tags: [2019-10, oly, easy, geo, steiner, angle-chasing]
+
+---
+
+Let $ABC$ be an acute scalene triangle with centroid $G$ and circumcenter $O$. The reflections of $G$ and $O$ across $\overline{BC}$, $\overline{CA}$, and $\overline{AB}$ are denoted $G_1,\,G_2,\,G_3$ and $O_1,\,O_2,\,O_3$ respectively. Show that the circumcircles of triangles $AG_2G_3$, $BG_3G_1$, $CG_1G_2$, $AO_2O_3$, $BO_3O_1$, $CO_1O_2$, and $ABC$ share a common point.
+
+---
+
+Let $X=\overline{G_1O_1}\cap\overline{G_2O_2}\cap\overline{G_3O_3}$ be the anti-Steiner point of the Euler line $\overline{HGO}$. We claim that $X$ is the desired concurrence point.
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=deepgreen;
+        pen sec=royalblue;
+        pen tri=green;
+        pen qua=springgreen;
+        pen qui=Cyan;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+        pen qfil=qua+opacity(0.05);
+        pen qifil=qui+opacity(0.05);
+
+        pair A,B,C,G,O,GA,OA,GB,OB,GC,OC,X,XA,XB,XC;
+        A=dir(125);
+        B=dir(215);
+        C=dir(325);
+        G=(A+B+C)/2;
+        O=(0,0);
+        GA=2*foot(G,B,C)-G;
+        GB=2*foot(G,C,A)-G;
+        GC=2*foot(G,A,B)-G;
+        OA=2*foot(O,B,C)-O;
+        OB=2*foot(O,C,A)-O;
+        OC=2*foot(O,A,B)-O;
+        X=extension(GB,OB,GC,OC);
+        XA=2*foot(X,B,C)-X;
+        XB=2*foot(X,C,A)-X;
+        XC=2*foot(X,A,B)-X;
+
+        filldraw(circumcircle(A,B,C),fil,pri);
+        filldraw(circumcircle(A,GB,GC),tfil,tri);
+        filldraw(circumcircle(A,OB,OC),qfil,qua);
+        draw(B--C,pri);
+        draw(extension(X,XC,A,B)--A--extension(GA,OA,A,C));
+        draw(XB--extension(GA,OA,B,C)--XC,sec);
+        draw(extension(OA,GA,B,C)--extension(A,C,OA,GA),sec);
+        draw(OC--X--GB,sec);
+        draw(XA--X,qui+dashed);
+        draw(XB--X--XC,qui+dashed);
+        draw(GB--G--GC,tri+dashed);
+        draw(OB--O--OC,qua+dashed);
+        draw(GA--G,tri+dashed);
+        draw(OA--O,qua+dashed);
+
+        dot("$A$",A,N);
+        dot("$B$",B,dir(185));
+        dot("$C$",C,dir(5));
+        dot("$G$",G,N);
+        dot("$O$",O,N);
+        dot("$X$",X,S);
+        dot("$G_B$",GB,NE);
+        dot("$G_C$",GC,dir(190));
+        dot("$O_B$",OB,NW);
+        dot("$O_C$",OC,dir(160));
+
+        clip((-100,-1.2)--(100,-1.2)--(100,100)--(-100,100)-- cycle);
+        clip((XB+(0,100))--(XB-(0,100))--(XB-(100,100))--(XB+(-100,100))-- cycle);
+    \end{asy}
+\end{center}
+Notice that
+\begin{align*}
+    \da(\overline{G_BO_B},\overline{G_CO_C})&=\da(\overline{G_BO_B},\overline{CA})+\measuredangle CAB+\da(\overline{AB},\overline{O_CG_C})\\
+    &=\da(\overline{CA},\overline{GO})+\measuredangle CAB+\da(\overline{GO},\overline{AB})\\
+    &=2\measuredangle CAB.
+\end{align*}
+Furthermore, \[\measuredangle G_BAG_C=\measuredangle G_BAG+\measuredangle GAG_C=2\measuredangle CAG+2\measuredangle GAB=2\measuredangle CAB\]
+and \[\measuredangle O_BAO_C=\measuredangle O_BAO+\measuredangle OAO_C=2\measuredangle CAO+2\measuredangle OAB=2\measuredangle CAB,\]
+so $X$ lies on $(ABC)$, $(AO_BO_C)$, and $(AG_BG_C)$, so we are done by symmetry.

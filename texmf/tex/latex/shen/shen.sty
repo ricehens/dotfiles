@@ -14,7 +14,7 @@
 % This work consists of the file shen.sty.
 \ProvidesPackage{shen}
 
-% ======== Arguments and Options ========
+% ======== ARGUMENTS ========
 \newif\iftheorembychapter\theorembychapterfalse
 \newif\iftheorembysection\theorembysectionfalse
 \newif\ifcodeused\codeusedfalse
@@ -29,6 +29,7 @@
 \newif\ifplainsol\plainsolfalse
 \newif\iffillqedsymbol\fillqedsymbolfalse
 \newif\ifvonenabled\vonenabledfalse
+\newif\ifvonbrave\vonbravefalse
 \newif\ifasyenabled\asyenabledtrue
 \newif\ifrollingboxprob\rollingboxprobfalse
 
@@ -96,6 +97,7 @@
 
 % Evan's ``von'' problem manager
 \DeclareOption{von}{\vonenabledtrue}
+\DeclareOption{vonbrave}{\vonenabledtrue\vonbravetrue}
 \ProcessOptions\relax
 
 % ======== DEFAULT IMPORTS ========
@@ -1075,7 +1077,11 @@
 % Von
 \ifvonenabled
     % \von, \voninclude
-    \usepackage{von}
+    \ifvonbrave
+        \usepackage[brave]{von}
+    \else
+        \usepackage{von}
+    \fi
 
     \makeatletter
     % custom environment von

@@ -1,0 +1,59 @@
+desc: Website favicon
+source: IMO 2000/6
+tags: [2019-10, oly, tricky, geo, angle-chasing]
+
+---
+
+In acute triangle $ABC$, let $H_1$, $H_2$, $H_3$ be the feet of the altitudes from $A,B,C$, respectively, and let $T_1$, $T_2$, and $T_3$ be the points where the incircle touches $\overline{BC}$, $\overline{CA}$, and $\overline{AB}$, respectively. Prove that the reflections of $\overline{H_1H_2}$, $\overline{H_2H_3}$, and $\overline{H_3H_1}$ over $\overline{T_1T_2}$, $\overline{T_2T_3}$, and $\overline{T_3T_1}$, respectively, are the sides of a triangle that is inscribed in the incircle of $\triangle ABC$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+        pair A, B, C, H1, H2, H3, I, T1, T2, T3, X, Y, Z, P, Yp;
+        A=dir(110);
+        B=dir(200);
+        C=dir(340);
+        H1=foot(A, B, C);
+        H2=foot(B, C, A);
+        H3=foot(C, A, B);
+        I=incenter(A, B, C);
+        T1=foot(I, B, C);
+        T2=foot(I, C, A);
+        T3=foot(I, A, B);
+        X=2*foot(T2+T3-T1, T2, T3)-(T2+T3-T1);
+        Y=2*foot(T3+T1-T2, T3, T1)-(T3+T1-T2);
+        Z=2*foot(T1+T2-T3, T1, T2)-(T1+T2-T3);
+        P=extension(T1, Y, T2, T3);
+        Yp=2*foot(Y, T2, T3)-Y;
+
+        filldraw(A -- B -- C -- A -- cycle, springgreen+opacity(0.05), springgreen);
+        filldraw(incircle(A, B, C), springgreen+opacity(0.05), springgreen);
+        filldraw(T1 -- T2 -- T3 -- cycle, red+opacity(0.05), red); filldraw(X -- Y -- Z -- cycle, blue+opacity(0.05), blue);
+        draw(T1 -- P -- T2, purple);
+        draw(H1 -- H2 -- H3 -- H1, dotted+orange);
+        draw(H2 -- Yp, dotted+orange); draw(Y -- Yp, dashed+blue);
+        draw(H2 -- P, dotted+orange);
+        draw(arc((B+C)/2, C, B), orange);
+        fill(arc((B+C)/2, C, B) -- cycle, orange+opacity(0.05));
+        draw(B -- P, dashed+orange);
+
+        dot("$X$", X, S);
+        dot("$Y$", Y, SE);
+        dot("$Z$", Z, W);
+        dot("$Y'$", Yp, N);
+        dot("$A$", A, N);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$T_1$", T1, S);
+        dot("$T_2$", T2, N/2);
+        dot("$T_3$", T3, dir(150));
+        dot("$H_1$", H1, S);
+        dot("$H_2$", H2, N);
+        dot("$H_3$", H3, NW);
+        dot("$P$", P, E);
+    \end{asy}
+\end{center}
+Let $Y$ be the point on the incircle of $\triangle ABC$ such that $\overline{T_2Y}\parallel\overline{T_1T_3}$. I claim that $Y$ is one of the vertices of this triangle. Let $P=\overline{T_1Y}\cap\overline{T_2T_3}$. Since $BT_1=BT_3$ and $PT_1=PT_3$, $\overline{BP}$ bisects $\angle ABC$. By the Iran Lemma, $P$ lies on $(BCH_2H_3)$ and $(CT_1T_2)$. Notice that \[\measuredangle H_2PB=\measuredangle H_2CB=\measuredangle T_2PY.\]However, $BT_1PT_3$ is a kite, so $\overline{PB}$ and $\overline{PH_2}$ are reflections across $\overline{T_2T_3}$; moreover, if $Y'$ denotes the reflection of $Y$ across $\overline{T_2T_3}$, \[\measuredangle H_2PT_2=\measuredangle BPY=\measuredangle Y'PH_2.\]Since $PY'=PY=PT_2$, by SAS, $\triangle PH_2Y'\cong\triangle PH_2T_2$, so $Y'$ is the reflection of $T_2$ across $\overline{PH_2}$. Finally, \[\measuredangle PH_2H_3=\measuredangle PBH_3=\measuredangle CBP=\measuredangle CH_2P=\measuredangle PH_2Y',\]so $Y'$ lies on $\overline{H_2H_3}$. By symmetry, we are done.

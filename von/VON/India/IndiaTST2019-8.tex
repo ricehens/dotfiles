@@ -1,0 +1,76 @@
+desc: Concurrence on 9-pt circle
+source: India TST 2019/8
+tags: [2019-10, oly, tricky, geo, incidence, pop]
+
+---
+
+Let $ABC$ be an acute triangle with circumcircle $\Gamma$ and altitudes $\seg{AD}$, $\seg{BE}$, and $\seg{CF}$ meeting at $H$. Let $\omega$ be the circumcircle of $\triangle DEF$. Point $S\ne A$ lies on $\Gamma$ such that $DS=DA$. Line $\seg{AD}$ meets $\seg{EF}$ at $Q$, and meets $\omega$ at $L\ne D$. Point $M$ is chosen such that $\seg{DM}$ is a diameter of $\omega$. Point $P$ lies on $\seg{EF}$ with $\seg{DP}\perp\seg{EF}$. Prove that lines $SH$, $MQ$, and $PL$ are concurrent.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+
+        pair A, B, C, H, D, EE, F, L, NN, M, P, Q, X, SS;
+        A=dir(110);
+        B=dir(220);
+        C=dir(320);
+        H=orthocenter(A,B,C);
+        D=foot(A,B,C);
+        EE=foot(B,C,A);
+        F=foot(C,A,B);
+        L=(A+H)/2;
+        NN=((0,0)+H)/2;
+        M=2NN-D;
+        P=foot(D,EE,F);
+        Q=extension(A,D,EE,F);
+        X=extension(L,P,M,Q);
+        SS=intersectionpoint(H--(H+100*(H-X)),circumcircle(A,B,C));
+
+        draw(circumcircle(A,B,C));
+        draw(circumcircle(D,EE,F));
+        draw(circumcircle(A,H,F),gray);
+        draw(circumcircle(A,D,X),gray);
+        draw(A--B--C--A);
+        draw(A--D,gray);
+        draw(B--EE,gray);
+        draw(C--F,gray);
+        draw(D--EE--F--D);
+        draw(L--X--M);
+        draw(X--D);
+        draw(A--X,dotted);
+        draw(X--SS,dashed);
+
+        dot("$A$",A,N);
+        dot("$B$",B,SW);
+        dot("$C$",C,SE);
+        dot("$D$",D,S);
+        dot("$E$",EE,E);
+        dot("$F$",F,dir(210));
+        dot("$L$",L,NW);
+        dot("$M$",M,NE);
+        dot("$H$",H,SE);
+        dot("$P$",P,NW);
+        dot("$Q$",Q,NW);
+        dot("$X$",X,SW);
+        dot("$S$",SS,SS);
+    \end{asy}
+\end{center}
+Let $\seg{LP}$ intersect $\omega$ again at $X$. Since $\seg{DHLA}$ bisects $\angle FDE$, $L$ is the midpoint if $\widehat{EF}$ on $\omega$. Note that inversion at $L$ with power $LE^2=LF^2$ swaps $\seg{EF}$ and $\omega$, so it swaps $(Q,D)$ and $(P,X)$. Thus, $LQ\cdot LD=LE^2=LP\cdot LX$, so $PQDX$ is cyclic and $\angle QXD=\angle QPD=90^\circ=\angle MXD$, and $X\in\seg{MQ}$.
+
+Let $S'$ be the intersection of ray $XH$ and $\Gamma$. It is sufficient to show that $DA=DS'$.
+\begin{iclaim*}
+    $AXDS'$ is cyclic.
+\end{iclaim*}
+\begin{proof}
+    We present two proofs:
+    \begin{itemize}
+        \item Notice that the negative inversion at $H$ with power $-AH\cdot HD$ swaps $(A,D)$, $(B,E)$, and $(C,F)$, so it swaps $\Gamma$ and $\omega$. It is immediate that it swaps $S'$ and $X$, so $HX\cdot HS'=HA\cdot HD$, as desired.
+        \item Notice that homothety at $H$ sends $D$ and $X$ to points $D'$ and $X'$ on $\Gamma$. Check that \[HA\cdot HD=\tfrac12HA\cdot HD'=\tfrac12HS'\cdot HX'=HS'\cdot HX,\]
+            as desired.
+    \end{itemize}\
+\end{proof}
+
+Since $\angle AEH=90^\circ$ and $\seg{EH}$ bisects $\angle DEQ$, $-1=(DQ;AH)$. However, $\angle DXQ=90^\circ$, so $\seg{XD}$ bisects $\angle AXH$ by a well-known lemma on Apollonius circles. It follows that $D$ is the midpoint of one of the arcs $\widehat{AS'}$ on $(AXDS')$, so $DA=DS'$, and $S=S'$, as desired.

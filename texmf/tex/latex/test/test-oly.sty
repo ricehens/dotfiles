@@ -74,6 +74,9 @@
 \makeatletter
 \newcommand\@time{270 minutes}
 \newcommand\limit[1]{\renewcommand\@time{#1}}
+\iftestsexy
+    \limit{Time: 4 hours and 30 minutes}
+\fi
 
 \newcommand\@pts{7}
 \newcommand\pts[1]{\renewcommand\@pts{#1}}
@@ -90,10 +93,7 @@
     \pagestyle{fancy}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
-    \rfoot{
-        \textit{Time: 4 hours and 30 minutes.\\
-        Each problem is worth 7 points.}
-    }
+    \rfoot{\textit{\noindent \@time.\\ Each problem is worth \@pts\ points.}}
 
     \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
     \let\endchangemargin=\endlist
@@ -117,9 +117,7 @@
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}
 
-        \makeatletter
         \lhead{\fontsize{10pt}{12pt}\selectfont\@soltitle}
-        \makeatother
         \rhead{\fontsize{10pt}{12pt}\selectfont\theauthor}
         \lfoot{}
         \cfoot{\fontsize{10pt}{12pt}\selectfont\thepage}

@@ -78,7 +78,7 @@
     \limit{Time: 4 hours and 30 minutes}
 \fi
 
-\newcommand\@pts{7}
+\newcommand\@pts{7 points}
 \newcommand\pts[1]{\renewcommand\@pts{#1}}
 
 \newcommand\@soltitle{\@title\ Solutions}
@@ -93,14 +93,19 @@
     \pagestyle{fancy}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
-    \rfoot{\textit{\noindent \@time.\\ Each problem is worth \@pts\ points.}}
+    \rfoot{\textit{\noindent \@time.\\ Each problem is worth \@pts.}}
 
     \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
     \let\endchangemargin=\endlist
 
+    % Headers
+    \newcommand\@testlhead\@title
+    \newcommand\@testrhead{(Day \currentday)}
+    \newcommand\testlhead[1]{\renewcommand\@testlhead{#1}}
+    \newcommand\testrhead[1]{\renewcommand\@testrhead{#1}}
     \newcommand{\testheader}{
         \begin{changemargin}{-0.7cm}{-0.7cm}
-            {\fontseries{b}\fontfamily{cmss}\fontsize{20}{20}\selectfont\@title\hfill (Day \currentday)\par\noindent\rule{\textwidth+1.4cm}{0.4pt}}
+            {\fontseries{b}\fontfamily{cmss}\fontsize{20}{20}\selectfont\@testlhead\hfill\@testrhead\par\noindent\rule{\textwidth+1.4cm}{0.4pt}}
         \end{changemargin}
         \noindent
         \begin{flushright}

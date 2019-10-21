@@ -146,8 +146,6 @@
 \newcommand{\defeq}{\overset{\mathrm{def}}{=}}
 \newcommand{\dg}{^\circ}
 \newcommand{\ii}{\item}
-\newcommand{\liff}{\leftrightarrow}
-\newcommand{\lthen}{\rightarrow}
 \newcommand{\opname}{\operatorname}
 \newcommand{\surjto}{\twoheadrightarrow}
 \newcommand{\injto}{\hookrightarrow}
@@ -315,7 +313,7 @@
                 backgroundcolor=RoyalPurple!5,
             }
             \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{Violet},
+                headfont=\sffamily\bfseries\color{RoyalPurple},
                 mdframed={style=mdpurplebox},
                 headpunct={\\[3pt]},
                 postheadspace={0pt}
@@ -393,6 +391,7 @@
                 bottomline=false,
                 linecolor=ForestGreen,
                 backgroundcolor=ForestGreen!5,
+                nobreak=true,
             }
             \declaretheoremstyle[
                 headfont=\sffamily\bfseries\color{ForestGreen!70!black},
@@ -773,9 +772,15 @@
         %sibling=theorem,%
             numbered=no,
         name=Generalization]{boxgprob}
-        \declaretheorem[style=thmredbox,%
-        %        sibling=theorem,%
-        name=Lemma]{boxlemma}
+        \ifrollingboxprob
+            \declaretheorem[style=thmredbox,%
+                sibling=theorem,%
+            name=Lemma]{boxlemma}
+        \else
+            \declaretheorem[style=thmredbox,%
+            %        sibling=theorem,%
+            name=Lemma]{boxlemma}
+        \fi
         \declaretheorem[style=thmredbox,%
         %sibling=theorem,%
             numbered=no,

@@ -68,7 +68,7 @@
 
 \makeatother
 
-\pagenumbering{gobble}
+%\pagenumbering{gobble}
 
 % ======== HEADER ========
 \makeatletter
@@ -93,6 +93,7 @@
     \pagestyle{fancy}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
+    \cfoot{}
     \rfoot{\textit{\noindent \@time.\\ Each problem is worth \@pts.}}
 
     \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
@@ -118,7 +119,7 @@
         \newgeometry{margin=1in,bottom=0.75in}
         \fancyhfoffset[E,O]{0pt}
         \fontsize{10pt}{12pt}\selectfont
-        \pagenumbering{arabic}
+%        \pagenumbering{arabic}
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}
 

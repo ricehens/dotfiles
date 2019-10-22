@@ -1,0 +1,101 @@
+\ProvidesPackage{exam-mc}
+
+\newif\ifshowanswers\showanswersfalse
+\DeclareOption{key}{\showanswerstrue}
+\ProcessOptions\relax
+
+% ======== FORMAT ========
+\usepackage[default,nofont,vonbrave]{shen}
+
+\makeatletter
+\renewcommand{\author}[1]{\gdef\@author{\textsc{#1}}\rhead{#1}}
+\makeatother
+
+\author{}
+
+% ======== TITLEPAGE ========
+\newcommand{\makeintro}{
+    \maketitle
+    \vspace{1em}
+
+    \par\noindent\makebox[\textwidth]{\hrulefill}%
+    \par\noindent\makebox[\textwidth][l]{Printed Name}\vspace{2em}
+
+    \par\noindent\makebox[4.5in]{\hrulefill}           \hfill\makebox[1.5in]{\hrulefill}%
+    \par\noindent\makebox[4.5in][l]{Math Teacher}      \hfill\makebox[1.5in][l]{Grade}%
+
+    \vspace{1em}
+    \section*{Honor Pledge}
+    I pledge to uphold the highest principles of honesty and integrity as a Mathlete. I will neither give nor accept unauthorized assistance of any kind. I will not copy another’s work and submit it as my own. I understand that any competitor found to be in violation of this honor pledge is subject to disqualification.
+
+    \vspace{3em}
+
+    \par\noindent\makebox[4.0in]{\hrulefill}           \hfill\makebox[2.0in]{\hrulefill}%
+    \par\noindent\makebox[4.0in][l]{Signature}         \hfill\makebox[2.0in][l]{Date}% 
+
+    \vspace{2em}
+    \noindent
+    Please write the digits 0-9 in the spaces below in your normal handwriting. These may be referred to to clear up handwriting confusion. \textbf{(These spaces are not for your actual answers! You will write your actual answers on lines next to the specific problems.)}\vspace{2em}
+
+    \noindent
+    \begin{center}
+        \fontsize{13}{26}\selectfont
+        \begin{tabular}{cc}
+            \begin{tabular}{|c|c|}
+                \hline
+                0&\phantom{00}\\ \hline
+                1& \\ \hline
+                2& \\ \hline
+                3& \\ \hline
+                4& \\ \hline
+            \end{tabular}
+            &
+            \begin{tabular}{|c|c|}
+                \hline
+                5&\phantom{00}\\ \hline
+                6& \\ \hline
+                7& \\ \hline
+                8& \\ \hline
+                9& \\ \hline
+            \end{tabular}
+        \end{tabular}
+    \end{center}
+    \newpage
+}
+
+% ======== ROW NUMBERING ========
+\usepackage{array,etoolbox}
+\newcounter{magicrownumbers}
+\newcommand\rownumber{\stepcounter{magicrownumbers}\arabic{magicrownumbers}}
+\setlength{\headsep}{20pt}
+
+\makeatletter
+\newcommand\@key{}
+\ifshowanswers
+    \newcommand\@problemline{
+        \mathrel{\stackrel{\makebox[0pt]{
+                \mbox{\normalfont\color{MidnightBlue}\@key}}
+        }{\rule{2cm}{0.18mm}}}
+    }
+\else\newcommand\@problemline{\rule{2cm}{0.18mm}}\fi
+
+\newcommand\prob[1]{
+    \renewcommand\@key{#1}
+    \refstepcounter{enumi}\item[\textbf{\theenumi}. $\@problemline$\quad]
+}
+
+\newenvironment{mctst}{
+    \begin{enumerate}[leftmargin=3.1cm,itemsep=1.55em]
+}{\end{enumerate}}
+\makeatother
+
+% ======== KEY WATERMARK ========
+% Do not distribute answer key
+\ifshowanswers
+    \usepackage{draftwatermark}
+    \SetWatermarkAngle{32}
+    \SetWatermarkLightness{0.90}
+    \SetWatermarkFontSize{32pt}
+    \SetWatermarkScale{2.718}
+    \SetWatermarkText{\shortstack{Answer Key \\ Not valid test}}
+\fi

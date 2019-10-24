@@ -1081,12 +1081,14 @@
 
 % Von
 \ifvonenabled
+    \IfFileExists{von.sty}{
     % \von, \voninclude
-    \ifvonbrave
-        \usepackage[brave]{von}
-    \else
-        \usepackage{von}
-    \fi
+        \ifvonbrave
+            \usepackage[brave]{von}
+        \else
+            \usepackage{von}
+        \fi
+    }{}
 
     \makeatletter
     % custom environment von

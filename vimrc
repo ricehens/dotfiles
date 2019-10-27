@@ -83,6 +83,12 @@ inoremap <Tab> <Esc>`^
 """"" ===== STYLE
 """ Syntax highlighting
 syntax on
+set t_Co=256
+"colorscheme sublimemonokai
+let java_comment_strings=1
+let java_highlight_functions=1
+let java_highlight_java_lang_ids=1
+
 set background=dark
 
 """ Line wrapping
@@ -90,8 +96,8 @@ set wrap
 set linebreak
 set nolist
 
-""" Code folding looks shitty
-highlight Folded ctermbg=LightBlue ctermfg=DarkBlue
+""" Code folding looks shitty // TURN ON 256COLOR
+"highlight Folded ctermbg=LightBlue ctermfg=DarkBlue
 
 """"" ===== LaTeX
 filetype plugin on

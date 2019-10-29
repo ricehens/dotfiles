@@ -77,9 +77,10 @@
                 \mbox{\normalfont\color{MidnightBlue}\@key}}
         }{\rule{2cm}{0.18mm}}}
     }
-\else\newcommand\@problemline{\rule{2cm}{0.18mm}}\fi
+\else\newcommand\@problemline{\rule{2cm}{0.18mm}}
+\fi
 
-\newcommand\prob[1]{
+\newcommand\prob[1][]{
     \renewcommand\@key{#1}
     \refstepcounter{enumi}\item[\textbf{\theenumi}. $\@problemline$\quad]
 }

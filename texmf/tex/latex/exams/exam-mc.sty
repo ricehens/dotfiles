@@ -1,16 +1,25 @@
 \ProvidesPackage{exam-mc}
 
 \newif\ifshowanswers\showanswersfalse
+\newif\ifmcsprint\mcsprinttrue
 \DeclareOption{key}{\showanswerstrue}
+\DeclareOption{target}{\mcsprintfalse}
 \ProcessOptions\relax
 
 % ======== FORMAT ========
-\usepackage[default,nofont,vonbrave]{shen}
+\ifmcsprint
+    \usepackage[default,nofont,vonbrave]{shen}
+\else\usepackage[sexy,von]{exam-oly}\fi
 
-\makeatletter
-\renewcommand{\author}[1]{\gdef\@author{\textsc{#1}}\rhead{#1}}
-\renewcommand{\date}[1]{\gdef\@date{\textrm{#1}}}
-\makeatother
+\ifmcsprint
+    \makeatletter
+    \renewcommand{\author}[1]{\gdef\@author{\textsc{#1}}\rhead{#1}}
+    \renewcommand{\date}[1]{\gdef\@date{\textrm{#1}}}
+    \makeatother
+\else
+    \rfoot{\textit{Time limit: 6 minutes per pair\\
+    Each problem is worth 2 points}}
+\fi
 
 \author{}
 
@@ -69,6 +78,28 @@
     \newpage
 }
 
+\newcommand{\targetbox}[2]{
+    \testrhead{(Problems #1 and #2)}
+    \testheader
+    \begin{center}
+        \begin{mdframed}[linewidth=1.5,leftmargin=1,
+                rightmargin=1,outerlinecolor=blue,
+            skipbelow=\baselineskip]
+            \fontsize{14}{25} \selectfont
+            \begin{tabular}{@{}ll}
+                Name: &\underline{\hspace{6cm}}\\
+                Math Teacher: &\underline{\hspace{6cm}}\\
+                Grade: &\underline{\hspace{6cm}}\\
+            \end{tabular}
+            \vspace{0.5em}
+
+            \setlength\fboxrule{1.5pt}
+            Problem #1: \fbox{\rule{1.5in}{0pt}\rule[-1.25ex]{0pt}{5ex}}\hfill Problem #2: \fbox{\rule{1.5in}{0pt}\rule[-1.25ex]{0pt}{5ex}}\vspace{0.4em}
+        \end{mdframed}
+    \end{center}
+    \vspace{2em}
+}
+
 % ======== ROW NUMBERING ========
 \usepackage{array,etoolbox}
 \newcounter{magicrownumbers}
@@ -95,6 +126,13 @@
     \begin{enumerate}[leftmargin=3.1cm,itemsep=1.55em]
 }{\end{enumerate}}
 \makeatother
+
+\renewcommand{\solheader}{
+    \newgeometry{margin=1in,bottom=0.75in}
+    \fancyhfoffset[E,O]{0pt}
+    \section*{Answer Key}
+}
+
 
 % ======== KEY WATERMARK ========
 % Do not distribute answer key

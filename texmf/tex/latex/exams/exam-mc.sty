@@ -9,33 +9,14 @@
 
 \makeatletter
 \renewcommand{\author}[1]{\gdef\@author{\textsc{#1}}\rhead{#1}}
+\renewcommand{\date}[1]{\gdef\@date{\textrm{#1}}}
 \makeatother
 
 \author{}
 
 % ======== TITLEPAGE ========
-\newcommand{\makeintro}{
-    \maketitle
-    \vspace{1em}
-
-    \par\noindent\makebox[\textwidth]{\hrulefill}%
-    \par\noindent\makebox[\textwidth][l]{Printed Name}\vspace{2em}
-
-    \par\noindent\makebox[4.5in]{\hrulefill}           \hfill\makebox[1.5in]{\hrulefill}%
-    \par\noindent\makebox[4.5in][l]{Math Teacher}      \hfill\makebox[1.5in][l]{Grade}%
-
-    \vspace{1em}
-    \section*{Honor Pledge}
-    I pledge to uphold the highest principles of honesty and integrity as a Mathlete. I will neither give nor accept unauthorized assistance of any kind. I will not copy another’s work and submit it as my own. I understand that any competitor found to be in violation of this honor pledge is subject to disqualification.
-
-    \vspace{3em}
-
-    \par\noindent\makebox[4.0in]{\hrulefill}           \hfill\makebox[2.0in]{\hrulefill}%
-    \par\noindent\makebox[4.0in][l]{Signature}         \hfill\makebox[2.0in][l]{Date}% 
-
-    \vspace{2em}
-    \noindent
-    Please write the digits 0-9 in the spaces below in your normal handwriting. These may be referred to to clear up handwriting confusion. \textbf{(These spaces are not for your actual answers! You will write your actual answers on lines next to the specific problems.)}\vspace{2em}
+\newcommand{\digitgrid}{
+    \noindent Please write the digits 0-9 in the spaces below in your normal handwriting. These may be referred to to clear up handwriting confusion. \textbf{(These spaces are not for your actual answers! You will write your actual answers on lines next to the specific problems.)}\vspace{2em}
 
     \noindent
     \begin{center}
@@ -60,6 +41,31 @@
             \end{tabular}
         \end{tabular}
     \end{center}
+}
+
+\newcommand{\makeintro}{
+    \maketitle
+    \vspace{1em}
+
+    \par\noindent\makebox[\textwidth]{\hrulefill}%
+    \par\noindent\makebox[\textwidth][l]{Printed Name}\vspace{2em}
+
+    \par\noindent\makebox[4.5in]{\hrulefill}           \hfill\makebox[1.5in]{\hrulefill}%
+    \par\noindent\makebox[4.5in][l]{Math Teacher}      \hfill\makebox[1.5in][l]{Grade}%
+
+    \vspace{1em}
+    \section*{Honor Pledge}
+    I pledge to uphold the highest principles of honesty and integrity as a Mathlete. I will neither give nor accept unauthorized assistance of any kind. I will not copy another’s work and submit it as my own. I understand that any competitor found to be in violation of this honor pledge is subject to disqualification.
+
+    \vspace{3em}
+
+    \par\noindent\makebox[4.0in]{\hrulefill}           \hfill\makebox[2.0in]{\hrulefill}%
+    \par\noindent\makebox[4.0in][l]{Signature}         \hfill\makebox[2.0in][l]{Date}% 
+
+    \vspace{2em}
+    \noindent
+
+    \digitgrid
     \newpage
 }
 

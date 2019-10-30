@@ -117,17 +117,19 @@
 \else\newcommand\@problemline{\rule{2cm}{0.18mm}}
 \fi
 
-\newcommand\prob[1][]{
-    \renewcommand\@key{#1}
-    \refstepcounter{enumi}\item[\textbf{\theenumi}. $\@problemline$\quad]
-}
+\ifmcsprint
+    \newcommand\prob[1][]{
+        \renewcommand\@key{#1}
+        \refstepcounter{enumi}\item[\textbf{\theenumi}. $\@problemline$\quad]
+    }
+\fi
 
 \newenvironment{mctst}{
     \begin{enumerate}[leftmargin=3.1cm,itemsep=1.55em]
 }{\end{enumerate}}
 \makeatother
 
-\renewcommand{\solheader}{
+\newcommand{\ansheader}{
     \newgeometry{margin=1in,bottom=0.75in}
     \fancyhfoffset[E,O]{0pt}
     \section*{Answer Key}

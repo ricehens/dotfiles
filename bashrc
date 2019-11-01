@@ -16,6 +16,8 @@ export PYTHONPATH="/home/ericshen/.von:$PATH"
 
 # Java PATH
 export PATH="/usr/lib/jvm/default-runtime/bin:$PATH"
+alias java8="/usr/lib/jvm/java-8-openjdk/bin/java"
+alias javac8="/usr/lib/jvm/java-8-openjdk/bin/javac"
 
 # Defaults
 export SITE='eh2z5z1c0mo2@ericshen.net'
@@ -28,13 +30,14 @@ export CN='沈皓彦'
 alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *~'
 
 # Utils
-alias asy='asy -nosafe -noprc -render=0'
+#alias asy='asy -nosafe -noprc -render=0' # THANK YOU GHOSTSCRIPT 9.50
 alias tmacs='emacs -nw'
 alias pdf='zathura &>/dev/null'
 alias img='feh --scale-down --auto-zoom'
 alias ytdl="youtube-dl -f bestaudio[ext=m4a] --embed-thumbnail --add-metadata -o '%(title)s.%(ext)s'"
-alias gvim="gvim &>/dev/null"
-alias von="python -m von"
+alias gvim='gvim &>/dev/null'
+alias von='python -m von'
+alias g='git'
 
 # List
 alias ll='ls -l'

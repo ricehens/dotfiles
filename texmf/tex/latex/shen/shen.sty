@@ -55,6 +55,7 @@
     \mathpazofontusedfalse
     \thmenabledfalse
     \vonenabledtrue
+    \colorsecstylefalse
     \docisbeamertrue
 }
 
@@ -1202,16 +1203,16 @@
 % Beamer
 \ifdocisbeamer\AtBeginDocument{
         \renewenvironment{theorem}[1][]{
-            \ifblank{#1}{\begin{block}{Theorem}}{\begin{block}{Theorem (#1)}}
-            }{\ifblank{#1}{\end{block}}{\end{block}}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Theorem}}{\begin{block}{Theorem (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
         }
         \renewenvironment{problem}[1][]{
-            \ifblank{#1}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
-            }{\ifblank{#1}{\end{exampleblock}}{\end{exampleblock}}
+            \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
         }
         \renewenvironment{lemma}[1][]{
-            \ifblank{#1}{\begin{alertblock}{Lemma}}{\begin{alertblock}{Lemma (#1)}}
-            }{\ifblank{#1}{\end{alertblock}}{\end{alertblock}}
+            \ifthenelse{\isempty{#1}}{\begin{alertblock}{Lemma}}{\begin{alertblock}{Lemma (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{alertblock}}{\end{alertblock}}
         }
     }
 \fi

@@ -32,12 +32,30 @@
 \newif\ifvonbrave\vonbravefalse
 \newif\ifasyenabled\asyenabledtrue
 \newif\ifrollingboxprob\rollingboxprobfalse
+\newif\ifdocisbeamer\docisbeamerfalse
 
 % ======== OPTIONS ========
 % Loads preferred options
 \DeclareOption{default}{
     \fancyusedtrue
     \mathpazofontusedtrue
+}
+
+% Create plain document w/o fancy formatting
+\DeclareOption{plain}{
+    \colorthmonfalse
+    \colorsecstylefalse
+    \plainsoltrue
+}
+
+% Beamer template
+\DeclareOption{beamer}{
+    \fancyusedfalse
+    \marginsetfalse
+    \mathpazofontusedfalse
+    \thmenabledfalse
+    \vonenabledtrue
+    \docisbeamertrue
 }
 
 % Number theorems by chapter, section, or nothing
@@ -61,13 +79,6 @@
 
 % No asymptote
 \DeclareOption{noasy}{\asyenabledfalse}
-
-% Create plain document w/o fancy formatting
-\DeclareOption{plain}{
-    \colorthmonfalse
-    \colorsecstylefalse
-    \plainsoltrue
-}
 
 % Colorful theorems and section titles
 \DeclareOption{colorthm}{\colorthmontrue}
@@ -114,7 +125,10 @@
 \usepackage[final]{pdfpages} % Inserting PDF's
 \usepackage{siunitx} % SI Units
 \usepackage{mdframed} % MDFramed
-\usepackage{enumitem} % enum customization
+\ifdocisbeamer\else
+    % enum customization; breaks beamer
+    \usepackage{enumitem} 
+\fi
 \usepackage{version} % Hiding specific text
 \usepackage{mathtools} % Math tools
 \usepackage[T1]{fontenc} % Make serif look ok
@@ -1183,6 +1197,23 @@
     }
 
     \makeatother
+\fi
+
+% Beamer
+\ifdocisbeamer\AtBeginDocument{
+        \renewenvironment{theorem}[1][]{
+            \ifblank{#1}{\begin{block}{Theorem}}{\begin{block}{Theorem (#1)}}
+            }{\ifblank{#1}{\end{block}}{\end{block}}
+        }
+        \renewenvironment{problem}[1][]{
+            \ifblank{#1}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
+            }{\ifblank{#1}{\end{exampleblock}}{\end{exampleblock}}
+        }
+        \renewenvironment{lemma}[1][]{
+            \ifblank{#1}{\begin{alertblock}{Lemma}}{\begin{alertblock}{Lemma (#1)}}
+            }{\ifblank{#1}{\end{alertblock}}{\end{alertblock}}
+        }
+    }
 \fi
 
 % Arc

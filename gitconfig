@@ -5,10 +5,11 @@
 	helper = cache --timeout=3600
 [alias]
     a = add -A
-    s = status
+    s = status -sb
     c = commit
     cm = commit -m
     p = push origin
     pom = push origin master
     ls = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate
     ll = log -n 6 --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%ad" --decorate --date=short --stat
+    l = ls

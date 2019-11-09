@@ -43,6 +43,7 @@
 
 % Create plain document w/o fancy formatting
 \DeclareOption{plain}{
+    \fancyusedtrue
     \colorthmonfalse
     \colorsecstylefalse
     \plainsoltrue
@@ -128,7 +129,7 @@
 \usepackage{siunitx} % SI Units
 \usepackage{mdframed} % MDFramed
 \ifdocisbeamer\else
-    % enum customization; breaks beamer
+% enum customization; breaks beamer
     \usepackage{enumitem} 
 \fi
 \usepackage{version} % Hiding specific text
@@ -180,15 +181,20 @@
 \DeclareMathOperator{\pow}{Pow}
 \DeclareMathOperator{\rad}{rad}
 
+% TODO (need to replace fancyhdr)
+\newcommand{\komaletter}{
+    \@ifundefined{KOMAClassName}{}{
+        \KOMAoptions{paper=letter}
+    }
+}
+
 % varying sizes in \pmod
-\makeatletter
 \DeclarePairedDelimiterX{\pmodx}[1]{(}{)}{{\operator@font mod}\mkern6mu#1}
 \renewcommand{\pmod}{
     \allowbreak
     \if@display\mkern18mu\else\mkern8mu\fi
     \pmodx
 }
-\makeatother
 
 % Fancy setup
 \iffancyused
@@ -202,9 +208,7 @@
     \chead{}
     %\fancyhead[LE]{\thepage}
     %\fancyhead[RO]{\thepage}
-    \makeatletter
     \lhead{\@title}
-    \makeatother
     \rhead{\theauthor}
     \lfoot{}
     \cfoot{\thepage}
@@ -225,8 +229,6 @@
 
 % colorsec style setup
 \ifcolorsecstyle
-    \usepackage{titlesec}
-    \usepackage{titling}
     \hypersetup{
         colorlinks,
         citecolor=astral,
@@ -241,30 +243,47 @@
     \fontfamily{lmss}\selectfont}		
     \newcommand{\seriffont}{\fontfamily{lmss}\selectfont}
 
-    \titleformat{\section}{\announcefont\Large}
-    {{\sffamily\S}\thesection}{1em}{}
-    \titleformat{\subsection}{\announcefont\large}
-    {{\sffamily\S}\thesubsection}{1em}{}
-    \titleformat{\subsubsection}{\announcefont\normalsize}
-    {{\sffamily\S}\thesubsubsection}{1em}{}
+    \@ifundefined{KOMAClassName}{
+        \usepackage{titling} 
+        \usepackage{titlesec}
 
-%	\makeatletter
-%	\def\@seccntformat#1{\numerofont\textbf\S\csname the#1\endcsname\quad}
-%	\makeatother
+        \titleformat{\section}{\announcefont\Large}
+        {{\sffamily\S}\thesection}{1em}{}
+        \titleformat{\subsection}{\announcefont\large}
+        {{\sffamily\S}\thesubsection}{1em}{}
+        \titleformat{\subsubsection}{\announcefont\normalsize}
+        {{\sffamily\S}\thesubsubsection}{1em}{}
 
-    \pretitle{\begin{center}\LARGE\boldseriffont}
-    \posttitle{\par\end{center}\vskip 0.5em}
-    \preauthor{\begin{center}
-            \large \lineskip 0.5em%
-            \begin{tabular}[t]{c}
-            \seriffont}
-    \postauthor{\end{tabular}\par\end{center}}
-    \predate{\begin{center}\large\seriffont}
-    \postdate{\par\end{center}}
+        \pretitle{\begin{center}\LARGE\boldseriffont}
+        \posttitle{\par\end{center}\vskip 0.5em}
+        \preauthor{\begin{center}
+                \large \lineskip 0.5em%
+                \begin{tabular}[t]{c}
+                \seriffont}
+        \postauthor{\end{tabular}\par\end{center}}
+        \predate{\begin{center}\large\seriffont}
+        \postdate{\par\end{center}}
+    }{
+        \providecommand{\thetitle}{\@title}
+        \providecommand{\theauthor}{\@author}
+        \providecommand{\thedate}{\@date}
 
-    
-%    \usepackage[tocindentauto]{tocstyle}
-%    \newcommand{\autodot}{\sffamily}
+        \renewcommand*{\@seccntformat}[1]{%
+            \announcefont{\sffamily\S}\csname the#1\endcsname\enskip
+        }
+        \addtokomafont{section}{\announcefont}
+        \addtokomafont{subsection}{\announcefont}
+        \addtokomafont{subsubsection}{\announcefont}
+
+        \addtokomafont{title}{\LARGE\boldseriffont}
+        \addtokomafont{subtitle}{\Large}
+        \setkomafont{author}{\large\seriffont}
+        \setkomafont{date}{\large\seriffont}
+    }
+\else
+    \providecommand{\thetitle}{\@title}
+    \providecommand{\theauthor}{\@author}
+    \providecommand{\thedate}{\@date}
 \fi
 
 % Absolutely no page break
@@ -291,7 +310,7 @@
 % ======== THEOREMS! <3 ========
 \ifthmenabled 
     \usepackage{amsthm,thmtools}
-% Theorem Styles --- Based on Evan's pretty boxes
+    % Theorem Styles --- Based on Evan's pretty boxes
     \ifcolorthmon
         \ifindenting % Linebreaking for indention
             \mdfdefinestyle{mdbluebox}{%
@@ -301,7 +320,7 @@
                 innerbottommargin=9pt,
                 skipbelow=2pt,
                 linecolor=blue,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=TealBlue!5,
             }
             \declaretheoremstyle[
@@ -325,7 +344,7 @@
                 innerbottommargin=9pt,
                 skipbelow=2pt,
                 linecolor=blue,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=RoyalPurple!5,
             }
             \declaretheoremstyle[
@@ -344,7 +363,7 @@
                 frametitlefont=\bfseries,
                 innertopmargin=4pt,
                 innerbottommargin=8pt,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=Salmon!5,
                 linecolor=RawSienna,
             }
@@ -368,7 +387,7 @@
                 frametitlefont=\bfseries,
                 innertopmargin=4pt,
                 innerbottommargin=8pt,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=Peach!5,
                 linecolor=BurntOrange,
             }
@@ -428,7 +447,7 @@
                 frametitlefont=\bfseries,
                 innertopmargin=4pt,
                 innerbottommargin=8pt,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=ForestGreen!5,
                 linecolor=ForestGreen,
             }
@@ -468,7 +487,7 @@
                 frametitlefont=\bfseries,
                 innertopmargin=4pt,
                 innerbottommargin=8pt,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=LimeGreen!5,
                 linecolor=LimeGreen,
             }
@@ -498,8 +517,8 @@
             ]{thmblackbox}
 
         \else % Linebreaking for no indention
-            % THIS SECTION IS DEPRECATED AND NO LONGER MAINTAINED
-            % It is only here for backwards compatability.
+        % THIS SECTION IS DEPRECATED AND NO LONGER MAINTAINED
+        % It is only here for backwards compatability.
             \mdfdefinestyle{mdbluebox}{%
                 roundcorner = 10pt,
                 linewidth=0pt,
@@ -508,7 +527,7 @@
                 innerbottommargin=9pt,
                 skipbelow=2pt,
                 linecolor=blue,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=TealBlue!5,
             }
             \declaretheoremstyle[
@@ -527,7 +546,7 @@
                 frametitlefont=\bfseries,
                 innertopmargin=20pt,
                 innerbottommargin=8pt,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=Salmon!5,
                 linecolor=RawSienna,
             }
@@ -547,7 +566,7 @@
                 frametitlefont=\bfseries,
                 innertopmargin=20pt,
                 innerbottommargin=8pt,
-%                nobreak=true,
+                %                nobreak=true,
                 backgroundcolor=Peach!5,
                 linecolor=BurntOrange,
             }
@@ -647,9 +666,9 @@
             frametitlefont=\bfseries,
             innertopmargin=4pt,
             innerbottommargin=8pt,
-%                nobreak=true,
-%            backgroundcolor=ForestGreen!5,
-%            linecolor=ForestGreen,
+            %                nobreak=true,
+            %            backgroundcolor=ForestGreen!5,
+            %            linecolor=ForestGreen,
         }
         \declaretheoremstyle[
             headfont=\bfseries,
@@ -721,10 +740,10 @@
     \newtheorem{probZR}[problem]{\clubr{9} Problem}
 
     \newcommand{\goals}[2]{\bgroup
-		\sffamily\emph{Instructions}: Solve \clubg{#1}.
-		If you have time, solve \clubg{#2}.
-		Problems with {\color{red} red} weights are mandatory.
-		\egroup
+        \sffamily\emph{Instructions}: Solve \clubg{#1}.
+        If you have time, solve \clubg{#2}.
+        Problems with {\color{red} red} weights are mandatory.
+        \egroup
     }
 
     \ifcolorthmon
@@ -746,7 +765,7 @@
             numbered=no,
         name=\$]{shell}
         \declaretheorem[style=thmbluebox,%
-        sibling=theorem,%
+            sibling=theorem,%
         name=Algorithm]{boxalgo}
         \declaretheorem[style=thmbluebox,%
         %sibling=theorem,%
@@ -873,45 +892,45 @@
         {\endinnercustomboxdef}
     \else
     %\theoremstyle{plain}
-%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-%            rightmargin=1,%backgroundcolor=blue,%
-%            outerlinecolor=blue,innertopmargin=0,%\topskip
-%            splittopskip=\topskip,
-%            skipbelow=\baselineskip,%
-%            skipabove=\baselineskip,
-%        ntheorem,]{boxthm}{Theorem}
-%        %\theoremstyle{definition}
-%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-%            rightmargin=1,%backgroundcolor=blue,%
-%            outerlinecolor=blue,innertopmargin=0,%
-%            splittopskip=\topskip,skipbelow=\baselineskip,%
-%            skipabove=\baselineskip,
-%        ntheorem,]{boxprob}{Problem}
-%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-%            rightmargin=1,%backgroundcolor=blue,%
-%            outerlinecolor=blue,innertopmargin=0,%
-%            splittopskip=\topskip,skipbelow=\baselineskip,%
-%            skipabove=\baselineskip,
-%        ntheorem,]{boxlemma}{Lemma}
-%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-%            rightmargin=1,%backgroundcolor=blue,%
-%            outerlinecolor=blue,innertopmargin=0,%
-%            splittopskip=\topskip,skipbelow=\baselineskip,%
-%            skipabove=\baselineskip,
-%        ntheorem,]{boxclaim}{Claim}
-%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-%            rightmargin=1,%backgroundcolor=blue,%
-%            outerlinecolor=blue,innertopmargin=0,%
-%            splittopskip=\topskip,skipbelow=\baselineskip,%
-%            skipabove=\baselineskip,
-%        ntheorem,]{boxdef}{Definition}
-%%        \theoremstyle{nonumberplain}
-%        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
-%            rightmargin=1,%backgroundcolor=blue,%
-%            outerlinecolor=blue,innertopmargin=0,%
-%            splittopskip=\topskip,skipbelow=\baselineskip,%
-%            skipabove=\baselineskip,
-%        ntheorem,]{boxremark}{Remark}
+    %        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+    %            rightmargin=1,%backgroundcolor=blue,%
+    %            outerlinecolor=blue,innertopmargin=0,%\topskip
+    %            splittopskip=\topskip,
+    %            skipbelow=\baselineskip,%
+    %            skipabove=\baselineskip,
+    %        ntheorem,]{boxthm}{Theorem}
+    %        %\theoremstyle{definition}
+    %        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+    %            rightmargin=1,%backgroundcolor=blue,%
+    %            outerlinecolor=blue,innertopmargin=0,%
+    %            splittopskip=\topskip,skipbelow=\baselineskip,%
+    %            skipabove=\baselineskip,
+    %        ntheorem,]{boxprob}{Problem}
+    %        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+    %            rightmargin=1,%backgroundcolor=blue,%
+    %            outerlinecolor=blue,innertopmargin=0,%
+    %            splittopskip=\topskip,skipbelow=\baselineskip,%
+    %            skipabove=\baselineskip,
+    %        ntheorem,]{boxlemma}{Lemma}
+    %        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+    %            rightmargin=1,%backgroundcolor=blue,%
+    %            outerlinecolor=blue,innertopmargin=0,%
+    %            splittopskip=\topskip,skipbelow=\baselineskip,%
+    %            skipabove=\baselineskip,
+    %        ntheorem,]{boxclaim}{Claim}
+    %        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+    %            rightmargin=1,%backgroundcolor=blue,%
+    %            outerlinecolor=blue,innertopmargin=0,%
+    %            splittopskip=\topskip,skipbelow=\baselineskip,%
+    %            skipabove=\baselineskip,
+    %        ntheorem,]{boxdef}{Definition}
+    %%        \theoremstyle{nonumberplain}
+    %        \newmdtheoremenv[outerlinewidth=2,leftmargin=1,%
+    %            rightmargin=1,%backgroundcolor=blue,%
+    %            outerlinecolor=blue,innertopmargin=0,%
+    %            splittopskip=\topskip,skipbelow=\baselineskip,%
+    %            skipabove=\baselineskip,
+    %        ntheorem,]{boxremark}{Remark}
         \declaretheorem[style=thmbox,%
             sibling=theorem,%
         name=Theorem]{boxthm}
@@ -929,7 +948,7 @@
             numbered=no,
         name=\$]{shell}
         \declaretheorem[style=thmbox,%
-        sibling=theorem,%
+            sibling=theorem,%
         name=Algorithm]{boxalgo}
         \declaretheorem[style=thmbox,%
         %sibling=theorem,%
@@ -973,7 +992,7 @@
             numbered=no,
         name=Generalization]{boxgprob}
         \declaretheorem[style=thmbox,%
-        sibling=theorem,%
+            sibling=theorem,%
         name=Lemma]{boxlemma}
         \declaretheorem[style=thmbox,%
         %sibling=theorem,%
@@ -1016,7 +1035,6 @@
         \renewcommand\qedsymbol{$\blacksquare$}
     \fi
     \ifendproofnow
-        \makeatletter
         \renewenvironment{proof}[1][\proofname]{\par
             \normalfont \topsep6\p@\@plus6\p@\relax
             \trivlist
@@ -1026,7 +1044,6 @@
         }{%
             \nolinebreak\qedsymbol\endtrivlist\@endpefalse
         }
-        \makeatother
     \fi
 
 % custom numbers
@@ -1107,8 +1124,7 @@
         \fi
     }{}
 
-    \makeatletter
-    % custom environment von
+% custom environment von
     \def\vonenv{\@ifstar\@vonenvstar\@vonenv}
     \newcommand{\@vonenv}[3][]{%
         \ifthenelse{\isempty{#1}}%
@@ -1117,26 +1133,26 @@
     }
     \newcommand{\@vonenvstar}[2]{\begin{#2} \voninclude{#1} \end{#2}}
 
-    % von with boxprob
+% von with boxprob
     \def\vonbox{\@ifstar\@vonboxstar\@vonbox}
     \newcommand{\@vonbox}[2][]{\vonenv[#1]{#2}{boxprob}}
     \newcommand{\@vonboxstar}[1]{\vonenv*{#1}{boxprob}}
 
-    % boxprob open solution
+% boxprob open solution
     \newcommand\vonprob[1]{\voninclude[0]{#1}}
     \newcommand\vonsol[1]{\voninclude[1]{#1}}
 
-    % Show everything
+% Show everything
     \def\vonall{\@ifstar\@vonallstar\@vonall}
     \newcommand{\@vonall}[2][]{\vonbox[#1]{#2}\vonsol{#2}}
     \newcommand{\@vonallstar}[1]{\vonbox*{#1}\vonsol{#1}}
 
-    % vonall with \newpage
+% vonall with \newpage
     \def\vonfull{\@ifstar\@vonfullstar\@vonfull}
     \newcommand{\@vonfull}[2][]{\vonall[#1]{#2}\newpage}
     \newcommand{\@vonfullstar}[1]{\vonall*{#1}\newpage}
 
-    % von with blue point-values
+% von with blue point-values
     \def\vonE{\@ifstar\@vonEstar\@vonE}
     \newcommand{\@vonE}[2][]{\vonenv[#1]{#2}{probE}}
     \newcommand{\@vonEstar}[1][]{\vonenv*{#1}{probE}}
@@ -1153,7 +1169,7 @@
     \newcommand{\@vonZ}[2][]{\vonenv[#1]{#2}{probZ}}
     \newcommand{\@vonZstar}[1][]{\vonenv*{#1}{probZ}}
 
-    % von with red point-values
+% von with red point-values
     \def\vonER{\@ifstar\@vonERstar\@vonER}
     \newcommand{\@vonER}[2][]{\vonenv[#1]{#2}{probER}}
     \newcommand{\@vonERstar}[1][]{\vonenv*{#1}{probER}}
@@ -1170,7 +1186,7 @@
     \newcommand{\@vonZR}[2][]{\vonenv[#1]{#2}{probZR}}
     \newcommand{\@vonZRstar}[1][]{\vonenv*{#1}{probZR}}
 
-    % OTIS
+% OTIS
     \usepackage{xparse}
     \def\vonotis{\@ifstar\@vonotisstar\@vonotis}
     \NewDocumentCommand{\@vonotis}{ O{} O{} m }{
@@ -1198,7 +1214,6 @@
         \vonsol{#3}
     }
 
-    \makeatother
 \fi
 
 % Beamer

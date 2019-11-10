@@ -15,6 +15,7 @@
 \ProvidesPackage{shen}
 
 % ======== ARGUMENTS ========
+\newif\ifsetlinespacing\setlinespacingtrue
 \newif\iftheorembychapter\theorembychapterfalse
 \newif\iftheorembysection\theorembysectionfalse
 \newif\ifcodeused\codeusedfalse
@@ -49,6 +50,14 @@
     \fancyusedtrue
     \colorthmonfalse
     \colorsecstylefalse
+}
+
+% No formatting
+\DeclareOption{noformat}{
+    \setlinespacingfalse
+    \fancyusedfalse
+    \marginsetfalse
+    \colorthmonfalse
 }
 
 % Beamer template
@@ -178,6 +187,12 @@
 \fi
 \newcommand{\sh}{\texttt{\color{MidnightBlue}\$\hspace{8pt}}}
 \newcommand{\shh}{\texttt{\color{MidnightBlue}\$\hspace{3pt}}}
+\newcommand{\hrulebar}{
+    \nointerlineskip\vspace{\parskip}
+    \begin{center}
+        \rule{0.95\linewidth}{.7pt}\hspace{\fill}
+    \end{center}
+}
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\cis}{cis}
 \DeclareMathOperator{\ord}{ord}
@@ -269,6 +284,8 @@
         \postauthor{\end{tabular}\par\end{center}}
         \predate{\begin{center}\large\seriffont}
         \postdate{\par\end{center}}
+
+        \setlength{\droptitle}{-2em}
     }{
         \providecommand{\thetitle}{\@title}
         \providecommand{\theauthor}{\@author}
@@ -305,12 +322,13 @@
 \prevdepth=\tpd}
 
 % ======== PAGE SETUP ========
-\ifindenting
-    \renewcommand{\baselinestretch}{1.05}
-    %\setlength{\parskip}{1pt}
-\else
-    \setlength{\parindent}{0.5pt}
-    \setlength{\parskip}{\baselineskip}
+\ifsetlinespacing
+    \ifindenting
+        \renewcommand{\baselinestretch}{1.05}
+    \else
+        \setlength{\parindent}{0.5pt}
+        \setlength{\parskip}{\baselineskip}
+    \fi
 \fi
 
 % Font
@@ -1116,5 +1134,7 @@
 % ======== IT'S ME! ========
 % Default Values
 \author{Eric Shen}
-\date{\vspace{-5ex}}
+\@ifundefined{KOMAClassName}{
+    \date{\vspace{-5ex}}
+}{\date{\vspace{-3ex}}}
 

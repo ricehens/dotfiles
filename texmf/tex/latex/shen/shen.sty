@@ -20,13 +20,14 @@
 \newif\ifcodeused\codeusedfalse
 \newif\iffancyused\fancyusedtrue
 \newif\ifmathpazofontused\mathpazofontusedfalse
+\newif\ifsansseriffontused\sansseriffontusedfalse
 \newif\ifmarginset\marginsettrue
-\newif\ifcolorthmon\colorthmontrue
+\newif\ifcolorthmon\colorthmonfalse
 \newif\ifthmenabled\thmenabledtrue
 \newif\ifindenting\indentingtrue
 \newif\ifendproofnow\endproofnowfalse
-\newif\ifcolorsecstyle\colorsecstyletrue
-\newif\ifplainsol\plainsolfalse
+\newif\ifcolorsecstyle\colorsecstylefalse
+\newif\ifplainsol\plainsoltrue
 \newif\iffillqedsymbol\fillqedsymbolfalse
 \newif\ifvonenabled\vonenabledfalse
 \newif\ifvonbrave\vonbravefalse
@@ -38,7 +39,9 @@
 % Loads preferred options
 \DeclareOption{default}{
     \fancyusedtrue
-    \mathpazofontusedtrue
+    \colorthmontrue
+    \colorsecstyletrue
+    \plainsolfalse
 }
 
 % Create plain document w/o fancy formatting
@@ -46,7 +49,6 @@
     \fancyusedtrue
     \colorthmonfalse
     \colorsecstylefalse
-    \plainsoltrue
 }
 
 % Beamer template
@@ -73,7 +75,8 @@
 \DeclareOption{nofancy}{\fancyusedfalse}
 
 % Font selection (palatino, roman)
-\DeclareOption{font}{\mathpazofontusedtrue}
+\DeclareOption{pazo}{\mathpazofontusedtrue}
+\DeclareOption{sans}{\sansseriffontusedtrue}
 \DeclareOption{nofont}{\mathpazofontusedfalse}
 
 % Do not set margin
@@ -127,7 +130,7 @@
 \usepackage{mathdots} % Fancy dots
 \usepackage[final]{pdfpages} % Inserting PDF's
 \usepackage{siunitx} % SI Units
-\usepackage{mdframed} % MDFramed
+\usepackage[framemethod=TikZ]{mdframed} % MDFramed
 \ifdocisbeamer\else
 % enum customization; breaks beamer
     \usepackage{enumitem} 
@@ -141,7 +144,7 @@
 % ======== BASIC FORMATTING ========
 % Colorful text
 \definecolor{astral}{RGB}{46,116,181}
-\definecolor{royalblue}{RGB}{0,35,102}
+\definecolor{denimblue}{RGB}{0,35,102}
 \definecolor{turtle}{RGB}{0,64,64}
 
 % Useful commands
@@ -150,7 +153,6 @@
 \newcommand{\ans}[5]{\textbf{(A) }#1\qquad\textbf{(B) }#2\qquad\textbf{(C) }#3\qquad\textbf{(D) }#4\qquad\textbf{(E) }#5}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
-\newcommand{\vphi}{\varphi}
 \newcommand{\cycsum}{\sum_\mathrm{cyc}}
 \newcommand{\symsum}{\sum_\mathrm{sym}}
 \newcommand{\cycprod}{\prod_\mathrm{cyc}}
@@ -167,9 +169,10 @@
 \newcommand{\surjto}{\twoheadrightarrow}
 \newcommand{\injto}{\hookrightarrow}
 \newcommand{\dd}{\mathrm{d}}
-\newcommand{\ta}{\triangle}
+\newcommand{\vphi}{\varphi}
+\newcommand{\veps}{\varepsilon}
 \ifcolorsecstyle
-    \newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
+    \newcommand{\vocab}[1]{\textbf{\color{RoyalBlue}#1}}
 \else
     \newcommand{\vocab}[1]{\textbf{#1}}
 \fi
@@ -181,13 +184,6 @@
 \DeclareMathOperator{\pow}{Pow}
 \DeclareMathOperator{\rad}{rad}
 
-% TODO (need to replace fancyhdr)
-\newcommand{\komaletter}{
-    \@ifundefined{KOMAClassName}{}{
-        \KOMAoptions{paper=letter}
-    }
-}
-
 % varying sizes in \pmod
 \DeclarePairedDelimiterX{\pmodx}[1]{(}{)}{{\operator@font mod}\mkern6mu#1}
 \renewcommand{\pmod}{
@@ -198,28 +194,38 @@
 
 % Fancy setup
 \iffancyused
-    \usepackage{fancyhdr}
-    \pagestyle{fancy}
-    \fancyhf{}
-    \iftheorembychapter
-        \fancyhead[LO]{Ch. \thechapter: \nouppercase{\leftmark}}
-        \fancyhead[RE]{Ch. \thechapter: \nouppercase{\leftmark}}
-    \fi
-    \chead{}
-    %\fancyhead[LE]{\thepage}
-    %\fancyhead[RO]{\thepage}
-    \lhead{\@title}
-    \rhead{\theauthor}
-    \lfoot{}
-    \cfoot{\thepage}
-    \rfoot{}
-    \renewcommand{\headrulewidth}{0.4pt}
+    \@ifundefined{KOMAClassName}{
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \iftheorembychapter
+            \fancyhead[LO]{Ch. \thechapter: \nouppercase{\leftmark}}
+            \fancyhead[RE]{Ch. \thechapter: \nouppercase{\leftmark}}
+        \fi
+        \chead{}
+        %\fancyhead[LE]{\thepage}
+        %\fancyhead[RO]{\thepage}
+        \lhead{\@title}
+        \rhead{\@author}
+        \lfoot{}
+        \cfoot{\thepage}
+        \rfoot{}
+        \renewcommand{\headrulewidth}{0.4pt}
 
-    \ifmarginset
+        \ifmarginset
+            \setlength{\headsep}{10pt}
+            \setlength{\oddsidemargin}{0in}
+            \setlength{\evensidemargin}{0in}
+        \fi
+    }{
+        \usepackage[headsepline]{scrlayer-scrpage}
+        \renewcommand{\headfont}{}
         \setlength{\headsep}{10pt}
-        \setlength{\oddsidemargin}{0in}
-        \setlength{\evensidemargin}{0in}
-    \fi
+        \setlength{\footskip}{0.4in}
+        \ihead{\@title}
+        \ohead{\@author}
+        \cfoot{\pagemark}
+    }
 \fi
 
 \iftheorembychapter
@@ -238,7 +244,7 @@
     }
 
     \newcommand{\announcefont}{\bfseries
-    \fontfamily{lmss}\selectfont\color{royalblue}}
+    \fontfamily{lmss}\selectfont\color{denimblue}}
     \newcommand{\boldseriffont}{\bfseries
     \fontfamily{lmss}\selectfont}		
     \newcommand{\seriffont}{\fontfamily{lmss}\selectfont}
@@ -275,10 +281,15 @@
         \addtokomafont{subsection}{\announcefont}
         \addtokomafont{subsubsection}{\announcefont}
 
-        \addtokomafont{title}{\LARGE\boldseriffont}
+        \addtokomafont{title}{\boldseriffont}
         \addtokomafont{subtitle}{\Large}
         \setkomafont{author}{\large\seriffont}
         \setkomafont{date}{\large\seriffont}
+
+        \@ifundefined{chapter}{}{
+            \addtokomafont{chapterentry}{\sffamily}
+        }
+        \addtokomafont{sectionentry}{\sffamily}
     }
 \else
     \providecommand{\thetitle}{\@title}
@@ -305,6 +316,11 @@
 % Font
 \ifmathpazofontused
     \usepackage{mathpazo}
+\else\ifsansseriffontused
+    \renewcommand{\familydefault}{\sfdefault}
+    \usepackage{sansmath}
+    \sansmath
+\fi
 \fi
 
 % ======== THEOREMS! <3 ========
@@ -312,350 +328,208 @@
     \usepackage{amsthm,thmtools}
     % Theorem Styles --- Based on Evan's pretty boxes
     \ifcolorthmon
-        \ifindenting % Linebreaking for indention
-            \mdfdefinestyle{mdbluebox}{%
-                roundcorner = 10pt,
-                linewidth=0pt, %1pt,
-                skipabove=12pt,
-                innerbottommargin=9pt,
-                skipbelow=2pt,
-                linecolor=blue,
-                %                nobreak=true,
-                backgroundcolor=TealBlue!5,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{MidnightBlue},
-                mdframed={style=mdbluebox},
-                headpunct={\\[3pt]},
-                postheadspace={0pt}
-            ]{thmbluebox}
-            \declaretheoremstyle[
-                headfont=\ttfamily\color{MidnightBlue},
-                bodyfont=\ttfamily,
-                mdframed={style=mdbluebox},
-                headpunct={},
-                postheadspace={8pt}
-            ]{thminlinebluebox}
+        \mdfdefinestyle{mdbluebox}{%
+        %                roundcorner = 10pt,
+            linewidth=0pt, %1pt,
+            skipabove=12pt,
+            innerbottommargin=9pt,
+            skipbelow=2pt,
+            linecolor=blue,
+            %                nobreak=true,
+            backgroundcolor=TealBlue!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{MidnightBlue},
+            mdframed={style=mdbluebox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt}
+        ]{thmbluebox}
+        \declaretheoremstyle[
+            headfont=\ttfamily\color{MidnightBlue},
+            bodyfont=\ttfamily,
+            mdframed={style=mdbluebox},
+            headpunct={},
+            postheadspace={8pt}
+        ]{thminlinebluebox}
 
-            \mdfdefinestyle{mdpurplebox}{%
-                roundcorner = 10pt,
-                linewidth=0pt, %1pt,
-                skipabove=12pt,
-                innerbottommargin=9pt,
-                skipbelow=2pt,
-                linecolor=blue,
-                %                nobreak=true,
-                backgroundcolor=RoyalPurple!5,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{RoyalPurple},
-                mdframed={style=mdpurplebox},
-                headpunct={\\[3pt]},
-                postheadspace={0pt}
-            ]{thmpurplebox}
+        \mdfdefinestyle{mdpurplebox}{%
+        %                roundcorner = 10pt,
+            linewidth=0pt, %1pt,
+            skipabove=12pt,
+            innerbottommargin=9pt,
+            skipbelow=2pt,
+            linecolor=blue,
+            %                nobreak=true,
+            backgroundcolor=RoyalPurple!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{RoyalPurple},
+            mdframed={style=mdpurplebox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt}
+        ]{thmpurplebox}
 
-            \mdfdefinestyle{mdredbox}{%
-                linewidth=0pt, %0.5pt,
-                skipabove=12pt,
-                frametitleaboveskip=5pt,
-                frametitlebelowskip=0pt,
-                skipbelow=2pt,
-                frametitlefont=\bfseries,
-                innertopmargin=4pt,
-                innerbottommargin=8pt,
-                %                nobreak=true,
-                backgroundcolor=Salmon!5,
-                linecolor=RawSienna,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{RawSienna},
-                mdframed={style=mdredbox},
-                headpunct={\\[3pt]},
-                postheadspace={0pt},
-            ]{thmredbox}
+        \mdfdefinestyle{mdredbox}{%
+            linewidth=0pt, %0.5pt,
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            nobreak=true,
+            backgroundcolor=Salmon!5,
+            linecolor=RawSienna,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{Mahogany},
+            mdframed={style=mdredbox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt},
+        ]{thmredbox}
 
-            \mdfdefinestyle{mdorangebox}{%
-                linewidth=0pt, %0.5pt,
-                rightline=false,
-                leftline=true,
-                topline=false,
-                bottomline=false,
-                skipabove=12pt,
-                frametitleaboveskip=5pt,
-                frametitlebelowskip=0pt,
-                skipbelow=2pt,
-                frametitlefont=\bfseries,
-                innertopmargin=4pt,
-                innerbottommargin=8pt,
-                %                nobreak=true,
-                backgroundcolor=Peach!5,
-                linecolor=BurntOrange,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{BurntOrange},
-                mdframed={style=mdorangebox},
-                headpunct={\\[3pt]},
-                postheadspace={0pt},
-            ]{thmorangebox}
+        \mdfdefinestyle{mdorangebox}{%
+            linewidth=0pt, %0.5pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            %                nobreak=true,
+            backgroundcolor=Peach!5,
+            linecolor=BurntOrange,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{BurntOrange},
+            mdframed={style=mdorangebox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt},
+        ]{thmorangebox}
 
-            \mdfdefinestyle{mdinlineorangebox}{%
-                skipabove=8pt,
-                linewidth=3pt,
-                rightline=false,
-                leftline=true,
-                topline=false,
-                bottomline=false,
-                linecolor=black,
-                linecolor=BurntOrange,
-                backgroundcolor=Peach!5,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{BurntOrange},
-                spaceabove=0pt,
-                spacebelow=0pt,
-                mdframed={style=mdinlineorangebox},
-                headpunct={.\;},
-            ]{thminlineorangebox}
+        \mdfdefinestyle{mdinlineorangebox}{%
+            skipabove=8pt,
+            linewidth=3pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            linecolor=black,
+            linecolor=BurntOrange,
+            backgroundcolor=Peach!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{BurntOrange},
+            spaceabove=0pt,
+            spacebelow=0pt,
+            mdframed={style=mdinlineorangebox},
+            headpunct={.\;},
+        ]{thminlineorangebox}
 
-            \mdfdefinestyle{mdgreenbox}{%
-                skipabove=8pt,
-                linewidth=2pt,
-                rightline=false,
-                leftline=true,
-                topline=false,
-                bottomline=false,
-                linecolor=ForestGreen,
-                backgroundcolor=ForestGreen!5,
-                nobreak=true,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{ForestGreen!70!black},
-                bodyfont=\normalfont,
-                spaceabove=2pt,
-                spacebelow=1pt,
-                mdframed={style=mdgreenbox},
-                %headpunct={ --- },
-                headpunct={\\[3pt]},
-            ]{thmgreenbox}
+        \mdfdefinestyle{mdgreenbox}{%
+            skipabove=8pt,
+            linewidth=2pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            linecolor=ForestGreen,
+            backgroundcolor=ForestGreen!5,
+            nobreak=true,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{ForestGreen!70!black},
+            bodyfont=\normalfont,
+            spaceabove=2pt,
+            spacebelow=1pt,
+            mdframed={style=mdgreenbox},
+            %headpunct={ --- },
+            headpunct={\\[3pt]},
+        ]{thmgreenbox}
 
-            \mdfdefinestyle{mdgreenborder}{%
-                linewidth=0.5pt,
-                skipabove=12pt,
-                frametitleaboveskip=5pt,
-                frametitlebelowskip=0pt,
-                skipbelow=2pt,
-                frametitlefont=\bfseries,
-                innertopmargin=4pt,
-                innerbottommargin=8pt,
-                %                nobreak=true,
-                backgroundcolor=ForestGreen!5,
-                linecolor=ForestGreen,
-            }
-            \declaretheoremstyle[
-                headfont=\bfseries\color{ForestGreen},
-                mdframed={style=mdgreenborder},
-                headpunct={\\[3pt]},
-                postheadspace={0pt},
-            ]{thmgreenborder}
+        \mdfdefinestyle{mdgreenborder}{%
+            linewidth=0.5pt,
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            %                nobreak=true,
+            backgroundcolor=ForestGreen!5,
+            linecolor=ForestGreen,
+        }
+        \declaretheoremstyle[
+            headfont=\bfseries\color{ForestGreen},
+            mdframed={style=mdgreenborder},
+            headpunct={\\[3pt]},
+            postheadspace={0pt},
+        ]{thmgreenborder}
 
-            \mdfdefinestyle{mdlimebox}{%
-                skipabove=8pt,
-                linewidth=2pt,
-                rightline=false,
-                leftline=true,
-                topline=false,
-                bottomline=false,
-                linecolor=LimeGreen,
-                backgroundcolor=LimeGreen!5,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{LimeGreen!70!black},
-                bodyfont=\normalfont,
-                spaceabove=2pt,
-                spacebelow=1pt,
-                mdframed={style=mdlimebox},
-                %headpunct={ --- },
-                headpunct={\\[3pt]},
-            ]{thmlimebox}
+        \mdfdefinestyle{mdlimebox}{%
+            skipabove=8pt,
+            linewidth=2pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            linecolor=LimeGreen,
+            backgroundcolor=LimeGreen!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{LimeGreen!70!black},
+            bodyfont=\normalfont,
+            spaceabove=2pt,
+            spacebelow=1pt,
+            mdframed={style=mdlimebox},
+            %headpunct={ --- },
+            headpunct={\\[3pt]},
+        ]{thmlimebox}
 
-            \mdfdefinestyle{mdlimeborder}{%
-                linewidth=0.5pt,
-                skipabove=12pt,
-                frametitleaboveskip=5pt,
-                frametitlebelowskip=0pt,
-                skipbelow=2pt,
-                frametitlefont=\bfseries,
-                innertopmargin=4pt,
-                innerbottommargin=8pt,
-                %                nobreak=true,
-                backgroundcolor=LimeGreen!5,
-                linecolor=LimeGreen,
-            }
-            \declaretheoremstyle[
-                headfont=\bfseries\color{LimeGreen!70!black},
-                mdframed={style=mdlimeborder},
-                headpunct={\\[3pt]},
-                postheadspace={0pt},
-            ]{thmlimeborder}
+        \mdfdefinestyle{mdlimeborder}{%
+            linewidth=0.5pt,
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            %                nobreak=true,
+            backgroundcolor=LimeGreen!5,
+            linecolor=LimeGreen,
+        }
+        \declaretheoremstyle[
+            headfont=\bfseries\color{LimeGreen!70!black},
+            mdframed={style=mdlimeborder},
+            headpunct={\\[3pt]},
+            postheadspace={0pt},
+        ]{thmlimeborder}
 
-            \mdfdefinestyle{mdblackbox}{%
-                skipabove=8pt,
-                linewidth=3pt,
-                rightline=false,
-                leftline=true,
-                topline=false,
-                bottomline=false,
-                linecolor=black,
-                backgroundcolor=RedViolet!5!gray!5,
-            }
-            \declaretheoremstyle[
-                headfont=\bfseries,
-                bodyfont=\normalfont\small,
-                spaceabove=0pt,
-                spacebelow=0pt,
-                mdframed={style=mdblackbox}
-            ]{thmblackbox}
-
-        \else % Linebreaking for no indention
-        % THIS SECTION IS DEPRECATED AND NO LONGER MAINTAINED
-        % It is only here for backwards compatability.
-            \mdfdefinestyle{mdbluebox}{%
-                roundcorner = 10pt,
-                linewidth=0pt,
-                skipabove=12pt,
-                innertopmargin=20pt,
-                innerbottommargin=9pt,
-                skipbelow=2pt,
-                linecolor=blue,
-                %                nobreak=true,
-                backgroundcolor=TealBlue!5,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{MidnightBlue},
-                mdframed={style=mdbluebox},
-                headpunct={\\[3pt]},
-                postheadspace={0pt}
-            ]{thmbluebox}
-
-            \mdfdefinestyle{mdredbox}{%
-                linewidth=0pt,
-                skipabove=12pt,
-                frametitleaboveskip=5pt,
-                frametitlebelowskip=0pt,
-                skipbelow=2pt,
-                frametitlefont=\bfseries,
-                innertopmargin=20pt,
-                innerbottommargin=8pt,
-                %                nobreak=true,
-                backgroundcolor=Salmon!5,
-                linecolor=RawSienna,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{RawSienna},
-                mdframed={style=mdredbox},
-                headpunct={\\[3pt]},
-                postheadspace={0pt},
-            ]{thmredbox}
-
-            \mdfdefinestyle{mdorangebox}{%
-                linewidth=0pt,
-                skipabove=12pt,
-                frametitleaboveskip=5pt,
-                frametitlebelowskip=0pt,
-                skipbelow=2pt,
-                frametitlefont=\bfseries,
-                innertopmargin=20pt,
-                innerbottommargin=8pt,
-                %                nobreak=true,
-                backgroundcolor=Peach!5,
-                linecolor=BurntOrange,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{BurntOrange},
-                mdframed={style=mdorangebox},
-                headpunct={\\[3pt]},
-                postheadspace={0pt},
-            ]{thmorangebox}
-
-            \mdfdefinestyle{mdinlineorangebox}{%
-                skipabove=8pt,
-                linewidth=3pt,
-                rightline=false,
-                leftline=false,
-                topline=false,
-                bottomline=false,
-                innertopmargin=18pt,
-                linecolor=BurntOrange,
-                backgroundcolor=Peach!5,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{BurntOrange},
-                spaceabove=0pt,
-                spacebelow=0pt,
-                mdframed={style=mdinlineorangebox},
-            ]{thminlineorangebox}
-
-            \mdfdefinestyle{mdgreenbox}{%
-                skipabove=8pt,
-                linewidth=2pt,
-                rightline=false,
-                leftline=true,
-                topline=false,
-                bottomline=false,
-                innertopmargin=18pt,
-                linecolor=ForestGreen,
-                backgroundcolor=ForestGreen!5,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{ForestGreen!70!black},
-                bodyfont=\normalfont,
-                spaceabove=2pt,
-                spacebelow=1pt,
-                mdframed={style=mdgreenbox},
-                %headpunct={ --- },
-                headpunct={\\[3pt]}
-            ]{thmgreenbox}
-
-            \mdfdefinestyle{mdlimebox}{%
-                skipabove=8pt,
-                linewidth=2pt,
-                rightline=false,
-                leftline=true,
-                topline=false,
-                bottomline=false,
-                innertopmargin=18pt,
-                linecolor=LimeGreen,
-                backgroundcolor=LimeGreen!5,
-            }
-            \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{LimeGreen!70!black},
-                bodyfont=\normalfont,
-                spaceabove=2pt,
-                spacebelow=1pt,
-                mdframed={style=mdlimebox},
-                %headpunct={ --- },
-                headpunct={\\[3pt]}
-            ]{thmlimebox}
-
-            \mdfdefinestyle{mdblackbox}{%
-                skipabove=8pt,
-                linewidth=3pt,
-                rightline=false,
-                leftline=true,
-                topline=false,
-                bottomline=false,
-                innertopmargin=18pt,
-                linecolor=black,
-                backgroundcolor=RedViolet!5!gray!5,
-            }
-            \declaretheoremstyle[
-                headfont=\bfseries,
-                bodyfont=\normalfont\small,
-                spaceabove=0pt,
-                spacebelow=0pt,
-                mdframed={style=mdblackbox}
-            ]{thmblackbox}
-        \fi
+        \mdfdefinestyle{mdblackbox}{%
+            skipabove=8pt,
+            linewidth=3pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            linecolor=black,
+            backgroundcolor=RedViolet!5!gray!5,
+        }
+        \declaretheoremstyle[
+            headfont=\bfseries,
+            bodyfont=\normalfont\small,
+            spaceabove=0pt,
+            spacebelow=0pt,
+            mdframed={style=mdblackbox}
+        ]{thmblackbox}
     \else
         \mdfdefinestyle{mdbox}{%
             linewidth=0.5pt,

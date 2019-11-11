@@ -180,6 +180,14 @@
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\vphi}{\varphi}
 \newcommand{\veps}{\varepsilon}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\EE}{\mathbb E}
 \ifcolorsecstyle
     \newcommand{\vocab}[1]{\textbf{\color{RoyalBlue}#1}}
 \else
@@ -291,12 +299,12 @@
         \providecommand{\theauthor}{\@author}
         \providecommand{\thedate}{\@date}
 
-        \renewcommand*{\@seccntformat}[1]{%
-            \announcefont{\sffamily\S}\csname the#1\endcsname\enskip
-        }
         \addtokomafont{section}{\announcefont}
         \addtokomafont{subsection}{\announcefont}
         \addtokomafont{subsubsection}{\announcefont}
+        \renewcommand*{\@seccntformat}[1]{%
+            \announcefont{\sffamily\S}\csname the#1\endcsname\quad
+        }
 
         \addtokomafont{title}{\boldseriffont}
         \addtokomafont{subtitle}{\Large}

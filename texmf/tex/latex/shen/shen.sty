@@ -144,7 +144,6 @@
 % enum customization; breaks beamer
     \usepackage{enumitem} 
 \fi
-\usepackage{version} % Hiding specific text
 \usepackage{mathtools} % Math tools
 \usepackage[T1]{fontenc} % Make serif look ok
 \usepackage{epigraph} % Quotes!
@@ -207,6 +206,13 @@
 \DeclareMathOperator{\pow}{Pow}
 \DeclareMathOperator{\rad}{rad}
 
+% \wideparen for good-looking arc symbols
+\DeclareFontFamily{OMX}{yhex}{}
+\DeclareFontShape{OMX}{yhex}{m}{n}{<->yhcmex10}{}
+\DeclareSymbolFont{yhlargesymbols}{OMX}{yhex}{m}{n}
+\DeclareMathAccent{\wideparen}{\mathord}{yhlargesymbols}{"F3}
+
+
 % varying sizes in \pmod
 \DeclarePairedDelimiterX{\pmodx}[1]{(}{)}{{\operator@font mod}\mkern6mu#1}
 \renewcommand{\pmod}{
@@ -248,6 +254,9 @@
         \ihead{\@title}
         \ohead{\@author}
         \cfoot{\pagemark}
+
+        \newcommand{\lhead}[1]{\ihead{#1}}
+        \newcommand{\rhead}[1]{\ohead{#1}}
     }
 \fi
 
@@ -1132,12 +1141,6 @@
         }
     }
 \fi
-
-% Arc
-\DeclareFontFamily{OMX}{yhex}{}
-\DeclareFontShape{OMX}{yhex}{m}{n}{<->yhcmex10}{}
-\DeclareSymbolFont{yhlargesymbols}{OMX}{yhex}{m}{n}
-\DeclareMathAccent{\wideparen}{\mathord}{yhlargesymbols}{"F3}
 
 % ======== IT'S ME! ========
 % Default Values

@@ -37,6 +37,9 @@
 \newif\ifrollingboxprob\rollingboxprobfalse
 \newif\ifdocisbeamer\docisbeamerfalse
 
+\newif\ifvonstyexists
+\IfFileExists{von.sty}{\vonstyexiststrue}{\vonstyexistsfalse}
+
 % ======== OPTIONS ========
 % Loads preferred options
 \DeclareOption{default}{
@@ -1031,15 +1034,13 @@
 \fi
 
 % Von
-\ifvonenabled
-    \IfFileExists{von.sty}{
-    % \von, \voninclude
-        \ifvonbrave
-            \usepackage[brave]{von}
-        \else
-            \usepackage{von}
-        \fi
-    }{}
+\ifvonenabled\ifvonstyexists
+% \von, \voninclude
+    \ifvonbrave
+        \usepackage[brave]{von}
+    \else
+        \usepackage{von}
+    \fi
 
 % custom environment von
     \def\vonenv{\@ifstar\@vonenvstar\@vonenv}
@@ -1130,8 +1131,7 @@
         }
         \vonsol{#3}
     }
-
-\fi
+\fi\fi
 
 % Beamer
 \ifdocisbeamer\AtBeginDocument{

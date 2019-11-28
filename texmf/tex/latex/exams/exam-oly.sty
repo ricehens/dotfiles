@@ -6,6 +6,7 @@
 \newif\iftestvonbrave\testvonbravefalse
 \newif\ifgeodiagram\geodiagramfalse
 \newif\ifcmcoly\cmcolyfalse
+\newif\iftestdraft\testdraftfalse
 %\newif\ifautohead\autoheadfalse
 
 % ======== OPTIONS ========
@@ -22,6 +23,9 @@
 % Print CMC footer; not very sexy
 \DeclareOption{cmc}{\cmcolytrue}
 
+% Draft watermark
+\DeclareOption{draft}{\testdrafttrue}
+
 % Automatically place header at top of every page
 %\DeclareOption{auto}{\autoheadtrue}
 \ProcessOptions\relax
@@ -29,10 +33,10 @@
 % ======== UTILITIES ========
 \iftestsexy
     \iftestvonenabled
-        \iftestvonbrave\usepackage[default,nofont,nofancy,vonbrave]{shen}
-        \else\usepackage[default,nofont,nofancy,von]{shen}
+        \iftestvonbrave\usepackage[default,t1,nofont,nofancy,vonbrave]{shen}
+        \else\usepackage[default,t1,nofont,nofancy,von]{shen}
         \fi
-    \else\usepackage[default,nofont,nofancy]{shen}
+    \else\usepackage[default,t1,nofont,nofancy]{shen}
     \fi
 \else
     \usepackage[plain,nofancy]{shen}
@@ -233,4 +237,13 @@
         \newcommand{\vonfull}[2][]{\vonall[#1]{#2}\newpage}
     \fi
     \makeatother
+\fi
+
+\iftestdraft
+    \usepackage{draftwatermark}
+    \SetWatermarkAngle{32}
+    \SetWatermarkLightness{0.90}
+    \SetWatermarkFontSize{48pt}
+    \SetWatermarkScale{2.718}
+%    \SetWatermarkText{\shortstack{DRAFT}}
 \fi

@@ -22,6 +22,7 @@
 \newif\iffancyused\fancyusedtrue
 \newif\ifmathpazofontused\mathpazofontusedfalse
 \newif\ifsansseriffontused\sansseriffontusedfalse
+\newif\ifteeonefontencoding\teeonefontencodingfalse
 \newif\ifmarginset\marginsettrue
 \newif\ifcolorthmon\colorthmonfalse
 \newif\ifthmenabled\thmenabledtrue
@@ -87,6 +88,7 @@
 \DeclareOption{pazo}{\mathpazofontusedtrue}
 \DeclareOption{sans}{\sansseriffontusedtrue}
 \DeclareOption{nofont}{\mathpazofontusedfalse}
+\DeclareOption{t1}{\teeonefontencodingtrue}
 
 % Do not set margin
 \DeclareOption{nomargin}{\marginsetfalse}
@@ -145,9 +147,14 @@
     \usepackage{enumitem} 
 \fi
 \usepackage{mathtools} % Math tools
-\usepackage[T1]{fontenc} % Make serif look ok
 \usepackage{epigraph} % Quotes!
 \usepackage{hyperref} % Referrences
+\usepackage{mathrsfs} % Math fonts
+\ifteeonefontencoding
+    \usepackage[T1]{fontenc}
+\else
+    \usepackage{textcomp} % Text fonts
+\fi
 
 % ======== BASIC FORMATTING ========
 % Colorful text
@@ -195,8 +202,8 @@
 \newcommand{\sh}{\texttt{\color{MidnightBlue}\$\hspace{8pt}}}
 \newcommand{\shh}{\texttt{\color{MidnightBlue}\$\hspace{3pt}}}
 \newcommand{\hrulebar}{
-    \nointerlineskip\vspace{\parskip}
     \begin{center}
+        \nointerlineskip\vspace{5pt}
         \rule{0.95\linewidth}{.7pt}\hspace{\fill}
     \end{center}
 }
@@ -243,6 +250,7 @@
 
         \ifmarginset
             \setlength{\headsep}{10pt}
+            \setlength{\headheight}{13.6pt}
             \setlength{\oddsidemargin}{0in}
             \setlength{\evensidemargin}{0in}
         \fi
@@ -1138,6 +1146,25 @@
         \renewenvironment{lemma}[1][]{
             \ifthenelse{\isempty{#1}}{\begin{alertblock}{Lemma}}{\begin{alertblock}{Lemma (#1)}}
             }{\ifthenelse{\isempty{}}{\end{alertblock}}{\end{alertblock}}
+        }
+        \renewenvironment{fact}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{alertblock}{Fact}}{\begin{alertblock}{Fact (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{alertblock}}{\end{alertblock}}
+        }
+        \newenvironment{claim}[1][]{
+            \setbeamercolor{block title}{bg=BurntOrange,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Claim}}{\begin{block}{Claim (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}}
+        }
+        \renewenvironment{definition}[1][]{
+            \setbeamercolor{block title}{bg=RoyalPurple,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Definition}}{\begin{block}{Definition (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
+        }
+        \renewenvironment{corollary}[1][]{
+            \setbeamercolor{block title}{bg=MidnightBlue,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Corollary}}{\begin{block}{Corollary (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
         }
     }
 \fi

@@ -198,7 +198,7 @@
 \newcommand{\PP}{\mathbb P}
 \newcommand{\EE}{\mathbb E}
 \ifcolorsecstyle
-    \newcommand{\vocab}[1]{\textbf{\color{RoyalBlue}#1}}
+    \newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
 \else
     \newcommand{\vocab}[1]{\textbf{#1}}
 \fi
@@ -381,7 +381,7 @@
             innerbottommargin=9pt,
             skipbelow=2pt,
             linecolor=blue,
-            %                nobreak=true,
+            nobreak=true,
             backgroundcolor=TealBlue!5,
         }
         \declaretheoremstyle[
@@ -622,8 +622,9 @@
             \newtheorem{theorem}{Theorem}
         \fi
     \fi
+    \newtheorem{proposition}[theorem]{Proposition}
     \newtheorem{axiom}[theorem]{Axiom}
-    \newtheorem{corollary}{Corollary}[theorem]
+    \newtheorem{corollary}[theorem]{Corollary}
     \newtheorem*{lemma}{Lemma}
     \newtheorem{numlemma}[theorem]{Lemma}
     \newtheorem{fact}[theorem]{Fact}
@@ -633,7 +634,10 @@
     \newtheorem{definition}[theorem]{Definition}
     \newtheorem*{claim}{Claim}
     \newtheorem*{example}{Example}
+    \newtheorem{numexample}[theorem]{Example}
     \newtheorem{theoremdef}[theorem]{Theorem}
+    \newtheorem{corollarydef}[theorem]{Corollary}
+    \newtheorem{numlemmadef}[theorem]{Lemma}
 
     \newtheorem{exercise}[theorem]{Exercise}
     \newtheorem{problem}[theorem]{Problem}
@@ -672,12 +676,17 @@
             sibling=theorem,%
         name=Theorem]{boxthm}
         \declaretheorem[style=thmbluebox,%
-        %sibling=theorem,%
             numbered=no,
         name=Theorem]{boxthm*}
         \declaretheorem[style=thmbluebox,%
             sibling=corollary,%
         name=Corollary]{boxcoro}
+        \declaretheorem[style=thmbluebox,%
+            sibling=theorem,%
+        name=Proposition]{boxprop}
+        \declaretheorem[style=thmbluebox,%
+            numbered=no,
+        name=Proposition]{boxprop*}
         %\declaretheorem[style=thmbluebox,%
         %parent=section,%
         %name=Theorem]{boxsecthm}
@@ -1055,6 +1064,10 @@
     \def\vonbox{\@ifstar\@vonboxstar\@vonbox}
     \newcommand{\@vonbox}[2][]{\vonenv[#1]{#2}{boxprob}}
     \newcommand{\@vonboxstar}[1]{\vonenv*{#1}{boxprob}}
+
+    \def\vonexmp{\@ifstar\@vonexmpstar\@vonexmp}
+    \newcommand{\@vonexmp}[2][]{\vonenv[#1]{#2}{boxexample}}
+    \newcommand{\@vonexmpstar}[1]{\vonenv*{#1}{boxexample}}
 
 % boxprob open solution
     \newcommand\vonprob[1]{\voninclude[0]{#1}}

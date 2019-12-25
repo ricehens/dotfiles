@@ -26,7 +26,7 @@
 \newif\ifmarginset\marginsettrue
 \newif\ifcolorthmon\colorthmonfalse
 \newif\ifthmenabled\thmenabledtrue
-\newif\ifindenting\indentingtrue
+\newif\ifnoindent\noindentfalse
 \newif\ifendproofnow\endproofnowfalse
 \newif\ifcolorsecstyle\colorsecstylefalse
 \newif\ifplainsol\plainsoltrue
@@ -95,6 +95,7 @@
 
 % Do not set margin
 \DeclareOption{nomargin}{\marginsetfalse}
+\DeclareOption{margin}{\marginsettrue}
 
 % No asymptote
 \DeclareOption{noasy}{\asyenabledfalse}
@@ -110,10 +111,10 @@
 
 % Do not create theorems
 \DeclareOption{nothm}{\thmenabledfalse}
-\DeclareOption{indent}{\indentingtrue}
+\DeclareOption{indent}{\noindentfalse}
 
 % DEPRECATED -- do not indent
-\DeclareOption{noindent}{\indentingfalse}
+\DeclareOption{noindent}{\noindenttrue}
 
 % Where to place qedsymbol (right, now)
 \DeclareOption{rightqed}{\endproofnowfalse}
@@ -351,12 +352,11 @@
 
 % ======== PAGE SETUP ========
 \ifsetlinespacing
-    \ifindenting
-        \renewcommand{\baselinestretch}{1.05}
-    \else
-        \setlength{\parindent}{0.5pt}
-        \setlength{\parskip}{\baselineskip}
+    \ifnoindent
+        \setlength{\parindent}{0pt}
+        \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
     \fi
+    \renewcommand{\baselinestretch}{1.05}
 \fi
 
 % Font

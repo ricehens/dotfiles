@@ -7,6 +7,7 @@
 \newif\ifgeodiagram\geodiagramfalse
 \newif\ifcmcoly\cmcolyfalse
 \newif\iftestdraft\testdraftfalse
+\newif\ifnoindent\noindentfalse
 %\newif\ifautohead\autoheadfalse
 
 % ======== OPTIONS ========
@@ -26,6 +27,9 @@
 % Draft watermark
 \DeclareOption{draft}{\testdrafttrue}
 
+% Indention
+\DeclareOption{noindent}{\noindenttrue}
+
 % Automatically place header at top of every page
 %\DeclareOption{auto}{\autoheadtrue}
 \ProcessOptions\relax
@@ -33,11 +37,12 @@
 % ======== UTILITIES ========
 \iftestsexy
     \iftestvonenabled
-        \iftestvonbrave\usepackage[default,t1,nofont,nofancy,vonbrave]{shen}
-        \else\usepackage[default,t1,nofont,nofancy,von]{shen}
+        \iftestvonbrave\PassOptionsToPackage{von}{shen}
+        \else\PassOptionsToPackage{vonbrave}{shen}
         \fi
-    \else\usepackage[default,t1,nofont,nofancy]{shen}
     \fi
+    \ifnoindent\PassOptionsToPackage{noindent}{shen}\fi
+    \usepackage[default,t1,nofont,nofancy]{shen}
 \else
     \usepackage[plain,nofancy]{shen}
 \fi

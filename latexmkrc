@@ -9,7 +9,7 @@ $cleanup_includes_generated = 0;
 $cleanup_includes_cusdep_generated = 1;
 
 @generated_exts = ( 'aux', 'bbl', 'bcf', 'fls', 'idx', 'ind', 'lof',
-                    'lot', 'out', 'pre', 'toc', 'nav', 'snm', 'von');
+                    'lot', 'out', 'pre', 'toc', 'nav', 'snm', 'von', 'mcgrep');
 
 # don't hash calc for deep system dependencies
 $hash_calc_ignore_pattern{'map'} = '^';
@@ -44,16 +44,13 @@ sub asy2pdf { return asy2x( $_[0], 'pdf' ); }
 sub asy2tex { return asy2x( $_[0], 'tex' ); }
 
 sub asy2x   {
-   my $ret = system("asy -nosafe -noprc -render=0 -vv -f '$_[1]' '$_[0]' >& '$_[0].log'");
+# Add the tag -nosafe for ghostscript 9.24 through 9.27 (fixed in 9.50!)
+   my $ret = system("asy -noprc -render=0 -vv -f '$_[1]' '$_[0]' >& '$_[0].log'");
    my $FH = new FileHandle;
    open $FH, "$_[0].log";
    %imp = ();
 
-   while (<$FH>) {
-       if (/^(Including|Loading) .* from (.*)\s*$/) {
-          my $import = $2;
-	  $imp{$import} = 1;
-       }
+   while (<$FH>) { if (/^(Including|Loading) .* from (.*)\s*$/) { my $import = $2; $imp{$import} = 1;}
        elsif ( /^error/ || /^.*\.asy: \d/ ) {
            warn "==Message from asy: $_";
 	   $ret = 1;
@@ -68,9 +65,14 @@ sub asy2x   {
    }
    close $FH;
 # For latexmk 4.48
-   rdb_set_source( $rule, keys %imp );
+   if ($version_num >= '4.48') {
+       rdb_set_source( $rule, keys %imp );
+   }
    return $ret;
 }
 
 sub von_run { return system("bash '$_[0].von'"); }
 add_cus_dep("von", "out", 0, "von_run");
+
+sub mcgrep_run { return system("bash '$_[0].mcgrep'"); }
+add_cus_dep("mcgrep", "out", 0, "mcgrep_run");

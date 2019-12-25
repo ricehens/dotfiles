@@ -27,7 +27,7 @@ export ME='Eric Shen'
 export CN='沈皓彦'
 
 # Cleanup
-alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *~'
+alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~'
 
 # Utils
 #alias asy='asy -nosafe -noprc -render=0' # THANK YOU GHOSTSCRIPT 9.50
@@ -38,6 +38,7 @@ alias ytdl="youtube-dl -f bestaudio[ext=m4a] --embed-thumbnail --add-metadata -o
 alias gvim='gvim &>/dev/null'
 alias von='python -m von'
 alias g='git'
+alias vonzip='cd ~/Documents/ && zip VON.zip -r VON/ && cd -'
 
 # List
 alias ll='ls -l'
@@ -67,3 +68,6 @@ export QT_IM_MODULE=ibus
 # --------------
 # I'm lazy so http://bashrcgenerator.com/
 export PS1="\[$(tput bold)\]\[\033[38;5;43m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;38m\]@\[$(tput sgr0)\]\[\033[38;5;80m\]\h\[$(tput sgr0)\]\[\033[38;5;38m\]:\[$(tput bold)\]\[\033[38;5;45m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;38m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+
+# Auto-complete
+# source /home/ericshen/bin/auto-complete-alias &>/dev/null

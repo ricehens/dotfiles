@@ -35,13 +35,13 @@
 \ProcessOptions\relax
 
 % ======== UTILITIES ========
+\ifnoindent\PassOptionsToPackage{noindent}{shen}\fi
 \iftestsexy
     \iftestvonenabled
-        \iftestvonbrave\PassOptionsToPackage{von}{shen}
-        \else\PassOptionsToPackage{vonbrave}{shen}
+        \iftestvonbrave\PassOptionsToPackage{vonbrave}{shen}
+        \else\PassOptionsToPackage{von}{shen}
         \fi
     \fi
-    \ifnoindent\PassOptionsToPackage{noindent}{shen}\fi
     \usepackage[default,t1,nofont,nofancy]{shen}
 \else
     \usepackage[plain,nofancy]{shen}

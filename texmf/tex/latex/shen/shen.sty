@@ -262,7 +262,6 @@
         \usepackage[headsepline]{scrlayer-scrpage}
         \renewcommand{\headfont}{}
         \setlength{\headsep}{10pt}
-        \setlength{\footskip}{0.4in}
         \ihead{\@title}
         \ohead{\@author}
         \cfoot{\pagemark}
@@ -317,6 +316,7 @@
         \setlength{\droptitle}{-2em}
     }{
         \providecommand{\thetitle}{\@title}
+        \providecommand{\thesubtitle}{\@subtitle}
         \providecommand{\theauthor}{\@author}
         \providecommand{\thedate}{\@date}
 
@@ -920,9 +920,15 @@
         %sibling=theorem,%
             numbered=no,
         name=Generalization]{boxgprob}
-        \declaretheorem[style=thmbox,%
-            sibling=theorem,%
-        name=Lemma]{boxlemma}
+        \ifrollingboxprob
+            \declaretheorem[style=thmbox,%
+                sibling=theorem,%
+            name=Lemma]{boxlemma}
+        \else
+            \declaretheorem[style=thmbox,%
+            %        sibling=theorem,%
+            name=Lemma]{boxlemma}
+        \fi
         \declaretheorem[style=thmbox,%
         %sibling=theorem,%
             numbered=no,

@@ -52,7 +52,16 @@
 \newcommand\@probtype{Problem}
 \newcommand\probtype[1]{\renewcommand\@probtype{#1}}
 
-\theoremstyle{definition}
+\newtheoremstyle{TST}%
+{}%{3ex} % space before
+{}%{5ex} % space after
+{\normalfont} % body font
+{0pt} % indent
+{\bfseries} % head font
+{.} % head punctuation
+{0.7em plus 0.2em minus 0.2em} % space after head
+{} % manually specify head
+\theoremstyle{TST}
 \newcounter{prob}
 \newtheorem{innerprob}{}
 \newenvironment{prob}{

@@ -14,7 +14,7 @@
 % This work consists of the file shen.sty.
 \ProvidesPackage{shen}
 
-% ======== ARGUMENTS ========
+%%fakesection OPTIONS
 \newif\ifsetlinespacing\setlinespacingtrue
 \newif\iftheorembychapter\theorembychapterfalse
 \newif\iftheorembysection\theorembysectionfalse
@@ -40,7 +40,6 @@
 \newif\ifvonstyexists
 \IfFileExists{von.sty}{\vonstyexiststrue}{\vonstyexistsfalse}
 
-% ======== OPTIONS ========
 % Loads preferred options
 \DeclareOption{default}{
     \fancyusedtrue
@@ -132,7 +131,7 @@
 
 \ProcessOptions\relax
 
-% ======== DEFAULT IMPORTS ========
+%%fakesection DEFAULT IMPORTS
 \ifmarginset
     \usepackage[margin=1in]{geometry}
 \fi
@@ -160,7 +159,7 @@
     \usepackage{textcomp} % Text fonts
 \fi
 
-% ======== BASIC FORMATTING ========
+%%fakesection BASIC FORMATTING
 % Colorful text
 \definecolor{astral}{RGB}{46,116,181}
 \definecolor{denimblue}{RGB}{0,35,102}
@@ -350,7 +349,7 @@
 {\par\xdef\tpd{\the\prevdepth}\egroup
 \prevdepth=\tpd}
 
-% ======== PAGE SETUP ========
+%%fakesection PAGE SETUP
 \ifsetlinespacing
     \ifnoindent
         \setlength{\parindent}{0pt}
@@ -369,7 +368,7 @@
 \fi
 \fi
 
-% ======== THEOREMS! <3 ========
+%%fakesection MDFRAMED
 \ifthmenabled 
     \usepackage{amsthm,thmtools}
     % Theorem Styles --- Based on Evan's pretty boxes
@@ -606,7 +605,7 @@
         ]{thmsmallbox}
     \fi
 
-% Theorems definitions
+%%fakesection STANDARD THEOREMS
     \ifplainsol
         \newcommand{\wowsol}{}
     \else
@@ -670,6 +669,7 @@
         \egroup
     }
 
+%%fakesection BOXTHM
     \ifcolorthmon
     %\theoremstyle{plain}
         \declaretheorem[style=thmbluebox,%
@@ -965,7 +965,7 @@
 
     \fi
 
-% Black square for proof environment
+%%fakesection MISC THEOREM STUFF
     \iffillqedsymbol
         \renewcommand\qedsymbol{$\blacksquare$}
     \fi
@@ -1010,7 +1010,7 @@
 
 \fi %%%% END OF THEOREMS
 
-% ======== SMALLER UTILS ========
+%%fakesection ASYMPTOTE
 % Asymptote
 \ifasyenabled
     \usepackage{asymptote}
@@ -1019,7 +1019,6 @@
     \end{asydef}
 \fi
 
-% Code
 \ifcodeused
     \usepackage{listings}
     \usepackage{color}
@@ -1048,7 +1047,7 @@
     }
 \fi
 
-% Von
+%%fakesection VON
 \ifvonenabled\ifvonstyexists
 % \von, \voninclude
     \ifvonbrave
@@ -1152,7 +1151,7 @@
     }
 \fi\fi
 
-% Beamer
+%%fakesection BEAMER
 \ifdocisbeamer\AtBeginDocument{
         \renewenvironment{theorem}[1][]{
             \ifthenelse{\isempty{#1}}{\begin{block}{Theorem}}{\begin{block}{Theorem (#1)}}
@@ -1188,8 +1187,7 @@
     }
 \fi
 
-% ======== IT'S ME! ========
-% Default Values
+%%fakesection DEFAULT VALUES
 \author{Eric Shen}
 \@ifundefined{KOMAClassName}{
     \date{\vspace{-5ex}}

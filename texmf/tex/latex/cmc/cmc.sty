@@ -14,6 +14,7 @@
 % This work consists of the file cmc.sty.
 \ProvidesPackage{cmc}
 
+%%fakesection options
 \newif\ifcime\cimefalse
 \newif\iffigurewarn\figurewarnfalse
 \DeclareOption{cime}{\cimetrue}
@@ -59,7 +60,7 @@
             \tikzset{mdfbackground/.style={},}
         },
         singleextra={%
-            \scoped[on background layer]{\node [xshift=\mdfboundingboxwidth-9.0em, yshift=.5*\mdfboundingboxheight-0.5em, opacity=0.8] {\includegraphics[width=\mdfboundingboxwidth, height=\mdfboundingboxheight-1em, keepaspectratio]{titleback}};}
+            \scoped[on background layer]{\node [xshift=\mdfboundingboxwidth-8.8em, yshift=.5*\mdfboundingboxheight-0.5em, opacity=0.8] {\includegraphics[width=\mdfboundingboxwidth, height=\mdfboundingboxheight-1em, keepaspectratio]{titleback}};}
         },
     }
     \usepackage{xparse}

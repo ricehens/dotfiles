@@ -1,0 +1,193 @@
+\ProvidesPackage{exam-mc}
+
+\newif\ifcime\cimefalse
+\newif\iffigurewarn\figurewarnfalse
+\DeclareOption{cime}{\cimetrue}
+\DeclareOption{figure}{\figurewarntrue}
+\ProcessOptions\relax
+
+\ifcime
+% fakesection macros
+    \newcommand\@theday{tbd}
+    \newcommand\@themonth{tbd, tbd}
+    \newcommand\@theyear{tbd}
+    \newcommand\@thetest{tbd}
+    \newcommand\@thecmc{tbd}
+    \newcommand\@theannual{tbd}
+    \newcommand\@thecamostartday{tbd}
+    \newcommand\@thecamostartdate{tbd, tbd}
+    \newcommand\@thecamoendday{tbd}
+    \newcommand\@thecamoenddate{tbd, tbd}
+
+    \newcommand\theday[1]{\renewcommand{\@theday}{#1}}
+    \newcommand\themonth[1]{\renewcommand{\@themonth}{#1}}
+    \newcommand\theyear[1]{\renewcommand{\@theyear}{#1}}
+    \newcommand\thetest[1]{\renewcommand{\@thetest}{#1}}
+    \newcommand\thecmc[1]{\renewcommand{\@thecmc}{#1}}
+    \newcommand\theannual[1]{\renewcommand{\@theannual}{#1}}
+    \newcommand\thecamostartday[1]{\renewcommand{\@thecamostartday}{#1}}
+    \newcommand\thecamostartdate[1]{\renewcommand{\@thecamostartdate}{#1}}
+    \newcommand\thecamoendday[1]{\renewcommand{\@thecamoendday}{#1}}
+    \newcommand\thecamoenddate[1]{\renewcommand{\@thecamoenddate}{#1}}
+
+%%fakesection preamble
+    \usepackage[noformat,t1]{shen}
+    \usepackage[condensed]{roboto}
+    \usepackage[
+        twoside,papersize={7.11764705882in,11in},%includehead,
+        heightrounded,margin=0.7in,bottom=0.5in,top=0.7in,right=0.6in,
+    ]{geometry}
+    \usepackage{tikz}
+    \PassOptionsToPackage{framemethod=tikz}{mdframed}
+    \usetikzlibrary{backgrounds}
+    \mdfdefinestyle{cmctitlecard}{%
+        apptotikzsetting={%
+            \tikzset{mdfbackground/.style={},}
+        },
+        singleextra={%
+            \scoped[on background layer]{\node [xshift=\mdfboundingboxwidth-9.0em, yshift=.5*\mdfboundingboxheight-0.5em, opacity=0.8] {\includegraphics[width=\mdfboundingboxwidth, height=\mdfboundingboxheight-1em, keepaspectratio]{titleback}};}
+        },
+    }
+    \usepackage{xparse}
+    \usepackage{scalerel}
+
+    \ExplSyntaxOn
+    \NewDocumentCommand{\colorstring}{O{blue,red}+m}{%
+        \clist_set:Nn \l_tmpa_clist {#1}%
+        \int_zero:N \l_tmpa_int%
+        \str_set:Nx \l_tmpa_str {#2}%
+        \int_step_inline:nnnn {1} {1} {\str_count:N \l_tmpa_str } {%
+            \str_case_x:nnF {\str_item:Nn \l_tmpa_str {##1}} {%
+                {\space}{\space}
+            }{%
+                \int_compare:nNnTF {\l_tmpa_int } < {\clist_count:N \l_tmpa_clist } {
+                    \int_incr:N \l_tmpa_int
+                }{%
+                    \int_set:Nn \l_tmpa_int {\c_one}
+                }
+                \textcolor{\clist_item:Nn \l_tmpa_clist {\l_tmpa_int }}{\str_item:Nn \l_tmpa_str {##1}}
+            }
+        }
+    }
+    \ExplSyntaxOff
+
+    \usepackage{afterpage}
+    \newcommand\blankpage{%
+        \null
+        \thispagestyle{empty}%
+        \addtocounter{page}{-1}%
+        \newpage
+
+        \null
+        \thispagestyle{empty}%
+        \addtocounter{page}{-1}%
+        \newpage
+    }
+
+    \usepackage{scrlayer-scrpage}
+    \renewcommand{\headfont}{}
+    \setlength{\headsep}{15pt}
+    \ofoot{}
+
+    \newcommand{\cmcr}[1]{\colorstring[BrickRed,ForestGreen]{#1}}
+    \newcommand{\cmcg}[1]{\colorstring[ForestGreen,BrickRed]{#1}}
+
+%% fakesection first page
+    \AtBeginDocument{
+        \title{\@theyear\ CIME \@thetest}
+        \date{\@theday, \@themonth}
+        \begin{center}
+            \begin{mdframed}[
+                    linewidth=1.5,leftmargin=1,
+                    rightmargin=1,outerlinecolor=blue,
+                    innerleftmargin=15pt,innerrightmargin=15pt,
+                    innertopmargin=10pt,innerbottommargin=15pt,
+                    skipbelow=\baselineskip,style=cmctitlecard,
+                ]
+                \begin{minipage}[]{4.5em}
+                    \includegraphics[scale=0.33]{titlelogo}
+                \end{minipage}
+                \begin{minipage}[]{20em}
+                    \bfseries{\fontsize{30}{40}\selectfont\sffamily\cmcr{MAC}\hspace{0.45em}\rmfamily\cmcg{CMC}}\\
+                    \rmfamily\itshape\fontsize{10}{11}\selectfont
+                    \cmcr{Christmas Math Competitions}
+                \end{minipage}
+
+                \vspace{2em}
+                \sffamily\fontsize{16}{22}\selectfont
+                \cmcr{Christmas} \cmcg{Math} \cmcg{Competitions}\\
+                \@theannual\\
+
+                {\bfseries\fontsize{50}{72}\selectfont\hspace{-2pt}\cmcr{CIME \@thetest}}
+                \vspace{1em}
+
+%\bfseries
+                \fontsize{14}{18}\selectfont
+                \cmcr{Christmas Invitational Mathematics Examination \@thetest}\\
+                \cmcr{\thedate}
+            \end{mdframed}
+        \end{center}
+        \begin{center}
+            \fontsize{14}{16}\selectfont\textbf{\MakeUppercase{Instructions}}
+        \end{center}
+        \begin{enumerate}[leftmargin=2em]
+        %        \sffamily
+            \item \MakeUppercase{Do not open this booklet until you have started your timer.}
+            \item This is a 15-question, 3-hour examination. All answers are integers ranging from 000 to 999, inclusive. Your score will be the number of correct answers; i.e., there is neither partial credit nor a penalty for wrong answers.
+            \item No aids other than scratch paper, graph paper, rule, compass, and protractor are permitted. \textbf{In particular, calculators and computers are not permitted.}
+            \iffigurewarn\item Figures are not necessarily drawn to scale.\fi
+        \item A combination of the CIME and the Christmas Math Contest 12 are not used to determine eligibility for participation in the Christmas American Math Olympiad (CAMO). A combination of the CIME and the Christmas Math Contest 10 are not used to determine eligibility for participation in the Christmas Junior Math Olympiad (CJMO). All students are eligible to participate in either than CAMO or the CJMO, but not both, regardless of participation in the Christmas Math Contest 10 or 12. The CAMO and CJMO will be given from \MakeUppercase{\@thecamostartday}, \@thecamostartdate\ to \MakeUppercase{\@thecamoendday}, \@thecamoenddate.
+            \item You may record your answers on your test booklet, on a separate sheet of paper, or you may simulate contest environments by obtaining an AIME answer form from \url{https://www.maa.org/math-competitions/aime-archive} and record all of your answers, and certain other information, on the AIME answer form. The answer form will not be collected from you. Only your submission on the CIME Submission Form found at \url{http://cmc.ericshen.net/CMC-\@theyear} will be graded.
+        \end{enumerate}
+        \vfill
+        \centerline{\textcopyright\ Committee on the Christmas Math Competitions}
+        \newpage
+
+        \ihead{\rmfamily\textit{\thetitle\ Problems}}
+        \ohead{\pagemark}
+        \newgeometry{
+            twoside,papersize={7.11764705882in,11in},%includehead,
+            heightrounded,margin=0.7in,bottom=0.6in,top=0.9in,right=0.6in,
+        }
+    }
+
+%% fakesection last page
+    \AtEndDocument{
+        \newpage
+
+        \pagestyle{plain}
+        \newgeometry{
+            twoside,papersize={7.11764705882in,11in},%includehead,
+            heightrounded,margin=0.7in,bottom=0.5in,top=0.6in,right=0.6in,
+        }
+
+        \begin{center}
+            The \@thecmc\ CIME \@thetest\ Solutions Pamphlet will be released after the contest.
+        \end{center}
+        {
+            \textbf{CONTACT US ---} \itshape Correspondence about the problems and solutions for this CIME should be sent by PM to:
+            \begin{center}
+                \emph{AOPS12142015}, \emph{FedeX333X}, \emph{TheUltimate123}, and \emph{WannabeCharmander}.
+            \end{center}
+            The problems for this CIME were prepared by the CMC's Committee on the CIME.\\
+        }
+
+        \noindent\textbf{\@theyear\ CAMO/CJMO --- } The Christmas American Math Olympiad (CAMO) and Christmas Junior Math Olympiad (CJMO) are 6-question, 9-hour, essay-type examinations. The CAMO/CJMO will be held from \@thecamostartday, \@thecamostartdate\ to \@thecamoendday, \@thecamoenddate. Your teacher will not have more details on who qualifies for the CAMO/CJMO in the CMC 10/12 and CIME Teachers' Manuals because we did not make Teachers' Manuals and all students are qualified for the CAMO/CJMO. Students may participate in only one of the CAMO/CJMO, as the problems will intersect. The best way to prepare for the CAMO/CJMO is to study previous years of these exams, which may be found on our website as indicated below. \\
+
+        \noindent\textbf{PUBLICATIONS --- } For a complete listing of our previous competitions, please visit our website at
+        \url{http://cmc.ericshen.net/}.\\
+
+        \begin{center}
+            \textit{The}\\
+            \textbf{Christmas Math Competitions}\\
+            \textit{are made possible by the contributions of\\
+            following problem-writers and test-solvers:}\\~\\
+
+            David Altizio\\ Allen Baranov\\ Luke Choi\\
+            Federico Clerici\\ Mason Fang\\ Raymond Feng\\
+            Preston Fu\\ Justin Lee\\ Kyle Lee\\ Kaiwen Li\\
+            Sean Li\\ Eric Shen\\ Anthony Wang\\ Andrew Wen\\
+            Nathan Xiong\\ Joseph Zhang\\
+        \end{center}
+    }
+\fi

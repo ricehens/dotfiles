@@ -8,6 +8,7 @@
 \newif\ifcmcoly\cmcolyfalse
 \newif\iftestdraft\testdraftfalse
 \newif\ifnoindent\noindentfalse
+\newif\ifspace\spacefalse
 %\newif\ifautohead\autoheadfalse
 
 % ======== OPTIONS ========
@@ -29,6 +30,10 @@
 
 % Indention
 \DeclareOption{noindent}{\noindenttrue}
+
+% Spacing
+\DeclareOption{space}{\spacetrue}
+\DeclareOption{nospace}{\spacefalse}
 
 % Automatically place header at top of every page
 %\DeclareOption{auto}{\autoheadtrue}
@@ -52,15 +57,27 @@
 \newcommand\@probtype{Problem}
 \newcommand\probtype[1]{\renewcommand\@probtype{#1}}
 
-\newtheoremstyle{TST}%
-{}%{3ex} % space before
-{}%{5ex} % space after
-{\normalfont} % body font
-{0pt} % indent
-{\bfseries} % head font
-{.} % head punctuation
-{0.7em plus 0.2em minus 0.2em} % space after head
-{} % manually specify head
+\ifspace
+    \newtheoremstyle{TST}%
+    {3ex} % space before
+    {5ex} % space after
+    {\normalfont} % body font
+    {0pt} % indent
+    {\bfseries} % head font
+    {.} % head punctuation
+    {0.7em plus 0.2em minus 0.2em} % space after head
+    {} % manually specify head
+\else
+    \newtheoremstyle{TST}%
+    {}%{3ex} % space before
+    {}%{5ex} % space after
+    {\normalfont} % body font
+    {0pt} % indent
+    {\bfseries} % head font
+    {.} % head punctuation
+    {0.7em plus 0.2em minus 0.2em} % space after head
+    {} % manually specify head
+\fi
 \theoremstyle{TST}
 \newcounter{prob}
 \newtheorem{innerprob}{}
@@ -69,8 +86,11 @@
     \renewcommand\theinnerprob{\@probtype\ \arabic{prob}}\innerprob
 }{\endinnerprob}
 
+% footnotes
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
 \newtheoremstyle{break}% name
-  {}%         Space above, empty = `usual value'
+{}%         Space above, empty = `usual value'
   {}%         Space below
   {}% Body font
   {}%         Indent amount (empty = no indent, \parindent = para indent)

@@ -1,0 +1,41 @@
+\ProvidesPackage{yea}
+
+%%fakesection header
+\usepackage[noformat]{shen}
+%\@ifundefined{KOMAClassName}{
+\setlength{\headheight}{9em}
+\setlength{\headsep}{2em}
+\setlength{\voffset}{-1in}
+\addtolength{\textheight}{0.7in}
+
+\addtolength{\oddsidemargin}{-.5in}
+\addtolength{\evensidemargin}{-.5in}
+\addtolength{\textwidth}{1in}
+
+\usepackage{fancyhdr}
+\newcommand{\logopath}{yea}
+\newcommand{\thelogo}{\includegraphics[width=1.1in]{\logopath}}
+\newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
+\pagestyle{fancy}
+\cfoot{}
+\lhead{\makelogo}
+\rhead{\righthead\vspace{-1em}}
+
+\newcommand{\makelogo}{\thelogo}
+
+\newcommand{\righthead}{%
+    \fontsize{12}{18}\selectfont
+    {\sffamily\bfseries\thetitle}\\
+    {\sffamily\bfseries\thedate}\\
+    {\sffamily\theauthor}
+    \par\vspace{1em}
+}
+
+%%fakesection watermark
+\usepackage{draftwatermark}
+\SetWatermarkAngle{32}
+\SetWatermarkLightness{0.90}
+\SetWatermarkFontSize{32pt}
+\SetWatermarkScale{2.718}
+\SetWatermarkText{\shortstack{Youth EUCLID\\ Association}}
+%}{}

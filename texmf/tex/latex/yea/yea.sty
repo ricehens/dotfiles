@@ -1,35 +1,96 @@
 \ProvidesPackage{yea}
 
+%%fakesection options
+\newif\ifyeasexy\yeasexytrue
+\newif\ifyeaspace\yeaspacetrue
+\newif\ifpracticeexam\practiceexamfalse
+
+\DeclareOption{plain}{\yeasexyfalse}
+\DeclareOption{sexy}{\yeasexytrue}
+\DeclareOption{nospace}{\yeaspacefalse}
+\DeclareOption{space}{\yeaspacetrue}
+\DeclareOption{exam}{\practiceexamtrue}
+\ProcessOptions\relax
+
 %%fakesection header
-\usepackage[noformat]{shen}
-%\@ifundefined{KOMAClassName}{
-\setlength{\headheight}{9em}
-\setlength{\headsep}{2em}
-\setlength{\voffset}{-1in}
-\addtolength{\textheight}{0.7in}
+\usepackage[noformat,von]{shen}
+\renewcommand{\baselinestretch}{1.05}
 
-\addtolength{\oddsidemargin}{-.5in}
-\addtolength{\evensidemargin}{-.5in}
-\addtolength{\textwidth}{1in}
+\ifyeasexy
+    \usepackage[top=1in,textheight=7.85in]{geometry}
+    \setlength{\headheight}{9em}
+    \setlength{\headsep}{2em}
+%    \setlength{\voffset}{-1in}
+%    \addtolength{\textheight}{0.7in}
+%
+%    \addtolength{\oddsidemargin}{-.5in}
+%    \addtolength{\evensidemargin}{-.5in}
+%    \addtolength{\textwidth}{1in}
 
-\usepackage{fancyhdr}
-\newcommand{\logopath}{yea}
-\newcommand{\thelogo}{\includegraphics[width=1.1in]{\logopath}}
-\newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
-\pagestyle{fancy}
-\cfoot{}
-\lhead{\makelogo}
-\rhead{\righthead\vspace{-1em}}
+    \usepackage{fancyhdr}
+    \newcommand{\logopath}{yea}
+    \newcommand{\thelogo}{\includegraphics[width=1.1in]{\logopath}}
+    \newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
+    \pagestyle{fancy}
+    \cfoot{}
+    \lhead{\makelogo}
+    \rhead{\righthead\vspace{-1em}}
 
-\newcommand{\makelogo}{\thelogo}
+    \newcommand{\makelogo}{\thelogo}
 
-\newcommand{\righthead}{%
-    \fontsize{12}{18}\selectfont
-    {\sffamily\bfseries\thetitle}\\
-    {\sffamily\bfseries\thedate}\\
-    {\sffamily\theauthor}
-    \par\vspace{1em}
-}
+    \newcommand{\righthead}{%
+        \fontsize{12}{18}\selectfont
+        {\sffamily\bfseries\thetitle}\\
+        {\sffamily\bfseries\thedate}\\
+        {\sffamily\theauthor}
+        \par\vspace{1em}
+    }
+\fi
+
+%%fakesection practice exam
+\ifpracticeexam
+    \cfoot{\thepage}
+    \ifyeaspace
+        \newtheoremstyle{TST}%
+        {3ex} % space before
+        {5ex} % space after
+        {\normalfont} % body font
+        {0pt} % indent
+        {\bfseries} % head font
+        {.} % head punctuation
+        {0.7em plus 0.2em minus 0.2em} % space after head
+        {} % manually specify head
+    \else
+        \newtheoremstyle{TST}%
+        {}%{3ex} % space before
+        {}%{5ex} % space after
+        {\normalfont} % body font
+        {0pt} % indent
+        {\bfseries} % head font
+        {.} % head punctuation
+        {0.7em plus 0.2em minus 0.2em} % space after head
+        {} % manually specify head
+    \fi
+    \theoremstyle{TST}
+    \newtheorem{prob}{Problem}
+
+    \def\vontestenv{\@ifstar\@vontestenvstar\@vontestenv}
+    \newcommand{\@vontestenv}[2]{\begin{#2} \voninclude{#1} \end{#2}}
+    \newcommand{\@vontestenvstar}[2]{\begin{#2} $(*)$ \voninclude{#1} \end{#2}}
+    \renewcommand{\@von}[1]{\vontestenv{#1}{prob}}
+
+    \newcommand{\resetformatting}{
+        \pagestyle{plain}
+        \newgeometry{margin=1in,left=1.25in,right=1.25in}
+    }
+    \newcommand{\ansheader}{
+        \newpage\resetformatting
+        \begin{center}
+            \Large\bfseries\color{blue}Answers
+        \end{center}
+    }
+    \newtheorem{anskey}{Answer}
+\fi
 
 %%fakesection watermark
 \usepackage{draftwatermark}
@@ -38,4 +99,3 @@
 \SetWatermarkFontSize{32pt}
 \SetWatermarkScale{2.718}
 \SetWatermarkText{\shortstack{Youth EUCLID\\ Association}}
-%}{}

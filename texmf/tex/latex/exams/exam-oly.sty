@@ -2,6 +2,7 @@
 
 % ======== ARGUMENTS ========
 \newif\iftestsexy\testsexyfalse
+\newif\ifformat\formattrue
 \newif\iftestvonenabled\testvonenabledfalse
 \newif\iftestvonbrave\testvonbravefalse
 \newif\ifgeodiagram\geodiagramfalse
@@ -14,6 +15,7 @@
 % ======== OPTIONS ========
 % Pretty formatting
 \DeclareOption{sexy}{\testsexytrue}
+\DeclareOption{noformat}{\formatfalse}
 
 % Use von problem manager
 \DeclareOption{von}{\testvonenabledtrue}
@@ -41,6 +43,7 @@
 
 % ======== UTILITIES ========
 \ifnoindent\PassOptionsToPackage{noindent}{shen}\fi
+\ifformat\else\PassOptionsToPackage{noformat}{shen}\fi
 \iftestsexy
     \iftestvonenabled
         \iftestvonbrave\PassOptionsToPackage{vonbrave}{shen}
@@ -88,6 +91,7 @@
 
 % footnotes
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\hypersetup{colorlinks=false}
 
 \newtheoremstyle{break}% name
 {}%         Space above, empty = `usual value'
@@ -127,6 +131,7 @@
 \newcounter{currentday}
 \newcommand\currentday{\stepcounter{currentday}\arabic{currentday}}
 
+\ifformat
 \iftestsexy
     \newgeometry{margin=1.2in,top=1in,bottom=1.35in}
     \usepackage{fancyhdr}
@@ -233,6 +238,7 @@
         \end{Large}
     }
 \fi
+\fi
 
 % ======== VON ========
 \iftestvonenabled
@@ -279,5 +285,5 @@
     \SetWatermarkLightness{0.90}
     \SetWatermarkFontSize{48pt}
     \SetWatermarkScale{2.718}
-%    \SetWatermarkText{\shortstack{DRAFT}}
+    \SetWatermarkText{\shortstack{DRAFT}}
 \fi

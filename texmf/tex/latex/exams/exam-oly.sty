@@ -4,7 +4,6 @@
 \newif\iftestsexy\testsexyfalse
 \newif\iftestvonenabled\testvonenabledfalse
 \newif\iftestvonbrave\testvonbravefalse
-\newif\ifgeodiagram\geodiagramfalse
 \newif\iftestdraft\testdraftfalse
 \newif\ifnoindent\noindentfalse
 \newif\ifspace\spacefalse
@@ -15,9 +14,6 @@
 % Use von problem manager
 \DeclareOption{von}{\testvonenabledtrue}
 \DeclareOption{vonbrave}{\testvonenabledtrue\testvonbravetrue}
-
-% Demand a geometry diagram; not very sexy
-\DeclareOption{geowarn}{\geodiagramtrue}
 
 % Draft watermark
 \DeclareOption{draft}{\testdrafttrue}
@@ -196,11 +192,7 @@
 % \von
 %    \def\von{\@ifstar\@vonstar\@von}
     \renewcommand{\@von}[1]{\vontestenv{#1}{prob}}
-    \ifgeodiagram
-        \renewcommand{\@vonstar}[1]{\vontestenv*{#1}{prob}}
-    \else
-        \renewcommand{\@vonstar}[1]{\@von{#1}}
-    \fi
+    \renewcommand{\@vonstar}[1]{\vontestenv*{#1}{prob}}
 
 % Show everything
     \iftestsexy

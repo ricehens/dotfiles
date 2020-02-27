@@ -1,21 +1,16 @@
 \ProvidesPackage{exam-oly}
 
-% ======== ARGUMENTS ========
+%%fakesection options
 \newif\iftestsexy\testsexyfalse
-\newif\ifformat\formattrue
 \newif\iftestvonenabled\testvonenabledfalse
 \newif\iftestvonbrave\testvonbravefalse
 \newif\ifgeodiagram\geodiagramfalse
-\newif\ifcmcoly\cmcolyfalse
 \newif\iftestdraft\testdraftfalse
 \newif\ifnoindent\noindentfalse
 \newif\ifspace\spacefalse
-%\newif\ifautohead\autoheadfalse
 
-% ======== OPTIONS ========
 % Pretty formatting
 \DeclareOption{sexy}{\testsexytrue}
-\DeclareOption{noformat}{\formatfalse}
 
 % Use von problem manager
 \DeclareOption{von}{\testvonenabledtrue}
@@ -23,9 +18,6 @@
 
 % Demand a geometry diagram; not very sexy
 \DeclareOption{geowarn}{\geodiagramtrue}
-
-% Print CMC footer; not very sexy
-\DeclareOption{cmc}{\cmcolytrue}
 
 % Draft watermark
 \DeclareOption{draft}{\testdrafttrue}
@@ -37,24 +29,19 @@
 \DeclareOption{space}{\spacetrue}
 \DeclareOption{nospace}{\spacefalse}
 
-% Automatically place header at top of every page
-%\DeclareOption{auto}{\autoheadtrue}
 \ProcessOptions\relax
 
-% ======== UTILITIES ========
+%%fakesection utilities
 \ifnoindent\PassOptionsToPackage{noindent}{shen}\fi
-\ifformat\else\PassOptionsToPackage{noformat}{shen}\fi
-\iftestsexy
-    \iftestvonenabled
-        \iftestvonbrave\PassOptionsToPackage{vonbrave}{shen}
-        \else\PassOptionsToPackage{von}{shen}
-        \fi
+\iftestvonenabled
+    \iftestvonbrave\PassOptionsToPackage{vonbrave}{shen}
+    \else\PassOptionsToPackage{von}{shen}
     \fi
-    \usepackage[default,t1,nofont,nofancy]{shen}
-\else
-    \usepackage[plain,nofancy]{shen}
 \fi
-\usepackage{everypage}
+
+\iftestsexy\usepackage[default,t1,nofont,nofancy]{shen}
+\else\usepackage[plain,nofancy]{shen}
+\fi
 
 \makeatletter
 \newcommand\@probtype{Problem}
@@ -93,45 +80,21 @@
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \hypersetup{colorlinks=false}
 
-\newtheoremstyle{break}% name
-{}%         Space above, empty = `usual value'
-  {}%         Space below
-  {}% Body font
-  {}%         Indent amount (empty = no indent, \parindent = para indent)
-  {\bfseries}% Thm head font
-  {.}%        Punctuation after thm head
-  {\newline}% Space after thm head: \newline = linebreak
-  {}%         Thm head spec
-\theoremstyle{break}
-\newcounter{sol}
-\newtheorem{innersol}{}
-\newenvironment{sol}{
-    \stepcounter{sol}
-    \renewcommand\theinnersol{\@probtype\ \arabic{sol}}\innersol
-}{\endinnersol}
-
-\makeatother
-
-%\pagenumbering{gobble}
-
-% ======== HEADER ========
-\makeatletter
-\newcommand\@limit{270 minutes}
-\newcommand\limit[1]{\renewcommand\@limit{#1}}
-\iftestsexy
-    \limit{Time: 4 hours and 30 minutes}
-\fi
-
-\newcommand\@pts{7 points}
-\newcommand\pts[1]{\renewcommand\@pts{#1}}
-
+%%fakesection definitions
 \newcommand\@soltitle{\@title\ Solutions}
 \newcommand\soltitle[1]{\renewcommand\@soltitle{#1}}
 
-\newcounter{currentday}
-\newcommand\currentday{\stepcounter{currentday}\arabic{currentday}}
+\newcommand\@dayinfo{}
+\newcommand\dayinfo[1]{\renewcommand\@dayinfo{#1}}
 
-\ifformat
+% these are only useful for sexy; but let's define
+% the commands anyway in case we need to switch styles
+\newcommand\@testlhead\@title
+\newcommand\@testrhead{(\@dayinfo)}
+\newcommand\testlhead[1]{\renewcommand\@testlhead{#1}}
+\newcommand\testrhead[1]{\renewcommand\@testrhead{#1}}
+
+%%fakesection sexy format
 \iftestsexy
     \newgeometry{margin=1.2in,top=1in,bottom=1.35in}
     \usepackage{fancyhdr}
@@ -140,17 +103,13 @@
     \renewcommand{\footrulewidth}{0pt}
     \setlength{\headheight}{13.6pt}
     \cfoot{}
-    \rfoot{\textit{\noindent \@limit.\\ Each problem is worth \@pts.}}
+    \rfoot{\textit{\noindent Time: 4 hours and 30 minutes.\\ Each problem is worth 7 points.}}
 
     \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
     \let\endchangemargin=\endlist
 
-    % Headers
-    \newcommand\@testlhead\@title
-    \newcommand\@testrhead{(Day \currentday)}
-    \newcommand\testlhead[1]{\renewcommand\@testlhead{#1}}
-    \newcommand\testrhead[1]{\renewcommand\@testrhead{#1}}
-    \newcommand{\testheader}{
+% Headers
+    \renewcommand{\maketitle}{
         \begin{changemargin}{-0.7cm}{-0.7cm}
             {\fontseries{b}\fontfamily{cmss}\fontsize{20}{22}\selectfont\@testlhead\hfill\@testrhead\par\noindent\rule{\textwidth+1.4cm}{0.4pt}}
         \end{changemargin}
@@ -163,11 +122,12 @@
         }
     }
 
+% solution header
     \newcommand{\solheader}{
-        \newgeometry{margin=1in,bottom=0.75in}
+        \newgeometry{margin=1in}
         \fancyhfoffset[E,O]{0pt}
         \fontsize{10pt}{12pt}\selectfont
-%        \pagenumbering{arabic}
+        %        \pagenumbering{arabic}
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}
 
@@ -184,53 +144,30 @@
     }
     \makeatother
 \else
-    \ifcmcoly
-        \newgeometry{margin=1in,bottom=2in}
-        \usepackage{fancyhdr}
-        \pagestyle{fancy}
-        \renewcommand{\headrulewidth}{0pt}
-        \renewcommand{\footrulewidth}{0pt}
-        \cfoot{
-            \mbox{}
-            \vfill
-            \begin{center}
-                Copyright © \; Committee on the Christmas Mathematics Competitions,\\
-                \textit{David Altizio, Allen Baranov, Federico Clerici, Justin Lee, Kyle Lee,\\
-                Kaiwen Li, Sean Li, Eric Shen, Nathan Xiong, and Joseph Zhang.}
-            \end{center}
-            \newpage
-        }
-    \fi
+%%fakesection standard format
+% see https://github.com/vEnhance/dotfiles/blob/master/texmf/tex/latex/TST/TST.sty
+    \usepackage{titling}
+    \usepackage{xifthen}
+    \newgeometry{margin=1.2in,top=1.1in,bottom=1.35in}
+    \setlength{\labelsep}{10pt}
+    \pagestyle{empty}
+    \setlength{\droptitle}{-4em}
+    \renewcommand{\maketitlehooka}{\centering\bfseries}
+    \renewcommand{\maketitlehookd}{\par\vspace*{0.4in}}
+    \pretitle{\par}
+    \posttitle{\par\vspace{0.20in}}
+    \preauthor{\par}
+    \postauthor{\ifx\theauthor\empty\else\par\vspace{0.10in}\fi}
+    \predate{\par\ifx\@dayinfo\empty\else\@dayinfo\par\vspace{0.10in}\fi}
+    \postdate{}
 
-    \ifgeodiagram
-        \newcommand{\testheader}{
-            \begin{Large}
-                \begin{center}
-                    \textbf{\@title\\}
-                    \textbf{Day \currentday.\qquad \@limit\\}
-                    \textbf{\@date\\}
-                \end{center}
-            \end{Large}
-            \textbf{Note:} For any geometry problems whose statement begins with an asterisk $(*)$, the first page of the solution must be a large, in-scale, clearly labeled diagram. Failure to meet this requirement will result in an automatic 1-point deduction.
-            \vspace{3em}
-        }
-    \else
-        \newcommand{\testheader}{
-            \begin{Large}
-                \begin{center}
-                    \textbf{\@title\\}
-                    \textbf{Day \currentday.\qquad \@limit\\}
-                    \textbf{\@date\\}
-                \end{center}
-            \end{Large}
-            \vspace{3em}
-        }
-    \fi
+% for enumerate-style exam
+    \newlist{problems}{enumerate}{3}
+    \setlist*[problems]{topsep=6ex,itemsep=4ex,label=\arabic*.}
+
+% solution header
     \newcommand{\solheader}{
-        \newgeometry{margin=1in,bottom=0.75in}
-        \ifcmcoly
-            \cfoot{}
-        \fi
+        \newgeometry{margin=1in}
         \begin{Large}
             \begin{center}
                 \textbf\@soltitle
@@ -238,9 +175,8 @@
         \end{Large}
     }
 \fi
-\fi
 
-% ======== VON ========
+%%fakesection von
 \iftestvonenabled
     \iftestsexy
     \else
@@ -257,7 +193,7 @@
     \newcommand{\@vontestenv}[2]{\begin{#2} \voninclude{#1} \end{#2}}
     \newcommand{\@vontestenvstar}[2]{\begin{#2} $(*)$ \voninclude{#1} \end{#2}}
 
-    % \von
+% \von
 %    \def\von{\@ifstar\@vonstar\@von}
     \renewcommand{\@von}[1]{\vontestenv{#1}{prob}}
     \ifgeodiagram
@@ -266,9 +202,25 @@
         \renewcommand{\@vonstar}[1]{\@von{#1}}
     \fi
 
-    % Show everything
+% Show everything
     \iftestsexy
     \else
+        \newtheoremstyle{break}% name
+        {}%         Space above, empty = `usual value'
+        {}%         Space below
+        {}% Body font
+        {}%         Indent amount (empty = no indent, \parindent = para indent)
+        {\bfseries}% Thm head font
+        {.}%        Punctuation after thm head
+        {\newline}% Space after thm head: \newline = linebreak
+        {}%         Thm head spec
+        \theoremstyle{break}
+        \newcounter{sol}
+        \newtheorem{innersol}{}
+        \newenvironment{sol}{
+            \stepcounter{sol}
+            \renewcommand\theinnersol{\@probtype\ \arabic{sol}}\innersol
+        }{\endinnersol}
         \newcommand{\vonall}[2][]{
             \ifthenelse{\isempty{#1}}
             {\begin{sol}\voninclude[1]{#2}\end{sol}}
@@ -279,6 +231,7 @@
     \makeatother
 \fi
 
+%%fakesection watermark
 \iftestdraft
     \usepackage{draftwatermark}
     \SetWatermarkAngle{32}
@@ -287,3 +240,8 @@
     \SetWatermarkScale{2.718}
     \SetWatermarkText{\shortstack{DRAFT}}
 \fi
+
+%%fakesection Backwards compatibility
+\newcommand{\testheader}{\maketitle}
+
+\theoremstyle{TST}

@@ -212,12 +212,12 @@
             \stepcounter{sol}
             \renewcommand\theinnersol{\@probtype\ \arabic{sol}}\innersol
         }{\endinnersol}
-        \newcommand{\vonall}[2][]{
+        \renewcommand{\vonall}[2][]{
             \ifthenelse{\isempty{#1}}
             {\begin{sol}\voninclude[1]{#2}\end{sol}}
             {\begin{sol}[#1]\voninclude[1]{#2}\end{sol}}
         }
-        \newcommand{\vonfull}[2][]{\vonall[#1]{#2}\newpage}
+        \renewcommand{\vonfull}[2][]{\vonall[#1]{#2}\newpage}
     \fi
     \makeatother
 \fi

@@ -992,15 +992,17 @@
     {\renewcommand\theinnercustomprob{#1}\innercustomprob}
     {\endinnercustomprob}
 
-    \newtheorem{innercustomsol}{\wowsol Solution}
-    \newenvironment{customsol}[1]
-    {\renewcommand\theinnercustomsol{\wowsol #1}\innercustomsol}
-    {\endinnercustomsol}
+    % DEPRECATED
+    %\newtheorem{innercustomsol}{\wowsol Solution}
+    %\newenvironment{customsol}[1]
+    %{\renewcommand\theinnercustomsol{\wowsol #1}\innercustomsol}
+    %{\endinnercustomsol}
 
-    \newtheorem{innercustomenv}{}
-    \newenvironment{customenv}[1]
-    {\renewcommand\theinnercustomenv{\wowsol #1}\innercustomenv}
-    {\endinnercustomenv}
+    % DEPRECATED
+    %\newtheorem{innercustomenv}{}
+    %\newenvironment{customenv}[1]
+    %{\renewcommand\theinnercustomenv{\wowsol #1}\innercustomenv}
+    %{\endinnercustomenv}
 
     \newenvironment{subproof}[1][Proof]{%
         \begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%

@@ -381,8 +381,8 @@
 
 %%fakesection MDFRAMED
 \ifthmenabled 
+    \usepackage{amsthm,thmtools}
     \ifboxthmon
-        \usepackage{amsthm,thmtools}
         % Theorem Styles --- Based on Evan's pretty boxes
         \ifcolorthmon
             \mdfdefinestyle{mdbluebox}{%
@@ -689,9 +689,16 @@
                 \innercustomdef
             }{\endinnercustomdef}
         \else
-            \declaretheorem[style=thmbox,name=Theorem]{theorem}
+            \iftheorembychapter\declaretheorem[style=thmbox,parent=chapter,name=Theorem]{theorem}
+            \else
+                \iftheorembysection\declaretheorem[style=thmbox,parent=section,name=Theorem]{theorem}
+                \else\declaretheorem[style=thmbox,name=Theorem]{theorem}
+                \fi
+            \fi
             \declaretheorem[style=thmbox,numbered=no,name=Theorem]{theorem*}
             \declaretheorem[style=thmbox,sibling=theorem,name=Corollary]{corollary}
+            \declaretheorem[style=thmbox,sibling=theorem,name=Proposition]{proposition}
+            \declaretheorem[style=thmbox,numbered=no,name=Proposition]{proposition*}
             \declaretheorem[style=thmbox,numbered=no,name=\$]{shell}
             \declaretheorem[style=thmbox,sibling=theorem,name=Algorithm]{algorithm}
             \declaretheorem[style=thmbox,numbered=no,name=Algorithm]{algorithm*}
@@ -702,68 +709,71 @@
             \else
                 \declaretheorem[style=thmbox,name=Problem]{problem}
                 \declaretheorem[style=thmbox,name=Lemma]{lemma}
-                \declaretheorem[style=thmbox,numbered=no,name=Problem]{problem*}
-                \declaretheorem[style=thmbox,numbered=no,name=Lemma]{lemma*}
-                \declaretheorem[style=thmbox,parent=section,name=Problem]{secprob}
-                \declaretheorem[style=thmbox,sibling=theorem,name=Example]{example}
-                \declaretheorem[style=thmbox,numbered=no,name=Solution]{boxsol}
-                \declaretheorem[style=thmbox,numbered=no,name=Proof]{boxproof}
-                \declaretheorem[style=thmbox,numbered=no,name=Warning]{warning}
-                \declaretheorem[style=thmbox,name=Claim]{boxclaim}
-                \declaretheorem[style=thmbox,numbered=no,name=Claim]{boxclaim*}
-                \declaretheorem[style=thmbox,name=Claim]{claim}
-                \declaretheorem[style=thmbox,numbered=no,name=Claim]{claim*}
-                \declaretheorem[style=thmsmallbox,numbered=no,name=Remark]{remark}
-                \declaretheorem[style=thmbox,numbered=no,name=Note]{note}
-                \declaretheorem[style=thmbox,sibling=theorem,name=Definition]{definition}
-                \declaretheorem[style=thmbox,numbered=no,name=Definition]{definition*}
             \fi
-            %%fakesection STANDARD THEOREMS
+            \declaretheorem[style=thmbox,numbered=no,name=Problem]{problem*}
+            \declaretheorem[style=thmbox,numbered=no,name=Lemma]{lemma*}
+            \declaretheorem[style=thmbox,parent=section,name=Problem]{secprob}
+            \declaretheorem[style=thmbox,sibling=theorem,name=Example]{example}
+            \declaretheorem[style=thmbox,numbered=no,name=Solution]{boxsol}
+            \declaretheorem[style=thmbox,numbered=no,name=Proof]{boxproof}
+            \declaretheorem[style=thmbox,numbered=no,name=Warning]{warning}
+            \declaretheorem[style=thmbox,name=Claim]{boxclaim}
+            \declaretheorem[style=thmbox,numbered=no,name=Claim]{boxclaim*}
+            \declaretheorem[style=thmbox,name=Claim]{claim}
+            \declaretheorem[style=thmbox,numbered=no,name=Claim]{claim*}
+            \declaretheorem[style=thmsmallbox,numbered=no,name=Remark]{remark}
+            \declaretheorem[style=thmbox,numbered=no,name=Note]{note}
+            \declaretheorem[style=thmbox,sibling=theorem,name=Definition]{definition}
+            \declaretheorem[style=thmbox,numbered=no,name=Definition]{definition*}
+        \fi
+    %%fakesection STANDARD THEOREMS
+    \else
+        \theoremstyle{plain}
+        \iftheorembychapter\newtheorem{theorem}{Theorem}[chapter]
         \else
-            \theoremstyle{plain}
-            \iftheorembychapter\newtheorem{theorem}{Theorem}[chapter]
-            \else
-                \iftheorembysection\newtheorem{theorem}{Theorem}[section]
-                \else\newtheorem{theorem}{Theorem}
-                \fi
+            \iftheorembysection\newtheorem{theorem}{Theorem}[section]
+            \else\newtheorem{theorem}{Theorem}
             \fi
-            \newtheorem*{theorem*}{Theorem}
-            \newtheorem{corollary}[theorem]{Corollary}
-            \newtheorem*{corollary*}{Corollary}
-            \newtheorem{proposition}[theorem]{Proposition}
-            \newtheorem*{proposition*}{Proposition}
+        \fi
+        \newtheorem*{theorem*}{Theorem}
+        \newtheorem{corollary}[theorem]{Corollary}
+        \newtheorem*{corollary*}{Corollary}
+        \newtheorem{proposition}[theorem]{Proposition}
+        \newtheorem*{proposition*}{Proposition}
 
-            \newtheorem{lemma}{Lemma}
-            \newtheorem*{lemma*}{Lemma}
-            \newtheorem*{fact}[theorem]{Fact}
-            \newtheorem*{remark}{Remark}
-            \newtheorem*{note}{Note}
+        \ifrollingboxprob\newtheorem{lemma}[theorem]{Lemma}
+        \else\newtheorem{lemma}{Lemma}
+        \fi
+        \newtheorem*{lemma*}{Lemma}
+        \newtheorem*{fact}{Fact}
+        \newtheorem*{remark}{Remark}
+        \newtheorem*{note}{Note}
 
-            \theoremstyle{definition}
-            \newtheorem*{algorithm}{Algorithm}
-            \newtheorem{problem}{Problem}
-            \newtheorem*{problem}{Problem}
-            \newtheorem{definition}[theorem]{Definition}
-            \newtheorem*{definition}{Definition}
-            \newtheorem{claim}{Claim}
-            \newtheorem*{claim*}{Claim}
-            \newtheorem*{example}{Example}
-            \newtheorem{example}[theorem]{Example}
-            \newtheorem*{example*}{Example}
-            \newtheorem*{warning}{Warning}
+        \theoremstyle{definition}
+        \newtheorem*{algorithm}{Algorithm}
+        \ifrollingboxprob\newtheorem{problem}[theorem]{Problem}
+        \else\newtheorem{problem}{Problem}
+        \fi
+        \newtheorem*{problem*}{Problem}
+        \newtheorem{definition}[theorem]{Definition}
+        \newtheorem*{definition*}{Definition}
+        \newtheorem{claim}{Claim}
+        \newtheorem*{claim*}{Claim}
+        \newtheorem{example}[theorem]{Example}
+        \newtheorem*{example*}{Example}
+        \newtheorem*{warning}{Warning}
 
 % custom numbers
-            \newtheorem{innercustomthm}{Theorem}
-            \newenvironment{customthm}[1]{
-                \renewcommand\theinnercustomthm{#1}\innercustomthm
-            }{\endinnercustomthm}
+        \newtheorem{innercustomthm}{Theorem}
+        \newenvironment{customthm}[1]{
+            \renewcommand\theinnercustomthm{#1}\innercustomthm
+        }{\endinnercustomthm}
 
-            \newtheorem{innercustomprob}{Problem}
-            \newenvironment{customprob}[1]{
-                \renewcommand\theinnercustomprob{#1}\innercustomprob
-            }{\endinnercustomprob}
+        \newtheorem{innercustomprob}{Problem}
+        \newenvironment{customprob}[1]{
+            \renewcommand\theinnercustomprob{#1}\innercustomprob
+        }{\endinnercustomprob}
 
-        \fi
     \fi
 
 %%fakesection MISC THEOREM STUFF

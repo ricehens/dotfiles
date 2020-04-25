@@ -1,0 +1,19 @@
+#!/bin/bash
+
+for file in $*
+do
+# echo $file
+sed -i -e 's/boxthm/theorem/' $file
+sed -i -e 's/boxcoro/corollary/' $file
+sed -i -e 's/boxprob/problem/' $file
+sed -i -e 's/boxlemma/lemma/' $file
+sed -i -e 's/boxclaim/claim/' $file
+sed -i -e 's/iclaim/claim/' $file
+sed -i -e 's/boxexample/example/' $file
+sed -i -e 's/boxprop/proposition/' $file
+sed -i -e 's/boxalgo/algorithm/' $file
+sed -i -e 's/boxwarn/warning/' $file
+sed -i -e 's/boxremark/remark/' $file
+sed -i -e 's/boxnote/note/' $file
+sed -i -e 's/boxdef/definition/' $file
+done

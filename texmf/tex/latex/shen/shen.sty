@@ -382,8 +382,36 @@
 %%fakesection MDFRAMED
 \ifthmenabled 
     \usepackage{amsthm,thmtools}
+    \mdfdefinestyle{mdbox}{%
+        linewidth=0.5pt,
+        skipabove=12pt,
+        frametitleaboveskip=5pt,
+        frametitlebelowskip=0pt,
+        skipbelow=2pt,
+        frametitlefont=\bfseries,
+        innertopmargin=4pt,
+        innerbottommargin=8pt,
+        %                nobreak=true,
+        %            backgroundcolor=ForestGreen!5,
+        %            linecolor=ForestGreen,
+    }
+    \declaretheoremstyle[
+        headfont=\bfseries,
+        bodyfont=\normalfont,
+        spaceabove=2pt,
+        spacebelow=1pt,
+        mdframed={style=mdbox},
+    ]{thmbox}
+    \declaretheoremstyle[
+        headfont=\bfseries\small,
+        bodyfont=\normalfont\small,
+        spaceabove=2pt,
+        spacebelow=1pt,
+        mdframed={style=mdbox},
+    ]{thmsmallbox}
+
     \ifboxthmon
-        % Theorem Styles --- Based on Evan's pretty boxes
+    % Theorem Styles --- Based on Evan's pretty boxes
         \ifcolorthmon
             \mdfdefinestyle{mdbluebox}{%
             %                roundcorner = 10pt,
@@ -588,34 +616,6 @@
                 spacebelow=0pt,
                 mdframed={style=mdblackbox}
             ]{thmblackbox}
-        \else
-            \mdfdefinestyle{mdbox}{%
-                linewidth=0.5pt,
-                skipabove=12pt,
-                frametitleaboveskip=5pt,
-                frametitlebelowskip=0pt,
-                skipbelow=2pt,
-                frametitlefont=\bfseries,
-                innertopmargin=4pt,
-                innerbottommargin=8pt,
-                %                nobreak=true,
-                %            backgroundcolor=ForestGreen!5,
-                %            linecolor=ForestGreen,
-            }
-            \declaretheoremstyle[
-                headfont=\bfseries,
-                bodyfont=\normalfont,
-                spaceabove=2pt,
-                spacebelow=1pt,
-                mdframed={style=mdbox},
-            ]{thmbox}
-            \declaretheoremstyle[
-                headfont=\bfseries\small,
-                bodyfont=\normalfont\small,
-                spaceabove=2pt,
-                spacebelow=1pt,
-                mdframed={style=mdbox},
-            ]{thmsmallbox}
         \fi
 
 %%fakesection BOXTHM
@@ -637,13 +637,13 @@
             \declaretheorem[style=thmbluebox,numbered=no,name=Algorithm]{algorithm*}
             \declaretheorem[style=thmbluebox,parent=section,name=Algorithm]{secalgo}
             \ifrollingboxprob
-                \declaretheorem[style=thmgreenbox,sibling=theorem,name=Problem]{problem}
+                \declaretheorem[style=thmgreenbox,sibling=theorem,name=Problem]{boxprob}
                 \declaretheorem[style=thmredbox,sibling=theorem,name=Lemma]{lemma}
             \else
-                \declaretheorem[style=thmgreenbox,name=Problem]{problem}
+                \declaretheorem[style=thmgreenbox,name=Problem]{boxprob}
                 \declaretheorem[style=thmredbox,name=Lemma]{lemma}
             \fi
-            \declaretheorem[style=thmgreenbox,numbered=no,name=Problem]{problem*}
+            \declaretheorem[style=thmgreenbox,numbered=no,name=Problem]{boxprob*}
             \declaretheorem[style=thmredbox,numbered=no,name=Lemma]{lemma*}
             \declaretheorem[style=thmgreenbox,parent=section,name=Problem]{secprob}
             \declaretheorem[style=thmgreenborder,sibling=theorem,name=Example]{example}
@@ -666,11 +666,11 @@
                 \innercustomthm
             }{\endinnercustomthm}
 
-            \declaretheorem[style=thmgreenbox,name=Problem]{innercustomprob}
-            \newenvironment{customprob}[1]{
-                \renewcommand\theinnercustomprob{#1}
-                \innercustomprob
-            }{\endinnercustomprob}
+            \declaretheorem[style=thmgreenbox,name=Problem]{innercustomboxprob}
+            \newenvironment{customboxprob}[1]{
+                \renewcommand\theinnercustomboxprob{#1}
+                \innercustomboxprob
+            }{\endinnercustomboxprob}
 
             \declaretheorem[style=thmlimeborder,name=Solution]{innercustomsol}
             \newenvironment{customboxsol}[1]{
@@ -704,10 +704,10 @@
             \declaretheorem[style=thmbox,numbered=no,name=Algorithm]{algorithm*}
             \declaretheorem[style=thmbox,parent=section,name=Algorithm]{secalgo}
             \ifrollingboxprob
-                \declaretheorem[style=thmbox,sibling=theorem,name=Problem]{problem}
+                \declaretheorem[style=thmbox,sibling=theorem,name=Problem]{boxprob}
                 \declaretheorem[style=thmbox,sibling=theorem,name=Lemma]{lemma}
             \else
-                \declaretheorem[style=thmbox,name=Problem]{problem}
+                \declaretheorem[style=thmbox,name=Problem]{boxprob}
                 \declaretheorem[style=thmbox,name=Lemma]{lemma}
             \fi
             \declaretheorem[style=thmbox,numbered=no,name=Problem]{problem*}
@@ -741,9 +741,10 @@
         \newtheorem{proposition}[theorem]{Proposition}
         \newtheorem*{proposition*}{Proposition}
 
-        \ifrollingboxprob\newtheorem{lemma}[theorem]{Lemma}
-        \else\newtheorem{lemma}{Lemma}
-        \fi
+        \ifrollingboxprob\declaretheorem[style=thmbox,sibling=theorem,name=Problem]{boxprob}
+        \else\declaretheorem[style=thmbox,name=Problem]{boxprob}
+        \fi\declaretheorem[style=thmbox,numbered=no,name=Problem]{boxprob*}
+
         \newtheorem*{lemma*}{Lemma}
         \newtheorem*{fact}{Fact}
         \newtheorem*{remark}{Remark}
@@ -751,10 +752,6 @@
 
         \theoremstyle{definition}
         \newtheorem*{algorithm}{Algorithm}
-        \ifrollingboxprob\newtheorem{problem}[theorem]{Problem}
-        \else\newtheorem{problem}{Problem}
-        \fi
-        \newtheorem*{problem*}{Problem}
         \newtheorem{definition}[theorem]{Definition}
         \newtheorem*{definition*}{Definition}
         \newtheorem{claim}{Claim}
@@ -793,7 +790,7 @@
     \newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
     \newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
 
-    \newtheorem{prob}[theorem]{Problem}
+    \newtheorem{problem}[theorem]{Problem}
     \newtheorem{probE}[problem]{\clubs{2} Problem}
     \newtheorem{probM}[problem]{\clubs{3} Problem}
     \newtheorem{probH}[problem]{\clubs{5} Problem}
@@ -881,15 +878,10 @@
     }
     \newcommand{\@vonenvstar}[2]{\begin{#2} \voninclude{#1} \end{#2}}
 
-%von with problem
-    \def\von{\@ifstar\@vonstar\@von}
-    \renewcommand{\@von}[2][]{\vonenv[#1]{#2}{prob}}
-    \renewcommand{\@vonstar}[1]{\vonenv*{#1}{prob}}
-
 % von with boxprob
     \def\vonbox{\@ifstar\@vonboxstar\@vonbox}
-    \newcommand{\@vonbox}[2][]{\vonenv[#1]{#2}{problem}}
-    \newcommand{\@vonboxstar}[1]{\vonenv*{#1}{problem}}
+    \newcommand{\@vonbox}[2][]{\vonenv[#1]{#2}{boxprob}}
+    \newcommand{\@vonboxstar}[1]{\vonenv*{#1}{boxprob}}
 
     \def\vonexmp{\@ifstar\@vonexmpstar\@vonexmp}
     \newcommand{\@vonexmp}[2][]{\vonenv[#1]{#2}{example}}
@@ -980,10 +972,6 @@
             }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
         }
         \renewenvironment{problem}[1][]{
-            \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
-            }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
-        }
-        \newenvironment{prob}[1][]{
             \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
             }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
         }

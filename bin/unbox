@@ -5,7 +5,6 @@ do
 # echo $file
 sed -i -e 's/boxthm/theorem/' $file
 sed -i -e 's/boxcoro/corollary/' $file
-sed -i -e 's/boxprob/problem/' $file
 sed -i -e 's/boxlemma/lemma/' $file
 sed -i -e 's/boxclaim/claim/' $file
 sed -i -e 's/iclaim/claim/' $file

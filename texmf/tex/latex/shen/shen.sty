@@ -169,6 +169,7 @@
 \else
     \usepackage{textcomp} % Text fonts
 \fi
+\usepackage{xparse} % Parsing fancy headers and von
 
 %%fakesection BASIC FORMATTING
 % Colorful text
@@ -272,8 +273,8 @@
         \usepackage[headsepline]{scrlayer-scrpage}
         \renewcommand{\headfont}{}
         \setlength{\headsep}{10pt}
-        \ihead{\@title}
-        \ohead{\@author}
+        \ihead{\footnotesize\textbf{\@title}}
+        \ohead{\footnotesize\ifthenelse{\isempty{\@date}}{\@author}{\textbf{\@author} (\@date)}}
         \cfoot{\pagemark}
 
         \newcommand{\lhead}[1]{\ihead{#1}}
@@ -936,7 +937,6 @@
     \newcommand{\@vonZRstar}[1]{\vonenv*{#1}{probZR}}
 
 % OTIS
-    \usepackage{xparse}
     \def\vonotis{\@ifstar\@vonotisstar\@vonotis}
     \NewDocumentCommand{\@vonotis}{ O{} O{} m }{
         \ifthenelse{\isempty{#1}}{
@@ -1003,7 +1003,12 @@
 
 %%fakesection DEFAULT VALUES
 \author{Eric Shen}
-\@ifundefined{KOMAClassName}{
-    \date{\vspace{-5ex}}
-}{\date{\vspace{-3ex}}}
-
+\date{Last updated \today}
+\newcommand\emptydate{
+    \@ifundefined{KOMAClassName}{
+        \date{\vspace{-5ex}}
+    }{
+        \date{\vspace{-3ex}}
+        \ohead{\footnotesize\textbf{\@author}}
+    }
+}

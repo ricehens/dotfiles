@@ -1,0 +1,1014 @@
+%% shen.sty %% Copyright 2019 Eric Shen %
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Eric Shen.
+%
+% This work consists of the file shen.sty.
+\ProvidesPackage{shen}
+
+%%fakesection OPTIONS
+\newif\ifsetlinespacing\setlinespacingtrue
+\newif\iftheorembychapter\theorembychapterfalse
+\newif\iftheorembysection\theorembysectionfalse
+\newif\ifcodeused\codeusedfalse
+\newif\iffancyused\fancyusedtrue
+\newif\ifmathpazofontused\mathpazofontusedfalse
+\newif\ifsansseriffontused\sansseriffontusedfalse
+\newif\ifteeonefontencoding\teeonefontencodingfalse
+\newif\ifmarginset\marginsettrue
+\newif\ifboxthmon\boxthmontrue
+\newif\ifcolorthmon\colorthmonfalse
+\newif\ifthmenabled\thmenabledtrue
+\newif\ifnoindent\noindentfalse
+\newif\ifendproofnow\endproofnowfalse
+\newif\ifcolorsecstyle\colorsecstylefalse
+\newif\ifplainsol\plainsoltrue
+\newif\iffillqedsymbol\fillqedsymbolfalse
+\newif\ifvonenabled\vonenabledfalse
+\newif\ifvonbrave\vonbravefalse
+\newif\ifasyenabled\asyenabledtrue
+\newif\ifrollingboxprob\rollingboxprobfalse
+\newif\ifdocisbeamer\docisbeamerfalse
+
+\newif\ifvonstyexists
+\IfFileExists{von.sty}{\vonstyexiststrue}{\vonstyexistsfalse}
+
+% Loads preferred options
+\DeclareOption{default}{
+    \fancyusedtrue
+    \colorthmontrue
+    \colorsecstyletrue
+    \plainsolfalse
+}
+
+% Create plain document w/o fancy formatting
+\DeclareOption{plain}{
+    \fancyusedtrue
+    \colorthmonfalse
+    \colorsecstylefalse
+}
+
+% No formatting
+\DeclareOption{noformat}{
+    \setlinespacingfalse
+    \fancyusedfalse
+    \marginsetfalse
+    \colorthmonfalse
+}
+
+% Beamer template
+\DeclareOption{beamer}{
+    \fancyusedfalse
+    \marginsetfalse
+    \mathpazofontusedfalse
+    \thmenabledfalse
+    \vonenabledtrue
+    \colorsecstylefalse
+    \docisbeamertrue
+}
+
+% Number theorems by chapter, section, or nothing
+\DeclareOption{chthm}{\theorembychaptertrue}
+\DeclareOption{secthm}{\theorembysectiontrue}
+\DeclareOption{noparthm}{\theorembysectionfalse}
+
+% Allow lstlisting
+\DeclareOption{code}{\codeusedtrue}
+
+% Fancy formatting
+\DeclareOption{fancy}{\fancyusedtrue}
+\DeclareOption{nofancy}{\fancyusedfalse}
+
+% Font selection (palatino, roman)
+\DeclareOption{pazo}{\mathpazofontusedtrue}
+\DeclareOption{sans}{\sansseriffontusedtrue}
+\DeclareOption{nofont}{\mathpazofontusedfalse}
+\DeclareOption{t1}{\teeonefontencodingtrue}
+
+% Do not set margin
+\DeclareOption{nomargin}{\marginsetfalse}
+\DeclareOption{margin}{\marginsettrue}
+
+% No asymptote
+\DeclareOption{noasy}{\asyenabledfalse}
+
+% Boxes on/off
+\DeclareOption{nobox}{\boxthmonfalse}
+
+% Colorful theorems and section titles
+\DeclareOption{colorthm}{\colorthmontrue}
+\DeclareOption{colorsec}{\colorsecstyletrue}
+
+% Plain formatting modules
+\DeclareOption{plainthm}{\colorthmonfalse}
+\DeclareOption{plainsec}{\colorsecstylefalse}
+\DeclareOption{plainsol}{\plainsoltrue}
+
+% Do not create theorems
+\DeclareOption{nothm}{\thmenabledfalse}
+
+% No indent
+\DeclareOption{indent}{\noindentfalse}
+\DeclareOption{noindent}{\noindenttrue}
+
+% Where to place qedsymbol (right, now)
+\DeclareOption{nowqed}{
+    \PackageWarning{shen}{Option nowqed is obsolete}%
+    \endproofnowtrue
+}
+\DeclareOption{fillqed}{
+    \PackageWarning{shen}{Option fillqed is obsolete}%
+    \fillqedsymboltrue
+}
+
+% Rolling boxprob?
+\DeclareOption{rollthm}{\rollingboxprobtrue}
+\DeclareOption{rollprob}{
+    \PackageWarning{shen}{Option rollprob is obsolete, please use rollthm instead}%
+    \rollingboxprobtrue
+}
+
+% Evan's ``von'' problem manager
+\DeclareOption{von}{\vonenabledtrue}
+\DeclareOption{vonbrave}{\vonenabledtrue\vonbravetrue}
+
+\ProcessOptions\relax
+
+%%fakesection DEFAULT IMPORTS
+\ifmarginset
+    \usepackage[margin=1in]{geometry}
+\fi
+\usepackage{amsmath,amsfonts,amssymb}
+\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{mathdots} % Fancy dots
+\usepackage[final]{pdfpages} % Inserting PDF's
+\usepackage{siunitx} % SI Units
+\usepackage[framemethod=TikZ]{mdframed} % MDFramed
+\ifdocisbeamer\else
+% enum customization; breaks beamer
+    \usepackage{enumitem} 
+\fi
+\usepackage{mathtools} % Math tools
+\usepackage{epigraph} % Quotes!
+\usepackage{hyperref} % Referrences
+\usepackage{mathrsfs} % Math fonts
+\ifteeonefontencoding
+    \usepackage[T1]{fontenc}
+\else
+    \usepackage{textcomp} % Text fonts
+\fi
+\usepackage{xparse} % Parsing fancy headers and von
+
+%%fakesection BASIC FORMATTING
+% Colorful text
+\definecolor{astral}{RGB}{46,116,181}
+\definecolor{denimblue}{RGB}{0,35,102}
+\definecolor{turtle}{RGB}{0,64,64}
+
+% Useful commands
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\da}[0]{\measuredangle}
+\newcommand{\ans}[5]{\textbf{(A) }#1\qquad\textbf{(B) }#2\qquad\textbf{(C) }#3\qquad\textbf{(D) }#4\qquad\textbf{(E) }#5}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\cycsum}{\sum_\mathrm{cyc}}
+\newcommand{\symsum}{\sum_\mathrm{sym}}
+\newcommand{\cycprod}{\prod_\mathrm{cyc}}
+\newcommand{\symprod}{\prod_\mathrm{sym}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\ray}[1]{\overrightarrow{#1}} 
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\widehat{#1}}
+\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+\newcommand{\opname}{\operatorname}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\vphi}{\varphi}
+\newcommand{\veps}{\varepsilon}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\EE}{\mathbb E}
+\ifcolorsecstyle
+    \newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
+\else
+    \newcommand{\vocab}[1]{\textbf{#1}}
+\fi
+\newcommand{\sh}{\texttt{\color{MidnightBlue}\$\hspace{8pt}}}
+\newcommand{\shh}{\texttt{\color{MidnightBlue}\$\hspace{3pt}}}
+\newcommand{\hrulebar}{
+    \begin{center}
+        \nointerlineskip\vspace{5pt}
+        \rule{0.95\linewidth}{.7pt}\hspace{\fill}
+    \end{center}
+}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\pow}{Pow}
+\DeclareMathOperator{\rad}{rad}
+
+% \wideparen for good-looking arc symbols
+\DeclareFontFamily{OMX}{yhex}{}
+\DeclareFontShape{OMX}{yhex}{m}{n}{<->yhcmex10}{}
+\DeclareSymbolFont{yhlargesymbols}{OMX}{yhex}{m}{n}
+\DeclareMathAccent{\wideparen}{\mathord}{yhlargesymbols}{"F3}
+
+
+% varying sizes in \pmod
+\DeclarePairedDelimiterX{\pmodx}[1]{(}{)}{{\operator@font mod}\mkern6mu#1}
+\renewcommand{\pmod}{
+    \allowbreak
+    \if@display\mkern18mu\else\mkern8mu\fi
+    \pmodx
+}
+
+% Fancy setup
+\iffancyused
+    \@ifundefined{KOMAClassName}{
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \iftheorembychapter
+            \fancyhead[LO]{Ch. \thechapter: \nouppercase{\leftmark}}
+            \fancyhead[RE]{Ch. \thechapter: \nouppercase{\leftmark}}
+        \fi
+        \chead{}
+        %\fancyhead[LE]{\thepage}
+        %\fancyhead[RO]{\thepage}
+        \lhead{\@title}
+        \rhead{\@author}
+        \lfoot{}
+        \cfoot{\thepage}
+        \rfoot{}
+        \renewcommand{\headrulewidth}{0.4pt}
+
+        \ifmarginset
+            \setlength{\headsep}{10pt}
+            \setlength{\headheight}{13.6pt}
+            \setlength{\oddsidemargin}{0in}
+            \setlength{\evensidemargin}{0in}
+        \fi
+    }{
+        \usepackage[headsepline]{scrlayer-scrpage}
+        \renewcommand{\headfont}{}
+        \setlength{\headsep}{10pt}
+        \ihead{\footnotesize\textbf{\@title}}
+        \ohead{\footnotesize\ifthenelse{\isempty{\@date}}{\@author}{\textbf{\@author} (\@date)}}
+        \cfoot{\pagemark}
+
+        \newcommand{\lhead}[1]{\ihead{#1}}
+        \newcommand{\rhead}[1]{\ohead{#1}}
+    }
+\fi
+
+\iftheorembychapter
+    \renewcommand{\chaptermark}[1]{%
+    \markboth{#1}{}}
+\fi
+
+% colorsec style setup
+\ifcolorsecstyle
+    \hypersetup{
+        colorlinks,
+        citecolor=astral,
+        filecolor=astral,
+        linkcolor=astral,
+        urlcolor=astral
+    }
+
+    \newcommand{\announcefont}{\bfseries
+    \fontfamily{lmss}\selectfont\color{denimblue}}
+    \newcommand{\boldseriffont}{\bfseries
+    \fontfamily{lmss}\selectfont}		
+    \newcommand{\seriffont}{\fontfamily{lmss}\selectfont}
+
+    \@ifundefined{KOMAClassName}{
+        \usepackage{titling} 
+        \usepackage{titlesec}
+
+        \titleformat{\section}{\announcefont\Large}
+        {{\sffamily\S}\thesection}{1em}{}
+        \titleformat{\subsection}{\announcefont\large}
+        {{\sffamily\S}\thesubsection}{1em}{}
+        \titleformat{\subsubsection}{\announcefont\normalsize}
+        {{\sffamily\S}\thesubsubsection}{1em}{}
+
+        \pretitle{\begin{center}\LARGE\boldseriffont}
+        \posttitle{\par\end{center}\vskip 0.5em}
+        \preauthor{\begin{center}
+                \large \lineskip 0.5em%
+                \begin{tabular}[t]{c}
+                \seriffont}
+        \postauthor{\end{tabular}\par\end{center}}
+        \predate{\begin{center}\large\seriffont}
+        \postdate{\par\end{center}}
+
+        \setlength{\droptitle}{-2em}
+    }{
+        \providecommand{\thetitle}{\@title}
+        \providecommand{\thesubtitle}{\@subtitle}
+        \providecommand{\theauthor}{\@author}
+        \providecommand{\thedate}{\@date}
+
+        \addtokomafont{section}{\announcefont}
+        \addtokomafont{subsection}{\announcefont}
+        \addtokomafont{subsubsection}{\announcefont}
+        \renewcommand*{\@seccntformat}[1]{%
+            \announcefont{\sffamily\S}\csname the#1\endcsname\quad
+        }
+
+        \addtokomafont{title}{\boldseriffont}
+        \addtokomafont{subtitle}{\Large}
+        \setkomafont{author}{\large\seriffont}
+        \setkomafont{date}{\large\seriffont}
+
+        \@ifundefined{chapter}{}{
+            \addtokomafont{chapterentry}{\sffamily}
+        }
+        \addtokomafont{sectionentry}{\sffamily}
+    }
+\else
+    \providecommand{\thetitle}{\@title}
+    \providecommand{\theauthor}{\@author}
+    \providecommand{\thedate}{\@date}
+\fi
+
+% Absolutely no page break
+\newenvironment{absolutelynopagebreak}
+{\par\nobreak\vfil\penalty0\vfilneg
+\vtop\bgroup}
+{\par\xdef\tpd{\the\prevdepth}\egroup
+\prevdepth=\tpd}
+
+%%fakesection PAGE SETUP
+\ifsetlinespacing
+    \ifnoindent
+        \setlength{\parindent}{0pt}
+        \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+    \fi
+    \renewcommand{\baselinestretch}{1.05}
+\fi
+
+% Font
+\ifmathpazofontused
+    \usepackage{mathpazo}
+\else\ifsansseriffontused
+    \renewcommand{\familydefault}{\sfdefault}
+    \usepackage{sansmath}
+    \sansmath
+\fi
+\fi
+
+%%fakesection MDFRAMED
+\ifthmenabled 
+    \usepackage{amsthm,thmtools}
+    \mdfdefinestyle{mdbox}{%
+        linewidth=0.5pt,
+        skipabove=12pt,
+        frametitleaboveskip=5pt,
+        frametitlebelowskip=0pt,
+        skipbelow=2pt,
+        frametitlefont=\bfseries,
+        innertopmargin=4pt,
+        innerbottommargin=8pt,
+        %                nobreak=true,
+        %            backgroundcolor=ForestGreen!5,
+        %            linecolor=ForestGreen,
+    }
+    \declaretheoremstyle[
+        headfont=\bfseries,
+        bodyfont=\normalfont,
+        spaceabove=2pt,
+        spacebelow=1pt,
+        mdframed={style=mdbox},
+    ]{thmbox}
+    \declaretheoremstyle[
+        headfont=\bfseries\small,
+        bodyfont=\normalfont\small,
+        spaceabove=2pt,
+        spacebelow=1pt,
+        mdframed={style=mdbox},
+    ]{thmsmallbox}
+
+    \ifboxthmon
+    % Theorem Styles --- Based on Evan's pretty boxes
+        \ifcolorthmon
+            \mdfdefinestyle{mdbluebox}{%
+            %                roundcorner = 10pt,
+                linewidth=0pt, %1pt,
+                skipabove=12pt,
+                innerbottommargin=9pt,
+                skipbelow=2pt,
+                linecolor=blue,
+                nobreak=true,
+                backgroundcolor=TealBlue!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{MidnightBlue},
+                mdframed={style=mdbluebox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt}
+            ]{thmbluebox}
+            \declaretheoremstyle[
+                headfont=\ttfamily\color{MidnightBlue},
+                bodyfont=\ttfamily,
+                mdframed={style=mdbluebox},
+                headpunct={},
+                postheadspace={8pt}
+            ]{thminlinebluebox}
+
+            \mdfdefinestyle{mdpurplebox}{%
+            %                roundcorner = 10pt,
+                linewidth=0pt, %1pt,
+                skipabove=12pt,
+                innerbottommargin=9pt,
+                skipbelow=2pt,
+                linecolor=blue,
+                nobreak=true,
+                backgroundcolor=RoyalPurple!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{RoyalPurple},
+                mdframed={style=mdpurplebox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt}
+            ]{thmpurplebox}
+
+            \mdfdefinestyle{mdredbox}{%
+                linewidth=0pt, %0.5pt,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=4pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=Salmon!5,
+                linecolor=RawSienna,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{Mahogany},
+                mdframed={style=mdredbox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmredbox}
+
+            \mdfdefinestyle{mdorangebox}{%
+                linewidth=0pt, %0.5pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=4pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=Peach!5,
+                linecolor=BurntOrange,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{BurntOrange},
+                mdframed={style=mdorangebox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmorangebox}
+
+            \mdfdefinestyle{mdinlineorangebox}{%
+                skipabove=8pt,
+                linewidth=3pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=black,
+                linecolor=BurntOrange,
+                nobreak=true,
+                backgroundcolor=Peach!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{BurntOrange},
+                spaceabove=0pt,
+                spacebelow=0pt,
+                mdframed={style=mdinlineorangebox},
+                headpunct={.\;},
+            ]{thminlineorangebox}
+
+            \mdfdefinestyle{mdgreenbox}{%
+                skipabove=8pt,
+                linewidth=2pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=ForestGreen,
+                backgroundcolor=ForestGreen!5,
+                nobreak=true,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{ForestGreen!70!black},
+                bodyfont=\normalfont,
+                spaceabove=2pt,
+                spacebelow=1pt,
+                mdframed={style=mdgreenbox},
+                %headpunct={ --- },
+                headpunct={\\[3pt]},
+            ]{thmgreenbox}
+
+            \mdfdefinestyle{mdgreenborder}{%
+                linewidth=0.5pt,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=4pt,
+                innerbottommargin=8pt,
+                nobreak=true,
+                backgroundcolor=ForestGreen!5,
+                linecolor=ForestGreen,
+            }
+            \declaretheoremstyle[
+                headfont=\bfseries\color{ForestGreen},
+                mdframed={style=mdgreenborder},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmgreenborder}
+
+            \mdfdefinestyle{mdlimebox}{%
+                skipabove=8pt,
+                linewidth=2pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=LimeGreen,
+                backgroundcolor=LimeGreen!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{LimeGreen!70!black},
+                bodyfont=\normalfont,
+                spaceabove=2pt,
+                spacebelow=1pt,
+                mdframed={style=mdlimebox},
+                %headpunct={ --- },
+                headpunct={\\[3pt]},
+            ]{thmlimebox}
+
+            \mdfdefinestyle{mdlimeborder}{%
+                linewidth=0.5pt,
+                skipabove=12pt,
+                frametitleaboveskip=5pt,
+                frametitlebelowskip=0pt,
+                skipbelow=2pt,
+                frametitlefont=\bfseries,
+                innertopmargin=4pt,
+                innerbottommargin=8pt,
+                %                nobreak=true,
+                backgroundcolor=LimeGreen!5,
+                linecolor=LimeGreen,
+            }
+            \declaretheoremstyle[
+                headfont=\bfseries\color{LimeGreen!70!black},
+                mdframed={style=mdlimeborder},
+                headpunct={\\[3pt]},
+                postheadspace={0pt},
+            ]{thmlimeborder}
+
+            \mdfdefinestyle{mdblackbox}{%
+                skipabove=8pt,
+                linewidth=3pt,
+                rightline=false,
+                leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=black,
+                backgroundcolor=RedViolet!5!gray!5,
+            }
+            \declaretheoremstyle[
+                headfont=\bfseries,
+                bodyfont=\normalfont\small,
+                spaceabove=0pt,
+                spacebelow=0pt,
+                mdframed={style=mdblackbox}
+            ]{thmblackbox}
+        \fi
+
+%%fakesection BOXTHM
+        \ifcolorthmon
+        %\theoremstyle{plain}
+            \iftheorembychapter\declaretheorem[style=thmbluebox,parent=chapter,name=Theorem]{theorem}
+            \else
+                \iftheorembysection\declaretheorem[style=thmbluebox,parent=section,name=Theorem]{theorem}
+                \else\declaretheorem[style=thmbluebox,name=Theorem]{theorem}
+                \fi
+            \fi
+            \declaretheorem[style=thmbluebox,numbered=no,name=Theorem]{theorem*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=Corollary]{corollary}
+            \declaretheorem[style=thmbluebox,numbered=no,name=Corollary]{corollary*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=Proposition]{proposition}
+            \declaretheorem[style=thmbluebox,numbered=no,name=Proposition]{proposition*}
+            \declaretheorem[style=thminlinebluebox,numbered=no,name=\$]{shell}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=Algorithm]{algorithm}
+            \declaretheorem[style=thmbluebox,numbered=no,name=Algorithm]{algorithm*}
+            \declaretheorem[style=thmbluebox,parent=section,name=Algorithm]{secalgo}
+            \ifrollingboxprob
+                \declaretheorem[style=thmgreenbox,sibling=theorem,name=Problem]{boxprob}
+                \declaretheorem[style=thmredbox,sibling=theorem,name=Lemma]{lemma}
+            \else
+                \declaretheorem[style=thmgreenbox,name=Problem]{boxprob}
+                \declaretheorem[style=thmredbox,name=Lemma]{lemma}
+            \fi
+            \declaretheorem[style=thmgreenbox,numbered=no,name=Problem]{boxprob*}
+            \declaretheorem[style=thmredbox,numbered=no,name=Lemma]{lemma*}
+            \declaretheorem[style=thmgreenbox,parent=section,name=Problem]{secprob}
+            \declaretheorem[style=thmgreenborder,sibling=theorem,name=Example]{example}
+            \declaretheorem[style=thmlimeborder,numbered=no,name=Solution]{boxsol}
+            \declaretheorem[style=thmlimeborder,numbered=no,name=Proof]{boxproof}
+            \declaretheorem[style=thmredbox,numbered=no,name=Warning]{warning}
+            \declaretheorem[style=thmorangebox,name=Claim]{boxclaim}
+            \declaretheorem[style=thmorangebox,numbered=no,name=Claim]{boxclaim*}
+            \declaretheorem[style=thminlineorangebox,name=Claim]{claim}
+            \declaretheorem[style=thminlineorangebox,numbered=no,name=Claim]{claim*}
+            \declaretheorem[style=thmblackbox,numbered=no,name=Remark]{remark}
+            \declaretheorem[style=thmblackbox,numbered=no,name=Note]{note}
+            \declaretheorem[style=thmblackbox,numbered=no,name=Fact]{fact}
+            \declaretheorem[style=thmpurplebox,sibling=theorem,name=Definition]{definition}
+            \declaretheorem[style=thmpurplebox,numbered=no,name=Definition]{definition*}
+
+            \declaretheorem[style=thmbluebox,name=Theorem]{innercustomthm}
+            \newenvironment{customthm}[1]{
+                \renewcommand\theinnercustomthm{#1}
+                \innercustomthm
+            }{\endinnercustomthm}
+
+            \declaretheorem[style=thmgreenbox,name=Problem]{innercustomboxprob}
+            \newenvironment{customboxprob}[1]{
+                \renewcommand\theinnercustomboxprob{#1}
+                \innercustomboxprob
+            }{\endinnercustomboxprob}
+
+            \declaretheorem[style=thmlimeborder,name=Solution]{innercustomsol}
+            \newenvironment{customboxsol}[1]{
+                \renewcommand\theinnercustomboxsol{#1}\innercustomboxsol
+            }{\endinnercustomboxsol}
+
+            \declaretheorem[style=thmlimeborder,name=Proof]{innercustomboxproof}
+            \newenvironment{customboxproof}[1]{
+                \renewcommand\theinnercustomboxproof{#1}
+                \innercustomboxproof
+            }{\endinnercustomboxproof}
+
+            \declaretheorem[style=thmpurplebox,name=Definition]{innercustomdef}
+            \newenvironment{customdef}[1]{
+                \renewcommand\theinnercustomdef{#1}
+                \innercustomdef
+            }{\endinnercustomdef}
+        \else
+            \iftheorembychapter\declaretheorem[style=thmbox,parent=chapter,name=Theorem]{theorem}
+            \else
+                \iftheorembysection\declaretheorem[style=thmbox,parent=section,name=Theorem]{theorem}
+                \else\declaretheorem[style=thmbox,name=Theorem]{theorem}
+                \fi
+            \fi
+            \declaretheorem[style=thmbox,numbered=no,name=Theorem]{theorem*}
+            \declaretheorem[style=thmbox,sibling=theorem,name=Corollary]{corollary}
+            \declaretheorem[style=thmbox,sibling=theorem,name=Proposition]{proposition}
+            \declaretheorem[style=thmbox,numbered=no,name=Proposition]{proposition*}
+            \declaretheorem[style=thmbox,numbered=no,name=\$]{shell}
+            \declaretheorem[style=thmbox,sibling=theorem,name=Algorithm]{algorithm}
+            \declaretheorem[style=thmbox,numbered=no,name=Algorithm]{algorithm*}
+            \declaretheorem[style=thmbox,parent=section,name=Algorithm]{secalgo}
+            \ifrollingboxprob
+                \declaretheorem[style=thmbox,sibling=theorem,name=Problem]{boxprob}
+                \declaretheorem[style=thmbox,sibling=theorem,name=Lemma]{lemma}
+            \else
+                \declaretheorem[style=thmbox,name=Problem]{boxprob}
+                \declaretheorem[style=thmbox,name=Lemma]{lemma}
+            \fi
+            \declaretheorem[style=thmbox,numbered=no,name=Problem]{problem*}
+            \declaretheorem[style=thmbox,numbered=no,name=Lemma]{lemma*}
+            \declaretheorem[style=thmbox,parent=section,name=Problem]{secprob}
+            \declaretheorem[style=thmbox,sibling=theorem,name=Example]{example}
+            \declaretheorem[style=thmbox,numbered=no,name=Solution]{boxsol}
+            \declaretheorem[style=thmbox,numbered=no,name=Proof]{boxproof}
+            \declaretheorem[style=thmbox,numbered=no,name=Warning]{warning}
+            \declaretheorem[style=thmbox,name=Claim]{boxclaim}
+            \declaretheorem[style=thmbox,numbered=no,name=Claim]{boxclaim*}
+            \declaretheorem[style=thmbox,name=Claim]{claim}
+            \declaretheorem[style=thmbox,numbered=no,name=Claim]{claim*}
+            \declaretheorem[style=thmsmallbox,numbered=no,name=Remark]{remark}
+            \declaretheorem[style=thmbox,numbered=no,name=Note]{note}
+            \declaretheorem[style=thmbox,sibling=theorem,name=Definition]{definition}
+            \declaretheorem[style=thmbox,numbered=no,name=Definition]{definition*}
+        \fi
+    %%fakesection STANDARD THEOREMS
+    \else
+        \theoremstyle{plain}
+        \iftheorembychapter\newtheorem{theorem}{Theorem}[chapter]
+        \else
+            \iftheorembysection\newtheorem{theorem}{Theorem}[section]
+            \else\newtheorem{theorem}{Theorem}
+            \fi
+        \fi
+        \newtheorem*{theorem*}{Theorem}
+        \newtheorem{corollary}[theorem]{Corollary}
+        \newtheorem*{corollary*}{Corollary}
+        \newtheorem{proposition}[theorem]{Proposition}
+        \newtheorem*{proposition*}{Proposition}
+
+        \ifrollingboxprob\declaretheorem[style=thmbox,sibling=theorem,name=Problem]{boxprob}
+        \else\declaretheorem[style=thmbox,name=Problem]{boxprob}
+        \fi\declaretheorem[style=thmbox,numbered=no,name=Problem]{boxprob*}
+
+        \newtheorem*{lemma*}{Lemma}
+        \newtheorem*{fact}{Fact}
+        \newtheorem*{remark}{Remark}
+        \newtheorem*{note}{Note}
+
+        \theoremstyle{definition}
+        \newtheorem*{algorithm}{Algorithm}
+        \newtheorem{definition}[theorem]{Definition}
+        \newtheorem*{definition*}{Definition}
+        \newtheorem{claim}{Claim}
+        \newtheorem*{claim*}{Claim}
+        \newtheorem{example}[theorem]{Example}
+        \newtheorem*{example*}{Example}
+        \newtheorem*{warning}{Warning}
+
+% custom numbers
+        \newtheorem{innercustomthm}{Theorem}
+        \newenvironment{customthm}[1]{
+            \renewcommand\theinnercustomthm{#1}\innercustomthm
+        }{\endinnercustomthm}
+
+        \newtheorem{innercustomprob}{Problem}
+        \newenvironment{customprob}[1]{
+            \renewcommand\theinnercustomprob{#1}\innercustomprob
+        }{\endinnercustomprob}
+
+    \fi
+
+%%fakesection MISC THEOREM STUFF
+    \newenvironment{subproof}[1][Proof]{
+        \begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}
+    }{\end{proof}}
+
+    \theoremstyle{definition}
+    \newtheorem{exercise}[theorem]{Exercise}
+    \newtheorem*{exercise*}{Exercise}
+    \newtheorem{challenge}[theorem]{Challenge}
+    \newtheorem*{challenge*}{Challenge}
+    \newtheorem*{walkthrough}{Walkthrough}
+
+% copycat OTIS
+    \newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
+    \newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
+    \newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
+
+    \newtheorem{problem}[theorem]{Problem}
+    \newtheorem{probE}[problem]{\clubs{2} Problem}
+    \newtheorem{probM}[problem]{\clubs{3} Problem}
+    \newtheorem{probH}[problem]{\clubs{5} Problem}
+    \newtheorem{probZ}[problem]{\clubs{9} Problem}
+    \newtheorem{probER}[problem]{\clubr{2} Problem}
+    \newtheorem{probMR}[problem]{\clubr{3} Problem}
+    \newtheorem{probHR}[problem]{\clubr{5} Problem}
+    \newtheorem{probZR}[problem]{\clubr{9} Problem}
+
+    \newcommand{\goals}[2]{\bgroup
+        \sffamily\emph{Instructions}: Solve \clubg{#1}.
+        If you have time, solve \clubg{#2}.
+        Problems with {\color{red} red} weights are mandatory.
+        \egroup
+    }
+
+    \iffillqedsymbol
+        \renewcommand\qedsymbol{$\blacksquare$}
+    \fi
+    \ifendproofnow
+        \renewenvironment{proof}[1][\proofname]{\par
+            \normalfont \topsep6\p@\@plus6\p@\relax
+            \trivlist
+        \item[\hskip\labelsep
+                \itshape
+            #1\@addpunct{.}]\ignorespaces
+        }{%
+            \nolinebreak\qedsymbol\endtrivlist\@endpefalse
+        }
+    \fi
+\fi %%%% END OF THEOREMS
+
+%%fakesection ASYMPTOTE
+% Asymptote
+\ifasyenabled
+    \usepackage{asymptote}
+    \begin{asydef}
+        import olympiad;
+    \end{asydef}
+\fi
+
+\ifcodeused
+    \usepackage{listings}
+    \usepackage{color}
+
+    \definecolor{dkgreen}{rgb}{0,0.6,0}
+    \definecolor{gray}{rgb}{0.5,0.5,0.5}
+    \definecolor{mauve}{rgb}{0.58,0,0.82}
+
+    \lstset{frame=tb,
+        language=Java,
+        aboveskip=3mm,
+        belowskip=3mm,
+        showstringspaces=false,
+        columns=flexible,
+        basicstyle={\small\ttfamily},
+        numbers=left,
+        numbersep=5pt,
+        numberstyle=\tiny\color{gray},
+        keywordstyle=\color{blue},
+        commentstyle=\color{dkgreen},
+        stringstyle=\color{mauve},
+        breaklines=true,
+        breakatwhitespace=true,
+        tabsize=4,
+        frame=single
+    }
+\fi
+
+%%fakesection VON
+\ifvonenabled\ifvonstyexists
+% \von, \voninclude
+    \ifvonbrave
+        \usepackage[brave]{von}
+    \else
+        \usepackage{von}
+    \fi
+
+% custom environment von
+    \def\vonenv{\@ifstar\@vonenvstar\@vonenv}
+    \newcommand{\@vonenv}[3][]{%
+        \ifthenelse{\isempty{#1}}%
+        {\begin{#3}[#2] \voninclude{#2} \end{#3}}%
+        {\begin{#3}[#1] \voninclude{#2} \end{#3}}
+    }
+    \newcommand{\@vonenvstar}[2]{\begin{#2} \voninclude{#1} \end{#2}}
+
+% von with boxprob
+    \def\vonbox{\@ifstar\@vonboxstar\@vonbox}
+    \newcommand{\@vonbox}[2][]{\vonenv[#1]{#2}{boxprob}}
+    \newcommand{\@vonboxstar}[1]{\vonenv*{#1}{boxprob}}
+
+    \def\vonexmp{\@ifstar\@vonexmpstar\@vonexmp}
+    \newcommand{\@vonexmp}[2][]{\vonenv[#1]{#2}{example}}
+    \newcommand{\@vonexmpstar}[1]{\vonenv*{#1}{example}}
+
+% boxprob open solution
+    \newcommand\vonprob[1]{\voninclude[0]{#1}}
+    \newcommand\vonsol[1]{\voninclude[1]{#1}}
+
+% Show everything
+    \def\vonall{\@ifstar\@vonallstar\@vonall}
+    \newcommand{\@vonall}[2][]{\vonbox[#1]{#2}\vonsol{#2}}
+    \newcommand{\@vonallstar}[1]{\vonbox*{#1}\vonsol{#1}}
+
+% vonall with \newpage
+    \def\vonfull{\@ifstar\@vonfullstar\@vonfull}
+    \newcommand{\@vonfull}[2][]{\vonall[#1]{#2}\newpage}
+    \newcommand{\@vonfullstar}[1]{\vonall*{#1}\newpage}
+
+% von with blue point-values
+    \def\vonE{\@ifstar\@vonEstar\@vonE}
+    \newcommand{\@vonE}[2][]{\vonenv[#1]{#2}{probE}}
+    \newcommand{\@vonEstar}[1]{\vonenv*{#1}{probE}}
+
+    \def\vonM{\@ifstar\@vonMstar\@vonM}
+    \newcommand{\@vonM}[2][]{\vonenv[#1]{#2}{probM}}
+    \newcommand{\@vonMstar}[1]{\vonenv*{#1}{probM}}
+
+    \def\vonH{\@ifstar\@vonHstar\@vonH}
+    \newcommand{\@vonH}[2][]{\vonenv[#1]{#2}{probH}}
+    \newcommand{\@vonHstar}[1]{\vonenv*{#1}{probH}}
+
+    \def\vonZ{\@ifstar\@vonZstar\@vonZ}
+    \newcommand{\@vonZ}[2][]{\vonenv[#1]{#2}{probZ}}
+    \newcommand{\@vonZstar}[1]{\vonenv*{#1}{probZ}}
+
+% von with red point-values
+    \def\vonER{\@ifstar\@vonERstar\@vonER}
+    \newcommand{\@vonER}[2][]{\vonenv[#1]{#2}{probER}}
+    \newcommand{\@vonERstar}[1]{\vonenv*{#1}{probER}}
+
+    \def\vonMR{\@ifstar\@vonMRstar\@vonMR}
+    \newcommand{\@vonMR}[2][]{\vonenv[#1]{#2}{probMR}}
+    \newcommand{\@vonMRstar}[1]{\vonenv*{#1}{probMR}}
+
+    \def\vonHR{\@ifstar\@vonHRstar\@vonHR}
+    \newcommand{\@vonHR}[2][]{\vonenv[#1]{#2}{probHR}}
+    \newcommand{\@vonHRstar}[1]{\vonenv*{#1}{probHR}}
+
+    \def\vonZR{\@ifstar\@vonZRstar\@vonZR}
+    \newcommand{\@vonZR}[2][]{\vonenv[#1]{#2}{probZR}}
+    \newcommand{\@vonZRstar}[1]{\vonenv*{#1}{probZR}}
+
+% OTIS
+    \def\vonotis{\@ifstar\@vonotisstar\@vonotis}
+    \NewDocumentCommand{\@vonotis}{ O{} O{} m }{
+        \ifthenelse{\isempty{#1}}{
+            \ifthenelse{\isempty{#2}}
+            {\subsection{#3}}
+            {\subsection{#2}}
+        }{
+            \ifthenelse{\isempty{#2}}
+            {\subsection{\clubs{#1}\ #3}}
+            {\subsection{\clubs{#1}\ #2}}
+        }
+        %\vonsol{#3}
+        \vonall{#3}
+    }
+    \NewDocumentCommand{\@vonotisstar}{ O{} O{} m }{
+        \ifthenelse{\isempty{#1}}{
+            \ifthenelse{\isempty{#2}}
+            {\subsection{#3}}
+            {\subsection{#2}}
+        }{
+            \ifthenelse{\isempty{#2}}
+            {\subsection{\clubr{#1}\ #3}}
+            {\subsection{\clubr{#1}\ #2}}
+        }
+        \vonall{#3}
+    }
+\fi\fi
+
+%%fakesection BEAMER
+\ifdocisbeamer\AtBeginDocument{
+        \renewenvironment{theorem}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{block}{Theorem}}{\begin{block}{Theorem (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
+        }
+        \renewenvironment{problem}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
+        }
+        \renewenvironment{lemma}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{alertblock}{Lemma}}{\begin{alertblock}{Lemma (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{alertblock}}{\end{alertblock}}
+        }
+        \renewenvironment{fact}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{alertblock}{Fact}}{\begin{alertblock}{Fact (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{alertblock}}{\end{alertblock}}
+        }
+        \newenvironment{claim}[1][]{
+            \setbeamercolor{block title}{bg=BurntOrange,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Claim}}{\begin{block}{Claim (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}}
+        }
+        \renewenvironment{definition}[1][]{
+            \setbeamercolor{block title}{bg=RoyalPurple,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Definition}}{\begin{block}{Definition (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
+        }
+        \renewenvironment{corollary}[1][]{
+            \setbeamercolor{block title}{bg=MidnightBlue,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Corollary}}{\begin{block}{Corollary (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
+        }
+    }
+\fi
+
+%%fakesection DEFAULT VALUES
+\author{Eric Shen}
+\date{Last updated \today}
+\newcommand\emptydate{
+    \@ifundefined{KOMAClassName}{
+        \date{\vspace{-5ex}}
+    }{
+        \date{\vspace{-3ex}}
+        \ohead{\footnotesize\textbf{\@author}}
+    }
+}

@@ -1,0 +1,220 @@
+%% shortlist.sty %% Copyright 2020 Eric Shen %
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Eric Shen.
+%
+% This work consists of the file shortlist.sty.
+%
+% IMPORTANT -- for asy, no comments and no double
+% newlines. See inline-asy.sty for details.
+%%
+\ProvidesPackage{shortlist}
+
+%%fakesection options
+\newif\ifslsolutions\slsolutionstrue
+\newif\ifslwatermark\slwatermarkfalse
+
+\DeclareOption{nosol}{\slsolutionsfalse}
+\DeclareOption{sol}{\slsolutionstrue}
+\DeclareOption{draft}{\slwatermarktrue}
+\ProcessOptions\relax
+
+%%fakesection format details
+% Use \documentclass[11pt,oneside]{scrbook}
+\usepackage[default,plainsec,noasy]{shen}
+\usepackage{inline-asy}
+
+\begin{oldasydef}
+    import olympiad;
+\end{oldasydef}
+
+\setkomafont{title}{\Huge\bfseries}
+\setkomafont{subtitle}{\LARGE\bfseries}
+\setkomafont{author}{\LARGE\bfseries}
+\setkomafont{date}{\LARGE\bfseries}
+
+\usepackage{datetime}
+\renewcommand{\dateseparator}{-}
+\yyyymmdddate
+\ohead{\footnotesize \today\ \currenttime}
+\chead{}
+\date\today
+
+\allowdisplaybreaks
+\RedeclareSectionCommand[beforeskip=0pt]{chapter}
+\renewcommand*\chapterformat{}
+\renewcommand*\raggedchapter{\centering}
+\renewcommand*\chapterpagestyle{headings}
+
+\hypersetup{colorlinks,linkcolor=RubineRed}
+
+%%fakesection the fun part --- theorems
+% formatting for shortlist problems
+\newtheoremstyle{shortlist}%
+{3pt} % space before
+{2em} % space after
+{\normalfont} % body font
+{0pt} % indent
+{\Large\bfseries\color{RubineRed}} % head font
+{.} % head punctuation
+{2ex} % space after head
+{\thmname{#1}\thmnumber{#2}} % manually specify head
+
+\newtheoremstyle{shortlistlinkA}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{RubineRed}}{.}{2ex}
+{\hyperlink{slprobA.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlistlinkC}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{RubineRed}}{.}{2ex}
+{\hyperlink{slprobC.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlistlinkG}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{RubineRed}}{.}{2ex}
+{\hyperlink{slprobG.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlistlinkN}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{RubineRed}}{.}{2ex}
+{\hyperlink{slprobN.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\theoremstyle{shortlist}
+\newtheorem{slprobA}{A}
+\newtheorem{slprobC}{C}
+\newtheorem{slprobG}{G}
+\newtheorem{slprobN}{N}
+\theoremstyle{shortlistlinkA}
+\newtheorem{slproblinkA}{A}
+\theoremstyle{shortlistlinkC}
+\newtheorem{slproblinkC}{C}
+\theoremstyle{shortlistlinkG}
+\newtheorem{slproblinkG}{G}
+\theoremstyle{shortlistlinkN}
+\newtheorem{slproblinkN}{N}
+
+\def\alglist{}
+\def\algsols{}
+\def\combolist{}
+\def\combosols{}
+\def\geolist{}
+\def\geosols{}
+\def\ntlist{}
+\def\ntsols{}
+
+\newcommand\algpage{\g@addto@macro\alglist{\newpage}}
+\newcommand\combopage{\g@addto@macro\combolist{\newpage}}
+\newcommand\geopage{\g@addto@macro\geolist{\newpage}}
+\newcommand\ntpage{\g@addto@macro\ntlist{\newpage}}
+\newcommand\newalg[3][]{
+    \g@addto@macro\alglist{
+        \begin{slproblinkA}
+            \addtocounter{section}{1}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem A\theslproblinkA}
+            #2
+
+        \medskip\hfill{\itshape(#1)}\end{slproblinkA}
+
+    }
+    \g@addto@macro\algsols{
+        \begin{slprobA}
+            \addtocounter{section}{1}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution A\theslprobA}
+            #2
+
+        \medskip\hfill{\itshape(#1)}\end{slprobA}
+        \hrulebar
+        #3
+        \newpage
+    }
+}
+\newcommand\newcombo[3][]{
+    \g@addto@macro\combolist{
+        \begin{slproblinkC}
+            \addtocounter{section}{1}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem C\theslproblinkC}
+            #2
+
+        \medskip\hfill{\itshape(#1)}\end{slproblinkC}
+
+    }
+    \g@addto@macro\combosols{
+        \begin{slprobC}
+            \addtocounter{section}{1}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution C\theslprobC}
+            #2
+
+        \medskip\hfill{\itshape(#1)}\end{slprobC}
+        \hrulebar
+        #3
+        \newpage
+    }
+}
+\newcommand\newgeo[3][]{
+    \g@addto@macro\geolist{
+        \begin{slproblinkG}
+            \addtocounter{section}{1}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem G\theslproblinkG}
+            #2
+
+        \medskip\hfill{\itshape(#1)}\end{slproblinkG}
+
+    }
+    \g@addto@macro\geosols{
+        \begin{slprobG}
+            \addtocounter{section}{1}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution G\theslprobG}
+            #2
+
+        \medskip\hfill{\itshape(#1)}\end{slprobG}
+        \hrulebar
+        #3
+        \newpage
+    }
+}
+\newcommand\newnt[3][]{
+    \g@addto@macro\ntlist{
+        \begin{slproblinkN}
+            \addtocounter{section}{1}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem N\theslproblinkN}
+            #2
+
+        \medskip\hfill{\itshape(#1)}\end{slproblinkN}
+
+    }
+    \g@addto@macro\ntsols{
+        \begin{slprobN}
+            \addtocounter{section}{1}
+            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution N\theslprobN}
+            #2
+
+        \medskip\hfill{\itshape(#1)}\end{slprobN}
+        \hrulebar
+        #3
+        \newpage
+    }
+}
+
+%%fakesection touch-ups
+\AtEndDocument{
+    \chapter{Problems}
+    \alglist
+    \combolist
+    \geolist
+    \ntlist
+
+    \ifslsolutions
+        \chapter{Solutions}
+        \algsols
+        \combosols
+        \geosols
+        \ntsols
+    \fi
+}
+
+%%fakesection watermark and stuff
+\ifslwatermark
+    \usepackage{draftwatermark}
+    \SetWatermarkAngle{32}
+    \SetWatermarkLightness{0.95}
+    \SetWatermarkFontSize{32pt}
+    \SetWatermarkScale{2.718}
+    \SetWatermarkText{\shortstack{CONFIDENTIAL \\ Internal Use}}
+\fi

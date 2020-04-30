@@ -15,21 +15,13 @@
 \ProvidesPackage{shortlist}
 
 %%fakesection options
-\newif\ifslsolutions\slsolutionstrue
 \newif\ifslwatermark\slwatermarkfalse
-
-\DeclareOption{nosol}{\slsolutionsfalse}
-\DeclareOption{sol}{\slsolutionstrue}
 \DeclareOption{draft}{\slwatermarktrue}
 \ProcessOptions\relax
 
 %%fakesection format details
 % Use \documentclass[11pt,oneside]{scrbook}
-\usepackage[default,plainsec,noasy]{shen}
-\usepackage{inline-asy}
-\begin{oldasydef}
-    import olympiad;
-\end{oldasydef}
+\usepackage[default,plainsec]{shen}
 
 \setkomafont{title}{\Huge\bfseries}
 \setkomafont{subtitle}{\LARGE\bfseries}
@@ -49,7 +41,7 @@
 \renewcommand*\raggedchapter{\centering}
 \renewcommand*\chapterpagestyle{headings}
 
-\hypersetup{colorlinks,linkcolor=RubineRed}
+\hypersetup{colorlinks,linkcolor=ForestGreen}
 
 %%fakesection the fun part --- theorems
 % formatting for shortlist problems
@@ -58,142 +50,25 @@
 {2em} % space after
 {\normalfont} % body font
 {0pt} % indent
-{\Large\bfseries\color{RubineRed}} % head font
+{\Large\bfseries\color{ForestGreen}} % head font
 {.} % head punctuation
 {2ex} % space after head
-{\thmname{#1}\thmnumber{#2}} % manually specify head
-
-\newtheoremstyle{shortlistlinkA}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{RubineRed}}{.}{2ex}
-{\hyperlink{slprobA.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
-\newtheoremstyle{shortlistlinkC}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{RubineRed}}{.}{2ex}
-{\hyperlink{slprobC.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
-\newtheoremstyle{shortlistlinkG}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{RubineRed}}{.}{2ex}
-{\hyperlink{slprobG.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
-\newtheoremstyle{shortlistlinkN}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{RubineRed}}{.}{2ex}
-{\hyperlink{slprobN.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+{} % manually specify head
 \theoremstyle{shortlist}
-\newtheorem{slprobA}{A}
-\newtheorem{slprobC}{C}
-\newtheorem{slprobG}{G}
-\newtheorem{slprobN}{N}
-\theoremstyle{shortlistlinkA}
-\newtheorem{slproblinkA}{A}
-\theoremstyle{shortlistlinkC}
-\newtheorem{slproblinkC}{C}
-\theoremstyle{shortlistlinkG}
-\newtheorem{slproblinkG}{G}
-\theoremstyle{shortlistlinkN}
-\newtheorem{slproblinkN}{N}
-
-\def\alglist{}
-\def\algsols{}
-\def\combolist{}
-\def\combosols{}
-\def\geolist{}
-\def\geosols{}
-\def\ntlist{}
-\def\ntsols{}
-
-\newcommand\newalg[3][]{
-    \g@addto@macro\alglist{
-        \begin{slproblinkA}
-            \addtocounter{section}{1}
-            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem A\theslproblinkA}
-            #2
-
-        \medskip\hfill{\itshape(#1)}\end{slproblinkA}
+\newtheorem{slprob}{}
+\newcommand\thesubject{}
+\newcommand\newsubject[1]{\renewcommand\theslprob{#1\arabic{slprob}}\setcounter{slprob}0\renewcommand\thesubject{#1}}
+\newcommand\nextauth{}
+\newenvironment{prob}[1][]{
+    \stepcounter{section}
+    \addcontentsline{toc}{section}{
+        \protect\numberline{\thesection}Problem \thesubject\the\numexpr\value{slprob}+1\relax
     }
-    \g@addto@macro\algsols{
-        \begin{slprobA}
-            \addtocounter{section}{1}
-            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution A\theslprobA}
-            #2
-
-        \medskip\hfill{\itshape(#1)}\end{slprobA}
-        \hrulebar
-        #3
-        \newpage
-    }
-}
-\newcommand\newcombo[3][]{
-    \g@addto@macro\combolist{
-        \begin{slproblinkC}
-            \addtocounter{section}{1}
-            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem C\theslproblinkC}
-            #2
-
-        \medskip\hfill{\itshape(#1)}\end{slproblinkC}
-    }
-    \g@addto@macro\combosols{
-        \begin{slprobC}
-            \addtocounter{section}{1}
-            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution C\theslprobC}
-            #2
-
-        \medskip\hfill{\itshape(#1)}\end{slprobC}
-        \hrulebar
-        #3
-        \newpage
-    }
-}
-\newcommand\newgeo[3][]{
-    \g@addto@macro\geolist{
-        \begin{slproblinkG}
-            \addtocounter{section}{1}
-            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem G\theslproblinkG}
-            #2
-
-        \medskip\hfill{\itshape(#1)}\end{slproblinkG}
-    }
-    \g@addto@macro\geosols{
-        \begin{slprobG}
-            \addtocounter{section}{1}
-            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution G\theslprobG}
-            #2
-
-        \medskip\hfill{\itshape(#1)}\end{slprobG}
-        \hrulebar
-        #3
-        \newpage
-    }
-}
-\newcommand\newnt[3][]{
-    \g@addto@macro\ntlist{
-        \begin{slproblinkN}
-            \addtocounter{section}{1}
-            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem N\theslproblinkN}
-            #2
-
-        \medskip\hfill{\itshape(#1)}\end{slproblinkN}
-    }
-    \g@addto@macro\ntsols{
-        \begin{slprobN}
-            \addtocounter{section}{1}
-            \addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution N\theslprobN}
-            #2
-
-        \medskip\hfill{\itshape(#1)}\end{slprobN}
-        \hrulebar
-        #3
-        \newpage
-    }
-}
-
-%%fakesection touch-ups
-\AtEndDocument{
-    \chapter{Problems}
-    \alglist
-    \combolist
-    \geolist
-    \ntlist
-
-    \ifslsolutions
-        \chapter{Solutions}
-        \algsols
-        \combosols
-        \geosols
-        \ntsols
-    \fi
+    \begin{slprob}
+        \renewcommand\nextauth{#1}
+    }{
+        \medskip\hfill\textit{(\nextauth)}
+    \end{slprob}
 }
 
 %%fakesection watermark and stuff

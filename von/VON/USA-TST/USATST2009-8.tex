@@ -1,0 +1,21 @@
+desc: (x-a)^i(x-b)^j(x-c)^k-1
+source: USA TST 2009/8
+tags: [2020-02, oly, tricky, nt, int-poly]
+
+---
+
+Fix a prime number $p>5$. Let $a$, $b$, $c$ be integers, no two of which have their difference divisible by $p$. Let $i$, $j$, $k$ be nonnegative integers such that $i+j+k$ is divisible by $p-1$. Suppose that for all integers $x$, the quantity \[(x-a)(x-b)(x-c)\left[(x-a)^i(x-b)^j(x-c)^k-1\right]\]
+is divisible by $p$. Prove that each of $i$, $j$, $k$ must be divisible by $p-1$.
+
+---
+
+Consider the polynomial \[P(x)=(x-a)^i(x-b)^j(x-c)^k-1.\]
+Let $0\le i,j,k<p-1$ by Fermat's little theorem, and assume for contradiction $i+j+k\ne0$. Thus either $i+j+k=p-1$ or $i+j+k=2(p-1)$. In the latter case, take $i\mapsto p-1-i$, $j\mapsto p-1-j$, $k\mapsto p-1-k$, so we may assume $i+j+k=p-1$.
+
+We are given that $P(x)$ vanishes for all $x\not\in\{a,b,c\}$. However
+\begin{align*}
+    P(x)&=(x-a)^i(x-b)^j(x-c)^k-1\\
+    &=(x-a)^i(x-b)^j(x-c)^k-(x-a)^{i+j+k}\\
+    (x-a)^{-i}P(x)&=(x-b)^j(x-c)^k-(x-a)^{j+k}.
+\end{align*}
+Note that $(x-a)^{-i}P(x)$ is a polynomial of degree at most $j+k-1=p-2-i$ that vanishes at $p-3$ points. Thus $i\le1$, and analogously $j\le1$ and $k\le1$, contradiction.

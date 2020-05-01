@@ -1,6 +1,6 @@
 desc: 3D Volume Comparison
-source: No. 2 HS of ECNU
-tags: [2019-10, answer, cmedium, geo, 3D]
+source: No.\ 2 HS of ECNU 9.7/7
+tags: [2019-10, answer, ctricky, geo, 3D]
 
 ---
 
@@ -8,10 +8,10 @@ A pyramid has apex $S$ and parallelogram base $ABCD$. Point $K$ denotes the midp
 
 ---
 
-The answer is $\dfrac UV\in\left[\dfrac13,\dfrac38\right)$.
+The answer is $\dfrac UV\in\left[\dfrac13,\dfrac38\right]$.
 \begin{center}
     \begin{asy}
-        size(10cm);
+        size(7cm);
         defaultpen(fontsize(10pt));
         import three;
         import solids;
@@ -68,9 +68,9 @@ The answer is $\dfrac UV\in\left[\dfrac13,\dfrac38\right)$.
 Let $O$ be the center of parallelogram $ABCD$, $M_0,N_0$ be the midpoints of $\overline{SB},\overline{SD}$, respectively, and $G$ be the common centroid of $\triangle SAC$ and $\triangle SBD$ with $\vec G=\tfrac13\left(\vec S+2\vec O\right)$. Since $A,M,K,N$ are coplanar, $G$ must lie on $\overline{MN}$. Furthermore check that \[\frac UV=\frac12\left(\frac{SA\cdot SM\cdot SN}{SA\cdot SB\cdot SD}+\frac{SK\cdot SM\cdot SN}{SC\cdot SB\cdot SD}\right)=\frac{3[SMN]}{4[SBD]}.\]
 Now, remark that \[[SMN]-[SM_0N_0]=\Big|[GMM_0]-[GNN_0]\Big|=\frac{MN\cdot |GM-GN|\cdot\sin\angle(\overline{MN},\overline{M_0N_0})}4.\]
 It is not hard to check that $[SMN]\ge [SM_0N_0]$, with equality iff $(M,N)=(M_0,N_0)$, and $[SMN]$ is maximal when $S$ approaches $M$ or $N$. The minimal case yields \[\frac UV=\frac{3[SMN]}{4[SBD]}\ge\frac34\cdot\left(\frac23\right)^2=\frac13,\]
-and the maximal case yields\[\frac UV=\frac{3[SMN]}{4[SBD]}<\frac34\cdot 1\cdot\frac12=\frac38,\]
+and the maximal case yields\[\frac UV=\frac{3[SMN]}{4[SBD]}\le\frac34\cdot 1\cdot\frac12=\frac38,\]
 so we are done.
 
 ---
 
-$\left[\dfrac13,\dfrac38\right)$
+$\left[\dfrac13,\dfrac38\right]$

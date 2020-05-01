@@ -1,0 +1,72 @@
+desc: Orthocentric system
+source: Mock AIME 2019/6
+tags: [2019-10, answer, cmedium, geo]
+author: Eric Shen
+
+---
+
+In cyclic quadrilateral $ABCD$, $AB=8$, $BC=1$, $CD=4$, and $DA=7$. If $M$ denotes the midpoint of $\overline{AC}$, $X$ the intersection of lines $AD$ and $BC$, $Y$ the intersection of lines $AB$ and $CD$, and $N$ the midpoint of $\overline{XY}$, then $MN$ can be expressed in the form $\tfrac{p\sqrt q}r$, where $p$, $q$, and $r$ are positive integers, $p$ and $r$ are relatively prime, and $q$ is not divisible by the square of any prime. Find $p+q+r$.
+
+---
+
+\paragraph{First solution}     It is easy to determine that $\overline{AC}$ is a diameter of $(ABCD)$, and that $AC=\sqrt{65}$. The key observation is that $A,X,Y,C$ form an orthocentric system, a corollary of which is that $\overline{AC}\perp\overline{XY}$.
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=royalblue;
+        pen sec=Cyan;
+        pen fil=royalblue+opacity(0.05);
+
+        pair A, B, C, D, M, X, Y, NN;
+        A=sqrt(65)/2*dir(90);
+        B=sqrt(65)/2*dir(270+2*aSin(1/sqrt(65)));
+        C=sqrt(65)/2*dir(270);
+        D=sqrt(65)/2*dir(270-2*aSin(4/sqrt(65)));
+        M=(A+C)/2;
+        X=extension(A, D, B, C);
+        Y=extension(A, B, C, D);
+        NN=(X+Y)/2;
+
+        draw(A -- B -- C -- D -- A -- C, pri);
+        draw(X -- D -- Y -- B -- X -- Y, pri);
+        filldraw(circumcircle(A, B, C), fil, pri);
+        fill(A -- X -- Y -- cycle, fil);
+        draw(B -- NN -- D, sec);
+
+        dot("$A$", A, N);
+        dot("$B$", B, dir(-20));
+        dot("$C$", C, dir(50));
+        dot("$D$", D, W);
+        dot("$M$", M, W);
+        dot("$X$", X, SW);
+        dot("$Y$", Y, SE);
+        dot("$N$", NN, S);
+    \end{asy}
+\end{center}
+First, let $XC=s,XD=t,YC=u,YB=v$. Then, since $\triangle XAB\sim\triangle XCD$, we have that \[2=\frac{s+1}t=\frac{t+7}s.\]
+Solving, $s=5$ and $t=3$. Similarly, $\triangle YAD\sim\triangle YCB$, so \[7=\frac{u+4}v=\frac{v+8}u.\]
+Solving, $u=\tfrac54$ and $v=\tfrac34$. It follows that by the Pythagorean theorem on either $\triangle XDY$ or $\triangle XBY$, we compute that $XY=\tfrac{3\sqrt{65}}4$.
+
+It is well-known that $\overline{NB}$ and $\overline{ND}$ are tangent to $(ABCD)$. Then,
+\begin{align*}
+    MN^2-\left(\frac12AC\right)^2&=\text{Pow}_{(ABCD)}(N)=NB^2=\left(\frac12XY\right)^2\\
+    \implies MN^2&=\left(\frac{\sqrt{65}}2\right)^2+\left(\frac{3\sqrt{65}}8\right)^2=\frac{25\cdot 65}{64}\\
+    \implies MN&=\frac{5\sqrt{65}}8,
+\end{align*}
+and the requested sum is $5+65+8=78$.
+
+\paragraph{Second solution}     Like above, note that $\overline{AC}$ is a diameter of $(ABCD)$, and that $AC=\sqrt{65}$. Furthermore, $C$ is the orthocenter of $\triangle AXY$. Let $Z=\overline{AC}\cap\overline{XY}$ be the foot from $A$ to $\overline{XY}$, and let $\alpha=\angle CAD$ and $\beta=\angle CAB$. It is easy to check that $\tan\alpha=\tfrac47$ and $\tan\beta=\tfrac18$. Then, \[\tan(\alpha+\beta)=\frac{\tfrac47+\tfrac18}{1-\tfrac47\cdot\tfrac18}=\frac34.\]
+Hence, \[AX=AB\sec(\alpha+\beta)=8\cdot\frac54=10\]
+and similarly $AY=\frac{35}4$. Now, \[AZ=AX\cos\alpha=10\cdot\frac7{\sqrt{65}}=\frac{14\sqrt{65}}{13}\]
+and \[XZ=AX\sin\alpha=10\cdot\frac4{\sqrt{65}}=\frac{8\sqrt{65}}{13}.\]
+Similarly, $YZ=\tfrac{7\sqrt{65}}{52}$. It follows that \[MZ=AZ-AM=\frac{14\sqrt{65}}{13}-\frac{\sqrt{65}}2=\frac{15\sqrt{65}}{26}.\]
+Furthermore, \[NZ=XZ-\frac{XY}2=\frac{8\sqrt{65}}{13}-\frac{3\sqrt{65}}8=\frac{25\sqrt{65}}{104}.\]
+It follows that \[MN=\sqrt{MZ^2+NZ^2}=\frac{5\sqrt{65}}{104}\sqrt{12^2+5^2}=\frac{5\sqrt{65}}8,\]
+and the requested sum is $5+65+8=78$.
+
+
+---
+
+078

@@ -8,7 +8,34 @@ Two rational numbers $\tfrac mn$ and $\tfrac nm$ are written on a blackboard, wh
 
 ---
 
-The answer is $m+n=2^t$ for some $t$. Take \[1=\frac n{m+n}\cdot\frac mn+\frac m{m+n}\cdot\frac nm,\]
-Since the denominators of the weights are powers of $2$, this is achievable by finitely many operations of taking the arithmetic mean.
+This is possible if and only if $m+n$ is a power of $2$. In what follows, let $r=\tfrac mn$, so we begin with $r$ and $\tfrac1r$ on the board.
 
-Now, we prove that this is necessary. Assume FSoC there is an odd prime $p$ such that $p\mid m+n$. Then, $\tfrac mn\equiv\tfrac nm\equiv -1\pmod p$, which means that every number written is equivalent to $-1\pmod p$. Then $1$ can never be written, so we are done.
+\bigskip
+
+\textbf{Proof of sufficiency:} Assume $m+n$ is a power of $2$. It is possible to write $1$ on the board only by taking arithmetic means.
+\setcounter{claim}0
+\begin{claim}
+    If $x$ and $y$ are on the board, then for all nonnegative integers $u$, $v$, $t$ with $u+v=2^t$, it is possible to construct \[\frac u{2^t}\cdot x+\frac v{2^t}\cdot y.\]
+\end{claim}
+\begin{proof}
+    The proof is by induction on $t$, with $t=0$ given. Now suppose the hypothesis holds for $t$; we will show it holds for $t+1$.
+
+    For $u+v=2^{t+1}$, if $0\in\{u,v\}$, then we are already done. Otherwise, note that \[\frac u{2^{t+1}}\cdot x+\frac v{2^{t+1}}\cdot y=\frac12\left[\left(\frac1{2^t}\cdot x+\frac1{2^t}\cdot y\right)+\left(\frac{u-1}{2^t}\cdot x+\frac{v-1}{2^t}\cdot y\right)\right],\]
+    which is constructable.
+\end{proof}
+
+Finally take $x=r$, $y=\tfrac1r$, $u=n$, $v=m$. We can construct \[\frac n{m+n}\cdot r+\frac m{m+n}\cdot\frac1r=1.\]
+
+\bigskip
+
+\textbf{Proof of necessity:} Suppose $p$ is an odd prime dividing $m+n$. Then both numbers on the board are equivalent to $-1\pmod p$. The main idea is in the following claim:
+\begin{claim}
+    If $x\equiv y\equiv-1\pmod p$, then both their arithmetic mean and harmonic mean are $-1\pmod p$.
+\end{claim}
+\begin{proof}
+    This is fairly obvious: since $2\not\equiv0\pmod p$ and $x+y\equiv-2\not\equiv0\pmod p$, we can check \[\frac{x+y}2\equiv\frac{-2}2\equiv-1\pmod p\quad\text{and}\quad\frac{2xy}{x+y}\equiv\frac2{\frac1x+\frac1y}\equiv\frac2{-2}\equiv-1\pmod p,\]
+    and the claim follows.
+\end{proof}
+
+If Evan can write $1$ on the board, then $1\equiv-1\pmod p$, which is absurd.
+

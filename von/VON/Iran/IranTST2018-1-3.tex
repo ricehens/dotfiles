@@ -1,0 +1,61 @@
+desc: Pole-polar XY tangent to omega
+source: Iran TST 2018/1/3
+tags: [2019-12, oly, tricky, geo, projective]
+
+---
+
+In triangle $ABC$, let $M$ be the midpoint of $\seg{BC}$. Let $\omega$ be a circle inside $\triangle ABC$ tangent to $\seg{AB}$ and $\seg{AC}$ at $E$ and $F$ respectively. The tangents from $M$ to $\omega$ touch $\omega$ at $P$ and $Q$, so that $P$ and $B$ lie on the same side of $\seg{AM}$. Let $X=\seg{PM}\cap\seg{BF}$ and $Y=\seg{QM}\cap\seg{CE}$. If $2PM=BC$, prove that $\seg{XY}$ is tangent to $\omega$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(7cm); defaultpen(fontsize(10pt));
+
+        pair M,B,C,P,Q,T,SS,EE,F,A,X,Y;
+        path w;
+        M=(0,0);
+        B=dir(180);
+        C=dir(0);
+        P=dir(120);
+        Q=dir(80);
+        T=extension(B,Q,C,P);
+        SS=extension(B,P,C,Q);
+        w=circle( (T+SS)/2,length(T-SS)/2);
+        EE=intersectionpoints(w,circle( (B+(T+SS)/2)/2,length(B-(T+SS)/2)/2))[0];
+        F=intersectionpoints(w,circle( (C+(T+SS)/2)/2,length(C-(T+SS)/2)/2))[0];
+        A=extension(B,EE,C,F);
+        X=extension(M,P,B,F);
+        Y=extension(M,Q,C,EE);
+
+        draw(circle(M,1),gray);
+        draw(Q--B--SS--C--P,gray);
+        draw(B--F,gray+dashed);
+        draw(C--EE,gray+dashed);
+        draw(w);
+        draw(X--Y);
+        draw(P--M--Q);
+        draw(A--B--C--A);
+
+        dot("$A$",A,N);
+        dot("$B$",B,W);
+        dot("$C$",C,E);
+        dot("$M$",M,S);
+        dot("$P$",P,E);
+        dot("$Q$",Q,W);
+        dot("$T$",T,S);
+        dot("$S$",SS,N);
+        dot("$E$",EE,W);
+        dot("$F$",F,NE);
+        dot("$X$",X,W);
+        dot("$Y$",Y,dir(30));
+    \end{asy}
+\end{center}
+\paragraph{First solution, by Brokard's theorem}     Note that $B$, $P$, $Q$, $C$ all lie on the circle $\Gamma$ centered at $M$ with diameter $\seg{BC}$. Denote $S=\seg{BP}\cap\seg{CQ}$ and $T=\seg{BQ}\cap\seg{CP}$. Since $\angle BPC=\angle BQC$, we know $BCST$ is an orthocentric system, so by the Three Tangents lemma, $\seg{MP}$ and $\seg{MQ}$ are tangent to $(ST)$ at $P$ and $Q$ respectively.
+
+It follows that $\omega=(ST)$, so $\seg{ST}$ is a diameter of $\omega$. By Brokard's theorem, $B$ is the pole of $\seg{CE}$ and $C$ is the pole of $\seg{BF}$ with respect to $\omega$. It follows that $X$ is the pole of $\seg{CP}$, so $\seg{XT}$ is tangent to $\omega$. Similarly $\seg{YT}$ is tangent to $\omega$, so $\seg{XY}$ is tangent to $\omega$ at $T$, as desired.
+
+\paragraph{Second solution, by self-polar orthogonality}     Note that $B$, $P$, $Q$, $C$ all lie on the circle $\Gamma$ centered at $M$ with diameter $\seg{BC}$. Thus $\omega$ and $\Gamma$ are orthogonal, so by self-polar orthogonality, $B$ and $C$ lie on the polars of each other with respect to $\omega$. This implies $X$ is the pole of $\seg{CP}$ and $Y$ is the pole of $\seg{BQ}$. It thus suffices to show that $T=\seg{BQ}\cap\seg{CP}$ lies on $\omega$, but this is just angle-chasing: let $N$ be the center of $\omega$; then, \[\angle PTQ=\frac{\widehat{BC}+\widehat{PQ}}2=90\dg+\frac12\angle PMQ=180\dg-\frac12\angle PNQ,\]
+and the conclusion follows from inscribed angle theorem.
+
+

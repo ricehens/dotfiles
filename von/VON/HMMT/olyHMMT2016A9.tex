@@ -1,0 +1,70 @@
+desc: Determinant of circulant
+source: oly HMMT 2016 A9
+tags: [2020-03, oly, tricky, alg, linalg, nice, waltz, variation]
+
+---
+
+Let $n\ge4$ be an integer and let $S$ denote the set of $n!$ permutations of $\{1,2,\ldots,n\}$. For $\pi\in S_n$, let $f(\pi)$ be the number of pairs $(i,j)$ with $1\le i<j\le n$ such that $\pi(j)>\pi(i)$, and let $g(\pi)$ denote the number of $k\in\{1,2,\ldots,n\}$ such that $\pi(k)\equiv k\pm1\pmod n$.
+
+Finally, define \[N=\sum_{\pi\in S}(-1)^{f(\pi)+g(\pi)}.\]
+For each $n$, determine the value of $N$.
+
+---
+
+Consider the $n\times n$ matrix \[A=\begin{bmatrix}
+    1&x&1&1&\cdots&1&1&x\\
+    x&1&x&1&\cdots&1&1&1\\
+    1&x&1&x&\cdots&1&1&1\\
+    1&1&x&1&\cdots&1&1&1\\
+    \vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots&\vdots\\
+    1&1&1&1&\cdots&1&x&1\\
+    1&1&1&1&\cdots&x&1&x\\
+    x&1&1&1&\cdots&1&x&1
+\end{bmatrix},\]
+where $x$ is in position $(i,j)$ if and only if $i-j\equiv\pm1\pmod n$, and all the other squares contain $1$. By definition \[\det A=\sum_\pi(-1)^{f(\pi)}x^{g(\pi)},\]
+so we seek to evaluate $\det A$ at $x=-1$.
+
+To this end, we compute the eigenvalues of $A$.
+\begin{lemma*}[Eigenvalues of a circulant matrix]
+    Let $M$ be the circulant matrix \[M=\begin{bmatrix}
+            a_0&a_1&\cdots&a_{n-1}\\
+            a_{n-1}&a_0&\cdots&a_{n-2}\\
+            \vdots&\vdots&\ddots&\vdots\\
+            a_1&a_2&\cdots&a_0
+    \end{bmatrix}.\]
+    If $\omega^n=1$, then $\left<1,\omega,\omega^2,\ldots,\omega^{n-1}\right>^\top$ is an eigenvector of $M$ with eigenvalue \[a_0+a_1\omega+a_2\omega^2+\cdots+a_{n-1}\omega^{n-1}.\]
+\end{lemma*}
+\begin{proof}
+    This may be checked directly.
+\end{proof}
+
+Hence the eigenvalues of $A$ are \[g(\omega)=x(\omega^{n-1}+\omega)+1+(\omega^2+\cdots+\omega^{n-2})\]
+for each $\omega^n=1$. If $\omega=1$, then $g(\omega)=2x+n-2$, and otherwise $g(\omega)=(x-1)(\omega+\omega^{-1})$. Let $\zeta$ be a primitive $n$th root of unity. Since $\det A$ is the product of the eigenvalues of $A$, we have \[\det A=(2x+n-2)\cdot(x-1)^{n-1}\cdot\prod_{k=1}^{n-1}\Big(\zeta^k+\zeta^{-k}\Big).\]
+\begin{claim*}[Main computation]
+    If $\zeta$ is a primitive $n$th root of unity, then \[\prod_{k=1}^{n-1}\Big(\zeta^k+\zeta^{-k}\Big)=\begin{cases}
+            0&\text{if }n\equiv0\pmod4,\\
+            1&\text{if }n\equiv1\pmod2,\\
+            -2&\text{if }n\equiv2\pmod4.
+    \end{cases}\]
+\end{claim*}
+\begin{proof}
+    If $n\equiv0\pmod4$, then $\zeta^{n/4}+\zeta^{-n/4}=0$.
+
+    For odd $n$, since $n\mid 1+2+\cdots+(n-1)$, we have
+    \begin{align*}
+        \prod_{k=1}^{n-1}\Big(\zeta^k+\zeta^{-k}\Big)&=\frac1{\zeta^{1+2+\cdots+(n-1)}}\prod_{k=1}^{n-1}\Big(1+\zeta^{2k}\Big)\\
+        &=\prod_{j=1}^{n-1}\Big(1+\zeta^j\Big)
+        =(-1)^{n-1}P(-1)=1,
+    \end{align*}
+    where $P(X)=1+X+X^2+\cdots+X^{n-1}$.
+
+    For $n\equiv2\pmod4$, an analogous computation gives \[\prod_{k=1}^{n-1}\Big(\zeta^k+\zeta^{-k}\Big)=-2\left[\prod_{k=1}^{n/2-1}\Big(1+\zeta^{2k}\Big)\right]^2=-2P(-1)^2=-2.\]
+    where $P(X)=1+X+X^2+\cdots+X^{(n/2)-1}=1$.
+\end{proof}
+
+Finally take $x=-1$ to obtain \[\det A=\begin{cases}
+        0&\text{if }n\equiv0\pmod4,\\
+        (n-4)\cdot2^{n-1}&\text{if }n\equiv1\pmod2,\\
+        (n-4)\cdot2^n&\text{if }n\equiv2\pmod4.
+\end{cases}\]
+This completes the proof.

@@ -1,0 +1,66 @@
+author: Eric Shen
+desc: x^2-2 compound factoring
+source: CAMO 2020/5
+tags: [2019-12, oly, hard, alg, irreducibility, trig, polynomial, nice]
+
+---
+
+Let $f(x)=x^2-2$. Prove that for all positive integers $n$, the polynomial \[P(x)=\underbrace{f(f(\ldots f}_{n\text{ times}}(x)\ldots))-x\]
+can be factored into two polynomials with integer coefficients and equal degree.
+
+---
+
+\paragraph{First solution, by irreducibility}     We first prove a lemma.
+\begin{lemma*}
+    Let $P$ be a monic polynomial. If $P^2$ has integer coefficients, then so does $P$.
+\end{lemma*}
+\begin{proof}
+    Suppose there is a polynomial without this property, and henceforth let $P$ be such a polynomial of minimal degree. Note $P^2\in\mathbb Z[x]$, so let the factorization of $P^2$ into factors that are powers of irreducible polynomials in $\mathbb Z[x]$ be $P_1$, $P_2$, $\ldots$, $P_k$.
+
+    By construction they do not share roots with one another. Since they multiply to the square of a polynomial in $\mathbb R[x]$, they are all squares in $\mathbb R[x]$. If $k>1$ they must all be in $\mathbb Z[x]$ by the minimality of the degree of $P$. Hence $k=1$ and $P(x)^2=Q(x)^r$ for some $r$. If $r$ is even we are done, so assume $r$ is odd. Then $Q(x)$ must be the square of a polynomial in $\mathbb R[x]$, but it is irreducible, contradiction.
+\end{proof}
+
+Consider the sequence defined by $y_n=\frac12f^n(2x)$. For $n>0$, \[y_n=\tfrac12(f^{n-1}(2x)^2-2)=\tfrac12(4y_{n-1}^2-2)=2y_{n-1}^2-1.\]
+If $|y_0|<1$, say that $y_0=\cos\theta$ for some angle $\theta$. It follows that $y_n=\cos(2^n\theta)$ for all $n$, whence solutions to $P(x)=0$ obey $\cos(2^n\theta)=\cos\theta$. Thus the set of solutions to $P(x)=0$ includes \[2\cos\left(\frac{2\pi k}{2^n-1}\right)\quad\text{and}\quad2\cos\left(\frac{2\pi k}{2^n+1}\right)\quad\text{for all }k.\]
+The former describes $2^{n-1}$ distinct roots and the latter describes $2^{n-1}+1$ distinct roots. The only root they share is $1$, so we have described all $2^n$ solutions.
+\begin{claim*}
+    Let $m$ be an odd integer. The monic polynomial with roots $2\cos(\frac{2\pi k}m)$, $0\le k<m$, has integer coefficients.
+\end{claim*}
+\begin{proof}
+    Let $g_n(2\cos\theta)=2\cos(n\theta)$. The key observation is that \[S_n(x)=xS_{n-1}(x)-S_{n-2}(x).\]
+    Indeed, this rewrites to \[2\cos\theta\cos(n-1)\theta=\cos n\theta+\cos(n-2)\theta,\]
+    which is just the product-to-sum identity. With this, $g_n$ is a monic integer polynomial of degree $n$ for all $n$, but the polynomial $g_m(x)$ is exactly the polynomial we need.
+\end{proof}
+
+The polynomial described by the above claim is precisely the square of the polynomial with roots $2\cos(\frac{2\pi k}m)$, $0\le k<\frac m2$, whence it has integer coefficients by the lemma. Let $Q$ be this integer polynomial for $m=2^n+1$ and $R$ for $m=2^n-1$.
+
+Clearly $P$ is monic. We can factor out $x-2$ from $Q$ and add it to $R$ (thus $2$ is a double root), thereby giving two factors of $P$ with integer coefficients and equal degree.
+
+\paragraph{Second solution, by polynomial transformation (Raymond Feng, unedited)}     We are trying to show for an odd integer $m$ that\[\prod_{k=0}^{\frac{m-1}2} \left(x-2\cos\left(\frac{2\pi k}{m}\right)\right)\]is an integer polynomial. Note that\[\prod_{k=1}^{m-1} \left(x-e^{\frac{2\pi k}{m}}\right) = \frac{x^m-1}{x-1},\]which has integer coefficients. However, we can also write this as
+\begin{align*}
+    \frac{x^m-1}{x-1}&=\prod_{k=1}^{\frac{m-1}2} \left(\left(x-e^{\frac{2\pi k}{m}}\right)\left(x-e^{\frac{2\pi (m-k)}{m}}\right)\right)\\
+    &= \prod_{k=1}^{\frac{m-1}2} \left(x^2+1-2\cos\left(\frac{2\pi k}{m}\right)x\right)\\
+    &= x^{\frac{m-1}2}\cdot \prod_{k=1}^{\frac{m-1}2} \left(x+\frac1x-2\cos\left(\frac{2\pi k}{m}\right)\right).
+\end{align*}
+Thus, we have
+\begin{align*}
+    \prod_{k=1}^{\frac{m-1}2} \left(x+\frac1x-2\cos\left(\frac{2\pi k}{m}\right)\right) &= \frac1{x^{\frac{m-1}2}} \frac{x^m-1}{x-1}\\
+    &= \sum_{k=-\frac{m-1}2}^{\frac{m-1}2}x^k\\
+    &= 1+\sum_{k=1}^{\frac{m-1}2} \left(x^k+\frac1{x^k}\right).
+\end{align*}
+The final expression is an integer polynomial in $x+\frac1x$ (since all expressions of the form $x^k+\frac1{x^k}$ are expressible as integer polynomials of $x+\frac1x$), thus,\[\prod_{k=1}^{\frac{m-1}2} \left(x+\frac1x-2\cos\left(\frac{2\pi k}{m}\right)\right)\]is an integer polynomial in $x+\frac1x$. This implies that\[\prod_{k=0}^{\frac{m-1}2} \left(x-2\cos\left(\frac{2\pi k}{m}\right)\right) = (x-2)\cdot \prod_{k=1}^{\frac{m-1}2} \left(x-2\cos\left(\frac{2\pi k}{m}\right)\right)\]is an integer polynomial in $x$, as desired. Then finish as in TheUltimate123's solution.
+
+\paragraph{Third solution, by explicit factorization (Andrew Gu, unedited)}     Note that $f\left(t+\tfrac{1}{t}\right)=t^2+\tfrac{1}{t^2}$, so
+\begin{align*}
+    P\left(t+\frac{1}{t}\right) &=t^{2^n}+\frac{1}{t^{2^n}}-t-\frac{1}{t} \\
+    &=\frac{(t^{2^n+1}-1)(t^{2^n-1}-1)}{t^{2^{n}}} \\
+    &=\frac{(t^{2^n}+t^{2^{n}-1}+\dotsb+1)(t^{2^n}-t^{2^{n}-1}-t+1)}{t^{2^{n}}} \\
+    &=\left(t^{2^{n-1}}+t^{2^{n-1}-1}+\dotsb+\frac{1}{t^{2^{n-1}-1}}+\frac{1}{t^{2^n}}\right)\left(t^{2^{n-1}}-t^{2^{n-1}-1}-\frac{1}{t^{2^{n-1}-1}}+\frac{1}{t^{2^{n-1}}}\right).
+\end{align*}
+Now let $A, B$ be the polynomials such that
+\begin{align*}
+    A\left(t+\frac{1}{t}\right) &=t^{2^{n-1}}+t^{2^{n-1}-1}+\dotsb+\frac{1}{t^{2^{n-1}-1}}+\frac{1}{t^{2^n}} \\
+    B\left(t+\frac{1}{t}\right) &=t^{2^{n-1}}-t^{2^{n-1}-1}-\frac{1}{t^{2^{n-1}-1}}+\frac{1}{t^{2^{n-1}}}.
+\end{align*}
+We can check that $P(x)=A(x)B(x)$ is the desired factorization.
+

@@ -1,26 +1,27 @@
 desc: Indexing itself gives arithmetic sequence
 source: IMO 2009/3
-tags: [2019-10, oly, hard, alg, sequence, FE]
+tags: [2019-10, oly, hard, alg, sequence, FE, nice]
 
 ---
 
-Suppose that $ s_1,s_2,s_3, \ldots$ is a strictly increasing sequence of positive integers such that the sub-sequences\[s_{s_1},\, s_{s_2},\, s_{s_3},\, \ldots\qquad\text{and}\qquad s_{s_1+1},\, s_{s_2+1},\, s_{s_3+1},\, \ldots\]are both arithmetic progressions. Prove that the sequence $ s_1, s_2, s_3, \ldots$ is itself an arithmetic progression.
+Suppose that $s_1$, $s_2$, $s_3$, $\ldots$ is a strictly increasing sequence of positive integers such that the sub-sequences \[s_{s_1},\; s_{s_2},\; s_{s_3},\; \ldots\quad\text{and}\quad s_{s_1+1},\; s_{s_2+1},\; s_{s_3+1},\; \ldots\]
+are both arithmetic progressions. Prove that the sequence $s_1$, $s_2$, $s_3$, $\ldots$ is itself an arithmetic progression.
 
 ---
 
 For convenience let $s(n)=s_n$.
-\setcounter{iclaim}0
-\begin{iclaim}
+\setcounter{claim}0
+\begin{claim}
     The sequences $s(s(n))$ and $s(s(n)+1)$ have the same common difference.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     Since $s(n)$ is strictly increasing, $s(s(i))<s(s(i)+1)\le s(s(i+1))$ for all $i$. Since $s(s(i)+1)$ is always between two arithmetic sequences with the same common difference, it must have the same common difference.
 \end{proof}
 
 Henceforth call this common difference $a$, and say $s(s(n)+1)-s(s(n))=c$, which is constant. Denote $t(n)=s(n+1)-s(n)$; since $1\le t(n)\le a$, there exist an upper and lower bound, which we will denote by $X$ and $Y$, respectively. Also let $x$ and $y$ obey $t(x)=X$ and $t(y)=Y$.
-\begin{iclaim}
+\begin{claim}
     $t(i)=X$ for $s(y)\le i<s(y+1)$.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     By definition \[a=s(s(y+1))-s(s(y))\le X\big(s(y+1)-s(y)\big)=XY.\]
     Similarly \[a=s(s(x+1))-s(s(x))\ge Y\big(s(x+1)-s(x)\big)=XY,\]

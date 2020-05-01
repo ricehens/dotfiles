@@ -1,6 +1,6 @@
 desc: Inscribing equilateral pentagon
 source: USAMO 2016/5
-tags: [2019-10, oly, tricky, geo, weird]
+tags: [2019-10, oly, tricky, geo, spiral-sim, weird]
 
 ---
 
@@ -10,47 +10,67 @@ Prove that $\seg{OI}$ is parallel to $\ell$, where $O$ is the circumcenter and $
 
 ---
 
+\paragraph{First solution, by complex numbers}     Let $X$, $Y$, $Z$ be the midpoints of arcs $BC$, $CA$, $AB$ not containing $A$, $B$, $C$ on the circumcircle of $\triangle ABC$. Toss on the complex plane, with the circumcircle of $\triangle ABC$ as the unit circle, so that $x+y+z$ denotes the incenter. We just need to show that $x+y+z$ is in the direction perpendicular to the external angle bisector of $\angle MSQ$, but since $MN=PQ$, the external angle bisector of $\angle MSQ$ is just \[(m-n)+(p-q)=(m-a)+(p-n)+(a-q)=ti(x+y+z),\]
+where $t=AM=NP=QA$. This completes the proof.
+
+\paragraph{Second solution, by spiral similarity}     Let $K=(SMQ)\cap(SNP)$ be the Miquel point of $MNPQ$, and let $X$ and $Y$ denote the midpoints of $\seg{MQ}$ and $\seg{MP}$ respectively. Let $\seg{AI}$ intersect $(ABC)$ again at the arc midpoint $L$, so that $LB=LI=LC$ by the Incenter-Excenter lemma.
 \begin{center}
     \begin{asy}
-        size(8cm);
-        defaultpen(fontsize(9pt));
+        size(7.2cm); defaultpen(fontsize(9pt));
+        pen pri=red;
+        pen sec=orange;
+        pen tri=fuchsia;
+        pen qua=magenta;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+        pen qfil=qua+opacity(0.05);
 
-        pair NN,P,M,Q,A,B,C,SS,O,I,X,Y,Z;
+        pair NN,P,M,Q,A,B,C,SS,O,I,X,Y,L,K;
         NN=(-1/2,0);
         P=(1/2,0);
-        M=NN+dir(115);
-        Q=P+dir(80);
+        M=NN+dir(140);
+        Q=P+dir(105);
         A=intersectionpoints(circle(M,1),circle(Q,1))[0];
         B=extension(A,M,NN,P);
         C=extension(A,Q,NN,P);
         SS=extension(M,NN,P,Q);
         O=circumcenter(A,B,C);
         I=incenter(A,B,C);
-        X=extension(A,I,O,(B+C)/2);
-        Y=extension(B,I,O,(C+A)/2);
-        Z=extension(C,I,O,(A+B)/2);
+        X=(M+Q)/2;
+        Y=(NN+P)/2;
+        L=extension(A,I,(B+C)/2,(B+C)/2+rotate(90)*(B-C));
+        K=reflect(circumcenter(SS,M,Q),circumcenter(SS,NN,P))*SS;
 
-        fill(A--M--NN--P--Q--cycle,lightgray);
-        draw(circumcircle(A,B,C));
-        draw(A--B--C--A);
-        draw(M--SS--Q);
-        draw(A--X,dotted);
-        draw(B--Y,dotted);
-        draw(C--Z,dotted);
+        draw(X--Y,sec+dashed);
+        draw(A--L,pri);
+        filldraw(circumcircle(SS,NN,P),tfil,tri);
+        filldraw(circumcircle(SS,M,Q),tfil,tri);
+        fill(A--M--NN--P--Q--cycle,sfil);
+        draw(Q--M--SS--Q,sec);
+        filldraw(circumcircle(A,B,C),fil,pri);
+        draw(A--B--C--A,pri);
         dot("$A$",A,unit(A-O));
         dot("$B$",B,W);
         dot("$C$",C,E);
         dot("$M$",M,dir(120));
-        dot("$N$",NN,SW);
+        dot("$N$",NN,S);
         dot("$P$",P,SE);
         dot("$Q$",Q,dir(75));
-        dot("$S$",SS,S);
+        dot("$S$",SS,SE);
         dot("$O$",O,SE);
-        dot("$I$",I,NW);
-        dot("$X$",X,unit(X-O));
-        dot("$Y$",Y,unit(Y-O));
-        dot("$Z$",Z,unit(Z-O));
+        dot("$I$",I,W);
+        dot("$X$",X,NW);
+        dot("$Y$",Y,S);
+        dot("$L$",L,S);
+        dot("$K$",K,dir(320));
     \end{asy}
 \end{center}
-Let $X$, $Y$, $Z$ be the midpoints of arcs $BC$, $CA$, $AB$ not containing $A$, $B$, $C$ on the circumcircle of $\triangle ABC$. Toss on the complex plane, with the circumcircle of $\triangle ABC$ as the unit circle, so that $x+y+z$ denotes the incenter. We just need to show that $x+y+z$ is in the direction perpendicular to the external angle bisector of $\angle MSQ$, but since $MN=PQ$, the external angle bisector of $\angle MSQ$ is just \[(m-n)+(p-q)=(m-a)+(p-n)+(a-q)=ti(x+y+z),\]
-where $t=AM=NP=QA$. This completes the proof.
+Since $MN=PQ$, the spiral similarity at $K$ sending $\seg{MN}$ to $\seg{QP}$ is a congruence; id est we have $\triangle KMN\cong\triangle KQP$. Furthermore $KM=KQ$ and $KN=KP$, so $\seg{KX}\perp\seg{MQ}$ and $\seg{KY}\perp\seg{NP}$.
+
+Note that the antipode of $K$ on $(SMQ)$ lies on $\ell$, whence $\da KXY=\da KMN=\da KMS=\da(\seg{KX},\ell)$. Thus $\seg{XY}\parallel\ell$, so we only need to prove $\seg{XY}\parallel\seg{IO}$. To do this, I contend $\triangle KXY\sim\triangle LIO$.
+
+Recall $A$, $X$, $I$, $K$, $L$ are collinear, so the similarity is a homothety and is sufficient. The similarity follows from $\seg{KY}\parallel\seg{LO}$ and \[\frac{KX}{KY}=\frac{MQ}{NP}=\frac{MQ}{AQ}=\frac{BL}{OL}=\frac{IL}{OL}\]
+since $\triangle AMQ\sim\triangle OBL$. This completes the proof.
+
+

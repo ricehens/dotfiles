@@ -1,0 +1,56 @@
+author: Carl Schildkraut
+desc: Constructing functional equation
+source: ELMO 2019/6
+tags: [2020-04, oly, hard, alg, fe, nice, waltz]
+
+---
+
+The set of \emph{functional expressions} is the minimal one (by inclusion) such that
+\begin{enumerate}[label=(\roman*),itemsep=0em]
+    \item any fixed real constant is a functional expression;
+    \item for any positive integer $i$, the variable $x_i$ is a functional expression; and
+    \item if $V$ and $W$ are functional expressions, then so are $V+W$, $V-W$, $V\cdot W$, and $f(V)$.
+\end{enumerate}
+Snorlax chooses a functional expression $E$. He then considers the equation $E=0$, and lets $S$ denote the set of functions $f:\mathbb R\to\mathbb R$ such that the equation holds for any choices of real numbers $x_1$, $x_2$, $\ldots$. (For example, if Snorlax chooses the functional equation \[f(2f(x_1)+x_2)-2f(x_1)-x_2=0,\]
+then $S$ consists of one function, the identity function.)
+
+Let $X$ denote the set of functions with domain $\mathbb R$ and image exactly $\mathbb Z$. Can Snorlax choose his functional equation such that $|S|=1$ and $S\subseteq X$?
+
+---
+
+The answer is yes.
+\begin{claim*}
+    There is a unique sequence of integers $\ldots$, $a_{-1}$, $a_0$, $a_1$, $\ldots$ such that
+    \begin{itemize}[itemsep=0em]
+    \item $a_n=0$ for all $n<0$;
+    \item $a_n-a_{n-2}\in\{1,-1\}$ for all $n\ge0$.
+    \item $a_0\in\{0,1\}$;
+    \item $a_n+a_{n+1}=a_{n-2}+a_{n-1}$ for all $n\ge0$.
+    \end{itemize}
+\end{claim*}
+\begin{proof}
+    If $a_0=0$, then $a_n-a_{n-2}\in\{1,-1\}$ does not hold for $n=0$.
+
+    Hence $a_0=1$, and the recurrence $a_{n+1}=a_{n-1}+a_{n-2}-a_n$ guarantees there is at most one such sequence. The unique sequence is that obeying $a_n=0$ for all $n\le0$, and for all positive integers $m$, we have $a_{2m-2}=m$ and $a_{2m-1}=-m$.
+\end{proof}
+
+Note for functional expressions $E_1$, $E_2$, the functional expression $E=E_1E_2$ equals $0$ if and only if either $E_1=0$ or $E_2=0$; the functional expression $E=E_1^2+E_2^2$ equals $0$ if and only if $E_1=E_2=0$.
+
+This yields the following construction:
+\begin{align*}
+    0&=\left[xf\left(-x^2\right)\right]^2+\left[\left(f\left(x^2\right)-f\left(x^2-2\right)\right)^2-1\right]^2\\
+    &\quad+\left[(x-1)f(1-x)f(x)\big(f(x)-1\big)\right]^2\\
+    &\quad+\left[f\left(x^2\right)+f\left(x^2+1\right)-f\left(x^2-2\right)-f\left(x^2-1\right)\right]^2.
+\end{align*}
+The above is equivalent to all of the following conditions holding simultaneously:
+\begin{itemize}[itemsep=0em]
+    \item $f(x)=0$ for all $x<0$;
+    \item $f(x)-f(x-2)\in\{1,-1\}$ for all $x\ge0$;
+    \item $f(x)\in\{0,1\}$ for all $x\in[0,1)$;
+    \item $f(x)+f(x+1)=f(x-2)+f(x-1)$ for all $x\ge0$.
+\end{itemize}
+Thus for all $0\le\nu<1$, the sequence $a_n=f(n+\nu)$ obeys the claim, so the functional equation has a single solution: \[f(x)\equiv\begin{cases}
+        0&\text{if }x<0\\
+        m&\text{if }\lfloor x\rfloor=2m-2,\;m\in\mathbb Z_{>0}\\
+        -m&\text{if }\lfloor x\rfloor=2m-1,\;m\in\mathbb Z_{>0}.
+\end{cases}\]

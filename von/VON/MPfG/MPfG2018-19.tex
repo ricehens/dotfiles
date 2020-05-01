@@ -1,0 +1,31 @@
+desc: sum 1/sqrt(2k-1)
+source: MPfG 2018/19
+tags: [2020-02, answer, chard, alg, sum, nice, waltz]
+
+---
+
+Consider the sum \[S_n=\sum_{k=1}^n\frac1{\sqrt{2k-1}}.\]
+Determine the greatest integer less than or equal to $S_{4901}$.
+
+---
+
+\paragraph{First solution, by telescoping}     Notice that
+    \begin{align*}
+        \frac1{\sqrt k}=\frac2{2\sqrt k}>\frac2{\sqrt{k+2}+\sqrt k}&=\sqrt{k+2}-\sqrt k,\\
+        \frac1{\sqrt{k+2}}=\frac2{2\sqrt{k+2}}<\frac2{\sqrt{k+2}+\sqrt k}&=\sqrt{k+2}-\sqrt k.
+    \end{align*}
+    Summing the first over odd $k$ from $1$ to $2n-1$ gives $S_n>\sqrt{2n+1}-1$ and summing the second over odd $k$ from $1$ to $2n-3$ gives $S_n-1<\sqrt{2n-1}-1$. Thus we conclude \[\sqrt{2n+1}-1<S_n<\sqrt{2n-1}.\]
+    With $n=4901$, we have $98<S_{4901}<99$, so the answer is $98$.
+
+\paragraph{Second solution, by integration}     Since $f(x)=(2x-1)^{-1/2}$ is strictly decreasing on $[1,\infty)$, we have the following bounds:
+    \begin{align*}
+        S_n&>\int_1^{n+1}\frac{dx}{\sqrt{2x-1}}=\Big[\sqrt{2x-1}\Big]^{n+1}_1=\sqrt{2n+1}-1,\\
+        S_n-1&<\int_1^n\frac{dx}{\sqrt{2x-1}}=\Big[\sqrt{2x-1}\Big]^n_1=\sqrt{2n-1}-1.
+    \end{align*}
+    This gives the same bound \[\sqrt{2n+1}-1<S_n<\sqrt{2n-1}\]
+    as above. From here, $98<S_{4901}<99$, and we are done.
+
+
+---
+
+98

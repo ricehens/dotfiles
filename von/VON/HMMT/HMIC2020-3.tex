@@ -1,0 +1,25 @@
+desc: Tetrahedron orthocenter reflections
+source: HMIC 2020/3
+tags: [2020-04, oly, easy, geo, 3d, pop]
+
+---
+
+Let $P_1P_2P_3P_4$ be a tetrahedron in $\mathbb R^3$ and let $O$ be a point equidistant from each of its vertices. Suppose there exists a point $H$ such that for each $i$, the line $P_iH$ is perpendicular to the plane through the other three vertices. Line $P_1H$ intersects the plane through $P_2$, $P_3$, $P_4$ at $A$, and contains a point $B\ne P_1$ such that $OP_1=OB$. Show that $HB=3HA$.
+
+---
+
+The key observation is this:
+\begin{claim*}
+    $A$ is the orthocenter of $\triangle P_2P_3P_4$.
+\end{claim*}
+\begin{proof}
+    One such proof is by the perpendicularity lemma. Indeed, \[AP_2^2-AP_3^2=HP_2^2-HP_3^2=P_4P_2^2-P_4P_3^2,\]
+    so $\seg{P_4A}\perp\seg{P_2P_3}$. Analogously $\seg{P_2A}\perp\seg{P_3P_4}$ and $\seg{P_3A}\perp\seg{P_2P_4}$, implying the condition.
+\end{proof}
+
+Now let $D$ be the foot from $P_2$ to $\seg{P_3P_4}$, let $C$ be the reflection of $H$ over $A$, and let $E$ be the reflection of $H$ over $D$.
+
+Note that $H$ is the orthocenter of $\triangle P_1P_2D$, say since $\seg{P_1H}\perp\seg{P_2D}$ and $\seg{P_2H}\perp\seg{P_1D}$. ($P_1$, $H$, $P_2$, $D$ are coplanar since $A=\seg{P_1H}\cap\seg{P_2D}$.)
+
+Then $P_1P_2CD$ and $P_2P_3EP_4$ are cyclic, so $AE=2AD$. Hence \[AP_1\cdot AB=AP_2\cdot AE=2AP_2\cdot AD=2AP_1\cdot AC,\]
+so $AB=2AC$ and the conclusion follows.

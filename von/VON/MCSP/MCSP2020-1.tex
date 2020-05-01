@@ -1,0 +1,86 @@
+desc: Line segment configuration
+source: MCSP 2020/1
+tags: [2020-04, oly, easy, combo, construction, waltz]
+
+---
+
+Caitlin wants to draw $n$ line segments, without lifting her pencil off the paper, so that each segment crosses exactly one other segment (not counting intersections at vertices) and she ends up back where she started.
+\begin{enumerate}[label=(\alph*),itemsep=0em]
+    \item Prove that this is possible for $n=6$.
+    \item Determine all $n$ for which this is possible.
+\end{enumerate}
+
+---
+
+\paragraph{Solution to part (a)}
+\begin{center}
+    \begin{asy}
+        size(5cm); defaultpen(fontsize(10pt));
+
+        draw( (0,10)--(2,3)--(-5,0)--(0,8)--(5,0)--(-2,3)--cycle);
+
+        dot( (0,10));
+        dot( (2,3));
+        dot( (-5,0));
+        dot( (0,8));
+        dot( (5,0));
+        dot( (-2,3));
+
+        dot( extension( (0,10),(2,3),(0,8),(5,0)),red);
+        dot( extension( (0,10),(-2,3),(0,8),(-5,0)),red);
+        dot( extension( (2,3),(-5,0),(-2,3),(5,0)),red);
+    \end{asy}
+\end{center}
+
+\paragraph{Solution to part (b)}     The answer is all even $n\ge6$. To see that odd $n$ fail, color red all points that lie on the interiors of exactly two line segments, and say there are $k$ red points. Each segment contains exactly one red point, and each red point lies on the interior of exactly two segments, so $n=2k$.
+
+Now we check all even $n\ge6$ work. We present a generalization of our solution to (a). Shown below are examples for $n=10$ and $n=12$.
+\begin{center}
+    \begin{asy}
+        size(5cm); defaultpen(fontsize(10pt));
+
+        draw( (0,10)--(2,3)--(-2,2)--(2,1)--(-5,-1)--(0,8)--(5,-1)--(-2,1)--(2,2)--(-2,3)--cycle);
+        dot("$X$",(0,10),N);
+        dot("$Q_1$",(2,3),dir(150));
+        dot("$Q_2$",(-2,2),W);
+        dot("$Q_3$",(2,1),E);
+        dot("$B$",(-5,-1),SW);
+        dot("$Y$",(0,8),N);
+        dot("$A$",(5,-1),SE);
+        dot("$P_1$",(-2,3),dir(30));
+        dot("$P_2$",(2,2),E);
+        dot("$P_3$",(-2,1),W);
+    \end{asy}
+    \hspace{5em}
+    \begin{asy}
+        size(5cm); defaultpen(fontsize(10pt));
+
+        draw( (0,10)--(2,3)--(-2,2)--(2,1)--(-2,0)--(5,-2)--(0,8)--(-5,-2)--(2,0)--(-2,1)--(2,2)--(-2,3)--cycle);
+        dot("$X$",(0,10),N);
+        dot("$Q_1$",(2,3),dir(150));
+        dot("$Q_2$",(-2,2),W);
+        dot("$Q_3$",(2,1),E);
+        dot("$Q_4$",(-2,0),W);
+        dot("$B$",(5,-2),SE);
+        dot("$Y$",(0,8),N);
+        dot("$A$",(-5,-2),SW);
+        dot("$P_1$",(-2,3),dir(30));
+        dot("$P_2$",(2,2),E);
+        dot("$P_3$",(-2,1),W);
+        dot("$P_4$",(2,0),E);
+    \end{asy}
+\end{center}
+The pattern should be easy to see. For rigor, we describe it as follows: let $n=2k+4$. For $i=1,\ldots,k$, denote $P_i=(2\cdot(-1)^i,-i)$ and $Q_i=(-2\cdot(-1)^i,-i)$. Then let $A=(-2\cdot(-1)^k,-k-2)$ and $B=(2\cdot(-1)^k,-k-2)$.
+
+Select points $X$ and $Y$ on the ray emanating from $(0,0)$ in the positive-$y$ direction such that $X$ has a greater $y$-coordinate than $Y$, and all points $P_i$ and $Q_i$ are contained between rays $YA$ and $YB$. I claim we can choose the segments \[\seg{XP_1},\;\seg{P_1P_2},\;\seg{P_2P_3},\;\ldots,\;\seg{P_kA},\;\seg{AY},\;\seg{YB},\;\seg{BQ_k},\;\seg{Q_kQ_{k-1}},\;\ldots,\;\seg{Q_1X}.\]
+We say two drawn segments $\ell_1$ and $\ell_2$ \emph{match} if $\ell_2$ is the only drawn segment that intersects $\ell_1$, and vice versa. Then it is easy to see that
+\begin{itemize}[itemsep=0em]
+    \item $\seg{P_iP_{i+1}}$ and $\seg{Q_iQ_{i+1}}$ match for all $i=1,\ldots,n-1$;
+    \item $\seg{P_kA}$ and $\seg{BQ_k}$ match;
+    \item if $k$ is even, $\seg{XP_1}$ and $\seg{AY}$ match, and if $k$ is odd, $\seg{XP_1}$ and $\seg{YB}$ match; and
+    \item if $k$ is even, $\seg{XQ_1}$ and $\seg{YB}$ match, and if $k$ is odd, $\seg{XQ_1}$ and $\seg{AY}$ match.
+\end{itemize}
+Thus all $n=2k+4$ work.
+
+Clearly the problem is impossible for $n=2$. To finish, we check that $n=4$ fails. Let the four segments be $AB$, $BC$, $CD$, $DA$. Then we must have that segments $AB$ and $CD$ intersect, and segments $BC$ and $DA$ intersect. This is clearly absurd (say, by noting that if segments $AB$ and $CD$ intersect, then segments $BC$ and $DA$ are on opposite sides of line $CD$), so we are done.
+

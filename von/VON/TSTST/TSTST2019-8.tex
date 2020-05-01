@@ -9,14 +9,13 @@ Let $\mathcal S$ be a set of $16$ points in the plane, no three collinear. Let $
 ---
 
 The answer is $1430$. Let $C_n$ denote the minimum possible value of $\chi(S)$ when there are $2n$ points.
-\setcounter{iclaim}0
-\begin{boxclaim}
+\begin{claim*}
     $C_n$ and $\chi(\mathcal S)$ are related as follows:
     \begin{itemize}
         \item[(i)] $\chi(\mathcal S)\ge C_n=\sum_{k=0}^{n-1}C_kC_{n-1-k}$.
         \item[(ii)] $\chi(\mathcal S)=C_n$ when $\mathcal S$ is a convex $2n$-gon.
     \end{itemize}
-\end{boxclaim}
+\end{claim*}
 \begin{proof}
     Let $A$ be a point on the convex hull of $\mathcal S$, and let $B$ be the other endpoint of the segment incident to $A$. Suppose that line $AB$ splits the plane into two half-planes containing $k$ and $n-1-k$ points respectively.
 

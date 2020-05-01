@@ -1,0 +1,39 @@
+author: Dorlir Ahmeti
+desc: f(f(x)f(y))+f(x+y)=f(xy)
+source: IMO 2017/2
+tags: [2019-11, oly, hard, alg, fe, nice, favorite, size]
+
+---
+
+Find all functions $f:\mathbb R\to\mathbb R$ such that for all real numbers $x$ and $y$, \[f(f(x)f(y))+f(x+y)=f(xy).\]
+
+---
+
+The answer is $f\equiv0$, $f(x)\equiv x-1$, $f(x)\equiv 1-x$, which all clearly work. Let $P(x,y)$ denote the assertion. First note that $P(0,0)$ gives $f(f(0)^2)=0$. In what follows we assume $f\not\equiv0$. We may assume that $f(0)>0$ since:
+\begin{itemize}[itemsep=0em]
+    \item if $f(0)=0$, then $P(x,0)$ gives $f(x)=0$ for all $x$;
+    \item if $f$ obeys the functional equation, then so does $-f$.
+\end{itemize}
+The task is to show $f(x)\equiv1-x$.
+
+\begin{claim}
+    $f(z)=0\iff z=1$, and $f(0)=1$, $f(1)=0$.
+\end{claim}
+\begin{proof}
+    For all $z$, \[P\left(z,\frac z{1-z}\right)\implies f\left(f(z)f\left(\frac z{z-1}\right)\right)=0.\]
+    If $z\ne1$ and $f(z)=0$, then $f(0)=0$, contradiction, thus $f(z)=0\implies z=1$. But $f(f(0)^2)=0$, so $f$ attains $0$ --- thus we must have $f(1)=0$.
+
+    Furthermore $f(0)^2=1$, but since $f(0)>0$, it follows that $f(0)=1$.
+\end{proof}
+\begin{claim}
+    $f$ is injective.
+\end{claim}
+\begin{proof}
+    Note that $P(x,1)$ gives $1+f(x+1)=f(x)$, so if $f(a)=f(b)$, then for all nonnegative integers $C$, $f(a+C)=f(b+C)$. Choose $C$ sufficiently large so that there exist $x$ and $y$ with \[x+y=a+C+1\quad\text{and}\quad xy=b+C;\]
+    therefore $f(x+y)=f(xy)-1$.
+
+    Then $P(x,y)$ gives $f(f(x)f(y))=1$, so $f(x)f(y)=0$ and $1\in\{x,y\}$. This implies $a=b$, as claimed.
+\end{proof}
+
+Finally, $P(x,0)$ gives $f(f(x))+f(x)=1$, so \[f(x)=1-f(f(x))=f(f(f(x)))=f(1-f(x)).\]
+From this $f(x)\equiv1-x$, and we are done.

@@ -1,0 +1,16 @@
+desc: 2^a-1 divides 3^b-1
+source: Romania TST 2018/3/3
+tags: [2019-12, oly, medium, nt, qr]
+
+---
+
+Let $a$ and $b$ be positive integers such that $2^a-1$ divides $3^b-1$. Prove that either $a=1$ or $b$ is even.
+
+---
+
+Suppose that $a>1$ and $b$ is odd. Note that $a$ is odd, as otherwise $3\mid2^a-1\mid3^b-1$. Consider a prime $p$ dividing $2^a-1$. Note that $2^{a+1}\equiv2\pmod p$ and $3^{b+1}\equiv3\pmod p$, so \[1=\left(\frac2p\right)\implies p\equiv\pm1\pmod8.\]
+If $p\equiv1\pmod8$, then \[1=\left(\frac3p\right)=\left(\frac p3\right)\implies p\equiv1\pmod3,\]
+and otherwise \[-1=-\left(\frac3p\right)=\left(\frac p3\right)\implies p\equiv2\pmod3.\]
+In either case, $p\equiv\pm1\pmod{24}$ holds for all primes $p$ dividing $2^a-1$, so $2^a-1$ itself is $\pm1\pmod{24}$, and either $3\mid2^a$ or $2^a\equiv2\pmod4$; both cases are absurd.
+
+

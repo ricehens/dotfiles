@@ -9,34 +9,45 @@ for all positive integers $n$. Given this information, determine all possible va
 
 ---
 
-The answer is all positive evens, achieved by all functions that fix odds and are involutions on evens.
-\setcounter{iclaim}0
-\begin{iclaim}
+The answer is all evens. It is not hard to check that any $f$ that fixes the odds and is an involution on the evens works. To prove $f(1000)$ must be even, we present two solutions.
+
+\paragraph{First solution, by induction} In what follows, $f^k(n)$ means $f$ iterated $k$ times. Here we will prove all solutions to the functional equation are of the above form: $f$ fixes odds and is an involution on the evens. Note that to prove only the original problem statement, Claims 1 and 2 suffice.
+\setcounter{claim}0
+\begin{claim}
     $f$ is injective.
-\end{iclaim}
+\end{claim}
 \begin{proof}
-    Suppose that $f(a)=f(b)$. Now write \[a^2=f^2(a)f^{f(a)}(a)=f^2(b)f^{f(b)}(b)=b^2,\]
-    hence $a^2=b^2$. Since $f$ is defined only on positive integers, this is sufficient.
+    If $f(a)=f(b)$, then \[a^2=f^2(a)f^{f(a)}(a)=f^2(b)f^{f(b)}(b)=b^2,\]
+    so $a=b$ follows.
 \end{proof}
-\begin{iclaim}
-    For all odd $n$, $f(n)=n$.
-\end{iclaim}
+\begin{claim}
+    If $n$ is odd, then $f(n)=n$.
+\end{claim}
 \begin{proof}
-    Apply strong induction on $n$. Suppose that for all odd $m<n$, $f(m)=m$. Then write the given functional equation as $f^2(n)f^{f(n)}(n)=n^2$. If $n=1$, then $f^2(n)=f^{f(n)}(n)$. Otherwise note that by injectivity and hypothesis, if $f^2(n)<n$, then $f^{f(n)}(n)=f^2(n)<n$, and vice versa; furthermore if $f^2(n)\ne f^{f(n)}(n)$ then one of them is less than $n$, contradiction.
+    We use strong induction on $n$, with no base case. Assume the claim holds for all odd positive integers less than $n$.
 
-    Hence $f^2(n)=f^{f(n)}(n)$. Now if $f(n)$ is odd, $f(n)=n$, the end. Otherwise let $k=f(n)$ be even. Then $k^2=f^2(k)f^n(k)=kn$, whence $k=n$, impossible.
+    Consider the equation \[f^2(n)f^{f(n)}(n)=n^2.\]
+    I contend both terms on the left equal $n$. Let $m=f^2(n)$. If $m<n$, then $f^2(n)=f^2(m)$ by inductive hypothesis, so $n=m$ by injectivity, absurd. Thus $f^2(n)\ge n$. Analogously if $m=f^{f(n)}(n)$ and $m<n$, then $f^{f(n)}(n)=f^{f(n)}(m)$, so $n=m$ by injectivity, absurd. Thus we have $f^2(n)=f^{f(n)}(n)=n$.
+
+    Now the sequence $n$, $f(n)$, $f^2(n)$, $\ldots$ repeats with period $2$, so if $f(n)$ is odd, then $f(n)=f^{f(n)}(n)=n$. Otherwise suppose $f(n)$ is even, and let $m=f(n)$. Then $f(m)=n$, so $m^2=f^2(m)f^{f(m)}(m)=n^2$, contradiction.
+\end{proof}
+\begin{claim}
+    If $n$ is even, then $f^2(n)=n$.
+\end{claim}
+\begin{proof}
+    The proof is similar to that of Claim 2. We use strong induction on $n$, with no base case. Assume the claim holds for all even positive integers less than $n$; also recall that $f$ fixes odds and is injective, so $f(n)$ is even for all even $n$.
+
+    Again consider the equation \[f^2(n)f^{f(n)}(n)=n^2.\]
+    It will suffice to show, once more, both terms on the left equal $n$. Let $m=f^2(n)$. If $m<n$, then $f^2(n)=f^2(m)$, so $n=m$ by injectivity, absurd, so $f^2(n)\ge n$. Similarly if $m=f^{f(n)}(n)$ and $m<n$, then $f^{f(n)}(n)=m=f^{f(n)}(m)$, so $n=m$ by injectivity, absurd.
+
+    Hence $f^2(n)=n$, as needed.
 \end{proof}
 
-Now, we may conclude that by injectivity, $f(1000)$ cannot be odd.
-\begin{boxremark}[Describing all $f$]
-    Analogously we may show that $f$ is an involution on evens. Apply strong induction on $n$, and write $f^2(n)f^{f(n)}(n)=n^2$. Now by Claim 2 $f(n)$ is even, so if $f^2(n)<n$ then $f^{f(n)}=f^2(n)<n^2$ and vice versa. Hence $f^2(n)=n$ as claimed.
-\end{boxremark}
-\begin{boxremark}[MOP Homework]
-    Consider the functional equation \[\underbrace{f(f(\ldots f}_{n\text{ times}}(n)\ldots))=\frac{n^2}{f(f(n))}.\]
-    This functional equation has the same solution: $f$ fixes odds and is an involution on evens. The solution is essentially the same, except injectivity is not freely given. Instead we can use strong induction to show that
-    \begin{itemize}
-        \item For all odd $n$, $f(k)=n\iff k=n$.
-        \item For all even $n$, $f^2(k)=n\iff k=n$.
-    \end{itemize}
-    We can also eliminante the last paragraph of the proof of Claim 2, since $n$ is always odd.
-\end{boxremark}
+\paragraph{Second solution, by arrows (Espen Slettnes)} Just as we did above, we first show $f$ injective. Indeed, if $f(a)=f(b)$, then $a^2=f^2(a)f^{f(a)}(a)=f^2(b)=f^{f(b)}(b)=b^2$, so $f$ is injective.
+
+Consider the sequence defined by $x_0=1000$ and $x_i=f(x_{i-1})$ for all $i\ge1$. Letting $n=x_i$ in the functional equation gives \[a_{i+2}a_{i+a_{i+1}}=a_i^2.\tag{$*$}\]
+Take $i$ so that $a_i$ is minimal. Then $a_{i+2}\ge a_i$ and $a_{i+a_{i+1}}\ge a_i$, so by $(*)$ we must have $a_{i+2}=a_i$. By injectivity this reduces to $a_2=a_0$, so $(a_i)_{i\ge0}$ repeats with period $2$.
+
+Take $i=0$ in $(*)$ to obtain $a_{a_1}=1000$. Then $a_1=1000$ or $a_1$ is even. End proof.
+
+

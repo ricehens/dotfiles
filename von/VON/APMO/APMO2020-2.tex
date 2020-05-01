@@ -1,0 +1,33 @@
+desc: a_n <= a_(n+1) <= sqrt(a_n^2+ra_(n+1))
+source: APMO 2020/2
+tags: [2020-03, oly, easy, alg, sequence, analysis, secret]
+
+---
+
+Find the largest real number $r$ satisfying the followindg condition: If a sequence $a_1$, $a_2$, $\ldots$ of positive integers fulfills the inequalities \[a_n\le a_{n+2}\le\sqrt{a_n^2+ra_{n+1}}\]
+for every positive integer $n$, then there exists a positive integer $M$ such that $a_{n+2}=a_n$ for every $n\ge M$.
+
+---
+
+The answer is $r=2$.
+
+\bigskip
+
+\noindent\textbf{Proof of lower bound:} Note the following:
+\begin{itemize}
+    \item If $a_n\le a_{n+1}$, then $a_{n+2}\ge a_n$ and \[a_{n+2}\le\sqrt{a_n^2+2a_{n+1}}<\sqrt{a_{n+1}^2+2a_{n+1}+1}=a_{n+1}+1\]
+        so $a_{n+1}>a_{n+2}$.
+    \item If $a_n>a_{n+1}$, then $a_{n+2}\ge a_n$ and \[a_{n+2}\le\sqrt{a_n^2+2a_{n+1}}<\sqrt{a_n^2+2a_n+1}=a_n+1,\]
+        so $a_n=a_{n+2}$.
+\end{itemize}
+Hence we can select $N$ such that $a_N=a_{N+2}=a_{N+4}=\cdots$ and $a_{N+1}\le a_{N+3}\le a_{N+5}\le\cdots$, which are bounded above by $a_N$ and eventually constant.
+
+\bigskip
+
+\noindent\textbf{Proof of upper bound:} I claim taking \[a_n=\left\lceil\frac1{r-2}\right\rceil+\left\lfloor\frac n2\right\rfloor\]
+works. Indeed, for all $K\ge\tfrac1{r-2}$, we have
+\begin{align*}
+    \sqrt{K^2+rK}&\ge\sqrt{K^2+\left(2+\frac1K\right)K}=(K+1)^2,\\
+    \sqrt{(K-1)^2+rK}&\ge\sqrt{K^2-2K+1+\left(2+\frac1K\right)K}>K^2.
+\end{align*}
+Coupled with $a_{n+2}=a_n+1$, the above two estimates prove the claim.

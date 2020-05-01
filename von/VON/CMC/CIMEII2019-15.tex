@@ -1,0 +1,128 @@
+author: Kaiwen Li
+desc: XEF intersects circle
+source: CIME II 2019/15
+tags: [2019-12, answer, cbrutal, geo, length]
+
+---
+
+In triangle $ABC,$ $AB=4,$ $AC=6$ and $\angle A=60^\circ.$ Define $\omega$ as the circumcircle of $\triangle ABC,$ $D$ as the midpoint of $\overline{BC},$ $E$ as the foot of $B$ onto $\overline{CA}$ and $F$ as the foot of $C$ onto $\overline{AB}.$ Suppose $\overline{AD}$ intersects $\omega$ again at $X$ and the circumcircle of $\triangle XEF$ intersects $\omega$ again at $Y.$ Then$,$ $AY^2$ can be expressed as $\tfrac mn,$ where $m$ and $n$ are positive relatively prime integers$.$ Find $m+n.$
+
+---
+
+\paragraph{First solution}
+\begin{center}
+        \begin{asy}
+            import olympiad;
+            size(7cm);
+            defaultpen(fontsize(11pt));
+            pair A, B, C, D, EE, F, G, P, X, Z, Y;
+            A=(0, 6sqrt(21)/7);
+            B=(-2/sqrt(7), 0);
+            C=(12/sqrt(7), 0);
+            D=(B+C)/2;
+            EE=foot(B, C, A);
+            F=foot(C, A, B);
+            G=foot(A, B, C);
+            P=2*foot(A, D, circumcenter(A,B,C))-A;
+            X=intersectionpoint(circumcircle(A,B,C), D -- (D+(D-A)*100));
+            Z=extension(B, C, EE, F);
+            Y=intersectionpoint(circumcircle(A,B,C), Z -- (X+(Z-X)*0.01));
+            draw(circumcircle(A,B,C), linewidth(0.5));
+            draw(A--B--C--cycle, linewidth(0.5));
+            draw(A--X, linewidth(0.5));
+            draw(circumcircle(EE,F,X), linewidth(0.5));
+            draw(Y--P, linewidth(0.4)+grey);
+            draw(EE--Z--B, linewidth(0.4)+grey);
+            draw(X--Z, linewidth(0.4)+grey);
+            draw(circumcircle(B,C,F), linewidth(0.7)+dashed);
+            dot("$A$", A, NW);
+            dot("$B$", B, SW);
+            dot("$C$", C, SE);
+            dot("$X$", X, SE);
+            dot("$D$", D, (-0.5,-1));
+            dot("$E$", EE, (0.2,1));
+            dot("$F$", F, W);
+            dot("$Y$", Y, (-0.5,-1));
+            dot("$G$", G, S);
+            dot("$A'$", P, NE);
+            dot("$Z$", Z, SW);
+        \end{asy}
+    \end{center}
+    Let $\Omega$ be the circle with diameter $\overline{BC}$, so that $E,F\in\Omega$. Let $Z=\overline{BC}\cap\overline{EF}$ and $A'$ be the second intersection of $\overline{YG}$ with $\omega$. First, notice that $Z$ is the radical center of $\omega$, $\Omega$, and $(EFX)$, so $Z$ lies on $\overline{XY}$. Furthermore, since $G,D,E,F$ lie on the nine-point circle of $\triangle ABC$, \[ZX\cdot ZY=ZE\cdot ZF=ZG\cdot ZD,\]
+    and $GDXY$ is cyclic. Then, \[\measuredangle AA'G=\measuredangle AA'Y=\measuredangle AXY=\measuredangle DXY=\measuredangle DGY=\measuredangle DGA',\]
+    whence $\overline{AA'}\parallel\overline{BC}$, so $\triangle ABC\cong\triangle A'CB$.
+
+    By the Law of Cosines on $\triangle ABC$, \[BC^2=AB^2+AC^2-AB\cdot AC=28,\]
+    so $BC=2\sqrt7$. Now, by the Law of Sines and the Ratio Lemma, \[\frac{YC}{YB}=\frac{\sin\angle CA'G}{\sin\angle BA'G}=\frac32\cdot\frac{GC}{GB}=9.\]
+    Then, if $x=YB$, by the Law of Cosines on $\triangle YBC$, \[28=x^2+(9x)^2+x\cdot(9x)=91x^2\implies YB=\frac2{\sqrt{13}}.\]
+    Finally, by Ptolemy's Theorem on $ABYC$, \[AY=\frac1{2\sqrt7}\left(\frac{4\cdot 18}{\sqrt{13}}+\frac{6\cdot 2}{\sqrt{13}}\right)=\frac{6\sqrt{7}}{\sqrt{13}}\implies AY^2=\frac{252}{13},\]
+    and the requested sum is $252+13=265$.
+    \begin{remark}[Alternative solution]
+        Like above, remark that $\overline{BC},\overline{EF},\overline{XY}$ concur at $Z$. Notice that \[(C,B;Y,A)\stackrel{X}{=}(C,B;Z,D).\]
+        Since $-1=(B,C;G,Z)$ by Ceva-Menelaus, \[\frac{YC}{YB}=\frac{AC}{AB}\cdot\frac{ZC}{ZB}\cdot\frac{DB}{DC}=\frac32\cdot\frac{GC}{GB}=9,\]
+        and we may finish like above.
+    \end{remark}
+
+\paragraph{Second solution, by inversion (David Altizio, unedited)}     Scale down by a factor of $2$ so that $AB = 2$ and $AC = 3$. Perform an inversion about the circle with center $A$ and radius $\sqrt{AB\cdot AC}$ followed by a reflection about the angle bisector of $\angle A$. Then $X$ is taken to the foot $X'$ of the $A$-symmedian. Furthermore, $E$ is taken to a point $E'$ such that
+    \[
+        AE' = \frac{AB\cdot AC}{AE} = \frac{AC}{\cos 60^\circ} = 2AC = 6,
+    \]and similarly $AF' = 4$; this implies $BE' = 4$ and $CF' = 1$. Then $Y'$ is taken to the intersection of $\odot(X'E'F')$ and $BC$.
+
+    \begin{center}
+        \begin{asy}
+            /* Geogebra to Asymptote conversion, documentation at artofproblemsolving.com/Wiki go to User:Azjps/geogebra */
+            import graph; size(7cm);
+            real labelscalefactor = 1.5; /* changes label-to-point distance */
+            pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */
+            pen dotstyle = black; /* point style */
+            real xmin = -10.309940255644403, xmax = 13.525963717108649, ymin = -9.577364122416435, ymax = 5.730583095640517;  /* image dimensions */
+            pen rvwvcq = rgb(0,0,0); pen wrwrwr = rgb(0,0,0);
+
+            draw((-2.7936852029029415,4.755959466532393)--(-4.58,-1.62)--(2.66,-1.6)--cycle,  rvwvcq);
+            /* draw figures */
+            draw((-2.7936852029029415,4.755959466532393)--(-4.58,-1.62),  rvwvcq);
+            draw((-4.58,-1.62)--(2.66,-1.6),  rvwvcq);
+            draw((2.66,-1.6)--(-2.7936852029029415,4.755959466532393),  rvwvcq);
+            draw(circle((-0.9666737185903246,0.8058861296974644), 4.352131699544996),  wrwrwr);
+            draw(circle((-0.9476226759739919,-6.090591297414687), 5.760238846837715),  wrwrwr  + linetype("4 4"));
+            draw(circle((-0.27928112740007044,-7.535572981212952), 6.1141615488707),  wrwrwr);
+            draw((-2.7936852029029415,4.755959466532393)--(4.0389043084431755,-3.2070344302283122),  wrwrwr);
+            draw((-2.7936852029029415,4.755959466532393)--(-6.373962181391425,-8.023255558108813),  wrwrwr);
+            draw((-4.58,-1.62)--(7.542539191837612,-1.5865123226744817),  wrwrwr);
+            draw((7.542539191837612,-1.5865123226744817)--(-6.373962181391425,-8.023255558108813),  wrwrwr);
+            /* dots and labels */
+            pair A = (-2.7936852029029415,4.755959466532393), B = (-4.58,-1.62), C = (2.66,-1.6), Xp = (-1.7951612190444184,-1.6123070751907302), Yp = (1.2038508527089888,-1.6040225114566051), F = (-6.373962181391425,-8.023255558108813), G = (7.542539191837612,-1.5865123226744817);
+            dot(A,dotstyle);
+            label("$A$", A, N * labelscalefactor);
+            dot(B,dotstyle);
+            label("$B$",B, W * labelscalefactor);
+            dot(C,dotstyle);
+            label("$C$", C, dir(35) * 2);
+            dot(Xp,linewidth(4pt) + dotstyle);
+            label("$X'$", Xp, S * labelscalefactor);
+            dot(G,linewidth(4pt) + dotstyle);
+            label("$G$", G, NE * labelscalefactor);
+            dot((4.0389043084431755,-3.2070344302283122),linewidth(4pt) + dotstyle);
+            label("$E'$", (4.0389043084431755,-3.2070344302283122), dir(60) * labelscalefactor);
+            dot(F,linewidth(4pt) + dotstyle);
+            label("$F'$", F, W * labelscalefactor);
+            dot(Yp,linewidth(4pt) + dotstyle);
+            label("$Y'$", Yp, S * labelscalefactor);
+            clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle);
+            /* end of picture */
+        \end{asy}
+    \end{center}
+    Let $G = E'F'\cap BC$, and set $a := BC = \sqrt 7$ for convenience. Compute via Menelaus on $\triangle AE'F'$ and transversal $\overline{BCG}$ that $CG = \tfrac38a$. Now remark that by Steiner $\tfrac{BX'}{X'C} = (\tfrac 23)^2 = \tfrac 49$, so $X'C = \tfrac9{13}a\Rightarrow GX' = \tfrac{84}{65}a$. Further noting that $BC$ and $E'F'$ are antiparallel (so that $BCE'F'$ is in fact cyclic), we may apply Power of a Point to obtain $GB\cdot GC = GE'\cdot GF' = GX'\cdot GY'$, which implies
+    \[
+        GY' = \frac{GB\cdot GC}{GX'} = \frac{(\frac 35a)(\frac 85a)}{\frac{84}{64}a} = \frac{26}{35}a;
+    \]in turn, $CY' = GY' - GC = \tfrac17a$.
+
+    Finally, a quick application of Stewart yields $AY' = \tfrac{2\sqrt{91}}7$, so
+    \[
+        AY = \frac{AB\cdot AC}{AY'} = \frac{6}{\frac{2\sqrt{91}}7} = \frac{3\sqrt{91}}{13}.
+    \]Scaling up yields $AY^2 = (\tfrac{6\sqrt{91}}{13})^2=\tfrac{252}{13}$, so the requested sum is $252+13=265$.
+
+
+---
+
+265

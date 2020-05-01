@@ -44,20 +44,20 @@ Let the chain starting from the top element be $a_1$, $a_2$, $\ldots$, $a_N$ (so
         D4=D3+0.1*unit(B-A);
         D5=extension(B,C,D4,D4+unit(C-A));
 
-        fill(A--B--C--cycle,yellow);
-        fill(D--X--B--cycle,cyan);
-        fill(EE--Y--C--cycle,cyan);
-        draw(A--B--C--A); draw(A1--A2--A3--A4--A5);
+        fill(A--B--C--cycle,lightred+white);
+        fill(D--X--B--cycle,lightblue+white);
+        fill(EE--Y--C--cycle,lightblue+white);
+        draw(A--B--C--A); draw(A1--A2--A3--A4--A5,linewidth(1));
         draw(D--X); draw(EE--Y);
-        draw(D1--D2--D3--D4--D5);
+        draw(D1--D2--D3--D4--D5,linewidth(1));
     \end{asy}
 \end{center}
-We do not include $1+2+\cdot+N$ nor the two adjacent numbers, so neither triangle contains any integer $1$ through $2018$. By the Pigeonhole Principle one triangle has at least $1008$ elements in its bottom row, so the number $X$ at the bottom of the chain from the triangle's topmost element is greater than
+We do not include $1+2+\cdots+N$ nor the two adjacent numbers, so neither triangle contains any integer $1$ through $2018$. By the Pigeonhole Principle one triangle has at least $1008$ elements in its bottom row, so the number $X$ at the bottom of the chain from the triangle's topmost element is greater than
 \begin{align*}
     X&\ge(N+1)+(N+2)+\cdots+(N+1008)\\
     &=1008N+504\cdot1009\\
     &=1009(N+504)-N\\
     &>1009(N+1)\\
-    =1+2+\cdots+N,
+    &=1+2+\cdots+N,
 \end{align*}
 a contradiction.

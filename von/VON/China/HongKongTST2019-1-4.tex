@@ -1,0 +1,48 @@
+desc: OG parallel BC with 45-degree angle
+source: Hong Kong TST 2019/1/4
+tags: [2020-02, answer, ctricky, geo, length]
+
+---
+
+Let $ABC$ be an acute triangle with $\angle ACB=45\dg$. Let $O$ be the circumcenter and $G$ be the centroid. Suppose $OG=1$ and $\seg{OG}\parallel\seg{BC}$. Determine the length of segment $BC$.
+
+---
+
+Let $H$ be the orthocenter of $\triangle ABC$. It is well-known that $OH=3OG=3$ and $O$, $G$, $H$ collinear.
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+    pair A,B,C,D,H,O,M,HA;
+    A=(0,9);
+    B=(-3,0);
+    C=(9,0);
+    D=(0,0);
+    H=orthocenter(A,B,C);
+    O=circumcenter(A,B,C);
+    M=(D+C)/2;
+    HA=reflect(B,C)*H;
+
+    draw(A--HA,gray);
+    draw(A--M,dashed);
+    draw(circumcircle(A,B,C));
+    draw(O--H);
+    draw(A--B--C--A);
+    
+    dot("$A$",A,NW);
+    dot("$B$",B,SW);
+    dot("$C$",C,SE);
+    dot("$D$",D,SE);
+    dot("$H$",H,W);
+    dot("$O$",O,NE);
+    dot("$M$",M,S);
+    dot("$H_A$",HA,SW);
+\end{asy}
+\end{center}
+Let $H_A$ be the reflection of $H$ over $\seg{BC}$. By folklore $H_A\in(ABC)$. Then since $\seg{OH}\perp\seg{AH_A}$, $H$ is the midpoint of $\seg{AH_A}$. Let $x=HD$, so $DH_A=x$ and consequently $AH=2x$. Since $\triangle ADC$ is isosceles right, $CD=3x$, and so $ABH_AC$ is an isosceles trapezoid and $BD=DH_A=x$.
+
+Denote $M=\seg{AO}\cap\seg{BC}$. With $\triangle AHO\sim\triangle ADM$, compute \[DM=\frac{AD}{AH}\cdot HO=\frac92,\]
+but since $D$ and $O$ lie on the perpendicular bisector of $\seg{AC}$, we have $\seg{DO}$ is the $D$-median of $\triangle ADC$. But $AO:OM=2:1$, so $O$ is the centroid of $\triangle ADC$ and $M$ is the midpoint of $\seg{CD}$. Hence $3x=CD=9$, and $BC=4x=12$.
+
+---
+
+12

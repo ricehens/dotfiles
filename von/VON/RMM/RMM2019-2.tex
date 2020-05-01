@@ -1,0 +1,61 @@
+desc: Equivalent poles
+source: RMM 2019/2
+tags: [2020-02, oly, medium, geo, pop, angle-chasing]
+
+---
+
+Let $ABCD$ be an isosceles trapezoid with $\seg{AB}\parallel\seg{CD}$. Let $E$ be the midpoint of $\seg{AC}$. Denote by $\omega$ and $\Omega$ the circumcircles of the triangles $ABE$ and $CDE$, respectively. Let $P$ be the intersection point of the tangent to $\omega$ at $A$ with the tangent to $\Omega$ at $D$. Prove that $\seg{PE}$ is tangent to $\Omega$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(7cm); defaultpen(fontsize(10pt));
+        pen pri=lightblue;
+        pen sec=lightred;
+        pen tri=heavycyan;
+        pen qua=pink+purple;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair A,B,EE,F,C,D,T,P;
+        A=dir(110);
+        B=reflect( (0,0),(0,1))*A;
+        EE=dir(-50);
+        F=reflect( (0,0),(0,1))*EE;
+        C=2EE-A;
+        D=2F-B;
+        T=extension(A,C,B,D);
+        P=2*foot(circumcenter(A,T,F),T,T+A-B)-T;
+
+        draw(A--P--F,qua);
+        draw(D--P--EE,qua);
+        filldraw(circumcircle(A,T,F),tfil,tri);
+        filldraw(circumcircle(D,T,EE),tfil,tri);
+        draw(A--C,pri); draw(B--D,pri);
+        filldraw(circumcircle(A,B,EE),fil,pri);
+        filldraw(circumcircle(C,D,EE),fil,pri);
+        draw(A--B,sec); draw(EE--F,sec); draw(C--D,sec);
+
+        dot("$A$",A,N);
+        dot("$B$",B,N);
+        dot("$C$",C,SE);
+        dot("$D$",D,SW);
+        dot("$E$",EE,dir(10));
+        dot("$F$",F,S);
+        dot("$T$",T,dir(5));
+        dot("$P$",P,dir(145));
+    \end{asy}
+\end{center}
+Here's a solution by linearity. In fact the tangents to $\omega$ at $A$ and $F$ and the tangents to $\Omega$ at $D$ and $E$ concur. Let $T=\seg{AC}\cap\seg{BD}$, and redefine $P=(TAF)\cap(TED)$ so that $\triangle PAF\sim\triangle PED$ by spiral similarity.
+
+Consider the function $f:\mathbb R^2\to\mathbb R$ defined by \[f(\bullet)=\pow(\bullet,(TAF))-\pow(\bullet,(TED)).\]
+It is well-known that $f$ is linear. Note that
+\begin{align*}
+    f(C)&=CA\cdot CT-CE\cdot CT=AE\cdot CT\\
+    &=CE\cdot CT=DF\cdot DT=f(D),
+\end{align*}
+so we have $\seg{TP}\parallel\seg{CD}$. (Otherwise, $f(D)=f(\seg{TP}\cap\seg{CD})=0$, which is absurd.)
+
+Thus $\seg{TP}$ bisects $\angle ATF$, so $PA=PF$ and $\da PAF=\da PTF=\da EFT=\da AEF$, from which $P=\seg{AA}\cap\seg{FF}$. Similarly $\seg{TP}$ bisects $\angle ETD$, so $PE=PD$ and $\da PED=\da PTD=\da CDT=\da ECD$, from which $P=\seg{DD}\cap\seg{EE}$. This completes the proof.

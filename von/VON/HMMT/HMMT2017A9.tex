@@ -1,0 +1,29 @@
+desc: Pisano period of 127
+source: HMMT 2017 A9
+tags: [2020-02, answer, cbrutal, nt, int-poly, waltz]
+
+---
+
+The Fibonacci sequence is defined as follows: $F_0=0$, $F_1=1$, and $F_n=F_{n-1}+F_{n-2}$ for all integers $n\ge2$. Find the smallest positive integer $m$ such that $F_m\equiv0\pmod{127}$ and $F_{m+1}\equiv1\pmod{127}$.
+
+---
+
+The answer is $256$. Let $p=127$,  and denote by $\alpha=\tfrac{1+\sqrt5}2$ and $\beta=\tfrac{1-\sqrt5}2$ the roots of $P(X)=X^2-X-1$. Henceforth we work modulo $p$. Recall that by Binet's formula, \[F_n=\frac{\alpha^n-\beta^n}{\alpha-\beta}.\]
+Note that \[\left(\frac5p\right)=\left(\frac p5\right)=\left(\frac25\right)=-1,\]
+so $5$ is not a quadratic residue mod $127$.
+
+Work in the finite field $\mathbb F_{p^2}$, the $\mathbb F_p$-splitting field of $P(x)$. We consider the Frobenius endomorphism $\sigma:\mathbb F_{p^2}\to\mathbb F_{p^2}$ for which $\sigma(n)=n^p$. Then by Fermat's little theorem, we deduce $\sigma$ is an involution and fixes $n$ if and only if $n\in\mathbb F_p$. However $\sigma$ sends $P$ to itself, so
+\begin{align*}
+    \alpha^p&=\sigma(\alpha)=\beta,\\
+    \beta^p&=\sigma(\beta)=\alpha.
+\end{align*}
+It then follows that 
+\begin{align*}
+    F_p&=\frac{\alpha^p-\beta^p}{\alpha-\beta}=\frac{\beta-\alpha}{\alpha-\beta}=-1,\\
+    F_{p+1}&=\frac{\alpha^{p+1}-\beta^{p+1}}{\alpha-\beta}=\frac{\alpha\beta-\beta\alpha}{\alpha-\beta}=0.
+\end{align*}
+Hence $F_{2p+2}=0$ and $F_{2p+3}=1$. Since $2p+2$ is a power of $2$ and $p+1=128$ does not work, the answer must be $2p+2=256$.
+
+---
+
+256

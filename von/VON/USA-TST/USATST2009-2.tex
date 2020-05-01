@@ -1,0 +1,48 @@
+desc: Circumcenters BO_BO_CC cyclic
+source: USA TST 2009/2
+tags: [2020-03, oly, easy, geo, angle-chasing, spiral-sim]
+
+---
+
+Let $ABC$ be an acute triangle. Point $D$ lies on side $BC$. Let $O_B$ and $O_C$ be the circumcenters of triangles $ABD$ and $ACD$, respectively. Suppose that the points $B$, $C$, $O_B$, $O_C$ lie on a circle centered at $X$. Let $H$ be the orthocenter of triangle $ABC$. Prove that $\angle DAX=\angle DAH$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        /* Geogebra to Asymptote conversion, documentation at artofproblemsolving.com/Wiki go to User:Azjps/geogebra */
+        size(10cm); defaultpen(fontsize(10pt));
+
+        draw((-1.110459431125061,4.058413889003155)--(-1.62,1.75)--(2.8,1.75)--cycle);
+        /* draw figures */
+        draw((-1.110459431125061,4.058413889003155)--(-1.62,1.75));
+        draw((-1.62,1.75)--(2.8,1.75));
+        draw((2.8,1.75)--(-1.110459431125061,4.058413889003155));
+        draw(circle((-1.0413773597967102,2.832722400774602), 1.2276367365368883));
+        draw(circle((1.1686226402032898,3.452813719451886), 2.3581701917399545));
+        draw(circle((0.59,1.2649171606442673), 2.262610298093205));
+        draw((1.1686226402032898,3.452813719451886)--(-4.900190463027996,1.75));
+        draw((-4.900190463027996,1.75)--(-1.62,1.75));
+        draw((-4.900190463027996,1.75)--(-1.110459431125061,4.058413889003155));
+        draw((-1.110459431125061,4.058413889003155)--(-0.46275471959342035,1.75));
+        draw((-1.110459431125061,4.058413889003155)--(0.59,1.2649171606442673));
+        draw((-1.110459431125061,4.058413889003155)--(-1.110459431125061,1.75));
+        /* dots and labels */
+        dot("$A$",(-1.110459431125061,4.058413889003155),NW);
+        dot("$B$",(-1.62,1.75),SW);
+        dot("$C$",(2.8,1.75),E);
+        dot("$D$",(-0.46275471959342035,1.75),S);
+        dot("$O_B$",(-1.0413773597967102,2.832722400774602),dir(150));
+        dot("$O_C$",(1.1686226402032898,3.452813719451886),N);
+        dot("$T$",(-4.900190463027996,1.75),SW);
+        dot("$M$",(-0.7866070753592407,2.9042069445015777),dir(-30));
+        dot("$X$",(0.59,1.2649171606442673),NE);
+        dot((-1.110459431125061,1.75));
+        /* end of picture */
+    \end{asy}
+\end{center}
+Note $O_BA=O_BB$, $O_CA=O_CC$, and $\da AO_BB=2\da ADB=2\da ADC=2\da AO_CC$, thus $\triangle AO_BB\sim\triangle AO_CC$ and $A$ is the Miquel point of $BO_BO_CC$.
+
+Let $T=\seg{BC}\cap\seg{O_BO_C}$, and let $M$ be the midpoint of $\seg{AD}$. Since $BO_BO_CC$ is cyclic, $A$ is the foot from $X$ to the polar of $\seg{BO_C}\cap\seg{CO_B}$, so $\angle XAT=90\dg$.
+
+Since $\seg{O_BO_C}$ is the perpendicular bisector of $\seg{AD}$, we have $\seg{AD}\perp\seg{TM}$, and since $MA=MD$, we have $\triangle TAD$ isosceles. Hence $\da DAX=\da MTA=\da DTM=\da HAD$\footnote{Here we use twice the fact that if $a_1\perp b_1$ and $a_2\perp b_2$, then $\da(a_1,a_2)=\da(b_1,b_2)$.}, as desired.

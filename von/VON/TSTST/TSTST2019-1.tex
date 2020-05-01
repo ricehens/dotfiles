@@ -13,36 +13,36 @@ Find all binary operations $\mathbin{\diamondsuit}:\mathbb R_{>0}\times\mathbb R
 ---
 
 The answer is $\times$ and $\div$. It is easy to check that these work. We now show these are the only solutions.
-\setcounter{iclaim}0
-\begin{iclaim}
+\setcounter{claim}0
+\begin{claim}
     If $a\mathbin{\diamondsuit}p=a\mathbin{\diamondsuit}q$, then $p=q$.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     Check that \[(a\mathbin{\diamondsuit}a)\cdot p=a\mathbin{\diamondsuit}(a\mathbin{\diamondsuit}p)=a\mathbin{\diamondsuit}(a\mathbin{\diamondsuit}q)=(a\mathbin{\diamondsuit}a)\cdot q,\]
     whence $p=q$.
 \end{proof}
-\begin{iclaim}
+\begin{claim}
     If $p\mathbin{\diamondsuit}a=q\mathbin{\diamondsuit}a$, then $p=q$.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     Check that \[(a\mathbin{\diamondsuit}p)\cdot a=a\mathbin{\diamondsuit}(p\mathbin{\diamondsuit}a)=a\mathbin{\diamondsuit}(q\mathbin{\diamondsuit}a)=(a\mathbin{\diamondsuit}q)\cdot a,\]
     whence $a\mathbin{\diamondsuit}p=a\mathbin{\diamondsuit}q$ and $p=q$.
 \end{proof}
-\begin{iclaim}
+\begin{claim}
     $a\mathbin{\diamondsuit}1=a$ and $1\mathbin{\diamondsuit}(1\mathbin{\diamondsuit}a)=a$.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     For the first part, note that $a\mathbin{\diamondsuit}(a\mathbin{\diamondsuit}1)=(a\mathbin{\diamondsuit}a)\cdot 1=a\mathbin{\diamondsuit}a$, so by Claim 1, $a\mathbin{\diamondsuit}1=a$, as desired. For the second part, check that $1\mathbin{\diamondsuit}(1\mathbin{\diamondsuit}a)=(1\mathbin{\diamondsuit}1)\cdot a=a$.
 \end{proof}
-\begin{iclaim}
+\begin{claim}
     $a\mathbin{\diamondsuit}b=a\cdot(1\mathbin{\diamondsuit}b)$.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     Check that \[a\mathbin{\diamondsuit}b=a\mathbin{\diamondsuit}\big(1\mathbin{\diamondsuit}(1\mathbin{\diamondsuit}b)\big)=(a\mathbin{\diamondsuit}1)\cdot(1\mathbin{\diamondsuit}b)=a\cdot(1\mathbin{\diamondsuit}b),\]
     as requested.
 \end{proof}
 
 Now, let $f(b)=1\mathbin{\diamondsuit}b$, so that $a\mathbin{\diamondsuit}b=af(b)$. Our given functional equation rewrites to \[af\big(bf(c)\big)=acf(b)\implies f\big(bf(c)\big)=cf(b).\]
-However, by Claim 1, $f$ is injective, and by Claim 4, $f$ is an involution, so plugging in $f(c)$ as $c$ gives $f(bc)=f(b)f(c)$. Hence, $g(x)=\ln f(e^x)$ satisfies $g(b+c)=g(b)+g(c)$. The second condition implies that $g(x)\ge -x$ for all $x\ge 0$, so $g$ is bounded, and thus $g(x)=kx$ for some $k$.
+However, by Claim 1, $f$ is injective, and by Claim 4, $f$ is an involution, so plugging in $f(c)$ as $c$ gives $f(bc)=f(b)f(c)$. Hence, $g(x)=\ln f(e^x)$ satisfies $g(b+c)=g(b)+g(c)$. The second condition implies that $g(x)\ge -x$ for all $x\ge 0$, so $g$ is bounded, and thus $g(x)\equiv kx$ for some $k$.
 
-It follows that $f(x)=x^k$, but substituting yields $k=\pm 1$. Hence, $a\mathbin{\diamondsuit}b=a\cdot b$ or $a\div b$, as desired.
+It follows that $f(x)\equiv x^k$, but substituting yields $k=\pm 1$. Hence, $a\mathbin{\diamondsuit}b=a\cdot b$ or $a\div b$, as desired.

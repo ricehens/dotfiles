@@ -1,0 +1,31 @@
+desc: 2001 pebbles
+source: ISL 2001 C7
+tags: [2020-03, oly, medium, combo, rigid, waltz]
+
+---
+
+A pile of $2001$ pebbles is placed in a vertical column. This configuration is modified according to the following rules. A pebble can be moved if it is at the top of a column which contains at least two more pebbles than the column immediately to its right. (If there are no pebbles to the right, think of this as a column with $0$ pebbles.)
+
+Show that if this operation is applied repeatedly, then we always reach a unique final configuration where no more moves are possible; furthermore describe this final configuration.
+
+---
+
+View the sizes of the columns from left-to-right as a sequence. Of course this operation must eventually terminate, since the sequence decreases lexicographically.
+
+It is easy to check that:
+\begin{itemize}[itemsep=0em]
+    \item The elements of the sequence are always nonincreasing.
+    \item In the final configuration, no two consecutive terms differ by at least $2$.
+\end{itemize}
+In addition, we claim:
+\begin{claim*}
+    For all $a$ and $i>0$, we cannot obtain the subsequence \[(a,a,a-1,a-2,\ldots,a-i+1,a-i,a-i).\]
+    For $i=0$, we cannot obtain $(a,a,a)$.
+\end{claim*}
+\begin{proof}
+    Induction on $i$. The base case, $i=0$, is because there is no possible sequence right before we obtain $(a,a,a)$. For the inductive step, immediately before obtaining $(a,a,\ldots,a-i,a-i)$ we must have $(a,a,\ldots,a-i+1,a-i+1)$, which is impossible by inductive hypothesis.
+\end{proof}
+
+Thus the final configuration is unique, and may be described as follows: each positive integer $n$ may be expressed uniquely as \[n=(1+2+\cdots+m)+k\quad\text{where }0\le k\le m.\]
+Then the final configuration for an initial column of $n$ stones is \[(m,m-1,\ldots,k+1,k,k,k-1,\ldots,2,1).\]
+(If $k=0$, then the sequence is just $(m,m-1,\ldots,2,1)$, since the last pile of size $0$ may be omitted.) For $n=2001$, we have $m=62$ and $k=48$.

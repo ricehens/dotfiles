@@ -1,0 +1,31 @@
+desc: Munchausen numbers
+source: CIME II 2019/4
+tags: [2019-12, answer, cmedium, combo, casework]
+author: Eric Shen
+
+---
+
+Define a base-$b$ Munchausen number as a positive integer $n$ such that when expressed in base $b$, its digits $d_0\cdots d_k$ are all nonzero and satisfy \[n=\sum_{i=0}^k d_ib^i=\sum_{i=0}^k d_i^{d_i}.\]
+For instance, $3435$ is a base-$10$ Munchausen number, since $3^3+4^4+3^3+5^5=3435$. Find, in base $10$, the sum of all base-$4$ Munchausen numbers.
+
+---
+
+Let the RHS be $f(n)$, so we want $n=f(n)$. Clearly, $1^1=1_4,2^2=10_4,3^3=123_4$. We do casework on the number of digits of $n$ in base $4$.
+
+\begin{itemize}
+    \item \textit{Case 1:} $n$ has $1$ digit. It is easy to see that only $1$ works.
+
+    \item \textit{Case 2:} $n$ has $2$ digits. First, we cannot have the digit $3$, as $123_4$ has three digits. If both the digits are $1$'s, then $f(n)=f(11_4)=2_4$, which does not work. If there is one $1$ and one $2$, then $f(n)=11_4$, which does not work, and if both are $2$'s, then $f(n)=f(22_4)=20$, which does not work. Hence, there are no $2$-digit Munchausen numbers.
+
+    \item \textit{Case 3:} $n$ has $3$ digits. Since $f(222_4)=100_4$, we must have at least one $3$. However, if we have two $3$'s, then $f(n)\ge 313_4$, but out of $313_4,323_4,332_4,333_4$, only $313_4$ works. Then, assume we have exactly one $3$. If we have at least one $2$, then $200_4\le f(n)\le 203_4$, a contradiction. Then, we must have one $3$ and two $1$'s, so $f(n)=131_4$, which satisfies the conditions.
+
+    \item \textit{Case 4:} $n$ has $4$ digits. For $4$-digit numbers, there must be at least three $3$'s, but if the remaining digit is $1,2,3$, so $f(n)$ is $1102_4,1111_4,1230_4$; none work.
+
+    \item \textit{Case 5:} $n$ has $k\ge 5$ digits. Then, $n>4_{10}^{k-1}>3_{10}^3 k\ge f(k)$, so there are no Munchausen numbers with more than $4$ digits.
+\end{itemize}
+
+The only base-4 Munchausen numbers are $1_4,131_4,313_4$, giving $1+29+55=85$.
+
+---
+
+085

@@ -1,0 +1,29 @@
+desc: 57a+88b+125c>=1148
+source: Hong Kong TST 2019/1/6
+tags: [2019-11, oly, medium, alg, sineq, fineq, equality]
+
+---
+
+Find the minimum possible value of $a^3+b^3+c^3+5(a^2+b^2+c^2)$ over positive real numbers $a$, $b$, $c$ satisfying $57a+88b+125c\ge1148$.
+
+---
+
+Let $f(x)=x^3+5x^2$, so that we seek to minimize $f(a)+f(b)+f(c)$ over positive reals $a$, $b$, $c$ obeying $57a+88b+125c\ge1148$. Check that $f'(x)=3x^2+10x$ and $f''(x)=6x+10$, so $f$ is convex over $\mathbb R^+$.
+
+From this, it is clear that
+\begin{itemize}[itemsep=0em]
+    \item $x^3+5x^2\ge57x-99$, which is the tangent to $f$ at $(3,72)$.
+    \item $x^3+5x^2\ge88x-208$, which is the tangent to $f$ at $(4,144)$.
+    \item $x^3+5x^2\ge125x-375$, which is the tangent to $f$ at $(5,250)$.
+\end{itemize}
+Summing these, $f(a)+f(b)+f(c)\ge1148-99-208-375=466$, achieved by $(a,b,c)=(3,4,5)$.
+\begin{remark}
+    The motivation for such a solution is the intuition that we should be able to find single-variable inequalities of the form $f(x)=x^3+5x^2\ge px+q$, and cyclically sum. Indeed, we want the inequalities $f(a)\ge 57a+q_1$, $f(b)\ge 88b+q_2$, and $f(c)\ge 125c+q_3$.
+
+    Since $f$ is convex, we want these to be tangents to $f$. We find that the point on the graph of $f$ with slope $57$ has $x$-coordinate $3$ (say, by solving $0=3x^2-10x-57=(3x+19)(x-3)\implies x=3$). Miraculously the other two also yield integer $x$-coordinates, and the result is clear from there.
+\end{remark}
+\begin{remark}
+    The solution can be rewritten without calculus. Indeed, \[x^3+5x^2\ge57x-99\iff0\le(x-3)^2(x+11),\]
+    which is just true for positive $x$. Similar arguments hold for the other two. Many choose to write the solution like so, but I believe the true motivation behind this problem is the argument that $f$ is greater than any linearization.
+\end{remark}
+

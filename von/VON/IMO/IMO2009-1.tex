@@ -1,0 +1,17 @@
+desc: a(b-1) all divisible by n
+source: IMO 2009/1
+tags: [2019-11, oly, trivial, nt, anti]
+
+---
+
+Let $n$ be a positive integer and let $a_1$, $a_2$, $a_3$, $\ldots$, $a_k$ ($k\ge 2$) be distinct integers in the set $\{1,2,\ldots,n\}$ such that $n$ divides $a_i(a_{i+1}-1)$ for $i=1,2,\ldots,k-1$. Prove that $n$ does not divide $a_k(a_1-1)$.
+
+---
+
+\paragraph{First solution, by chain of equalities}     Assume for contradiction otherwise. Remark that \[a_1\equiv a_1a_2\equiv a_1a_2a_3\equiv\cdots\equiv a_1a_2\cdots a_k\pmod m.\]
+Symmetrically all the $a_i$ are equal, contradiction.
+
+\paragraph{Second solution, by Chinese Remainder Theorem}     Assume for contradiction otherwise. Let $n=XY$, so that $X\mid a_1$ and $Y\mid a_2-1$. Note that if $X\mid a_i$, since $\gcd(a_i,a_i-1)=1$, it follows that $X\mid a_{i-1}$. Similarly if $X\mid a_i+1$, then $X\mid a_{i+1}+1$. Hence $a_i\equiv 0\pmod X$ and $a_i\equiv 1\pmod Y$ for all $i$.
+
+But this implies that $X$ and $Y$ are coprime, so by the Chinese Remainder Theorem, $a_i$ are all equal modulo $n$, contradiction.
+

@@ -1,6 +1,7 @@
 desc: Symmedian points concyclic
 source: Sharygin 2014/10.8
-tags: [2019-10, oly, hard, geo, symmedian, projective, weird]
+tags: [2019-10, oly, hard, geo, symmedian, projective, weird, conditional, nice, favorite, waltz]
+author: Nikolai Beluhov
 
 ---
 
@@ -10,7 +11,7 @@ Let $ABCD$ be a cyclic quadrilateral. Prove that if the symmedian points of $\tr
 
 \begin{center}
     \begin{asy}
-        size(12cm);
+        size(10cm);
         defaultpen(fontsize(10pt));
 
         pen pri=red;
@@ -67,9 +68,9 @@ Let $ABCD$ be a cyclic quadrilateral. Prove that if the symmedian points of $\tr
     \end{asy}
 \end{center}
 Let $K_A$, $K_B$, $K_C$, and $K_D$ be the symmedian points of $\triangle BCD$, $\triangle CDA$, $\triangle DAB$, and $\triangle ABC$ respectively, and let $E=\overline{AA}\cap\overline{BB}$, $F=\overline{BB}\cap\overline{CC}$, $G=\overline{CC}\cap\overline{DD}$, $H=\overline{DD}\cap\overline{AA}$, $P=\overline{AB}\cap\overline{CD}$, $Q=\overline{AD}\cap\overline{BC}$, and $R=\overline{AC}\cap\overline{BD}$. Assume for the sake of contradiction that $ABCD$ has no two sides parallel (i.e.\ $P$ and $Q$ are not infinity) but $K_AK_BK_CK_D$ is cyclic. The key claim is this:
-\begin{iclaim*}
+\begin{claim*}
     $P=\overline{K_AK_B}\cap\overline{K_CK_D}$, $Q=\overline{K_AK_D}\cap\overline{K_BK_C}$, and $R=\overline{K_AK_C}\cap\overline{K_BK_D}$.
-\end{iclaim*}
+\end{claim*}
 \begin{proof}
     By definition of symmedian point, $K_A=\overline{BG}\cap\overline{DF}$ and $K_C=\overline{BH}\cap\overline{DE}$. Applying Brianchon's Theorem on hexagons $EBFGDH$ and $EFCGHA$ shows that $R=\overline{EG}\cap\overline{RH}$, so by Pappus' Theorem on $\overline{EBF}$ and $\overline{HDG}$, points $K_A$, $R$, $K_C$ are collinear. By symmetry, $R=\overline{K_AK_C}\cap\overline{K_BK_D}$, and analogous arguments show that $P=\overline{K_AK_B}\cap\overline{K_CK_D}$ and $Q=\overline{K_AK_D}\cap\overline{K_BK_C}$, as desired.
 \end{proof}

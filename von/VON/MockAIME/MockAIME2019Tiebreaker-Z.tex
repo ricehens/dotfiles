@@ -1,0 +1,64 @@
+desc: Projective incircle ratios
+source: Mock AIME 2019 Tiebreaker/Z
+tags: [2019-12, answer, cbrutal, geo, projective, length]
+author: Eric Shen
+
+---
+
+In triangle $ABC$, $AB=14$, $BC=17$, and $CA=15$. The incircle of $\triangle ABC$ touches $\overline{BC}$, $\overline{CA}$, and $\overline{AB}$ at points $D$, $E$, and $F$, respectively; and $\overline{AD}$ meets the incircle of $\triangle ABC$ again at $T$. Suppose that points $M$ and $U$ lie on $\overline{AC}$ and points $N$ and $V$ lie on $\overline{AB}$ such that $\overline{MN}$ is tangent to the incircle of $\triangle ABC$ at $T$, and $\overline{EV}$ and $\overline{FU}$ intersect at $T$. Then, there exist relatively prime positive integers $p$ and $q$ such that $\tfrac{MU}{NV}=\tfrac pq$. Find $p+q$.
+
+---
+
+Let $a=BC$, $b=CA$, $c=AB$, and $s=\tfrac12(a+b+c)$.
+
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
+        pair A, B, C, I, D, EE, F, P, T, M, NN, U, V;
+        //A=(0, 12sqrt(35)); B=(-52, 0); C=(69, 0);
+        A=(0, 24sqrt(69)); B=(-130, 0); C=(159, 0);
+        I=incenter(A, B, C);
+        D=foot(I, B, C);
+        EE=foot(I, C, A);
+        F=foot(I, A, B);
+        P=extension(B, C, EE, F);
+        T=2*foot(D, I, P)-D;
+        M=extension(P, T, A, C);
+        NN=extension(P, T, A, B);
+        U=extension(F, T, A, C);
+        V=extension(EE, T, A, B);
+        draw(A -- B -- C -- A -- D); draw(V -- EE -- F -- U -- V); draw(M -- NN); draw(EE -- D -- F); draw(incircle(A, B, C));
+
+        dot("$A$", A, N);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$D$", D, S);
+        dot("$E$", EE, E);
+        dot("$F$", F, W);
+        dot("$T$", T, 2*dir(245));
+        dot("$M$", M, E);
+        dot("$N$", NN, W);
+        dot("$U$", U, NE);
+        dot("$V$", V, NW);
+    \end{asy}
+\end{center}
+Denote $P=\overline{BC}\cap\overline{EF}$.  Since $DETF$ is a harmonic quadrilateral, $P\in\overline{MN}$. By Brianchon's Theorem on $BDCMTN$ and $BCEMNF$, there exists a common point $S$ on $\overline{BM}$, $\overline{CN}$, $\overline{DT}$, and $\overline{EF}$. Now, note that
+\begin{equation}
+    -1=(A,S;T,D)\stackrel P=(A,F;N,B)
+\end{equation}
+and
+\begin{equation}
+    -1=(D,T;E,F)\stackrel T=(A,N;V,F).
+\end{equation}
+By (1), we can deduce that \[\frac{NA}{NF}=\frac{BA}{BF}=\frac c{s-b}.\]
+It follows that \[\frac{VA}{VN}=\frac{FA}{FN}=1+\frac{NA}{NF}=\frac{s-b+c}{s-b}.\]
+Moreover we have that \[\frac{NA}{AF}=\frac{c}{s-b+c}\implies NA=\frac{c(s-a)}{s-b+c}.\]
+Thus, \[\frac{NV}{NA}=\frac{s-b}{2(s-b)+c},\]
+so \[NV=\frac{c(s-a)(s-b)}{\big(2(s-b)+c\big)(s-b+c)}=\frac{14\cdot 6\cdot 8}{(2\cdot 8+14)(8+14)}=\frac{56}{55}.\]
+Similarly, \[MU=\frac{b(s-a)(s-c)}{\big(2(s-c)+b\big)(s-c+b)}=\frac{15\cdot 6\cdot 9}{(2\cdot 9+15)(9+15)}=\frac{45}{44},\]
+whence $\frac{MU}{NV}=\frac{45}{44}\Big/\frac{56}{55}=\frac{225}{224}$, and the requested sum is $225+224=449$.
+
+---
+
+449

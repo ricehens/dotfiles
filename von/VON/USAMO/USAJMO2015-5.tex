@@ -8,50 +8,48 @@ Let $ABCD$ be a cyclic quadrilateral. Prove that there exists a point $X$ on seg
 
 ---
 
-\begin{customenv}{First solution, by angle chasing}
-    Since the two directions are identical, assume that $X$ exists. It suffices to show that $Y$ exists.
-    \begin{center}
-        \begin{asy}
-            size(8cm);
-            defaultpen(fontsize(10pt));
+\paragraph{First solution, by angle chasing}     Since the two directions are identical, assume that $X$ exists. It suffices to show that $Y$ exists.
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
 
-            pen pri=purple;
-            pen sec=magenta;
-            pen fil=purple+opacity(0.05);
+        pen pri=purple;
+        pen sec=magenta;
+        pen fil=purple+opacity(0.05);
 
-            pair O, A, B, D, K, C, X, Y, Ap, Cp;
-            O=(0, 0);
-            A=dir(140);
-            B=dir(230);
-            D=dir(310);
-            K=2*circumcenter(B, O, D)-O;
-            C=intersectionpoint(K -- (A+0.01*(K-A)), circle(O, 1));
-            X=(B+D)/2; Y=(A+C)/2;
-            Ap=2*foot(A, O, K)-A;
-            Cp=2*foot(C, O, K)-C;
+        pair O, A, B, D, K, C, X, Y, Ap, Cp;
+        O=(0, 0);
+        A=dir(140);
+        B=dir(230);
+        D=dir(310);
+        K=2*circumcenter(B, O, D)-O;
+        C=intersectionpoint(K -- (A+0.01*(K-A)), circle(O, 1));
+        X=(B+D)/2; Y=(A+C)/2;
+        Ap=2*foot(A, O, K)-A;
+        Cp=2*foot(C, O, K)-C;
 
-            filldraw(circle(O, 1), fil, pri);
-            draw(A -- B -- C -- D -- A, pri);
-            draw(A -- Cp, sec); draw(C -- Ap, sec);
-            draw(B -- Y -- D, sec);
-            draw(A -- C, pri); draw(B -- D, pri);
+        filldraw(circle(O, 1), fil, pri);
+        draw(A -- B -- C -- D -- A, pri);
+        draw(A -- Cp, sec); draw(C -- Ap, sec);
+        draw(B -- Y -- D, sec);
+        draw(A -- C, pri); draw(B -- D, pri);
 
-            dot("$A$", A, A);
-            dot("$B$", B, B);
-            dot("$C$", C, C);
-            dot("$D$", D, D);
-            dot("$X$", X, N);
-            dot("$Y$", Y, W);
-            dot("$A'$", Ap, Ap);
-            dot("$C'$", Cp, Cp);
-        \end{asy}
-    \end{center}
+        dot("$A$", A, A);
+        dot("$B$", B, B);
+        dot("$C$", C, C);
+        dot("$D$", D, D);
+        dot("$X$", X, N);
+        dot("$Y$", Y, W);
+        dot("$A'$", Ap, Ap);
+        dot("$C'$", Cp, Cp);
+    \end{asy}
+\end{center}
 
-    The key claim is that this condition is equivalent to $ABCD$ being harmonic. Let rays $AX$ and $CX$ intersect $(ABCD)$ again at $C'$ and $A'$, respectively. Since $\widehat{A'D}=2\angle XCD=2\angle BCA=\widehat{BA}$, $\triangle ABD\cong\triangle A'DB$. Similarly, $\triangle CBD\cong\triangle C'DB$, so $X=\overline{AA'}\cap\overline{CC'}$ lies on the perpendicular bisector of $\overline{BC}$; hence, $X$ is the midpoint of $\overline{BD}$, and $ABCD$ is harmonic.
+The key claim is that this condition is equivalent to $ABCD$ being harmonic. Let rays $AX$ and $CX$ intersect $(ABCD)$ again at $C'$ and $A'$, respectively. Since $\widehat{A'D}=2\angle XCD=2\angle BCA=\widehat{BA}$, $\triangle ABD\cong\triangle A'DB$. Similarly, $\triangle CBD\cong\triangle C'DB$, so $X=\overline{AA'}\cap\overline{CC'}$ lies on the perpendicular bisector of $\overline{BC}$; hence, $X$ is the midpoint of $\overline{BD}$, and $ABCD$ is harmonic.
 
-    If $Y$ denotes the midpoint of $\overline{AC}$, since $\overline{BD}$ is a $B$-symmedian of $\triangle ABC$, $\angle CBD=\angle YBA$. Similarly, $\angle CDB=\angle YDA$, so $Y$ exists.
-\end{customenv}
-\begin{customenv}{Second solution, by Steiner}
-    Let $E=\seg{AC}\cap\seg{BD}$. We will show that $ABCD$ is harmonic iff $X$ exists. But \[\left(\frac{AB}{AD}\right)^2=\frac{EB}{ED}\cdot\frac{XB}{XD}=\left(\frac{CB}{CD}\right)^2,\]
-    as desired. 
-\end{customenv}
+If $Y$ denotes the midpoint of $\overline{AC}$, since $\overline{BD}$ is a $B$-symmedian of $\triangle ABC$, $\angle CBD=\angle YBA$. Similarly, $\angle CDB=\angle YDA$, so $Y$ exists.
+
+\paragraph{Second solution, by Steiner}     Let $E=\seg{AC}\cap\seg{BD}$. We will show that $ABCD$ is harmonic iff $X$ exists. But \[\left(\frac{AB}{AD}\right)^2=\frac{EB}{ED}\cdot\frac{XB}{XD}=\left(\frac{CB}{CD}\right)^2,\]
+as desired. 
+

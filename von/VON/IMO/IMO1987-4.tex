@@ -1,0 +1,13 @@
+desc: f(f(n))=n+1987
+source: IMO 1987/4
+tags: [2020-04, oly, easy, alg, fe, arrows]
+
+---
+
+Is there a function $f:\mathbb Z_{\ge0}\to\mathbb Z_{\ge0}$ such that $f(f(n))=n+1987$ for all nonnegative integers $n$?
+
+---
+
+The answer is no. Clearly $f$ is injective. Note that $f(n+1987)=f(f(f(n)))=f(n)+1987$, so each $n$ determines a sequence $n$, $f(n)$, $f^2(n)$, $\ldots$ that contains at most two residues modulo $1987$ (since $f^{2k}(n)=n+1987k$). But if the two residues in the sequence are the same, then some two elements in the sequence are equal, so the sequence is eventually periodic. But the sequence is unbounded, contradiction.
+
+Hence we can pair up the residues $\{0,1,\ldots,1986\}$. There is an odd number of them, absurd.

@@ -1,0 +1,18 @@
+desc: Integers expressible as binary sum in exactly k ways
+source: APMO 2020/3
+tags: [2020-03, oly, hard, combo, sequence, analysis, nice, secret]
+
+---
+
+Determine all positive integers $k$ for which there exist a positive integer $m$ and a set $S$ of positive integers such that any integer $n>m$ can be written as a sum of distinct elements of $S$ in exactly $k$ ways.
+
+---
+
+The answer is powers of $2$. For $k=2^j$, $j\ge0$, just take \[S=\{3,6,9,\ldots,3j\}\cup\{1,2,4,8,\ldots\}.\]
+Here, $\{3,6,9,\ldots,3j\}$ may be replaced with any set of size $j$ whose elements are not powers of $2$. Each subset $T$ of $\{3,6,9,\ldots,3j\}$ determines a unique binary representation of $\textstyle n-\sum_{t\in T}t$ for sufficiently large $n$.\\
+
+Now we check only powers of $2$ work. Let the elements of $S$ be $s_1<s_2<\cdots$, and assume $k>1$. Then $s_1+s_2+\cdots+s_i\ge s_{i+1}$ for all $i$, or $s_1+s_2+\cdots+s_i$ only has one representation.
+
+Consider the sequence $t_i:=s_i+s_2+\cdots+s_i-s_{i+1}$. Then $(t_i)$ is always nonincreasing but nonnegative, so it is eventually constant. Assume $t_i=t_{i+1}$ for $i\ge N$, so we have $s_{i+2}=2s_{i+1}$. Then $s_1$, $\ldots$, $s_N$ must generate all residues modulo $s_{N+1}$ equally often, so $s_{N+1}$ divides $2^N$.
+
+This means $S$ has finitely many numbers that are not powers of $2$. This completes the proof.

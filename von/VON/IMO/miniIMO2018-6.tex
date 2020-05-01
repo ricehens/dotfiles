@@ -1,0 +1,64 @@
+desc: angles XAB=XBC=XCD=XDA
+source: mini IMO 2018/6
+tags: [2020-03, oly, medium, geo, angle-chasing, variation]
+
+---
+
+Let $ABCD$ be a quadrilateral and $X$ a point inside $ABCD$ so that \[\angle XAB=\angle XBC=\angle XCD=\angle XDA.\]
+\begin{enumerate}[label=(\alph*),itemsep=0em]
+    \item Prove that $\angle BXA+\angle DXC=180\dg$.
+    \item Prove that $AB\cdot CD=BC\cdot DA$.
+\end{enumerate}
+
+---
+
+Let $P=\overline{AB}\cap\overline{CD}$ and $Q=\overline{AD}\cap\overline{BC}$. We have that \[\measuredangle XBQ=\measuredangle XBC=\measuredangle XDA=\measuredangle XDQ,\]
+so $Q$ lies on $(BXD)$. Applying a similar argument shows that $P$ lies on $(BXD)$, so $BDPQ$ is cyclic. Consequently, $\measuredangle ABC=\measuredangle PBQ=\measuredangle PDQ=\measuredangle ADC$, so $ABCD$ is cyclic. Then if $\theta=\angle XAB$, then \[\angle BXA+\angle DXC=\big[180^\circ-\theta-(B-\theta)\big]+\big[180^\circ-\theta-(D-\theta)\big]=180^\circ,\]
+proving part (a).
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=black;
+        pen sec=dashed;
+        pen tri=gray;
+        pen fil=invisible;
+        pen sfil=invisible;
+        pen tfil=invisible;
+
+        pair O, A, D, C, B, K, L, Q, R, X;
+        O=(0,0);
+        A=dir(140);
+        B=dir(190);
+        C=dir(350);
+        D=reflect(O,A+C)*(2*foot(O,B,(A+C)/2)-B);
+        Q=extension(A, D, B, C);
+        R=extension(A, C, B, D);
+        K=extension(A, reflect(A, incenter(A, B, D)) * R, C, reflect(C, incenter(C, B, D)) * R);
+        L=extension(B, reflect(B, incenter(B, A, C)) * R, D, reflect(D, incenter(D, A, C)) * R);
+        X=reflect(circumcenter(A, B, K), circumcenter(C, D, K)) * K;
+
+        filldraw(A--B--C--D--cycle,fil,pri);
+        filldraw(circumcircle(B,Q,D),sfil,sec);
+        filldraw(circumcircle(A,B,K),tfil,tri);
+        filldraw(circumcircle(C,D,K),tfil,tri);
+        draw(C--A--Q--B--D,pri);
+        draw(A--K--C,pri);
+
+        clip((Q+(-0.1,-100))--(Q+(-0.1,1.3))--(Q+(100,1.3))--(Q+(100,-100))--cycle);
+
+        dot("$A$",A,N);
+        dot("$D$",D,NW);
+        dot("$C$",C,SE);
+        dot("$B$",B,S);
+        dot("$Q$",Q,SW);
+        dot("$R$",R,N);
+        dot("$K$",K,W);
+        dot("$X$",X,E);
+    \end{asy}
+\end{center}
+For part (b), construct point $K$ the intersection of $(AXB)$ and $(CXD)$, and let $R=\seg{AC}\cap\seg{BD}$. Note that \[\da BKX=\da BAX=\da DCX=\da DKX,\]
+so $K\in\seg{BD}$. Furthermore \[\da BAK=\da BAX+\da XAK=\da CBX+\da XBK=\da CBK=\da RAD,\]
+and similarly $\da BCK=\da RCD$, whence by Steiner \[\left(\frac{AB}{AD}\right)^2=\frac{KB}{KD}\cdot\frac{RB}{RD}=\left(\frac{CB}{CD}\right)^2,\]
+and the result follows.

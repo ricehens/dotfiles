@@ -1,0 +1,65 @@
+desc: Miquel symmedian circle
+source: USA TST 2019/1
+tags: [2019-12, oly, medium, geo, symmedian, animation]
+
+---
+
+Let $ABC$ be a triangle and let $M$ and $N$ denote the midpoints of $\overline{AB}$ and $\overline{AC}$, respectively. Let $X$ be a point such that $\overline{AX}$ is tangent to the circumcircle of triangle $ABC$. Denote by $\omega_B$ the circle through $M$ and $B$ tangent to $\overline{MX}$, and by $\omega_C$ the circle through $N$ and $C$ tangent to $\overline{NX}$. Show that $\omega_B$ and $\omega_C$ intersect on line $BC$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm); defaultpen(fontsize(10pt));
+        pen pri=red;
+        pen sec=orange;
+        pen tri=fuchsia;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair O,A,B,C,M,NN,X,P,Q;
+        O=(0,0);
+        A=dir(130);
+        B=dir(220);
+        C=dir(320);
+        M=(A+B)/2;
+        NN=(A+C)/2;
+        X=A+1.8*(rotate(90)*A);
+        P=reflect(X,(A+O)/2)*A;
+        Q=(A+P)/2;
+
+        filldraw(circumcircle(P,B,M),tfil,tri);
+        filldraw(circumcircle(P,C,NN),tfil,tri);
+        draw(Q--M--X,tri);
+        filldraw(circumcircle(A,M,NN),sfil,sec);
+        draw(P--X,sec);
+        filldraw(circle(O,1),fil,pri);
+        draw(A--B--C--A--X,pri);
+        draw(A--P,pri);
+
+        dot("$A$",A,A);
+        dot("$B$",B,B);
+        dot("$C$",C,C);
+        dot("$M$",M,dir(160));
+        dot("$N$",NN,dir(40));
+        dot("$X$",X,W);
+        dot("$P$",P,dir(-30));
+        dot("$Q$",Q,E);
+    \end{asy}
+\end{center}
+\paragraph{First solution, by symmedians}     By Miquel's theorem, it suffics to show $\omega_B$ and $\omega_C$ intersect on $(AMN)$. By homothety, $\seg{AX}$ is tangent to $(AMN)$. Let $\seg{XP}$ be the other tangent from $X$ to $(AMN)$. I claim $P$ is this concurrence point.
+
+It suffices to show that $\seg{XM}$ is tangent to $(BMP)$, from which $\omega_B=(BMP)$, and we finish by symmetry. Let $Q$ be the midpoint of $\seg{AP}$. Since $\seg{MX}$ is the $M$-symmedian of $\triangle MAP$ and $\seg{MQ}$ is a midsegment of $\triangle ABP$, \[\da XMP=\da AMP=\da ABP=\da MBP,\]
+concluding the proof.
+
+\paragraph{Second solution, by moving points}     Animate $X$ at a linear rate on the tangent to $(AMN)$ at $A$, and let $\omega_B$ intersect $\seg{BC}$ at $R\ne B$.
+
+Note that since $\da XMR=\da MBR=\da ABC$ is constant, $R$ moves projectively along $\seg{BC}$. Similarly the second intersection of $\omega_C$ and $\seg{BC}$ moves projectively, so it suffices to verify the hypothesis for three choices of $X$.
+\begin{itemize}[itemsep=0em]
+    \item If $X=A$, then $R$ is the point at infinity along $\seg{BC}$.
+    \item If $X$ is the point at infinity along $\seg{AA}$, then $R$ is the midpoint of $\seg{BC}$.
+    \item If $X=\seg{AA}\cap\seg{MN}$, then $R$ is the foot of the altitude from $A$.
+\end{itemize}
+This concludes the proof.
+

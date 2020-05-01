@@ -1,0 +1,46 @@
+desc: Tangentially defined circles concur on BC
+source: ELMO 2012/1
+tags: [2019-11, oly, trivial, geo, pop]
+
+---
+
+In acute triangle $ABC$, let $D$, $E$, $F$ denote the feet of the altitudes from $A$, $B$, $C$, respectively, and let $\omega$ be the circumcircle of $\triangle AEF$. Let $\omega_1$ and $\omega_2$ be the circles through $D$ tangent to $\omega$ at $E$ and $F$ respectively. Show that $\omega_1$ and $\omega_2$ meet at a point $P$ on line $BC$ other than $D$.
+
+---
+
+Let $M$ be the midpoint of $\seg{BC}$, so that $\seg{ME}$ and $\seg{MF}$ are tangent to $(AEF)$.
+\begin{center}
+    \begin{asy}
+        size(7cm); defaultpen(fontsize(10pt));
+
+        pair A,B,C,M,D,EE,F,P;
+        A=dir(130);
+        B=dir(210);
+        C=dir(330);
+        M=(B+C)/2;
+        D=foot(A,B,C);
+        EE=foot(B,C,A);
+        F=foot(C,A,B);
+        P=extension(B,C,EE,F);
+
+        draw(circumcircle(P,D,EE),gray);
+        draw(circumcircle(P,D,F),gray);
+        draw(P--EE,gray);
+        draw(circumcircle(A,EE,F));
+        draw(F--M--EE);
+        draw(P--C--A--B);
+
+        dot("$A$",A,N);
+        dot("$B$",B,S);
+        dot("$C$",C,SE);
+        dot("$M$",M,S);
+        dot("$D$",D,SE);
+        dot("$E$",EE,dir(30));
+        dot("$F$",F,dir(115));
+        dot("$P$",P,SW);
+    \end{asy}
+\end{center}
+Then $M$ is the radical center of $\omega$, $\omega_1$, $\omega_2$, so it lies on the radical axis of $\omega_1$, $\omega_2$. Point $D$ lies on this radical axis, so this radical axis is line $BC$.
+\begin{remark}
+    We can show that $P=\seg{BC}\cap\seg{EF}$ is the harmonic conjugate of $D$ wrt.\ $\seg{BC}$. Indeed, by the Midpoint of Harmonic Bundles lemma, $MD\cdot MP=MB^2=ME^2$ since $M$ is the center of $(BCEF)$. Similarly, $MD\cdot MP=MF^2$, so $P\ne D$ lies on both circles $\omega_1$ and $\omega_2$.
+\end{remark}

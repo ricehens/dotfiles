@@ -1,0 +1,13 @@
+desc: One-line A7 inequality
+source: ISL 2018 A7
+tags: [2019-11, oly, medium, alg, ineq, sineq, anti]
+
+---
+
+Find the maximal value of \[S=\sqrt[3]{\frac a{b+7}}+\sqrt[3]{\frac b{c+7}}+\sqrt[3]{\frac c{d+7}}+\sqrt[3]{\frac d{a+7}},\]
+where $a$, $b$, $c$, $d$ are nonnegative real numbers which satisfy $a+b+c+d=100$.
+
+---
+
+The key observation is that \[\sqrt[3]{\frac{7a}{64(b+7)}}\le\frac13\left(\frac{a+7}{64}+\frac a{a+7}+\frac7{b+7}\right).\]
+Cyclically summing gives the minimum value $8/\sqrt[3]7$, achieved by $(49,1,49,1)$.

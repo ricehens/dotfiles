@@ -1,6 +1,6 @@
 desc: Kpop
 source: APMO 2019/3
-tags: [2019-10, oly, hard, geo, pop, parallelogram, angle-chasing]
+tags: [2019-10, oly, hard, geo, pop, parallelogram, angle-chasing, nice, favorite]
 
 ---
 
@@ -10,7 +10,7 @@ Let $ABC$ be a scalene triangle with circumcircle $\Gamma$, and let $M$ be the m
 
 \begin{center}
     \begin{asy}
-        size(12cm);
+        size(10cm);
         defaultpen(fontsize(10pt));
 
         pen pri=royalblue;
@@ -71,23 +71,22 @@ Let $ABC$ be a scalene triangle with circumcircle $\Gamma$, and let $M$ be the m
     \end{asy}
 \end{center}
 Let $B'$ and $C'$ lie on $\Gamma$ with $\seg{AM}\parallel\seg{BB'}\parallel\seg{CC'}$. Denote $S=\seg{BC}\cap\seg{B'C'}$, and let $\seg{AS}$ intersect $\Gamma$ again at $T$. I claim that $T$ is the fixed point.
-\setcounter{iclaim}0
-\begin{iclaim}
+\setcounter{claim}0
+\begin{claim}
     $BCXY$ is cyclic.
-\end{iclaim}
+\end{claim}
 \begin{proof}
-    By the Radical Axis Theorem, on $\Gamma$, $(BPM)$, and $(CPM)$, $\seg{AM}$, $\seg{BD}$, $\seg{CE}$ concur at a point $Q$. Let $R$ be the reflection of $Q$ over $M$, so that $BQCR$ is a parallelogram. By Reim's Theorem, $\seg{BY}\parallel\seg{CE}$, so $Y$ lies on $\seg{BR}$. Similarly $X$ lies on $\seg{CR}$, so $\seg{AM}$, $\seg{BY}$, $\seg{CX}$ concur at $R$.
+    By radical axes on $\Gamma$, $(BPM)$, $(CPM)$, we know $\seg{AM}$, $\seg{BD}$, $\seg{CE}$ concur at a point $Q$. Let $R$ be the point such that $BQCR$ is a parallelogram. By Reim's theorem on $(BPM)$ and $(CPM)$, $\seg{BY}\parallel\seg{CE}$, so $Y$ lies on $\seg{BR}$. Similarly $X$ lies on $\seg{CR}$, so $\seg{AM}$, $\seg{BY}$, $\seg{CX}$ concur at $R$.
 
-    Now it is easy to check that $RB\cdot RY=RP\cdot RM=RC\cdot RX$, as desired.
+    From here it is easy to check that $RB\cdot RY=RP\cdot RM=RC\cdot RX$, as desired.
 \end{proof}
-\begin{iclaim}
+\begin{claim}
     $B'C'XY$ is cyclic.
-\end{iclaim}
+\end{claim}
 \begin{proof}
-    First note that \[\da B'PM=\da PB'B=\da EB'B=\da ECB=\da ECM=\da EPM,\]
-    whence $B'$ lies on $\seg{PE}$. Similarly, $C'$ lies on $\seg{PD}$.
+    By Reim's theorem on $\Gamma$ and $(CPM)$, we have $E$, $P$, $B'$ collinear. Similarly $D$, $P$, $C'$ collinear.
 
-    Since $\da CXY=\da CBY=\da BCE=\da BDE$ and $\seg{CX}\parallel\seg{BD}$, it follows that $\seg{XY}\parallel\seg{DE}$, whence $B'C'XY$ is cyclic by Reim's Theorem.
+    Since $\da CXY=\da CBY=\da BCE=\da BDE$, we have $\seg{XY}\parallel\seg{DE}$, so $B'C'XY$ is cyclic by Reim's theorem.
 \end{proof}
 
-By the Radical Axis Theorem on $\Gamma$, $(BCXY)$, and $(B'C'XY)$, $S$ lies on $\seg{XY}$. To finish, just note that $SA\cdot ST=SB\cdot SC=SX\cdot SY$, whence $T$ lies on $(AXY)$. Since $T$ is fixed, we are done.
+By the Radical Axis Theorem on $\Gamma$, $(BCXY)$, $(B'C'XY)$, point $S$ lies on $\seg{XY}$. To finish, note that $SA\cdot ST=SB\cdot SC=SX\cdot SY$, whence $T$ lies on $(AXY)$. Since $T$ is fixed, we are done.

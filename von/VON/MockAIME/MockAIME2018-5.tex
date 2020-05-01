@@ -1,0 +1,15 @@
+desc: AIME FE
+source: Mock AIME 2018/5
+tags: [2019-12, answer, ceasy, alg, fe]
+
+---
+
+Denote by $S$ the set of real numbers $x$ such that $0\le x\le 10000$. Let $f:S\to\mathbb{R}$ be a function such that $$100f(xy) = f(x+y)f(x-y)+x+y$$ for all $x,y$ such that both sides are defined. Find the remainder when $f(2018)^2$ is divided by $1000$.
+
+---
+
+Plugging in $(0,0)$ results in $100f(0) = f(0)^2$. Either $f(0) = 0,100$. Then plug in $(x,0)$ to get $100f(0) = f(x)^2+x$, so if $f(0) = 0$ the function only outputs imaginary numbers for positive $x$. Then $100^2 = f(x)^2+x$, so $f(2019)^2 = 100^2-2018 = 7982$.
+
+---
+
+982

@@ -1,0 +1,16 @@
+desc: Complex x^2+1
+source: USAMO 2014/1
+tags: [2019-11, oly, easy, alg]
+
+---
+
+Let $a$, $b$, $c$, $d$ be real numbers such that $b-d\ge5$ and all zeros $x_1$, $x_2$, $x_3$, and $x_4$ of the polynomial $P(x)=x^4+ax^3+bx^2+cx+d$ are real. Find the smallest value the product $(x_1^2+1)(x_2^2+1)(x_3^2+1)(x_4^2+1)$ can take.
+
+---
+
+The answer is $16$. Let $i=\sqrt{-1}$. The key observation is that $x^2+1=(-i-x)(i-x)$, whence \[\prod_{k=1}^4\left(x_k^2+1\right)=\prod_{k=1}^4(-i-x_k)(i-x_k)=P(-i)P(i)=|P(i)|^2,\]
+where the last step is from $P(-i)=\seg{P(i)}$. But
+\begin{align*}
+|P(i)|^2&=|(1-b+d)+(c-a)i|=(1-b+d)^2+(c-a)^2\ge(1-5)^2=16.
+\end{align*}
+This value is attained when $x_1=x_2=x_3=x_4=1$, for which $b-d=5$ and $\prod_{k=1}^4\left(x_k^2+1\right)=16$. Hence, the answer is $16$, and we are done.

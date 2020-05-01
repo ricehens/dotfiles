@@ -1,6 +1,6 @@
 desc: Midpoint circle
 source: AIME I 2019/15
-tags: [2019-10, answer, ctricky, geo, projective]
+tags: [2019-10, answer, chard, geo, projective]
 
 ---
 
@@ -8,9 +8,10 @@ Let $\overline{AB}$ be a chord of circle $\omega$, and let $P$ be a point on cho
 
 ---
 
+\paragraph{First solution, by length argument}
 \begin{center}
     \begin{asy}
-        size(8cm);
+        size(6cm); defaultpen(fontsize(10pt));
         pair O, A, B, P, O1, O2, Q, X, Y;
         O=(0, 0);
         A=dir(140); B=dir(40);
@@ -43,12 +44,11 @@ so $OO_1O_2Q$ is an isosceles trapezoid. Since $\overline{O_1O_2}\perp\overline{
 
 By Power of a Point, $PX\cdot PY=PA\cdot PB=15$. Since $PX+PY=XY=11$ and $XQ=11/2$, \[XP=\frac{11-\sqrt{61}}2\implies PQ=XQ-XP=\frac{\sqrt{61}}2\implies PQ^2=\frac{61}4,\]
 and the requested sum is $61+4=65$.
-\end{solution}
-\begin{customsol}{2}
-    Let the tangents to $\omega$ at $A$ and $B$ intersect at $R$. Then, since $RA^2=RB^2$, $R$ lies on the radical axis of $\omega_1$ and $\omega_2$, which is $\overline{PQ}$. It follows that \[-1=(A,B;X,Y)\stackrel{A}{=}(R,P;X,Y).\]
+
+\paragraph{Second solution, by harmonic bundles} Let the tangents to $\omega$ at $A$ and $B$ intersect at $R$. Then, since $RA^2=RB^2$, $R$ lies on the radical axis of $\omega_1$ and $\omega_2$, which is $\overline{PQ}$. It follows that \[-1=(A,B;X,Y)\stackrel{A}{=}(R,P;X,Y).\]
     Let $Q'$ denote the midpoint of $\overline{XY}$. By the Midpoint of Harmonic Bundles Lemma, \[RP\cdot RQ'=RX\cdot RY=RA^2=RP\cdot RQ,\]
     whence $Q=Q'$. Like above, $XP=\frac{11-\sqrt{61}}2$. Since $XQ=\frac{11}2$, we establish that $PQ=\frac{\sqrt{61}}2$, from which $PQ^2=\frac{61}4$, and the requested sum is $61+4=65$.
-\end{customsol}
+
 
 ---
 

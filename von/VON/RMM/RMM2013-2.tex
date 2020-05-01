@@ -1,0 +1,68 @@
+desc: f(g(x))=g(f(x)) and f(h(x))=h(f(x)) imply f(x)=x
+source: RMM 2013/2
+tags: [2020-04, oly, hard, fe, free, construction, nice, waltz]
+
+---
+
+Do there exist functions $g,h:\mathbb R\to\mathbb R$ such that the only function $f:\mathbb R\to\mathbb R$ satisfying $f(g(x))=g(f(x))$ and $f(h(x))=h(f(x))$ for all $x\in\mathbb R$ is the identity function $f(x)=x$?
+
+---
+
+The answer is yes. Here are three constructions:
+
+\paragraph{First, ``conventional'' solution}     Take $g(x)=x+1$ and $h(x)=x^2$, so we have \[f(x+1)=f(x)+1\quad\text{and}\quad f\left(x^2\right)=f(x)^2\quad\text{for all }x.\]
+It is easy to check $f(n)=n$ for all $n\in\mathbb Z$. Indeed, $f(0)=f(0)^2$ and $f(1)=f(1)^2$, but $f(1)=f(0)+1$, so $f(0)=0$ and $f(1)=1$. Then $f(n)=n$ for all $n\in\mathbb Z$ follows from $f(g(x))=g(f(x))$.
+\setcounter{claim}0
+\begin{claim}
+    $f(x)\ge\lfloor x\rfloor$ for all $x$.
+\end{claim}
+\begin{proof}
+    By $f(g(x))=g(f(x))$ it suffices to prove the claim for $x\in[0,1)$. Assume the contrary: then \[f\left(\sqrt x\right)^2=f(x)<0,\]
+    contradiction.
+\end{proof}
+\begin{claim}
+    $f(x)\ge x$ for all $x$.
+\end{claim}
+\begin{proof}
+    By $f(g(x))=g(f(x))$ it suffices to prove the claim for $x\in[2012,2013)$. Let $\veps=x-f(x)>0$ by Claim 1. It is easy to check, say by induction, that \[f\left(x^{2^k}\right)=f(x)^{2^k}=(x-\veps)^{2^k}\ll x^{2^k}\]
+    for sufficiently large $k$; that is, eventually \[x^{2^k}-f\left(x^{2^k}\right)>1\implies f\left(x^{2^k}\right)<x^{2^k}-1<\left\lfloor x^{2^k}\right\rfloor,\]
+    which contradictions Claim 1.
+\end{proof}
+\begin{claim}
+    $f(x)=x$ for all $x$.
+\end{claim}
+\begin{proof}
+    By $f(g(x))=g(f(x))$ it suffices to prove the claim for $x\in[0,1)$. Assume for contradiction $f(x)>x$. Since $f(-x)^2=f(x^2)=f(x)^2$, we have $|f(-x)|=f(x)$. However if $f(x)>x$ and $f(-x)=-f(x)$, then $f(-x)<x$, contradiction by Claim 2.
+
+    Hence we have $f(-x)=f(x)$. Then \[f(1-x)=1+f(-x)=1+f(x)=f(1+x)=2+f(x-1)=2\pm f(1-x).\]
+    It follows that $f(1-x)=1$ and $f(x-1)=-1$, which contradicts Claim 2.
+\end{proof}
+
+Claim 3 is the desired conclusion, so we are done.
+
+\paragraph{Second solution (Colin Tang)}     Instead take $g(x)=x+1$ and $h(x)=\left\lfloor x^2\right\rfloor$, so we have \[f(x+1)=f(x)+1\quad\text{and}\quad \left\lfloor f\left(x^2\right)\right\rfloor=\left\lfloor f(x)^2\right\rfloor.\]
+It is easy to check $f(0)=0$ and $f(1)=1$. Indeed, $f(0)=\left\lfloor f(0)^2\right\rfloor$ and $f(1)=\left\lfloor f(1)^2\right\rfloor$, but $f(1)=f(0)+1$, so $f(0)=0$ and $f(1)=1$.
+
+Note that for each nonnegative integer $n$, if $\sqrt n\le x<\sqrt{n+1}$, then $\sqrt n\le f(x)<\sqrt{n+1}$ or $-\sqrt{n+1}<f(x)\le-\sqrt n$. The second case is impossible by $f(h(x))=h(f(x))$, so $\sqrt n\le f(x)<\sqrt{n+1}$.
+
+Then $\lim_{N\to\infty}f(x)-x=0$, so $f(x)=x$ for all $x$.
+
+\paragraph{Third solution (Ankan Bhattacharya)}     Let $S=\{0,1\}^{\mathbb N}$ be the set of all infinite binary sequences. Since $\mathbb R$ and $S$ are in bijection, we deal with $S$ only. Define
+\begin{align*}
+    g(x_1,x_2,\ldots)&=0,x_1,x_2,\ldots;\\
+    h(x_1,x_2,\ldots)&=1,x_1,x_2,\ldots.
+\end{align*}
+Thus we would have
+\begin{align*}
+    f(0,x_1,x_2,\ldots)&=0,f(x_1,x_2,\ldots);\\
+    f(1,x_1,x_2,\ldots)&=1,f(x_1,x_2,\ldots).
+\end{align*}
+In particular,
+\begin{align*}
+    f(x_0,x_1,x_2,\ldots)&=x_0,f(x_1,x_2,\ldots)\\
+    &=x_0,x_1,f(x_2,\ldots)\\
+    &=x_0,x_1,x_2,f(\ldots)\\
+    &\;\vdots
+\end{align*}
+forcing $f(s)=s$ for all $s\in S$, as desired.
+

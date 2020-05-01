@@ -1,0 +1,75 @@
+desc: Cone cross section
+source: Mock AIME 2018/8
+tags: [2019-12, answer, ctricky, geo, 3D]
+author: Jonathan Huang
+
+---
+
+The base of a cone with radius $1$ and height $\sqrt{3}$ lies on the horizontal. A plane $p$ passes through the cone and forms an angle of $30$ degrees with the horizontal. The intersection of the horizontal and $p$ is a line that is tangent to the base. The area of the cross section formed when $p$ passes through the cone is $N\pi$, and $N^2$ can be expressed in the form $\frac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+---
+
+Note that by definition, the cross section is an ellipse.
+\begin{center}
+    \begin{asy}
+        currentpicture=new picture;
+        size(8cm); defaultpen(fontsize(9pt));
+        import three;
+        import solids;
+
+        currentprojection=orthographic(1250,1000,250);
+
+        real r=1, h=sqrt(3);
+        triple O=(0,0,0);
+        triple A=(0,0,h);
+        triple B=(r,0,0);
+        triple C=-B;
+        triple D=(A+C)/2;
+        triple EE=C/2;
+        triple F=(B+EE)/2;
+        triple G=(1/3,0,0);
+        triple Mp=(1/3,-2*sqrt(2)/3,0);
+        triple Np=(1/3,2*sqrt(2)/3,0);
+        triple M=F+(0,-sqrt(2)/2,h/4);
+        triple NN=F+(0,sqrt(2)/2,h/4);
+        revolution rC=cone(O,r,h,axis=Z,n=1);
+
+        draw(surface(rC),springgreen+opacity(0.3));
+        draw(rotate(30.0,M,NN)*shift((r/4,0,h/4))*surface(scale(sqrt(3)/2,sqrt(2)/2)*circle((0,0), 1)),gray(0.9)+opacity(0.6));
+
+        label("$A$",A,N);
+        dot(Label("$O$",align=S),O);
+        dot(Label("$B$",align=SW),B);
+        dot(Label("$C$",align=S),C);
+        dot(Label("$D$",align=NE),D);
+        dot(Label("$E$",align=S),EE);
+        dot(Label("$F$",align=S),F);
+        dot(Label("$G$",align=S),G);
+        dot(Label("$M'$",align=S),Mp);
+        dot(Label("$N'$",align=S),Np);
+        dot(Label("$M$", align=W),M);
+        dot(Label("$N$", align=E),NN);
+
+        draw(circle(O, r),dashed);
+        draw(A--O,dashed);
+        draw(B--C,dashed);
+        draw(A -- Mp -- Np -- A,dashed);
+        draw(Mp -- O -- Np,dashed);
+        draw(B -- D,dashed);
+        draw(M -- NN,dashed);
+        draw(D -- EE, dashed);
+    \end{asy}
+\end{center}
+Let the vertex of the cone be $A$, and $B$ be the point of tangency between the base of the cone and the intersection of plane $p$ with the horizontal (which we will call $l$). Suppose $C$ lies on the base such that $\overline{BC}$ is a diameter. Let $D$ be the midpoint of $\overline{AC}$ and $O$ be the center of the base. Let $E$ be the foot of the perpendicular from $D$ to $\overline{BC}$, and $F$ be the midpoint of $\overline{BE}$. Let $\overline{MN}$ be the minor axis of the ellipse. Let $M'$ be the intersection of line $AM$ with the horizontal. Similarly define $N'$. Suppose the intersection of $\overline{BC}$ and $\overline{M'N'}$ is $G$. Let $P$ and $Q$ lie on the circumference of the base such that $\overline{PQ}$ lies directly under $\overline{MN}$, with $PM<PN$ and $QN<QM$. 
+
+Note that $M'$ and $N'$ lie on the circumference of the base, since $M$ and $N$ lie on the surface of the cone. It is easy to see that $\triangle ABC$ is an equilateral triangle with side length $2$. Then, $\overline{BD}$ is the major axis of the ellipse. In addition, it is easy to see that $AD=\sqrt{3}$, so the semi-major axis has length $\frac{\sqrt{3}}{2}$. It suffices to find $MN$. 
+
+Consider the distances of points from the horizontal. Call the distance from a point $X$ to the horizontal $z_X$. Then, $z_A=\sqrt{3}$, and thus $z_D=\frac{\sqrt{3}}{2}$. Note that $z_M=z_N=\frac{\sqrt{3}}{4}$, and $z_{M'}=z_{N'}=0$. Since $\triangle AMN\sim\triangle AM'N'$, $MN=\frac{3}{4}M'N'$. 
+
+Since $BE=\frac{3}{2}$, $BF=\frac{3}{4}$, and $OF=\frac{1}{4}$. Note that $F$ lies on $\overline{PQ}$. It follows by the similarity between $\triangle AMN$ and $\triangle AM'N'$ that $OG=\frac{4}{3}OF=\frac{1}{3}$. Since $OM'=ON'=1$, $GM'=GN'=\frac{2\sqrt{2}}{3}$, and $M'N'=\frac{4\sqrt{2}}{3}$. It follows that $MN=\sqrt{2}$, and the semi-minor axis of the ellipse is $\frac{\sqrt{2}}{2}$. 
+
+Then, the area of the ellipse is $\pi\cdot\frac{\sqrt{3}}{2}\cdot\frac{\sqrt{2}}{2}=\frac{\sqrt{6}}{4}\pi$. It follows that $N^2=\frac{3}{8}$, and the answer is $3+8=11$, and we are done.
+
+---
+
+011

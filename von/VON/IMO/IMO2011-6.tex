@@ -1,6 +1,6 @@
 desc: Reflection of tangent line form tangent circle
 source: IMO 2011/6
-tags: [2019-10, oly, brutal, geo, angle-chasing, projective, tangent]
+tags: [2019-10, oly, brutal, geo, angle-chasing, tangent]
 
 ---
 
@@ -11,7 +11,7 @@ Let $ABC$ be an acute triangle with circumcircle $\Gamma$. Let $\ell$ be a tange
 Let $\ell$ touch $\Gamma$ at $X$. Make the following definitions with cyclic variations defined similarly as well: Denote $A_1=\ell_b\cap\ell_c$ and $A'=\ell\cap\ell_a$. Let $X_A$ be the reflection of $X$ over $\overline{BC}$ and $Y_A=\overline{BX_C}\cap\overline{CX_B}$.
 \begin{center}
     \begin{asy}
-        size(12cm);
+        size(10cm);
         defaultpen(fontsize(9pt));
 
         pen pri=springgreen;
@@ -83,8 +83,8 @@ Let $\ell$ touch $\Gamma$ at $X$. Make the following definitions with cyclic var
         dot("$T$", T, T);
     \end{asy}
 \end{center}
-Since \[\measuredangle AB'C'=\measuredangle AB'X=-\measuredangle AB'X_B=-\measuredangle AB'A_1,\]
-and similarly $\measuredangle B'C'A=-\measuredangle A_1C'A$, $A$ is either the incenter of $A_1$-excenter of $\triangle A_1B'C'$. Thus, $\overline{A_1A}$ bisects $\angle C_1AB_1$, so by symmetry, $\overline{A_1A},\overline{B_1B},\overline{C_1C}$ concur at the incenter $I$ of $\triangle A_1B_1C_1$. Now, remark that \[\measuredangle BAC=90^\circ-\measuredangle B'A_1I=\measuredangle B_1IC=\measuredangle BIC,\]
+Since \[\measuredangle AB'C'=\measuredangle AB'X=\measuredangle X_BB'A=\measuredangle A_1B'A,\]
+and similarly $\measuredangle B'C'A=\measuredangle AC'A_1$, $A$ is either the incenter of $A_1$-excenter of $\triangle A_1B'C'$. Thus, $\overline{A_1A}$ bisects $\angle C_1AB_1$, so by symmetry, $\overline{A_1A}$, $\overline{B_1B}$, $\overline{C_1C}$ concur at the incenter $I$ of $\triangle A_1B_1C_1$. Now, remark that \[\measuredangle BAC=90^\circ-\measuredangle B'A_1I=\measuredangle B_1IC=\measuredangle BIC,\]
 whence $I\in(ABC)$. Since $\ell$ is tangent to $(ABC)$, $\ell_a$ is tangent to $(X_ABC)$, so \[\measuredangle ABY_A=\measuredangle ABX_C=\measuredangle XBA=\measuredangle XCA=\measuredangle ACX_B=\measuredangle ACY_A,\]
 so $Y_A\in(ABC)$. By symmetry, $Y_B,Y_C\in(ABC)$ as well. Then, \[\measuredangle Y_BY_CB=\measuredangle Y_BCB=\measuredangle X_ACB=\measuredangle B_1X_AB,\]
-so $\overline{Y_BY_C}\parallel\ell_a$, from which by symmetry, $\triangle A_1B_1C_1$ and $\triangle Y_AY_BY_C$ are homothetic. However, since $B_1,C_1,X_A$ are collinear, by the converse of Pascal's Theorem on $Y_BTY_CBIC$, $T\in\Gamma$, so $\Gamma$ and $(A_1B_1C_1)$ are tangent at $T$, as desired.
+so $\overline{Y_BY_C}\parallel\ell_a$, from which by symmetry, $\triangle A_1B_1C_1$ and $\triangle Y_AY_BY_C$ are homothetic, say with center $T$. However, since $B_1,C_1,X_A$ are collinear, by the converse of Pascal's Theorem on $Y_BTY_CBIC$, $T\in\Gamma$, so $\Gamma$ and $(A_1B_1C_1)$ are tangent at $T$, as desired.

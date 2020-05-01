@@ -1,0 +1,22 @@
+desc: Amicable pairs
+source: USA TST 2014/3
+tags: [2020-03, oly, tricky, combo, graph, global, nice]
+
+---
+
+Let $n$ be an even positive integer, and let $G$ be an $n$-vertex simple graph with exactly $\tfrac{n^2}{4}$ edges. An unordered pair of distinct vertices $\{x,y\}$ is said to be \emph{amicable} if they have a common neighbor (i.e.\ there is a vertex $z$ such that $xz$ and $yz$ are both edges). Prove that $G$ has at least $2\tbinom{n/2}{2}$ amicable pairs of vertices.
+
+---
+
+Let $G$ have edge set $E$ with cardinality $|E|=\tfrac{n^2}4$. For each $v\in G$, Let $N(v)$ be the set of vertices adjacent to $v$, so that $|N(v)|=\deg v$. The pith of this problem is this infamous paradox:
+\begin{lemma*}[Friendship paradox: On average, your friends are more popular than you]
+    If a vertex $v$ is chosen from $G$, then \[\mathop{\mathbb E}_{v\in G}\left[\mathop{\mathbb E}_{u\in N(v)}[\deg u]\right]\ge\mathop{\mathbb E}_{v\in G}[\deg v],\]
+    with equality if and only if the connected components of $G$ are regular.
+\end{lemma*}
+\begin{proof}
+    The proof is by taking the sum over all $v$: \[\sum_{v\in G}\frac1{\deg v}\sum_{u\in N(v)}\deg u=\sum_{uv\in E}\left(\frac{\deg u}{\deg v}+\frac{\deg v}{\deg u}\right)\ge 2|E|=\sum_{v\in G}\deg v.\]
+    Equality holds if and only if $\deg u=\deg v$ for all edges $uv$; i.e.\ if $G$ is comprised of disjoint regular graphs.
+\end{proof}
+
+We use a much weaker form of the lemma: on average, your most popular friend is more popular than you. This gives \[\sum_{v\in G}\left\lvert N^2(v)\right\rvert\ge\sum_{v\in G}\left(\max_{u\in N(v)}\deg u-1\right)\ge\sum_{v\in G}(\deg v-1)=2|E|-n=4\binom{n/2}2,\]
+and we are done.

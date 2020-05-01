@@ -1,22 +1,61 @@
 desc: Inversions invariant on sequence
 source: USAMO 2017/2
-tags: [2019-10, oly, hard, combo]
+tags: [2019-10, oly, hard, combo, genfunc]
 
 ---
 
-Let $m_1,m_2,\ldots,m_n$ be a collection of $n$ positive integers, not necessarily distinct. For any sequence of integers $A=(a_1,\ldots,a_n)$ and any permutation $w=w_1,\ldots,w_n$ of $m_1,\ldots,m_n$, define an \textit{$A$-inversion} to be a pair of entries $w_i,w_j$ with $i<j$ for which one of the following conditions holds:
+Let $m_1$, $m_2$, $\ldots$, $m_n$ be $n$ (not necessarily distinct) positive integers. For any sequence of integers $A=(a_1,\ldots,a_n)$ and any permutation $w=(w_1,\ldots,w_n)$ of $(m_1,\ldots,m_n)$, define an \emph{$A$-inversion} of $\omega$ to be a pair of indices $i$, $j$ with $i<j$ for which one of the following conditions holds:
 \begin{itemize}[itemsep=0em]
     \item $a_i\ge w_i>w_j$,
     \item $w_j>a_i\ge w_i$, or
     \item $w_i>w_j>a_i$.
 \end{itemize}
-Show that, for any two sequences of integers $A=(a_1,\ldots,a_n)$ and $B=(b_1,\ldots,b_n)$, and for any positive integer $k$, the number of permutations of $m_1,\ldots,m_n$ having exactly $k$ $A$-inversion is equal to the number of permutations of $m_1,\ldots,m_n$ having exactly $k$ $B$-inversions.
+Show that, for any two sequences of integers $A=(a_1,\ldots,a_n)$ and $B=(b_1,\ldots,b_n)$, and for any positive integer $k$, the number of permutations of $(m_1,\ldots,m_n)$ having exactly $k$ $A$-inversions is equal to the number of permutations of $(m_1,\ldots,m_n)$ having exactly $k$ $B$-inversions.
 
 ---
 
-Suppose that $m_1\le m_2\le m_3\le\cdots\le m_n$. Define $s_1,s_2,\ldots,s_n\in\{1,2,\ldots,n\}$ so that $s_i$ is the smallest positive integer $1\le s_i\le n$ such that $a_i\le m_{s_i}$, or $s_i=1$ if $a_i>m_n$. Call the $A$-inversion set $\pi_1,\pi_2,\ldots,\pi_n$ of $\{w_i\}$ the collection of positive integers such that for all $i$, $\pi_i$ is the number of $j>i$ such that the entries $w_i,w_j$ form an inversion. First define $\{\pi_i\}$ as the $(0,0,\ldots,0)$-inversion set, and call it the $0$-inversion set. We prove that for any $A$, each $0$-inversion set maps to a permutation. First assume $\{m_i\}$ are all pairwise distinct.
+We will prove for any $A$ that the number of permutations having exactly $k$ $A$-inversions equals the number of permutations having exactly $k$ inversions, where an inversion is a pair of indices $i$, $j$ with $i<j$ and $a_i>a_j$.
 
-We take indices of $m$ modulo $n$. We prove the desired claim by induction on $n$. The base case is trivial. Now, given some $\{\pi_i\}$, let \[w_1=m_{s_1+\pi_1}.\]
-It is not hard to check that the definition of $\pi_1$ is satisfied. We can now assign $(w_2,\ldots,w_n)$ by our inductive step.
+The proof proceeds in two main steps:
+\begin{enumerate}[label=(\roman*),itemsep=0em]
+    \item Prove the problem for $m_1<\cdots<m_n$ (all distinct).
+    \item Extend to all $m_1\le\cdots\le m_n$ (not necessarily distinct).
+\end{enumerate}
 
-Now, we can easily extend this to potentially equal $\{m_i\}$. For each duplicate element, the $0$-inversion sets are also identical, and there are  also the same number of permutations with that number of inversions. Hence, we are done.
+\paragraph{First, combinatorial proof of (i)} Let $\operatorname{Inv}_A(i)$ be the number of $j>i$ such that $(w_i,w_j)$ is an $A$-inversion. We will construct a bijection between $(w_1,\ldots,w_n)$ with $k$ $A$-inversions and $(p_1,\ldots,p_n)$ with $k$ inversions. The process is as follows:
+\begin{quote}
+    For each $i=n,\ldots,1$, write the variable $p_i$ on the board such that $p_i$ is the $(\operatorname{Inv}_A(i)+1)$th element from the left. (For instance, we first write $p_n$ on the board; then, if $\operatorname{Inv}_A(n-1)=0$, we write $p_{n-1}$ to the left of $p_n$, and if $\operatorname{Inv}_A(n-1)=1$, we write $p_{n-1}$ to the right of $p_n$.) Then set the $i$th variable from the left equal to $m_i$. (For instance, if the board reads $p_3$, $p_1$, $p_2$, then we have $p_3=m_1$, $p_1=m_2$, $p_2=m_3$.)
+\end{quote}
+By design, for each $i$, the number of $j<i$ with $p_i<p_j$ equals $\operatorname{Inv}_A(i)$. Hence the number of inversions of $(p_1,\ldots,p_n)$ equals the number of $A$-inversions of $(w_1,\ldots,w_n)$.
+
+This operation is clearly injective, thus it is a bijection, and the proof is complete.
+
+\paragraph{Second, inductive proof of (i), with generating functions} We claim via induction on $n$ that the generating function for the number of permutations having $k$ $A$-inversions is always \[n!_x=1\cdot(1+x)\cdot\left(1+x+x^2\right)\cdots\left(1+x+\cdots+x^{n-1}\right).\]
+(Here, the number of permutations having $k$ $A$-inversions is the coefficient of $x^k$.)
+
+The base case $n=1$ is clear. Assume the claim is true for $n-1$, and let $m_k\le a_1\le m_{k+1}$ (with $m_0=\infty$, $m_{n+1}=\infty$).
+\begin{itemize}
+    \item For $i\ge0$, if $w_1=m_{k-i}$, then there are $n-i-1$ inversions with $w_1$. (Namely $(w_1,w_j)$ with $j<k-i$ or $j\ge k+1$.) Thus this case contributes a $x^{n-i-1}(n-1)!_x$ term.
+    \item For $i>0$, if $w_i=m_{k+i}$, then there are $i-1$ inversions with $w_1$. (Namely $(w_1,w_j)$, with $k+1\le j<k+i$.) Thus this case contributes a $x^i(n-1)!_x$ term.
+\end{itemize}
+The new generating function is then \[n!_x=(n-1)!_x\left(\sum_{i=0}^{k-1}x^{n-i-1}+\sum_{i=1}^{n-k}x^{i-1}\right)=(n-1)!_x\left(1+x+\cdots+x_{n-1}\right),\]
+as needed.
+
+\paragraph{Proof of (ii), with generating functions} What follows is really a combinatorial argument, but expressing it without generating functions is a huge pain.
+
+We reuse notation from the generating functions proof of (i), where $n!_x$ is the generating function for the number of permutations of $(m_1,\ldots,m_n)$ having $k$ $A$-inversions. (It is not necessary to know the explicit form for $n!_q$ that we used above.)
+
+Let the multiset $\{m_1,\ldots,m_n\}$ contain $k$ distinct integers $\lambda_1<\cdots<\lambda_k$ with multiplicity $c_1$, $\ldots$, $c_k$ respectively. Let $F(x)$ be the generating function for the number of permutations of $(m_1,\ldots,m_n)$ having $k$ $A$-inversions, with multiplicity (so $F(1)=n!$).
+\begin{claim*}
+    The explicit form for $F(x)$ is \[F(x)=n!_x\cdot\frac{c_1!c_2!\cdots c_k!}{c_1!_xc_2!_x\cdots c_k!_x}.\]
+\end{claim*}
+\begin{proof}
+    Slightly perturb each $m_i$, replacing $m_i$ with $m_i+i\veps$, where $0<\veps\ll1/n$. Then the generating function is $n!_x$. (Obviously both proofs to (i) still hold when $(m_1,\ldots,m_n)$ are real numbers.)
+
+    Next we undo each perturbation. For $i=1,\ldots,k$, I claim the excessive ordering of the $c_i$ instances of $\lambda_i$ contribute an overcount of $c_i!_x/c_i!$. Indeed, there is a factor of $c_i!_x$ that should instead be $c_i!\cdot x^0$, since there are no inversions between equivalent elements of the permutation.
+
+    Undoing the overcounts, the claim then follows.
+\end{proof}
+
+The $x^k$ coefficient of $F(x)$ is the number of permutations having $k$ $A$-inversions. This is independent of $A$, so we are done.
+

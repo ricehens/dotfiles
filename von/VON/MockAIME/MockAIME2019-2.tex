@@ -1,0 +1,22 @@
+desc: logx(yz)=59 and logy(zx)=89
+source: Mock AIME 2019/2
+tags: [2019-10, answer, ceasy, alg, log]
+author: Eric Shen
+
+---
+
+There are positive real numbers $x,y,z$ such that $\log_x(yz)=59$ and $\log_y(zx)=89$. Find $\log_{xy}(z)$.
+
+---
+
+\paragraph{First solution}     We are given that $x^{59}=yz$ and $y^{89}=zx$. Then, \[z=\frac{x^{59}}y=\frac{y^{89}}x,\]
+and multiplying gives  $x^{60}=y^{90}$, or $x^2=y^3$. Thus, there exists a real number $t$ such that $x=t^3$ and $y=t^2$. Furthermore, \[z=\frac{(t^3)^{59}}{t^2}=t^{175},\]
+whence \[\log_{xy}(z)=\frac{\log_t z}{\log_t x+\log_t y}=\frac{175}{3+2}=35,\]
+the answer.
+
+\paragraph{Second solution}     Let $a=59$ and $b=89$. We have that $x^a=yz$ and $y^b=zx$. The latter gives $x=y^bz^{-1}$, so plugging into the first, $y^{ab}z^{-a}=yz$, whence $y^{ab-1}=z^{a+1}$. Then, \[\log_z y=\frac{a+1}{ab-1}\text{ and }\log_z x=\frac{ab+b}{ab-1}-1=\frac{b+1}{ab-1}.\] It follows that \[\frac1{\log_{xy} z}=\log_z x+\log_z y=\frac{b+1}{ab-1}+\frac{a+1}{ab-1}=\frac{a+b+2}{ab-1}=\frac1{35},\]and the answer is $35$.
+
+
+---
+
+035

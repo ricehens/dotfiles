@@ -1,0 +1,29 @@
+desc: Linear recurrence arbitrarily large and small
+source: ELMO 2011/3
+tags: [2020-04, oly, tricky, alg, sequence, free, nice, waltz]
+
+---
+
+Determine whether there exist two real numbers $x$, $y$ and a sequence $(a_n)_{n\ge0}$ of nonzero real numbers such that 
+\begin{itemize}[itemsep=0em]
+    \item $a_{n+2}=xa_{n+1}+ya_n$ for all $n\ge0$; and
+    \item for every positive real number $r$, there exist positive integers $i$, $j$ such that $|a_i|<r<|a_j|$.
+\end{itemize}
+
+---
+
+The answer is yes. Define \[t_n:=\underbrace{2^{2^{2^{\cdot^{\cdot^{\cdot^2}}}}}}_{n\text{ twos}}\quad\text{and}\quad\nu:=\frac1{t_1}+\frac1{t_2}+\frac1{t_3}+\cdots,\]
+which is irrational since its binary representation is not periodic. Select a real number $r\in(1,16)$, and let $z:=re^{2\pi i\cdot\nu}$. I claim the sequence $a_n:=z^n+z^{-n}$ works.
+
+It is easy to check $(a_n)_{n\ge0}$ satisfies a linear recurrence and is always real. Furthermore $a_n=\operatorname{Re}(z^n)$, which is clearly unbounded. It suffices to show $|a_n|$ can be arbitrarily small.
+
+Consider $n=t_k/4$ for sufficiently large $k$. We have
+\begin{align*}
+    |a_n|&=\left\lvert r^{t_k/4}\operatorname{Re}\exp\left(2\pi i\sum_{j\ge1}\frac{t_k}{4t_j}\right)\right\rvert\\
+    &=\left\lvert r^{t_k/4}\cos\left(2\pi\left(\frac14+\frac{t_k}{4t_{k+1}}+\cdots\right)\right)\right\rvert\\
+    &=\left\lvert r^{t_k/4}\cos\left(\frac{\pi}2+\frac\pi2\cdot\frac{t_k}{t_{k+1}}+\cdots\right)\right\rvert\\
+    &<\left\lvert r^{t_k/4}\cos\left(\frac{\pi}2+\frac\pi2\cdot\frac{t_k}{t_{k+1}}\right)\right\rvert\\
+    &=r^{t_k/4}\sin\left(\frac\pi2\cdot\frac{t_k}{2^{t_k}}\right)\\
+    &<r^{t_k/4}\left(\frac\pi2\cdot\frac{t_k}{2^{t_k}}\right).
+\end{align*}
+which can be arbitrarily small.

@@ -8,67 +8,65 @@ Let $\Gamma$ be the circumcircle of acute triangle $ABC$. Points $D$ and $E$ are
 
 ---
 
-\begin{customenv}{First solution, by constructing parallelograms}
-    Construct points $P$ and $Q$ on $\Gamma$ such that $ABFP$ and $ACGQ$ are isosceles trapezoids, and let $M$ and $N$ be the midpoints of minor arcs $AB$ and $AC$ respectively. It is obvious that $M$ and $N$ are the midpoints of arcs $PF$ and $QG$ as well. Since $AP=BF=DF$ and $AQ=CG=EG$, $APFD$ and $AQGE$ are parallelograms.
-    \begin{center}
-        \begin{asy}
-            size(7cm);
-            defaultpen(fontsize(10pt));
+\paragraph{First solution, by constructing parallelograms}     Construct points $P$ and $Q$ on $\Gamma$ such that $ABFP$ and $ACGQ$ are isosceles trapezoids, and let $M$ and $N$ be the midpoints of minor arcs $AB$ and $AC$ respectively. It is obvious that $M$ and $N$ are the midpoints of arcs $PF$ and $QG$ as well. Since $AP=BF=DF$ and $AQ=CG=EG$, $APFD$ and $AQGE$ are parallelograms.
+\begin{center}
+    \begin{asy}
+        size(6cm);
+        defaultpen(fontsize(10pt));
 
-            pen pri=heavygreen;
-            pen sec=chartreuse+linewidth(1);
-            pen tri=springgreen+linewidth(1);
-            pen qua=lightgreen;
-            pen fil=pri+opacity(0.05);
-            pen sfil=sec+opacity(0.05);
-            pen tfil=tri+opacity(0.05);
-            pen qfil=qua+opacity(0.05);
+        pen pri=heavygreen;
+        pen sec=chartreuse+linewidth(1);
+        pen tri=springgreen+linewidth(1);
+        pen qua=lightgreen;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+        pen qfil=qua+opacity(0.05);
 
-            pair O, A, B, C, M, NN, F, G, D, EE, P, Q;
-            O=(0,0);
-            A=dir(110);
-            B=dir(220);
-            C=dir(320);
-            M=unit(A+B);
-            NN=unit(A+C);
-            F=dir(190);
-            G=M*NN/F;
-            D=2*foot(F,A,B)-B;
-            EE=2*foot(G,A,C)-C;
-            P=A*B/F;
-            Q=A*C/G;
+        pair O, A, B, C, M, NN, F, G, D, EE, P, Q;
+        O=(0,0);
+        A=dir(110);
+        B=dir(220);
+        C=dir(320);
+        M=unit(A+B);
+        NN=unit(A+C);
+        F=dir(190);
+        G=M*NN/F;
+        D=2*foot(F,A,B)-B;
+        EE=2*foot(G,A,C)-C;
+        P=A*B/F;
+        Q=A*C/G;
 
-            filldraw(circle(O,1),fil,pri);
-            draw(A--B--C--A,pri);
-            draw(D--EE,pri);
-            draw(P--A--Q,sec);
-            draw(B--F--D,sec);
-            draw(C--G--EE,sec);
-            draw(F--P,tri);
-            draw(G--Q,tri);
-            draw(D--A--EE,tri);
-            fill(A--P--F--D--cycle,tfil);
-            fill(A--Q--G--EE--cycle,tfil);
-            fill(B--F--D--cycle,sfil);
-            fill(C--G--EE--cycle,sfil);
-            filldraw(M--NN--G--F--cycle,qfil,qua);
+        filldraw(circle(O,1),fil,pri);
+        draw(A--B--C--A,pri);
+        draw(D--EE,pri);
+        draw(P--A--Q,sec);
+        draw(B--F--D,sec);
+        draw(C--G--EE,sec);
+        draw(F--P,tri);
+        draw(G--Q,tri);
+        draw(D--A--EE,tri);
+        fill(A--P--F--D--cycle,tfil);
+        fill(A--Q--G--EE--cycle,tfil);
+        fill(B--F--D--cycle,sfil);
+        fill(C--G--EE--cycle,sfil);
+        filldraw(M--NN--G--F--cycle,qfil,qua);
 
-            dot("$A$",A,A);
-            dot("$B$",B,B);
-            dot("$C$",C,C);
-            dot("$D$",D,NW);
-            dot("$E$",EE,dir(60));
-            dot("$F$",F,F);
-            dot("$G$",G,G);
-            dot("$M$",M,M);
-            dot("$N$",NN,NN);
-            dot("$P$",P,P);
-            dot("$Q$",Q,Q);
-        \end{asy}
-    \end{center}
-    Note that $PF=AD=AE=QG$, so $\widehat{PF}=\widehat{QG}$ and thus $\widehat{MF}=\widehat{NG}$. It follows that $FGNM$ is an isosceles trapezoid, so $\seg{FG}\parallel\seg{MN}$. But both $\seg{DE}$ and $\seg{MN}$ are perpendicular to the internal angle bisector of $\angle A$, so $\seg{DE}$ and $\seg{FG}$ are parallel, as desired. 
-\end{customenv}
-\begin{customenv}{Second solution, by angle chasing}
-    Let $\seg{FD}$ and $\seg{GE}$ intersect $\Gamma$ again at $X$ and $Y$ respectively. Notice that \[\da AXD=\da AXF=\da ABF=\da DBF=\da FDB=\da XDA,\]
-    whence $AX=AD$. Analogously, $AY=AE$, so $D$, $E$, $X$, $Y$ lie on a circle with center $A$. Finally, by Reim's Theorem, $\seg{DE}\parallel\seg{FG}$, as desired.
-\end{customenv}
+        dot("$A$",A,A);
+        dot("$B$",B,B);
+        dot("$C$",C,C);
+        dot("$D$",D,NW);
+        dot("$E$",EE,dir(60));
+        dot("$F$",F,F);
+        dot("$G$",G,G);
+        dot("$M$",M,M);
+        dot("$N$",NN,NN);
+        dot("$P$",P,P);
+        dot("$Q$",Q,Q);
+    \end{asy}
+\end{center}
+Note that $PF=AD=AE=QG$, so $\widehat{PF}=\widehat{QG}$ and thus $\widehat{MF}=\widehat{NG}$. It follows that $FGNM$ is an isosceles trapezoid, so $\seg{FG}\parallel\seg{MN}$. But both $\seg{DE}$ and $\seg{MN}$ are perpendicular to the internal angle bisector of $\angle A$, so $\seg{DE}$ and $\seg{FG}$ are parallel, as desired. 
+
+\paragraph{Second solution, by angle chasing}     Let $\seg{FD}$ and $\seg{GE}$ intersect $\Gamma$ again at $X$ and $Y$ respectively. Notice that \[\da AXD=\da AXF=\da ABF=\da DBF=\da FDB=\da XDA,\]
+whence $AX=AD$. Analogously, $AY=AE$, so $D$, $E$, $X$, $Y$ lie on a circle with center $A$. Finally, by Reim's Theorem, $\seg{DE}\parallel\seg{FG}$, as desired.
+

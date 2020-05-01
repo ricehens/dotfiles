@@ -1,6 +1,6 @@
 desc: Taiwan TST Sweep
 source: Taiwan TST 2014/3/3
-tags: [2019-10, oly, hard, geo, inversion, spiral-sim, involution]
+tags: [2019-10, oly, tricky, geo, inversion, spiral-sim, involution]
 
 ---
 
@@ -8,174 +8,170 @@ Let $ABC$ be a triangle with circumcircle $\Gamma$ and let $M$ be an arbitrary p
 
 ---
 
-\begin{customenv}{First solution, by inversion}
-    Let the incircle touch $\overline{BC},\overline{CA},\overline{AB}$ at $D,E,F$, respectively, and let $\overline{MX_1}$ and $\overline{MX_2}$ touch the incircle at $Y_1$ and $Y_2$, respectively. Denote by $I,K,T,H,N$ the incenter of $\triangle ABC$, the midpoint of arc $BAC$ on $\Gamma$, the point where the mixtilinear incircle of $\triangle ABC$ touches $\Gamma$, the orthocenter of $\triangle DEF$, and the nine-point center of $\triangle DEF$.
-    \begin{center}
-        \begin{asy}
-            size(12cm);
-            defaultpen(fontsize(10pt));
+\paragraph{First solution, by inversion}     Let the incircle touch $\overline{BC},\overline{CA},\overline{AB}$ at $D,E,F$, respectively, and let $\overline{MX_1}$ and $\overline{MX_2}$ touch the incircle at $Y_1$ and $Y_2$, respectively. Denote by $I,K,T,H,N$ the incenter of $\triangle ABC$, the midpoint of arc $BAC$ on $\Gamma$, the point where the mixtilinear incircle of $\triangle ABC$ touches $\Gamma$, the orthocenter of $\triangle DEF$, and the nine-point center of $\triangle DEF$.
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
 
-            pen pri=deepblue;
-            pen sec=blue;
-            pen tri=royalblue;
-            pen qua=Cyan;
-            pen fil=deepblue+opacity(0.05);
-            pen sfil=blue+opacity(0.05);
-            pen tfil=royalblue+opacity(0.05);
-            pen qfil=Cyan+opacity(0.05);
+        pen pri=deepblue;
+        pen sec=blue;
+        pen tri=royalblue;
+        pen qua=Cyan;
+        pen fil=deepblue+opacity(0.05);
+        pen sfil=blue+opacity(0.05);
+        pen tfil=royalblue+opacity(0.05);
+        pen qfil=Cyan+opacity(0.05);
 
-            pair A, B, C, I, K, T, D, EE, F, H, As, Bs, Cs, M, Y1, Y2, X1, X2, X1s, X2s, Ts, Ms, Hp;
+        pair A, B, C, I, K, T, D, EE, F, H, As, Bs, Cs, M, Y1, Y2, X1, X2, X1s, X2s, Ts, Ms, Hp;
 
-            A=dir(110);
-            B=dir(220);
-            C=dir(320);
-            I=incenter(A, B, C);
-            K=dir(90);
-            T=intersectionpoint(I -- (I+100*(I-K)), circumcircle(A, B, C));
-            D=foot(I, B, C);
-            EE=foot(I, C, A);
-            F=foot(I, A, B);
-            H=orthocenter(D, EE, F);
-            As=(EE+F)/2;
-            Bs=(F+D)/2;
-            Cs=(D+EE)/2;
-            M=dir(290);
-            Y1=intersectionpoints(circle((I+M)/2, length(I-M)/2), incircle(A, B, C))[1];
-            Y2=intersectionpoints(circle((I+M)/2, length(I-M)/2), incircle(A, B, C))[0];
-            X1=extension(B, C, M, Y1);
-            X2=extension(B, C, M, Y2);
-            X1s=(D+Y1)/2;
-            X2s=(D+Y2)/2;
-            Ts=H+I-As;
-            Ms=(Y1+Y2)/2;
-            Hp=2Ms-H;
+        A=dir(110);
+        B=dir(220);
+        C=dir(320);
+        I=incenter(A, B, C);
+        K=dir(90);
+        T=intersectionpoint(I -- (I+100*(I-K)), circumcircle(A, B, C));
+        D=foot(I, B, C);
+        EE=foot(I, C, A);
+        F=foot(I, A, B);
+        H=orthocenter(D, EE, F);
+        As=(EE+F)/2;
+        Bs=(F+D)/2;
+        Cs=(D+EE)/2;
+        M=dir(290);
+        Y1=intersectionpoints(circle((I+M)/2, length(I-M)/2), incircle(A, B, C))[1];
+        Y2=intersectionpoints(circle((I+M)/2, length(I-M)/2), incircle(A, B, C))[0];
+        X1=extension(B, C, M, Y1);
+        X2=extension(B, C, M, Y2);
+        X1s=(D+Y1)/2;
+        X2s=(D+Y2)/2;
+        Ts=H+I-As;
+        Ms=(Y1+Y2)/2;
+        Hp=2Ms-H;
 
-            filldraw(circumcircle(A, B, C), fil, pri);
-            filldraw(incircle(A, B, C), sfil, sec);
-            filldraw(circumcircle(As, Bs, Cs), tfil, tri);
-            filldraw(circumcircle(M, X1, X2), fil, pri);
-            draw(A -- B -- C -- A, pri);
-            draw(D -- EE -- F -- D, sec);
-            draw(As -- Bs -- Cs -- As, tri);
-            draw(T -- K, pri);
-            draw(A -- I -- M, qua+dashed);
-            draw(B -- I -- C, qua+dashed);
-            draw(X1 -- I -- X2, tri+dashed);
-            draw(D -- Y1 -- Y2 -- D, sec);
-            draw(D -- H -- Hp, tri);
-            draw(Y1 -- M -- Y2, pri);
+        filldraw(circumcircle(A, B, C), fil, pri);
+        filldraw(incircle(A, B, C), sfil, sec);
+        filldraw(circumcircle(As, Bs, Cs), tfil, tri);
+        filldraw(circumcircle(M, X1, X2), fil, pri);
+        draw(A -- B -- C -- A, pri);
+        draw(D -- EE -- F -- D, sec);
+        draw(As -- Bs -- Cs -- As, tri);
+        draw(T -- K, pri);
+        draw(A -- I -- M, qua+dashed);
+        draw(B -- I -- C, qua+dashed);
+        draw(X1 -- I -- X2, tri+dashed);
+        draw(D -- Y1 -- Y2 -- D, sec);
+        draw(D -- H -- Hp, tri);
+        draw(Y1 -- M -- Y2, pri);
 
-            dot("$A$", A, A);
-            dot("$B$", B, B);
-            dot("$C$", C, C);
-            dot("$I$", I, W);
-            dot("$K$", K, K);
-            dot("$T$", T, SW);
-            dot("$D$", D, SE);
-            dot("$E$", EE, NE);
-            dot("$F$", F, W);
-            dot("$H$", H, NW);
-            dot("$A^*$", As, NW);
-            dot("$B^*$", Bs, S);
-            dot("$C^*$", Cs, E);
-            dot("$M$", M, SE);
-            dot("$Y_1$", Y1, SW);
-            dot("$Y_2$", Y2, E);
-            dot("$X_1$", X1, SW);
-            dot("$X_2$", X2, SW);
-            dot("$X_1^*$", X1s, N);
-            dot("$X_2^*$", X2s, E);
-            dot("$T^*$", Ts, NE);
-            dot("$M^*$", Ms, N);
-            dot("$H'$", Hp, S);
-        \end{asy}
-    \end{center}
+        dot("$A$", A, A);
+        dot("$B$", B, B);
+        dot("$C$", C, C);
+        dot("$I$", I, W);
+        dot("$K$", K, K);
+        dot("$T$", T, SW);
+        dot("$D$", D, SE);
+        dot("$E$", EE, NE);
+        dot("$F$", F, W);
+        dot("$H$", H, NW);
+        dot("$A^*$", As, NW);
+        dot("$B^*$", Bs, S);
+        dot("$C^*$", Cs, E);
+        dot("$M$", M, SE);
+        dot("$Y_1$", Y1, SW);
+        dot("$Y_2$", Y2, E);
+        dot("$X_1$", X1, SW);
+        dot("$X_2$", X2, SW);
+        dot("$X_1^*$", X1s, N);
+        dot("$X_2^*$", X2s, E);
+        dot("$T^*$", Ts, NE);
+        dot("$M^*$", Ms, N);
+        dot("$H'$", Hp, S);
+    \end{asy}
+\end{center}
 
-    Invert through the incircle, denoting inversion by a star. For all points $P$, denote by $\psi_P$ the homothety centered at $P$ with scale factor $2$, and let $\phi$ denote the homothety with scale factor $-1$ centered at $M^*$.
+Invert through the incircle, denoting inversion by a star. For all points $P$, denote by $\psi_P$ the homothety centered at $P$ with scale factor $2$, and let $\phi$ denote the homothety with scale factor $-1$ centered at $M^*$.
 
-    It is easy to check that $\triangle A^*B^*C^*$ and $\triangle DX_1^*X_2^*$ are the medial triangles of $\triangle DEF$ and $\triangle DY_2Y_1$, respectively. It is well-known that $\psi_H(A^*)$ is the antipode of $D$ on $(DEF)$, so $\overline{A^*N}\perp\overline{BC}$. Furthermore, \[\measuredangle A^*M^*T^*=\measuredangle IM^*T^*=-\measuredangle ITM=-\measuredangle KTM=90^\circ,\]
-    so $T^*$ is the antipode of $A^*$ with respect to $\Gamma^*$. Furthermore, $\psi_H(T^*)=D$. Let $D'=\psi_D(M^*)$. Since $M^*$ lies on the nine-point circle of $\triangle DEF$, if $H'=\phi(H)$, then $H'\in(DEF)$. Hence, $DY_2Y_1H'$ is cyclic. Since $\phi(D'Y_1Y_2H)=DY_2Y_1H'$, we have that $D'Y_1Y_2H$ is cyclic, and since $\psi_D(M^*X_1^*X_2^*T^*)=D'Y_1Y_2H$, we have that $M^*X_1^*X_2^*T^*$ is cyclic. It follows that $T\in(MX_1X_2)$, and we are done. 
-\end{customenv}
-\newpage
-\begin{customenv}{Second solution, by spiral similarity}
-    Let $\overline{MX_1}$ and $\overline{MX_2}$ intersect $\Gamma$ again at $Z_1$ and $Z_2$, and let the circumcircle of $\triangle MX_1X_2$ intersect $\Gamma$ again at $T$. Also let $P$ and $Q$ be the midpoints of arcs $X_1X_2$ and $Z_1Z_2$ on $(MX_1X_2)$ and $\Gamma$, respectively.
-    \begin{center}
-        \begin{asy}
-            size(8cm);
-            defaultpen(fontsize(10pt));
+It is easy to check that $\triangle A^*B^*C^*$ and $\triangle DX_1^*X_2^*$ are the medial triangles of $\triangle DEF$ and $\triangle DY_2Y_1$, respectively. It is well-known that $\psi_H(A^*)$ is the antipode of $D$ on $(DEF)$, so $\overline{A^*N}\perp\overline{BC}$. Furthermore, \[\measuredangle A^*M^*T^*=\measuredangle IM^*T^*=-\measuredangle ITM=-\measuredangle KTM=90^\circ,\]
+so $T^*$ is the antipode of $A^*$ with respect to $\Gamma^*$. Furthermore, $\psi_H(T^*)=D$. Let $D'=\psi_D(M^*)$. Since $M^*$ lies on the nine-point circle of $\triangle DEF$, if $H'=\phi(H)$, then $H'\in(DEF)$. Hence, $DY_2Y_1H'$ is cyclic. Since $\phi(D'Y_1Y_2H)=DY_2Y_1H'$, we have that $D'Y_1Y_2H$ is cyclic, and since $\psi_D(M^*X_1^*X_2^*T^*)=D'Y_1Y_2H$, we have that $M^*X_1^*X_2^*T^*$ is cyclic. It follows that $T\in(MX_1X_2)$, and we are done. 
 
-            pen pri=deepblue;
-            pen sec=blue;
-            pen tri=royalblue;
-            pen qua=Cyan;
-            pen fil=deepblue+opacity(0.05);
-            pen sfil=blue+opacity(0.05);
-            pen tfil=royalblue+opacity(0.05);
-            pen qfil=Cyan+opacity(0.05);
+\paragraph{Second solution, by spiral similarity}     Let $\overline{MX_1}$ and $\overline{MX_2}$ intersect $\Gamma$ again at $Z_1$ and $Z_2$, and let the circumcircle of $\triangle MX_1X_2$ intersect $\Gamma$ again at $T$. Also let $P$ and $Q$ be the midpoints of arcs $X_1X_2$ and $Z_1Z_2$ on $(MX_1X_2)$ and $\Gamma$, respectively.
 
-            pair O, A, B, C, I, K, T, M, Y1, Y2, X1, X2, Z1, Z2, P, Q;
+By Poncelet's Porism, $\overline{Z_1Z_2}$ is tangent to the incircle. Check that the incircle of $\triangle ABC$ serves as the incircle of $\triangle MZ_1Z_2$ and the $M$-excircle of $\triangle MX_1X_2$, and furthermore $T$ is the center of spiral similarity sending $\overline{X_1X_2}$ to $\overline{Z_1Z_2}$. 
 
-            O=(0,0);
-            A=dir(110);
-            B=dir(220);
-            C=dir(320);
-            I=incenter(A,B,C);
-            K=dir(90);
-            T=2*foot(O,I,K)-K;
-            M=dir(290);
-            Y1=intersectionpoints(circle((I+M)/2, length(I-M)/2), incircle(A, B, C))[1];
-            Y2=intersectionpoints(circle((I+M)/2, length(I-M)/2), incircle(A, B, C))[0];
-            X1=extension(B, C, M, Y1);
-            X2=extension(B, C, M, Y2);
-            Z1=2*foot(O, M, X1)-M;
-            Z2=2*foot(O, M, X2)-M;
-            P=2*foot(circumcenter(M,X1,X2),M,I)-M;
-            Q=2*foot(O,M,I)-M;
+This spiral similarity clearly sends $P$ to $Q$, so we obtain from the Incenter-Excenter Lemma that \[\frac{TP}{TQ}=\frac{PX_1}{QZ_1}=\frac{PI}{QI},\]
+whence $\overline{TI}$ bisects $\angle PTQ$.
+\begin{center}
+    \begin{asy}
+        size(6cm);
+        defaultpen(fontsize(10pt));
 
-            filldraw(circumcircle(A, B, C), fil, pri);
-            filldraw(incircle(A, B, C), sfil, sec);
-            filldraw(circumcircle(M, X1, X2), fil, pri);
-            filldraw(A -- B -- C -- cycle, fil, pri);
-            filldraw(M -- Z1 -- Z2 -- cycle, sfil, sec);
-            draw(T -- K, tri);
-            draw(B -- T -- C, pri);
-            draw(P -- T -- Q, tri);
-            draw(M -- Q, tri);
+        pen pri=deepblue;
+        pen sec=blue;
+        pen tri=royalblue;
+        pen qua=Cyan;
+        pen fil=deepblue+opacity(0.05);
+        pen sfil=blue+opacity(0.05);
+        pen tfil=royalblue+opacity(0.05);
+        pen qfil=Cyan+opacity(0.05);
 
-            dot("$A$", A, A);
-            dot("$B$", B, B);
-            dot("$C$", C, C);
-            dot("$I$", I, dir(15));
-            dot("$K$", K, K);
-            dot("$T$", T, SW);
-            dot("$M$", M, SE);
-            dot("$X_1$", X1, dir(105));
-            dot("$X_2$", X2, NE);
-            dot("$Z_1$", Z1, Z1);
-            dot("$Z_2$", Z2, Z2);
-            dot("$P$", P, NE);
-            dot("$Q$", Q, Q);
-        \end{asy}
-    \end{center}
-    By Poncelet's Porism, $\overline{Z_1Z_2}$ is tangent to the incircle. Check that the incircle of $\triangle ABC$ serves as the incircle of $\triangle MZ_1Z_2$ and the $M$-excircle of $\triangle MX_1X_2$, and furthermore $T$ is the center of spiral similarity sending $\overline{X_1X_2}$ to $\overline{Z_1Z_2}$. 
+        pair O, A, B, C, I, K, T, M, Y1, Y2, X1, X2, Z1, Z2, P, Q;
 
-    This spiral similarity clearly sends $P$ to $Q$, so we obtain from the Incenter-Excenter Lemma that \[\frac{TP}{TQ}=\frac{PX_1}{QZ_1}=\frac{PI}{QI},\]
-    whence $\overline{TI}$ bisects $\angle PTQ$.
+        O=(0,0);
+        A=dir(110);
+        B=dir(220);
+        C=dir(320);
+        I=incenter(A,B,C);
+        K=dir(90);
+        T=2*foot(O,I,K)-K;
+        M=dir(290);
+        Y1=intersectionpoints(circle((I+M)/2, length(I-M)/2), incircle(A, B, C))[1];
+        Y2=intersectionpoints(circle((I+M)/2, length(I-M)/2), incircle(A, B, C))[0];
+        X1=extension(B, C, M, Y1);
+        X2=extension(B, C, M, Y2);
+        Z1=2*foot(O, M, X1)-M;
+        Z2=2*foot(O, M, X2)-M;
+        P=2*foot(circumcenter(M,X1,X2),M,I)-M;
+        Q=2*foot(O,M,I)-M;
 
-    It is obvious that $\overline{TP}$ bisects $\angle X_1TX_2$ and $\overline{TQ}$ bisects $\angle Z_1TZ_2$. Since $\measuredangle TBZ_1=\measuredangle BCT=\measuredangle X_2CT$ and \[\measuredangle TBZ_1=\measuredangle TZ_2Z_1=\measuredangle TX_2X_1=\measuredangle TX_2C,\]
-    we determine that $\triangle TBZ_1\sim\triangle TX_2C$. Finally,
-    \begin{align*}
-        \measuredangle BTI&=\measuredangle BTZ_1+\measuredangle Z_1TQ+\measuredangle QTI\\
-        &=\measuredangle X_2TC+\measuredangle PTX_2+\measuredangle ITP\\
-        &=\measuredangle ITC,
-    \end{align*}
-    so $\overline{TI}$ passes through the midpoint of $\widehat{BAC}$, and we are done. 
-\end{customenv}
-\begin{customenv}{Third solution, by DDIT}
-    Let $I,T,D,A',M'$ denote the incenter of $\triangle ABC$, the $A$-mixtillinear touch point, the $A$-intouch point, the point on $(ABC)$ such that $\overline{AA'}\parallel\overline{BC}$, and the intersection of $\overline{AM}$ and $\overline{BC}$.
+        filldraw(circumcircle(A, B, C), fil, pri);
+        filldraw(incircle(A, B, C), sfil, sec);
+        filldraw(circumcircle(M, X1, X2), fil, pri);
+        filldraw(A -- B -- C -- cycle, fil, pri);
+        filldraw(M -- Z1 -- Z2 -- cycle, sfil, sec);
+        draw(T -- K, tri);
+        draw(B -- T -- C, pri);
+        draw(P -- T -- Q, tri);
+        draw(M -- Q, tri);
 
-    By the $3$-point case of the Dual of Desargues' Involution Theorem, there exists an involution swapping $(\overline{MA},\overline{MD})$, $(\overline{MB},\overline{MC})$, and $(\overline{MX_1},\overline{MX_2})$. Projecting onto $\overline{BC}$, there is an involution swapping $(M',D)$, $(B,C)$, and $(X_1,X_2)$. Call the center of this involution $O$, so that $OM'\cdot OD=OB\cdot OC=OX_1\cdot OX_2$. It follows that $O$ has equal power to $(ABC)$, $(DMM')$, and $(MX_1X_2)$, so the three circles are coaxial.
+        dot("$A$", A, A);
+        dot("$B$", B, B);
+        dot("$C$", C, C);
+        dot("$I$", I, dir(15));
+        dot("$K$", K, K);
+        dot("$T$", T, SW);
+        dot("$M$", M, SE);
+        dot("$X_1$", X1, dir(105));
+        dot("$X_2$", X2, NE);
+        dot("$Z_1$", Z1, Z1);
+        dot("$Z_2$", Z2, Z2);
+        dot("$P$", P, NE);
+        dot("$Q$", Q, Q);
+    \end{asy}
+\end{center}
+It is obvious that $\overline{TP}$ bisects $\angle X_1TX_2$ and $\overline{TQ}$ bisects $\angle Z_1TZ_2$. Since $\measuredangle BZ_1T=\measuredangle BCT=\measuredangle X_2CT$ and \[\measuredangle TBZ_1=\measuredangle TZ_2Z_1=\measuredangle TX_2X_1=\measuredangle TX_2C,\]
+we determine that $\triangle TBZ_1\sim\triangle TX_2C$. Finally,
+\begin{align*}
+    \measuredangle BTI&=\measuredangle BTZ_1+\measuredangle Z_1TQ+\measuredangle QTI\\
+    &=\measuredangle X_2TC+\measuredangle PTX_2+\measuredangle ITP\\
+    &=\measuredangle ITC,
+\end{align*}
+so $\overline{TI}$ passes through the midpoint of $\widehat{BAC}$, and we are done. 
 
-    It therefore suffices to show that $T$ lies on $(DMM')$. However, it is well-known that $\angle BTA=\angle DTC$, so $A'$ lies on line $DT$. Thus, \[\measuredangle TMM'=\measuredangle TMA=\measuredangle TA'A=\measuredangle DA'A=\measuredangle A'DC=\measuredangle TDM',\]
-    as required. 
-\end{customenv}
+\paragraph{Third solution, by DDIT}     Let $I,T,D,A',M'$ denote the incenter of $\triangle ABC$, the $A$-mixtillinear touch point, the $A$-intouch point, the point on $(ABC)$ such that $\overline{AA'}\parallel\overline{BC}$, and the intersection of $\overline{AM}$ and $\overline{BC}$.
+
+By the $3$-point case of the Dual of Desargues' Involution Theorem, there exists an involution swapping $(\overline{MA},\overline{MD})$, $(\overline{MB},\overline{MC})$, and $(\overline{MX_1},\overline{MX_2})$. Projecting onto $\overline{BC}$, there is an involution swapping $(M',D)$, $(B,C)$, and $(X_1,X_2)$. Call the center of this involution $O$, so that $OM'\cdot OD=OB\cdot OC=OX_1\cdot OX_2$. It follows that $O$ has equal power to $(ABC)$, $(DMM')$, and $(MX_1X_2)$, so the three circles are coaxial.
+
+It therefore suffices to show that $T$ lies on $(DMM')$. However, it is well-known that $\angle BTA=\angle DTC$, so $A'$ lies on line $DT$. Thus, \[\measuredangle TMM'=\measuredangle TMA=\measuredangle TA'A=\measuredangle DA'A=\measuredangle A'DC=\measuredangle TDM',\]
+as required. 
+

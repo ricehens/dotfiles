@@ -1,0 +1,18 @@
+desc: Floor summation
+source: HMMT Guts 2015/11
+tags: [2020-02, answer, ctricky, alg, sum, waltz]
+
+---
+
+Find \[\sum_{k=0}^\infty\left\lfloor\frac{1+\sqrt{\frac{2000000}{4^k}}}2\right\rfloor,\]
+where $\lfloor x\rfloor$ denotes the largest integer less than or equal to $x$.
+
+---
+
+The $k$th term counts the number of positive integers $x$ such that $4^k(2x-1)^2\le2\cdot10^6$. Summing over all $k$, we want the number of solutions $(k,x)$, where $k\ge0$ and $x\ge1$ are integers, such that $4^k(2x-1)^2\le2\cdot10^6$.
+
+The left-hand side is always the square of $2^k(2x-1)$, and each positive integer can be uniquely expressed as a product of a power of $2$ and an odd integer. Thus the answer is $\left\lfloor10^3\sqrt2\right\rfloor=1414$.
+
+---
+
+1414

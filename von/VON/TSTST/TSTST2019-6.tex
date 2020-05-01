@@ -1,6 +1,7 @@
 desc: Sum of digits is Fibonacci
 source: TSTST 2019/6
-tags: [2019-10, oly, brutal, nt, beluhov]
+tags: [2019-10, oly, brutal, nt, polynomial, nice]
+author: Nikolai Beluhov
 
 ---
 
@@ -11,16 +12,16 @@ Suppose $P$ is a polynomial with integer coefficients such that for every positi
 ---
 
 The answer is yes.
-\setcounter{boxlemma}0
-\begin{boxlemma}
+\setcounter{lemma}0
+\begin{lemma}
     Fibonacci numbers are surjective modulo $9$.
-\end{boxlemma}
+\end{lemma}
 \begin{proof}
     Omitted.
 \end{proof}
-\begin{boxlemma}
+\begin{lemma}
     Let $n$ be the degree of $P$. The exists a (cubic) polynomial $Q$ such that $P(Q(x))$ has $x^{3n-1}$ as its only negative coefficient.
-\end{boxlemma}
+\end{lemma}
 \begin{proof}
     The key is that $Q(x)=x^3+x+1$ \emph{almost} works for $P(x)=x^n$, except the $x^{3n-1}$ coefficient is $0$. Take large positive constants $C$ and $D$, and consider \[Q(x)=C(Dx^3-x^2+Dx+D).\]
     With $C$ sufficiently big, only the $x^n$ term of $P$ matters, so $Q$ works.

@@ -1,0 +1,19 @@
+desc: f(a)+b divides a^2+f(a)f(b)
+source: APMO 2019/1
+tags: [2020-03, oly, easy, nt, fe, size]
+
+---
+
+Find all functions $f:\mathbb Z_{>0}\to\mathbb Z_{>0}$ such that $a^2+f(a)f(b)$ is divisible by $f(a)+b$ for all positive integers $a$ and $b$.
+
+---
+
+The answer is $f(n)\equiv n$, which clearly works. Let $Q(a,b)$ denote the assertion.
+\begin{claim*}
+    $f(p)=p$ for $p$ prime.
+\end{claim*}
+\begin{proof}
+    Note that $Q(p,f(p))$ gives $2f(p)\mid p^2+f(p)f(f(p))$, so $f(p)\mid p^2$, and thus $f(p)\in\{1,p,p^2\}$. However $Q(p,p)$ gives $p+f(p)\mid p^2+f(p)^2$, so $p+f(p)\mid2p^2$. From here, $f(p)=p$ for all $p$.
+\end{proof}
+
+For all $b$ and prime $p$, $Q(p,b)$ gives $p+b\mid p(p+f(b))$. Take $p$ sufficiently large, so that $p+b\nmid p$. Then $p+b\mid p+f(b)$, so $p+b\mid f(b)-b$. This holds for all sufficiently large $p$, so $f(b)=b$, as desired.

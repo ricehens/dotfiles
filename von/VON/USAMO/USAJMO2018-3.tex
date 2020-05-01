@@ -4,13 +4,16 @@ tags: [2019-10, oly, easy, geo, simson]
 
 ---
 
-Let $ABCD$ be a quadrilateral inscribed in circle $\omega$ with $\seg{AC}\perp\seg{BD}$. Let $E$ and $F$ be the reflections of $D$ over lines $BA$ and $BC$, respectively, and let $P$ be the intersection of lines $BD$ and $EF$. Suppose that the circumcircle of $\triangle EPD$ meets $\omega$ at $D$ and $Q$, and the circumcircle of $\triangle FPD$ meets $\omega$ at $D$ and $R$. Show that $EQ=FR$.
+Let $ABCD$ be a quadrilateral inscribed in circle $\omega$ with $\overline{AC}\perp\overline{BD}$. Let $E$ and $F$ be the reflections of $D$ over lines $BA$ and $BC$, respectively, and let $P$ be the intersection of lines $BD$ and $EF$. Suppose that the circumcircle of $\triangle EPD$ meets $\omega$ at $D$ and $Q$, and the circumcircle of $\triangle FPD$ meets $\omega$ at $D$ and $R$. Show that $EQ=FR$.
 
 ---
 
+Upon viewing the problem with respect to $\triangle ABC$, we actually recognize all the given points; the diagram below should explain everything.
+
+In what follows, we present a full, rigorous solution in as few words as possible.
 \begin{center}
     \begin{asy}
-        size(10cm);
+        size(8cm);
         defaultpen(fontsize(10pt));
 
         pen pri=Cyan;
@@ -41,10 +44,10 @@ Let $ABCD$ be a quadrilateral inscribed in circle $\omega$ with $\seg{AC}\perp\s
         draw(P--D,qua);
         draw(EE--Q,qua);
         draw(F--R,qua);
-        draw(Q--B--R,qua+dotted);
-        draw(A--R,qui+dotted);
-        draw(C--Q,qui+dotted);
-        draw(EE--D--F,sec+dotted);
+        draw(Q--B--R,qua+Dotted);
+        draw(A--R,qui+Dotted);
+        draw(C--Q,qui+Dotted);
+        draw(EE--D--F,sec+Dotted);
         draw(EE--F,sec);
         draw(A--B--C--D--A--C,pri);
         draw(B--P,pri);
@@ -61,4 +64,6 @@ Let $ABCD$ be a quadrilateral inscribed in circle $\omega$ with $\seg{AC}\perp\s
         dot("$R$",R,N);
     \end{asy}
 \end{center}
-By construction line $EF$ is the Steiner line from $D$ to $\triangle ABC$; combining this with $\seg{AC}\perp\seg{BD}$ yields that $P$ is the orthocenter of $\triangle ABC$. Redefine $Q$ and $R$ as the reflections of $P$ over $\seg{BA}$ and $\seg{BC}$ respectively. It is well-known that $Q$ and $R$ lie on $\omega$. By properties of reflection $DEQP$ is an isosceles trapezoid and therefore cyclic, so $Q$ and $R$ are the points described in the problem. Finally $EQ=DP=FR$, and we are done.
+Line $EF$ is the Steiner line from $D$ in $\triangle ABC$. With $\seg{AC}\perp\seg{BD}$, we have $P$ is the orthocenter of $\triangle ABC$. Redefine $Q$, $R$ as the reflections of $P$ in $\seg{BA}$, $\seg{BC}$, so that they lie on $\omega$. Then $DPQE$, $DPRF$ are (cyclic) isosceles trapezoids, so $Q$, $R$ are as described in the problem. Finally $EQ=DP=FR$, the end.
+
+

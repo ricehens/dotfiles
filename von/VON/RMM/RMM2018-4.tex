@@ -1,0 +1,18 @@
+desc: gcd(an+b,cn+d) describes divisor set
+source: RMM 2018/4
+tags: [2019-11, oly, easy, nt, induction]
+
+---
+
+Let $a$, $b$, $c$, $d$ be positive integers such that $ad\ne bc$ and $\gcd(a,b,c,d)=1$. Let $S$ be the set of values attained by $\gcd(an+b,cn+d)$ as $n$ runs through the positive integers. Show that $S$ is the set of all positive divisors of some positive integer.
+
+---
+
+We prove the hypothesis for nonnegative $a$, $b$, $c$, $d$. We proceed by strong induction on $ac$.
+
+The base case, $ac=0$, is easy. We may assume that $c=0$; but then the hypothesis is clear since $\gcd(an+b,d)$ describes all divisors of the greatest divisor of $d$ coprime to $a$.
+
+We now complete the inductive step. Assume that for $L\ge1$, the hypothesis is true for all $ac<L$, and that we seek to verify it for $ac=L$; assume without loss of generality that $a\le c$. Then by the Euclidean Algorithm, $\gcd(an+b,cn+d)=\gcd(an+b,(c-a)n+d-b)$. Indeed we may verify that $a(c-a)<ac$ (since $a$ is nonzero) and \[a(d-b)-b(c-a)=(ad-ab)-(bc-ab)=ad-bc\ne0,\]
+It suffices to show that $\gcd(a,b,c-a,d-b)=1$, but this is not hard: if some prime $p$ divides all of $a$, $b$, $c-a$, $d-b$, then it also divides $c$ and $d$, contradiction.
+
+This completes the proof.

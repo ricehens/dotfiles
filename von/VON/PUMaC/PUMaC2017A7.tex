@@ -1,0 +1,17 @@
+desc: Sum of 2^k/(5^(2^k)+1)
+source: PUMaC 2017 A7
+tags: [2019-10, answer, chard, alg, sums, gen-func]
+
+---
+
+Compute \[\sum_{k\ge0}\frac{2^k}{5^{2^k}+1}.\]
+
+---
+
+Consider the function \[F(x)=\sum_{k\ge0}\frac{2^k}{x^{2^k}+1}=\sum_{k\ge0}\sum_{n\ge0}2^k\left(-x^{2^k}\right)^n=\sum_{n\ge0}x^n\sum_{k=0}^{\nu_2(n)}2^k(-1)^{n/2^k}.\]
+However \[\sum_{k=0}^{\nu_2(n)}2^k(-1)^{n/2^k}=\left(\sum_{k=0}^{\nu_2(n)-1}2^k\right)-2^{\nu_2(n)}=-1,\]
+so $F(x)=\sum_{n\ge0}-x^n=(x-1)^{-1}$, and the answer is $F(5)=1/4$.
+
+---
+
+$1/4$

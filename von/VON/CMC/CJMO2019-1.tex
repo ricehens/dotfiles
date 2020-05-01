@@ -10,32 +10,35 @@ Call a convex equilateral polygon \emph{rhomboidal} if it can be tiled with a fi
 ---
 
 We will prove that an equilateral polygon $\mathcal{P}$ is rhomboidal iff for each side $\ell_i$ there exists another side $\ell'_i$ with $\ell_i \parallel \ell'_i$; this also means that $\mathcal{P}$ has an even number of sides.
-\begin{customenv}{Part 1: The only if direction}
-    Suppose that $\mathcal{P}$ is rhomboidal: each side of $\mathcal{P}$ must be a side of exactly one rhombus (if they were more than one, since the rhombi share the same side length of $\mathcal{P}$, the two or more rhombi would overlap).
 
-    Let's start by placing a rhombus on the side $\ell_1$ of $\mathcal{P}$, and consider the side $a_1\parallel \ell_1$ of the rhombus: we place another rhombus on $a_1$, and we continue placing rhombi on the side $a_{n}$ of the $n^{\text{th}}$ rhombus, where $a_1\parallel a_2\parallel ...\parallel a_n$. Since we want to tile $\mathcal{P}$ with a finite number of rhombi, this construction should end at some point, so one of the sides $a_i\parallel \ell$ of the rhombi must be a side $\ell'_1$ of $\mathcal{P}$.
+\bigskip
 
-    Since this construction is valid for each side of $\mathcal{P}$, each side $\ell_i$ of $\mathcal{P}$ is parallel to one (and one only since $\mathcal{P}$ is convex) side $\ell'_i$ of the polygon. Hence our claim is proven; in particular, it follows that $\mathcal{P}$ has an even number of sides.
-\end{customenv}
-\begin{customenv}{Part 2: The if direction}
-    We will prove the claim by induction. Clearly, a quadrilateral with opposite and parallel sides is a rhombus.
+\textbf{Proof of only if direction:}     Suppose that $\mathcal{P}$ is rhomboidal: each side of $\mathcal{P}$ must be a side of exactly one rhombus (if they were more than one, since the rhombi share the same side length of $\mathcal{P}$, the two or more rhombi would overlap).
 
-    Suppose now that all equilateral polygons $\mathcal{P}$ of $2n$ sides with each side parallel to another side of the polygon are rhomboidal. Consider $n+2$ consecutive vertices of an equilateral polygon $\mathcal{P}'$ with $2n+2$ sides: the first $3$ such vertices identify two sides of a rhombus (see the diagram, in blue); drawing the other two sides and using the same construction of Part 1, we place other $n-2$ rhombi (in light blue), each of them with two sides parallel to the one of the first rhombus, and this tiling closes on $\mathcal{P}'$ because of our hypothesis of parallelism.
+Let's start by placing a rhombus on the side $\ell_1$ of $\mathcal{P}$, and consider the side $a_1\parallel \ell_1$ of the rhombus: we place another rhombus on $a_1$, and we continue placing rhombi on the side $a_{n}$ of the $n^{\text{th}}$ rhombus, where $a_1\parallel a_2\parallel ...\parallel a_n$. Since we want to tile $\mathcal{P}$ with a finite number of rhombi, this construction should end at some point, so one of the sides $a_i\parallel \ell$ of the rhombi must be a side $\ell'_1$ of $\mathcal{P}$.
 
-    Hence, we are left with an equilateral polygon with $2n$ sides, which by our inductive hypothesis, is rhomboidal. This completes the proof.
-    \begin{center}
-        \begin{asy}
-            size(6cm);
-            for (real i = 15; i < 150; i += 30) {
-                draw(dir(i) -- dir(i + 30), orange+linewidth(1));
-                fill(dir(i)--dir(i+30)--(2*foot(dir(i+30),dir(15),dir(165))-dir(i+30))--(2*foot(dir(i),dir(15),dir(165))-dir(i))--cycle,orange+opacity(0.1));
-            }
-            for (real i = 225; i < 330; i += 30) {
-                draw(dir(i)--dir(i+30)--(dir(i+30)+dir(165)-dir(195))--(dir(i)+dir(165)-dir(195)), royalblue+linewidth(1));
-                fill(dir(i)--dir(i+30)--(dir(i+30)+dir(165)-dir(195))--(dir(i)+dir(165)-dir(195))--cycle, royalblue+opacity(0.1));
-            }
+Since this construction is valid for each side of $\mathcal{P}$, each side $\ell_i$ of $\mathcal{P}$ is parallel to one (and one only since $\mathcal{P}$ is convex) side $\ell'_i$ of the polygon. Hence our claim is proven; in particular, it follows that $\mathcal{P}$ has an even number of sides.
 
-            filldraw(dir(165)--dir(195)--dir(225)--(dir(165)+dir(225)-dir(195))--cycle, purple+opacity(0.1), purple+linewidth(1));
-        \end{asy}
-    \end{center}
-\end{customenv}
+\bigskip
+
+\textbf{Proof of if direction:}     We will prove the claim by induction. Clearly, a quadrilateral with opposite and parallel sides is a rhombus.
+
+Suppose now that all equilateral polygons $\mathcal{P}$ of $2n$ sides with each side parallel to another side of the polygon are rhomboidal. Consider $n+2$ consecutive vertices of an equilateral polygon $\mathcal{P}'$ with $2n+2$ sides: the first $3$ such vertices identify two sides of a rhombus (see the diagram, in blue); drawing the other two sides and using the same construction of Part 1, we place other $n-2$ rhombi (in light blue), each of them with two sides parallel to the one of the first rhombus, and this tiling closes on $\mathcal{P}'$ because of our hypothesis of parallelism.
+
+Hence, we are left with an equilateral polygon with $2n$ sides, which by our inductive hypothesis, is rhomboidal. This completes the proof.
+\begin{center}
+    \begin{asy}
+        size(4.5cm);
+        for (real i = 15; i < 150; i += 30) {
+            draw(dir(i) -- dir(i + 30), orange+linewidth(1));
+            fill(dir(i)--dir(i+30)--(2*foot(dir(i+30),dir(15),dir(165))-dir(i+30))--(2*foot(dir(i),dir(15),dir(165))-dir(i))--cycle,orange+opacity(0.1));
+        }
+        for (real i = 225; i < 330; i += 30) {
+            draw(dir(i)--dir(i+30)--(dir(i+30)+dir(165)-dir(195))--(dir(i)+dir(165)-dir(195)), royalblue+linewidth(1));
+            fill(dir(i)--dir(i+30)--(dir(i+30)+dir(165)-dir(195))--(dir(i)+dir(165)-dir(195))--cycle, royalblue+opacity(0.1));
+        }
+
+        filldraw(dir(165)--dir(195)--dir(225)--(dir(165)+dir(225)-dir(195))--cycle, purple+opacity(0.1), purple+linewidth(1));
+    \end{asy}
+\end{center}
+

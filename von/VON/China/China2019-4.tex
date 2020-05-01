@@ -1,0 +1,56 @@
+desc: Unique rhombus of maximal area
+source: China 2019/4
+tags: [2019-11, oly, tricky, geo, weird]
+
+---
+
+We are given an ellipse that is not a circle.
+\begin{enumerate}[label=(\alph*),itemsep=0em]
+    \item Prove that the rhombus tangent to the ellipse at all four of its sides with minimum area is unique.
+    \item Construct this rhombus using a compass and a straight edge.
+\end{enumerate}
+
+---
+
+For part (a), we will show that any circumscribed rhombus is axis-aligned. We rely on the following lemma.
+\begin{lemma*}
+    If an affine transform sends a rhombus to another rhombus, then its direction is parallel to some axis of the rhombus.
+\end{lemma*}
+\begin{proof}
+    Consider the following picture:
+    \begin{center}
+        \begin{asy}
+            size(3.5cm); defaultpen(fontsize(10pt));
+
+            pair A,B,C,D,W,X,Y,Z;
+            A=(-46.5,15.5);
+            B=(13.5,40.5);
+            C=-A;
+            D=-B;
+            W=(-46.5,40.5);
+            X=(46.5,40.5);
+            Y=-W;
+            Z=-X;
+
+            draw(A--B--C--D--A);
+            draw(W--X--Y--Z--W);
+            dot(A); dot(B); dot(C); dot(D);
+            dot(W); dot(X); dot(Y); dot(Z);
+
+            label("$y_1$",A--W,dir(180));
+            label("$x_1$",W--B,dir(90));
+            label("$x_2$",B--X,dir(90));
+            label("$y_2$",X--C,dir(0));
+        \end{asy}
+    \end{center}
+    Assume that a horizontal affine transformation $x\mapsto\lambda x$, $|\lambda|\ne1$, sends it to another rhombus. We have from the original rhombus that $x_1^2+y_1^2=x_2^2+y_2^2$. Furthermore since the image is another rhombus, we have $\lambda^2x_1^2+y_1^2=\lambda^2x_2^2+y_2^2$, or \[\lambda^2\left(x_1^2-x_2^2\right)=y_2^2-y_1^2=x_1^2-x_2^2\implies x_1=x_2,\]
+    as desired.
+\end{proof}
+
+Thus consider the affine transformation sending the ellipse to a circle. The image of the rhombus is a parallelogram with an inscribed circle and is therefore a rhombus. By the lemma, the rhombus must be axis-aligned.
+
+Considering the image of this transformation, we just need to show that the rhombus tangent to a circle at all four sides with minimum area whose diagonals lie on fixed lines is unique; this is just a square, so (a) is done.
+
+For part (b), we first construct the center and axes of this ellipse. Consider any two parallel chords; by affine transformation, the line between their midpoints passes through the center of the ellipse. Applying this twice, the center is constructable. Intersecting a circle whose center coincides with that of the ellipse, the four points of intersection form a rectangle whose sides are parallel to the axes of the ellipse, so we can construct the axes of the ellipse.
+
+Let the axes intersect the ellipse at four points. By the affine transformation, the image of the rhombus formed by the four points under dilation at the center by scale factor $\sqrt2$ is the desired rhombus, so we are done.

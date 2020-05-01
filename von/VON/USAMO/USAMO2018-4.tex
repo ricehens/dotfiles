@@ -9,5 +9,8 @@ produce at least $\frac12p$ distinct remainders upon division by $p$.
 
 ---
 
-Consider $D$, the number of ordered triples $(i,j,k)$, with $1\le i\le j\le p$ and $0\le k<p$, such that $a_i+ik\equiv a_j+jk\pmod p$. Since $p$ is prime, \[k\equiv (i-j)^{-1}(a_j-a_i)\pmod p,\]
-which is unique for all $i,j$. Then, $D=\tbinom p2=\tfrac{p(p-1)}2$. Hence, by the Pigeonhole Principle, there exists some $k$ such that the number of $(i,j)$ with the desired property is at most $\tfrac{p-1}2$, and so the number of distinct residues is at least $\tfrac p2$, as desired.
+For any two $i<j$, we have \[a_i+ik\equiv a_j+jk\pmod p\iff k\equiv(a_i-a_j)(j-i)^{-1}\pmod p.\]
+Hence, the number of $(i,j,k)$ with $i<j$ and $a_i+ik\equiv a_j+jk\pmod p$ is precisely $\tbinom p2$.
+
+By Pigeonhole, for some $k$ there are at most $\tfrac{p-1}2$ pairs $i<j$ with $a_i+ik\equiv a_j+jk\pmod p$, thus there are at least $\tfrac{p+1}2$ distinct residues among $a_1+k$, $\ldots$, $a_p+pk$.
+

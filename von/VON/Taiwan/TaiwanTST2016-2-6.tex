@@ -1,0 +1,73 @@
+author: Evan Chen
+desc: XKOZ cyclic then so is YOMI
+source: Taiwan TST 2016/2/6
+tags: [2019-12, oly, hard, geo, construction, inversion]
+
+---
+
+Let $AXYZB$ be a convex pentagon inscribed in a semicircle with diameter $\seg{AB}$, and let $K$ be the foot of the altitude from $Y$ to $\seg{AB}$. Let $O$ denote the midpoint of $\seg{AB}$ and $L$ the intersection of $\seg{XZ}$ and $\seg{YO}$. Select a point $M$ on line $KL$ with $MA=MB$, and finally, let $I$ be the reflection of $O$ across $\seg{XZ}$. Prove that if quadrilateral $XKOZ$ is cyclic then so is quadrilateral $YOMI$.
+
+---
+
+Let $\Gamma$ be the circle with diameter $\seg{AB}$, and let $T=\seg{AB}\cap\seg{XZ}$. Denote by $N$ and $V$ the images of $M$ and $L$ under inversion at $\Gamma$. Let $S$ be the midpoint of $\seg{YN}$.
+
+Since $TK\cdot TO=TX\cdot TZ=TA\cdot TB$, we have $-1=(AB;KT)$ by Midpoints of Harmonic Bundles lemma. In particular, $T$ and $K$ are inverses, and since $\seg{YK}$ is a symmedian of $\triangle YAB$, $\seg{TY}$ is tangent to $\Gamma$. Furthermore $TONV$ is cyclic with diameter $\seg{TN}$, and $\seg{YN}$ intersects $\Gamma$ again at a point $W$ on $(OYM)$.
+\begin{center}
+    \begin{asy}
+        size(9cm); defaultpen(fontsize(10pt));
+
+        pair O,A,B,X,Z,K,Y,T,L,Lp,M,U,NN,SS,P,Q,WW,I;
+        O=(0,0);
+        A=dir(180);
+        B=dir(0);
+        X=dir(163);
+        Z=dir(65);
+        K=2*foot(circumcenter(X,K,Z),A,B)-O;
+        Y=intersectionpoint(circle(O,1),K--K+(0,50));
+        T=extension(X,Z,A,B);
+        L=extension(O,Y,X,Z);
+        Lp=reflect(A,B)*(1/L);
+        M=extension(K,L,O,O+(0,1));
+        U=circumcenter(O,T,Lp);
+        NN=2*foot(U,O,M)-O;
+        SS=(Y+NN)/2;
+        P=intersectionpoint(circle(O,1),K--M);
+        Q=2*foot(O,P,K)-P;
+        WW=2*foot(O,Y,SS)-Y;
+        I=reflect(X,Z)*O;
+
+        draw(circumcircle(X,O,Z),gray);
+        draw(O--M,gray);
+        draw(T--NN,gray);
+        draw(circumcircle(O,Y,WW),Dotted);
+        draw(O--I,Dotted);
+        draw(circle(U,abs(U)),dashed);
+        draw(WW--Y--T);
+        draw(O--Lp);
+        draw(circle(O,1));
+        draw(B--T--Z);
+        //draw(Q--M);
+
+        dot("$O$",O,dir(290));
+        dot("$A$",A,SW);
+        dot("$B$",B,SE);
+        dot("$X$",X,X);
+        dot("$Z$",Z,NE);
+        dot("$K$",K,dir(300));
+        dot("$Y$",Y,dir(60));
+        dot("$T$",T,SW);
+        dot("$L$",L,dir(160));
+        dot("$V$",Lp,NW);
+        dot("$M$",M,N);
+        dot("$U$",U,S);
+        dot("$N$",NN,NE);
+        dot("$S$",SS,NE);
+        //dot("$P$",P,dir(110));
+        //dot("$Q$",Q,SW);
+        dot("$W$",WW,dir(-15));
+        dot("$I$",I,NW);
+    \end{asy}
+\end{center}
+Since $\seg{YK}\perp\seg{AB}$ and $\seg{NO}\perp\seg{AB}$, we have $SK=SO$. Furthermore if $U$ denotes the center of $(TONV)$, $\seg{SU}$ is the $N$-midsegment of $\triangle MYU$, thus $\seg{SU}\parallel\seg{TT}$. But $\seg{YT}\perp\seg{YO}$, which is the radical axis of $(XKOZ)$ and $(TONV)$, so $S$ is the center of $(XKOZ)$.
+
+Finally $S$ and $I$ are inverses, but $Y$, $S$, $N$ are collinear, so $YOMI$ is cyclic, and we are done.

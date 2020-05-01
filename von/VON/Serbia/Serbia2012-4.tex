@@ -1,0 +1,33 @@
+desc: p_i+i and p_i-i bijective mod n
+source: Serbia 2012/4
+tags: [2020-03, oly, medium, nt, sums, waltz]
+
+---
+
+Find all positive integers $n$ for which there is a permutation $(p_1,p_2,\ldots,p_n)$ of the numbers $(1,2,\ldots,n)$ such that the sets $\{p_1+1,p_2+2,\ldots,p_n+n\}$ and $\{p_1-1,p_2-2,\ldots,p_n-n\}$ are complete residue systems modulo $n$.
+
+---
+
+The answer is whenever $\gcd(n,6)=1$. 
+\setcounter{claim}0
+\begin{claim}
+    $\gcd(n,2)=1$.
+\end{claim}
+\begin{proof}
+    Take the sum of the elements of each set modulo $n$: \[0\equiv\sum_{i=1}^np_i-\sum_{i=1}^ni\equiv\sum_{i=1}^n(p_i-1)\equiv\sum_{i=1}^ni\equiv\frac{n(n+1)}2\pmod n,\]
+    so $n$ divides $n(n+1)/2$, and $n$ is odd.
+\end{proof}
+\begin{claim}
+    $\gcd(n,3)=1$.
+\end{claim}
+\begin{proof}
+    Take the sum of squares of the elements of each set modulo $n$:
+    \begin{align*}
+        \frac{n(n+1)(2n+1)}3&\equiv\sum_{i=1}^n\Big[(p_i-i)^2+(p_i+i)^2\Big]\\
+        &\equiv2\sum_{i=1}^n\left(p_i^2+i^2\right)\\
+        &\equiv\frac{2n(n+1)(2n+1)}3\pmod n,
+    \end{align*}
+    so $n$ divides $n(n+1)(2n+1)/3$, and $n$ is not divisible by $3$.
+\end{proof}
+
+To see that all $n$ with $\gcd(n,6)=1$ work, let $p_i=2i$.

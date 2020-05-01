@@ -1,0 +1,12 @@
+desc: Swap order of integration
+source: MIT 18.02
+tags: [2019-10, oly, easy, alg, sum, integral]
+
+---
+
+Evaluate \[\int_0^1\int_0^{\sqrt x}\frac{2xy}{1-y^4}\,dy\,dx.\]
+
+---
+
+We compute \[\int_0^1\int_0^{\sqrt x}\frac{2xy}{1-y^4}\,dy\,dx=\int_0^1\int_{y^2}^1\frac{2xy}{1-y^4}\,dx\,dy=\int_0^1\frac y{1-y^4}\left[x^2\right]^1_{y^2}\,dy=\int_0^1y\,dy=\frac12,\]
+done.

@@ -1,0 +1,25 @@
+desc: Integer a^2/(2ab^2-b^3+1)
+source: IMO 2003/2
+tags: [2020-01, oly, tricky, nt, bounding, diophantine]
+
+---
+
+Determine all pairs of positive integers $(a,b)$ such that \[\frac{a^2}{2ab^2-b^3+1}\]
+is a positive integer.
+
+---
+
+The answer is $(2t,1)$, $(t,2t)$, $(8t^4-t,2t)$. Let the expression equal $k$. If $b=1$, then $k=a^2/(2a)$, from which $a$ is even, and the only solution is $(2t,1)$. Henceforth assume $b>1$.
+
+Write as a polynomial in $a$: \[0=a^2-2b^2k\cdot a+k(b^3-1).\]
+For $a$ to be an integer, the discriminant must be a perfect square; say \[\Delta^2=4b^4k^2-4b^3k+4k.\]
+\begin{claim*}
+    $2b^2k-b-1<\Delta<2b^2k-b+1$.
+\end{claim*}
+\begin{proof}
+    This is just algebra. For the first, $(2b^2k-b-1)^2<4k(b^4k-b^3+1)$ follows from \[4b^2k+4k\ge4b^2+4>b^2+b+1,\]
+    whereas for the second, $(2b^2k-b+1)^2>4k(b^4k-b^3+1)$ follows from \[4b^2k+4k\ge4b^2+4>b^2+b+1.\]
+\end{proof}
+
+It follows that $\Delta=2b^2k-b$. Since $\Delta$ is even, so is $b$; write $b=2t$. Applying the quadratic formula, we have \[a=\frac{2b^2k\pm\Delta}2=\frac{8t^4\pm\left(8t^4-2t\right)}2=\{t,8t^4-t\},\]
+and we are done.

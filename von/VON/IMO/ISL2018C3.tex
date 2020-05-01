@@ -1,0 +1,30 @@
+desc: Sisyphus moving stones
+source: ISL 2018 C3
+tags: [2020-04, oly, tricky, combo, process, construction, algorithms, waltz]
+
+---
+
+Let $n\ge2$ be a given positive integer. Sisyphus performs a sequence of turns on a board consisting of $n+1$ squares in a row, numbered $0$ to $n$ from left to right. Initially, $n$ stones are put into square $0$, and the other squares are empty. At every turn, Sisyphus chooses any nonempty square, say with $k$ stones, takes one of the stones, and moves it to the right by at most $k$ squares (the stones should stay within the board). Sisyphus's aim is to move all $n$ stones to square $n$.
+
+Prove that the minimum number of turns required for Sisyphus to reach his goal has complexity $\Theta(n\log n)$.
+
+---
+
+\begin{remark}
+    The original shortlist problem is to prove Sisyphus requires at least \[\left\lceil\frac n1\right\rceil+\left\lceil\frac n2\right\rceil+\left\lceil\frac n3\right\rceil+\cdots+\left\lceil\frac nn\right\rceil\]
+    moves, i.e.\ the lower bound.
+\end{remark}
+
+\textbf{Proof of lower bound:} Label the stones $1$, $2$, $\ldots$, $n$. Assume without loss of generality whenever we move a stone from a square, we select the stone with greatest label. Then the stone with label $k$ is moved only when there are at most $k$ stones in its square, so it moves a distance at most $k$ each step. It moves at least $\lceil n/k\rceil$ times, and the result follows.
+
+\bigskip
+
+\textbf{Proof of upper bound:} We induct on $n$. Let $1\le k\le n$, and consider the following steps:
+\begin{itemize}
+    \item Initially, $n$ stones are in square $0$.
+    \item In $n-k$ turns, move $n-k$ stones to square $k$, so $k$ stones are in square $0$ and $n-k$ stones are in square $k$.
+    \item In $\Theta(k\log k)$ turns, move the remaining $k$ stones to square $k$, so all $n$ stones are in square $k$.
+    \item In $k$ turns, move $k$ stones to square $n$, so $n-k$ stones are in square $k$ and $k$ stones are in square $n$.
+    \item In $\Theta( (n-k)\log(n-k))$ turns, move the remaining $n-k$ stones to square $n$, so all $n$ stones are in square $n$.
+\end{itemize}
+This requires $(n-k)+\Theta(k\log k)+k+\Theta( (n-k)\log(n-k))=\Theta(n\log n)$ turns when $k\approx n/2$.

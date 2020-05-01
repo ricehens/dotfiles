@@ -9,8 +9,8 @@ Positive integers $x$, $y$, $z$, $t$ satisfy $xy-zt=x+y=z+t$. Can $xy$ and $zt$ 
 ---
 
 The answer is $\boxed{\text{no}}$. We first solve the diophantine.
-\setcounter{iclaim}0
-\begin{iclaim}
+\setcounter{claim}0
+\begin{claim}
     For all valid $x$, $y$, $z$, $t$, there exist positive integers $a$ and $b$ such that
     \begin{align*}
         x&=2ab+a-b,\\
@@ -18,14 +18,14 @@ The answer is $\boxed{\text{no}}$. We first solve the diophantine.
         z&=2ab+a+b,\\
         t&=2ab-a-b.
     \end{align*}
-\end{iclaim}
+\end{claim}
 \begin{proof}
     It is easy to check that $x\equiv y\pmod2$ and $z\equiv t\pmod2$; if $x\not\equiv y\pmod2$, then $x+y$ must be odd, but $xy$ is even and thus $zt$ is odd, but this implies that $z+t$ is even, contradiction. Now let $s=\tfrac12(x+y)=\tfrac12(z+t)$, $p=\tfrac12(x-y)$, and $q=\tfrac12(z-t)$. The diophantine rewrites to \[2s=(s^2-p^2)-(s^2-q^2)=(q-p)(q+p),\]
     so $q\equiv p\pmod2$ and there exist $a$ and $b$ with $a=\tfrac{q+p}2$ and $b=\tfrac{q-p}2$. This tells us $s=2ab$, and we can easily obtain the desired expressions.
 \end{proof}
-\begin{iclaim}
+\begin{claim}
     $(4a^2b^2-a^2-b^2-1)^2<xyzt<(4a^2b^2-a^2-b^2)^2$.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     In fact
     \begin{align*}

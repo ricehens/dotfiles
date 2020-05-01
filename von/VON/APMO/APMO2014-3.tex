@@ -1,0 +1,17 @@
+desc: When is a^3+a bijective mod n
+source: APMO 2014/3
+tags: [2019-12, oly, tricky, nt, qr]
+
+---
+
+Find all positive integers $n$ such that for any positive integer $k$ there exists an integer $a$ for which $a^3+a-k$ is divisible by $n$.
+
+---
+
+The answer is $3^k$ for $k\ge0$. To see that these work, we use induction with the fact that \[f\left(a+3^{k-1}\right)\equiv\left(a+3^{k-1}\right)^3+a+3^{k-1}\equiv a^3+a+3^{k-1}\pmod{3^k}.\]
+I omit the details. Now suppose $a^3+a$ is bijective mod $p$. It suffices to show $p=3$. Note that since $n$ is trivially odd, $p\ge3$.
+
+We have that \[\prod_{j=1}^{p-1}j=\prod_{j=1}^{p-1}j(j^2+1)\implies\prod_{j=1}^{p-1}(j^2+1)\equiv1\pmod p.\]
+This is the product of the roots of $(x-1)^{\frac12(p-1)}\equiv1\pmod p$. Expanding, the product of the roots is either $-2$ or $0$ by Vieta's, so either $0\equiv1\pmod p$ or $4\equiv1\pmod p$.
+
+This forces $p=3$, as desired.

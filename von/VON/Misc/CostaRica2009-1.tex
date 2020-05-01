@@ -1,0 +1,19 @@
+desc: Min xy+1/xy
+source: Costa Rica 2009/1
+tags: [2020-03, oly, trivial, alg, ineq, waltz]
+
+---
+
+Let $x$ and $y$ be positive real number such that $(1+x)(1+y)=2$. Prove that \[xy+\frac1{xy}\ge6.\]
+
+---
+
+Note that $x+y=1-xy$. By the AM-HM inequality, 
+\begin{align*}
+\frac{x+y}2&\ge\frac{2xy}{x+y}\\
+\implies(x+y)^2&\ge4xy\\
+\implies(1-xy)^2&\ge4xy\\
+\implies(xy)^2+1&\ge6xy\\
+\implies xy+\frac1{xy}&\ge6,
+\end{align*}
+as desired.

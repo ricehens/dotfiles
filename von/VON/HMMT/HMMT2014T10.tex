@@ -1,0 +1,19 @@
+desc: Whiteboard ca+c^2b monovariant
+source: HMMT 2014 T10
+tags: [2020-02, oly, tricky, alg, invariant, ineq, waltz]
+
+---
+
+Fix a positive real number $c>1$ and a positive integer $n$. Initially, a blackboard contains the numbers $1$, $c$, $\ldots$, $c^{n-1}$. Every minute, Bob chooses two numbers $a$ and $b$ on the board and replaces them with $ca+c^2b$. Prove that after $n-1$ minutes, the blackboard contains a single number no less than \[\left(\frac{c^{n/L}-1}{c^{1/L}-1}\right)^L,\]
+where $\phi=\tfrac{1+\sqrt5}2$ and $L=1+\log_{\phi}(c)$.
+
+---
+
+Let $N$ be the final number; it is sufficient to show \[N^{1/L}\stackrel?\ge\frac{c^{n/L}-1}{c^{1/L}-1}=1^{1/L}+c^{1/L}+\left(c^2\right)^{1/L}+\cdots+\left(c^{n-1}\right)^{1/L}.\]
+Thus we only need the following monovariant:
+\begin{claim*}
+    For any $a$, $b$, we have $\left(ca+c^2b\right)^{1/L}\ge a^{1/L}+b^{1/L}$.
+\end{claim*}
+By H\"older's inequality, \[ \left[\left(c^{1/L}a^{1/L}\right)^L+\left(c^{2/L}b^{1/L}\right)^L\right]^{1/L}\left[\left(c^{-1/L}\right)^{L/(L-1)}\left(c^{-2/L}\right)^{L/(L-1)}\right]^{(L-1)/L}\ge a^{1/L}+b^{1/L}.\]
+However $c=\phi^{L-1}$ and $1=\phi^{-1}+\phi^{-2}$, so \[\left(c^{-1/L}\right)^{L/(L-1)}+\left(c^{-2/L}\right)^{L/(L-1)}=c^{-1/(L-1)}+c^{-2/(L-1)}=1,\]
+and we are done.

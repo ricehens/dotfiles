@@ -1,0 +1,45 @@
+desc: Perspective median
+source: USAJMO 2011/5
+tags: [2019-11, oly, trivial, geo, projective]
+
+---
+
+Points $A$, $B$, $C$, $D$, $E$ lie on a circle $\omega$ and point $P$ lies outside the circle. The given points are such that (i) lines $PB$ and $PD$ are tangent to $\omega$, (ii) $P$, $A$, $C$ are collinear, and (iii) $\seg{DE}\parallel\seg{AC}$. Prove that $\seg{BE}$ bisects $\seg{AC}$.
+
+---
+
+\paragraph{First solution, by angle chasing}
+\begin{center}
+    \begin{asy}
+        size(5cm); defaultpen(fontsize(10pt));
+
+        pair O,B,D,A,P,C,EE,M;
+        O=(0,0);
+        B=dir(130);
+        D=reflect(O,(1,0))*B;
+        A=dir(170);
+        P=2*circumcenter(O,B,D);
+        C=2*foot(O,P,A)-A;
+        EE=2*foot(O,D,D+A-P)-D;
+        M=(A+C)/2;
+
+        draw(O--M,gray);
+        draw(circumcircle(B,M,D),gray);
+        draw(circle(O,1));
+        draw(B--P--D--EE--B);
+        draw(P--C);
+
+        dot("$A$",A,SE);
+        dot("$B$",B,dir(100));
+        dot("$C$",C,C);
+        dot("$D$",D,dir(260));
+        dot("$P$",P,W);
+        dot("$E$",EE,EE);
+        dot("$M$",M,dir(80));
+        dot("$O$",O,E);
+    \end{asy}
+\end{center}
+Let $O$ be the center of $\omega$ and $M=\seg{BE}\cap\seg{AC}$. Then $\da BDP=\da BED=\da BMP$, so $M$ lies on $(OBPD)$ and $\angle OMP=90\dg$. It follows that $M$ is the midpoint of $\seg{AC}$, as desired.
+
+\paragraph{Second solution, by harmonic bundles}     We have $-1=(AC;BD)\stackrel E=(A,C;\seg{BE}\cap\seg{AC},\infty_{AC})$, as desired.
+

@@ -1,0 +1,65 @@
+desc: Inellipse of contact BCEF
+source: OMO Spring 2018/28
+tags: [2020-03, answer, cbrutal, geo, isogonal, nice, waltz]
+
+---
+
+In $\triangle ABC$, the incircle $\omega$ has center $I$ and is tangent to $\overline{CA}$ and $\overline{AB}$ at $E$ and $F$ respectively. The circumcircle of $\triangle{BIC}$ meets $\omega$ at $P$ and $Q$. Lines $AI$ and $BC$ meet at $D$, and the circumcircle of $\triangle PDQ$ meets $\overline{BC}$ again at $X$. Suppose that $EF=PQ=16$ and $PX+QX=17$. Then $BC^2$ can be expressed as $\frac mn$, where $m$ and $n$ are relatively prime positive integers. Find $100m+n$.
+
+---
+
+Without loss of generality $E$, $F$, $P$, $Q$ lie on $\omega$ in that order. Let $L$ be the midpoint of arc $BC$ not including $A$ on the circumcircle. By the Incenter-Excenter lemma, $L$ is the circumcenter of $\triangle BIC$, so $\seg{EF}\parallel\seg{PQ}$; it follows that $EFPQ$ is a rectangle. Let the tangents to $\omega$ at $P$ and $Q$ meet at $I_A$. Since $\angle IPI_A=\angle IQI_A$, $I_A$ is the $A$-excenter, and by reflection through $I$, we have $IA=II_A$.
+
+With this, $LB=LC=LI=AL/3$, so by Ptolemy's theorem on $ABLC$, \[AB\cdot LC+AC\cdot LA=BC\cdot 4LI\implies BC=3(AB+AC).\]
+It readily follows that $AE=AF=BC$.
+\begin{center}
+\begin{asy}
+    size(9cm); defaultpen(fontsize(10pt));
+    pair A, B, C, I, D1, E, F, M, P, Q, D, X;
+    path e;
+    B = (-1, 0); C = (1, 0);
+    A = intersectionpoints(circle(B, 2.7), circle(C, 3.3))[0];
+    I = incenter(A, B, C);
+    D1 = foot(I, B, C);
+    E = foot(I, C, A); F = foot(I, A, B); M = (E + F)/2;
+    P = intersectionpoints(incircle(A, B, C), circumcircle(B, I, C))[0];
+    Q = intersectionpoints(incircle(A, B, C), circumcircle(B, I, C))[1];
+    D = extension(A, I, B, C);
+    X = 2 * foot(circumcenter(D, P, Q), B, C) - D;
+    e = rotate(180 / pi * atan2((Q-P).y,(Q-P).x), (P+Q)/2) * ellipse((P+Q)/2, (abs(P-X)+abs(Q-X))/2, abs((P+Q)/2-M));
+    filldraw(incircle(A, B, C), heavyblue+opacity(0.2));
+    draw(A--D, gray(0.6));
+    draw(P--Q, gray(0.4));
+    draw(A--B--C--cycle);
+    draw(E--F);
+    draw(e, dashed);
+    draw(P--X--Q--M--cycle, purple);
+    draw(arc(circumcenter(B, I, C), C, B), gray(0.6));
+    dot(A^^B^^C^^I^^D1^^E^^F^^M^^P^^Q^^D^^X);
+
+    label("$A$", A, dir(A - circumcenter(A, B, C)));
+    label("$B$", B, dir(B - circumcenter(A, B, C)));
+    label("$C$", C, dir(C - circumcenter(A, B, C)));
+    label("$I$", I, dir(270));
+    label("$T$", D1, dir(D1 - I));
+    label("$E$", E, dir(E - I));
+    label("$F$", F, dir(F - I));
+    label("$M$", M, dir(M - I));
+    label("$P$", P, dir(P - Q));
+    label("$Q$", Q, dir(Q - P));
+    label("$D$", D, dir(270));
+    label("$X$", X, dir(270));
+\end{asy}
+\end{center}
+Let $M$ be the midpoint of $\seg{EF}$, and let $\omega$ touch $\seg{BC}$ at $T$. Since $DP=DQ$, we know $\seg{XD}$ bisects $\angle PXQ$ externally, so there is an ellipse $\mathcal E$ with foci $P$, $Q$ tangent to $\seg{BC}$ at $X$.
+
+Note that $\angle BAP=\angle CAQ$ and $\angle BPC+\angle BQC=2\angle BIC=180\dg+\angle A$. This implies $P$ and $Q$ are isogonal conjugates in $\triangle ABC$, so $\mathcal E$ is an inconic and is tangent to $\seg{AC}$ and $\seg{AB}$ as well.
+
+Furthermore note that $\angle BFQ=\angle EFP=90\dg$ and $\angle CEP=\angle FEQ=90\dg$, so $P$ and $Q$ are also isogonal conjugates in $\triangle AEF$. Thus $\mathcal E$ is also tangent to $\seg{EF}$. Since $EFPQ$ is a rectangle, $\mathcal E$ is tangent to $\seg{EF}$ at $M$.
+
+Now it follows that $PM+QM=PX+QX=17$, so $PM=17/2$ and $MF=8$. The Pythagorean theorem on $\triangle PFM$ gives $FP=\sqrt{33}/2$, so $MI=\sqrt{33}/4$. Again the Pythaogrean theorem on $\triangle IMF$ gives $FI=\sqrt{1057}/4$. Finally $\triangle AMF\sim\triangle FMI$, so \[BC=AF=FI\cdot\frac{MF}{MI}=\frac{\sqrt{1057}}4\cdot\frac8{\sqrt{33}/4}=\frac{8\sqrt{1057}}{\sqrt{33}}.\]
+Thus $BC^2=67648/33$, and the requested sum is $6764833$.
+
+---
+
+6764833

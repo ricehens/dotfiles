@@ -1,0 +1,39 @@
+desc: Average is a square
+source: USA TST 2014/2
+tags: [2020-03, oly, brutal, nt, heavynt, qr, nice, favorite]
+author: Evan O'Dorney, Victor Wang
+
+---
+
+Let $a_1$, $a_2$, $a_3$, $\ldots$ be a sequence of integers, with the property that every consecutive group of $a_i$'s averages to a perfect square. More precisely, for every positive integers $n$ and $k$, the quantity \[\frac{a_n+a_{n+1}+\cdots+a_{n+k-1}}k\]
+is always the square of an integer. Prove that the sequence must be constant (i.e.\ all $a_i$ are equal to the same perfect square).
+
+---
+
+Let $p$ be a prime dividing $a_1$. Note that for each $i$, \[a_i\equiv-(a_{i+1}+\cdots+a_{i+p-1})\equiv a_{i+p}\pmod p,\]
+so the sequence $(a_i)$ is periodic with period $p$ modulo $p$.
+
+Take the least quadratic nonresidue $k$.
+\setcounter{claim}0
+\begin{claim}
+    $p\mid a_2+\cdots+a_k$.
+\end{claim}
+\begin{proof}
+    Assume for contradiction otherwise. Then $(k-1)(a_2+\cdots+a_k)$ and $k(a_2+\cdots+a_k)$ are both quadratic residues modulo $p$ (the latter since $p\mid a_1$). Hence we have
+    \begin{align*}
+        1&=\left(\frac kp\right)\left(\frac{a_2+\cdots+a_k}p\right)=-\left(\frac{a_2+\cdots+a_k}p\right)\\
+        1&=\left(\frac{k-1}p\right)\left(\frac{a_2+\cdots+a_k}p\right)=\left(\frac{a_2+\cdots+a_k}p\right),
+    \end{align*}
+    contradiction.
+\end{proof}
+\begin{claim}
+    $p\mid a_{k+1}$
+\end{claim}
+\begin{proof}
+    Assume for contradiction otherwise. Then $k(a_2+\cdots+a_{k+1})\equiv ka_{k+1}$ is a quadratic residue modulo $p$. If $a_{k+1}\not\equiv0\pmod p$, then \[1=\left(\frac kp\right)\left(\frac{a_{k+1}}p\right)=-1\]
+    since $a_{k+1}$ is a perfect square, contradiction.
+\end{proof}
+
+Now apply the same argument with $a_1$ replaced by $a_{k+1}$; we have $p\mid a_{mk+1}$ for any $m$. However $\gcd(k,p)=1$ and $(a_i)$ has period $p$ modulo $p$, so all terms of $(a_i)$ are divisible by $p$; in fact they are divisible by $p^2$, since all terms of $(a_i)$ are perfect squares.
+
+Divide out $p^2$ and repeat the argument (not necessarily with $p\mid a_1$). Eventually all numbers equal $1$, so we are done.

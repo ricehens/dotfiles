@@ -1,0 +1,40 @@
+desc: Distance to primitive point
+source: TSTST 2011/3
+tags: [2020-04, oly, hard, nt, size, analysis]
+
+---
+
+Prove that there exists a real constant $c$ such that for any pair $(x,y)$ of real numbers, there exist relatively prime integers $m$ and $n$ satisfying the relation \[\sqrt{(x-m)^2+(y-n)^2}<c\log\left(x^2+y^2+2\right).\]
+
+---
+
+It is evident the following bound suffices.
+\begin{claim*}
+    For all $c>0$, there is an $N$ with the following property: there do not exist integers $x,y>N$ and $k>c\log x$ such that $\gcd(x+i,y+j)>1$ for positive integers $i,j<k$.
+\end{claim*}
+Consider the $k\times k$ grid defined by the points $(x+i,y+j)$, and note the following estimates:
+\begin{itemize}[itemsep=0em]
+    \item Each prime $p<k$ divides at most $(1+k/p)^2$ the cells of the grid.
+    \item Each prime $p\ge k$ divdes at most one cell of the grid.
+\end{itemize}
+Let there be $T$ primes $p\ge k$ dividing some cell of the grid; then
+\[
+    T\ge k^2-\sum_{p<k}\left(1+\frac kp\right)
+    =k^2-\pi(k)-2k\sum_{p<k}\frac1k-k^2\sum_{p<k}\frac1{p^2}
+    >\frac{k^2}2
+\]
+for sufficiently large $k$.
+\begin{remark}
+    The estimate $T>\tfrac12k^2$ is obtained by the following:
+    \begin{align*}
+        \pi(k)&=\frac k{\log k}\left(1+O\left(\frac1{\log k}\right)\right)\\
+        \sum_{p<k}\frac1p&=\log\log k\cdot(1+o(1))\\
+        \sum_{p<k}\frac1{p^2}&<\sum_p\frac1{p^2}\approx0.452<\frac12.
+    \end{align*}
+\end{remark}
+\begin{remark}
+    Here is an easy proof of $\sum_p\frac1{p^2}<\frac12$. Note that \[\sum_{n\text{ odd}}\frac1{n^2}=\sum_n\frac1{n^2}-\sum_{n\text{ even}}\frac1{n^2}=\frac34\cdot\frac{\pi^2}6<\frac54\]
+    by $\pi^2<10$. Then \[\sum_p\frac1{p^2}<-\frac1{1^2}+\frac1{2^2}+\sum_{n\text{ odd}}\frac1{n^2}<\frac12.\]
+\end{remark}
+Hence \[(x+k)^k>(x+1)\cdots(x+k)>k^T>k^{k^2/2}\implies x>k^{k/2}-k>\left(e^c\right)^k,\]
+again, for sufficiently large $k$. The required bound follows.

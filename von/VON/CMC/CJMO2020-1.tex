@@ -1,0 +1,39 @@
+desc: Fibonacci tuple product
+source: CJMO 2020/1
+tags: [2019-12, oly, trivial, combo, induction]
+author: Eric Shen
+
+---
+
+Let $N$ be a positive integer, and let $S$ be the set of all tuples with positive integer elements and a sum of $N$. For instance, $t_1=(N)$, $t_2=(1,1,N-2)$, $t_3=(1,N-1)$, and $t_4=(N-1,1)$ are all distinct tuples in $S$. For all tuples $t$, let $p(t)$ denote the product of all the elements of $t$. For instance, $p(t_1)=N$, $p(t_2)=N-2$, and $p(t_3)=p(t_4)=N-1$.
+
+Evaluate the expression (where we sum over all elements $t$ of $S$) \[\sum_{t\in S}p(t).\]
+
+---
+
+Let $F_0=0$, $F_1=1$, and for all $k\ge 2$, $F_k=F_{k-1}+F_{k-2}$. The answer is $F_{2N}$.
+
+\paragraph{First solution}     To show this, we use strong induction. The base case, $N=1$, is clear. Let $f(N)$ be the answer for $N$. It can be seen that if the hypothesis holds for all integers less than $k$, then by picking the first element of the tuple first, $f(k)$ is equal to \[f(k)=\sum_{i=0}^{k-1} (k-i)F_{2i}=\sum_{i=0}^{k-1}\sum_{j=0}^i F_{2j}=\sum_{i=0}^{k-1} F_{2i+1}=F_{2k},\]
+    and the induction is complete.
+
+\paragraph{Second solution}     For all positive integers $i$, let $S_i$ denote the subset of $S$ that contains all tuples with cardinality $i$.
+    \begin{claim*}
+        For all $i$, \[\sum_{t\in S_i}p(t)=\binom{N-1+i}{2i-1}.\]
+    \end{claim*}
+    \begin{proof}[First proof by combinatorial argument]
+        The desired sum is bijective with splitting up a line of $N$ items into $i$ sections, and picking a representative from each section. Using the Stars and Bars method, we can add in $i-1$ dividers. We can pick $2i-1$ items, each of which is either a representative or divider. Since between two representatives there is exactly one divider, which of these selected items is a divider follows. Hence, there are $\tbinom{N-1+i}{2i-1}$ ways to pick sections and representatives, as desired.
+    \end{proof}
+    \begin{proof}[Second proof by strong induction]
+        Let $S_i(k)$ be the number of tuples with cardinality $i$ whose elements sum to $k$. It suffices to show that \[\sum_{t\in S_i(k)}p(t)=\binom{k-1+i}{2i-1}.\]
+        The base case, $i=1$, is trivial. Then, we can pick the first element of each tuple first, so by the Hockey Stick Identity,
+        \begin{align*}
+            \sum_{t\in S_i(k+1)}p(t)&=\sum_{j=1}^{k-i+2}\left(j\sum_{t\in S_i(k+1-j)}p(t)\right)=\sum_{j=1}^{k-i+2}\left(j\binom{k+i-j}{2i-1}\right)\\
+            &=\sum_{\ell=2i-1}^{k+i-1}\sum_{j=2i-1}^\ell\binom{j}{2i-1}=\sum_{\ell=2i-1}^{k+i-1}\binom{\ell+1}{2i}=\binom{k+1+i}{2i+1},
+        \end{align*}
+        as required.
+    \end{proof}
+
+    We then have that
+    \[\sum_{t\in S}p(t)=\sum_{i=1}^{N}\sum_{t\in S_i}p(t)=\sum_{i=1}^{N}\binom{N-1+i}{2i-1}=\sum_{i=1}^{N}\binom{N-1+i}{N-i}=F_{2N},\]
+    as desired.
+

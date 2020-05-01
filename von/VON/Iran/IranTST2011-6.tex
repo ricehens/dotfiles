@@ -1,120 +1,175 @@
 desc: Angle chasing madness
 source: Iran TST 2011/6
-tags: [2019-10, oly, brutal, geo, angle-chasing]
+tags: [2019-10, oly, brutal, geo, angle-chasing, conditional, involved, nice, favorite, final]
 
 ---
 
-Let $\omega$ be a circle with center $O$, and let $T$ be a point outside of $\omega$. Points $B$ and $C$ lie on $\omega$ such that $\overline{TB}$ and $\overline{TC}$ are tangent to $\omega$. Let $K$ and $H$ be two points on $\overline{TB}$ and $\overline{TC}$, respectively.
-\begin{itemize}
-    \item[(a)] Let lines $BO$ and $CO$ meet $\omega$ again at $B'$ and $C'$, and let $K'$ and $H'$ lie on the angle bisectors of $\angle BCO$ and $\angle CBO$, respectively, such that $\overline{KK'}$ and $\overline{HH'}$ are perpendicular to $\overline{BC}$. Prove that $K,H',B'$ are collinear if and only if $H,K',C'$ are collinear.
-        \vspace{-0.5em}
-    \item[(b)] Let $I$ be the incenter of $\triangle OBC$. Two circles lie on the interior of $\triangle TBC$ and are externally tangent to each other at $J$; both circles are externally tangent to $\omega$. Given that one of them is tangent to $\overline{TB}$ at $K$ and the other is tangent to $\overline{TC}$ at $H$, prove that quadrilaterals $BKJI$ and $CHJI$ are cyclic.
+Let $\omega$ be a circle with center $O$, and let $T$ be a point outside of $\omega$. Points $B$ and $C$ lie on $\omega$ such that $\overline{TB}$ and $\overline{TC}$ are tangent to $\omega$. Select two points $K$ and $H$ on $\overline{TB}$ and $\overline{TC}$, respectively.
+\begin{enumerate}[label=(\alph*)]
+    \item Lines $BO$ and $CO$ meet $\omega$ again at $B'$ and $C'$, and points $K'$ and $H'$ lie on the angle bisectors of $\angle BCO$ and $\angle CBO$, respectively, such that $\overline{KK'}$ and $\overline{HH'}$ are perpendicular to $\overline{BC}$. Prove that $K$, $H'$, $B'$ are collinear if and only if $H$, $K'$, $C'$ are collinear.
+    \item Let $I$ be the incenter of $\triangle OBC$. Two circles in the interior of $\triangle TBC$ are externally tangent to $\omega$ and externally tangent to each other at $J$. Given that one of them is tangent to $\overline{TB}$ at $K$ and the other is tangent to $\overline{TC}$ at $H$, prove that quadrilaterals $BKJI$ and $CHJI$ are cyclic.
+\end{enumerate}
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(11cm);
+        defaultpen(fontsize(9pt));
+
+        pen pri=deepblue;
+        pen sec=royalblue;
+        pen tri=blue;
+        pen qua=Cyan;
+        pen qui=deepcyan;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+        pen qfil=qua+opacity(0.05);
+        pen qifil=qui+opacity(0.05);
+
+        pair O, T, B, C, Bp, Cp, I, K, Kp, H, Hp, M, NN, X, Y, P, Q, O1, O2, J, Kq, Hq;
+        O=(0, 0); T=(1.7, 0);
+        B=intersectionpoints(circle(O, 1), circle(T/2, length(T)/2))[0];
+        C=intersectionpoints(circle(O, 1), circle(T/2, length(T)/2))[1];
+        Bp=-B; Cp=-C;
+        I=incenter(O, B, C);
+        K=(2B+7T)/9;
+        Kp=extension(C, I, K, foot(K, B, C));
+        H=extension(Kp, Cp, T, C);
+        Hp=extension(B, I, H, foot(H, B, C));
+        M=dir(270);
+        NN=dir(90);
+        X=foot(K, B, C);
+        Y=foot(H, B, C);
+        P=foot(B, Bp, K);
+        Q=foot(C, Cp, H);
+        O1=extension(O, P, K, K+O-B);
+        O2=extension(O, Q, H, H+O-C);
+        J=intersectionpoint(O1 -- O2, circle(O1, length(K-O1)));
+        Kq=extension(K, J, H, Hp);
+        Hq=extension(H, J, K, Kp);
+
+        filldraw(circle(O, 1), fil, pri);
+        filldraw(circumcircle(B, X, P), sfil, sec);
+        filldraw(circumcircle(C, Y, Q), sfil, sec);
+        filldraw(circumcircle(P, X, Y), sfil, sec);
+        filldraw(circumcircle(B, Y, P), tfil, tri);
+        filldraw(circumcircle(C, X, Q), tfil, tri);
+        filldraw(circle(O1, length(K-O1)), qfil, qua);
+        filldraw(circle(O2, length(H-O2)), qfil, qua);
+        filldraw(circumcircle(B, K, Q), qifil, qui);
+        filldraw(circumcircle(C, H, P), qifil, qui);
+        draw(K -- Bp, tri);
+        draw(H -- Cp, tri);
+        draw(B -- Bp, pri);
+        draw(C -- Cp, pri);
+        draw(B -- T -- C -- B, pri);
+        draw(K -- Kp, pri);
+        draw(H -- Hp, pri);
+        draw(B -- M, sec);
+        draw(C -- NN, sec);
+        draw(M -- P -- Cp, qua);
+        draw(NN -- Q -- Bp, qua);
+        draw(B -- Kq -- K, qui);
+        draw(C -- Hq -- H, qui);
+
+        dot("$O$", O, W);
+        dot("$T$", T, E);
+        dot("$B$", B, N);
+        dot("$C$", C, S);
+        dot("$B'$", Bp, Bp);
+        dot("$C'$", Cp, Cp);
+        dot("$I$", I, W);
+        dot("$K$", K, dir(10));
+        dot("$H$", H, dir(-10));
+        dot("$K'$", Kp, dir(160));
+        dot("$H'$", Hp, dir(120));
+        dot("$M$", M, M);
+        dot("$N$", NN, NN);
+        dot("$X$", X, NE);
+        dot("$Y$", Y, SE);
+        dot("$P$", P, SE);
+        dot("$Q$", Q, dir(12));
+        dot("$J$", J, unit(O1-O2));
+        dot("$K^+$", Kq, dir(260));
+        dot("$H^+$", Hq, N);
+    \end{asy}
+\end{center}
+\paragraph{First solution to part (a), by angle chasing}     Ignore the collinearities for now. Let $\seg{B'K}$ and $\seg{C'H}$ intersect $\omega$ again at $P$ and $Q$, and let $\seg{BC}$ intersect $\seg{KK'}$ at $X$ and $\seg{HH'}$ at $Y$. Denote by $M$ and $N$ the midpoints of arcs $CB'$ and $BC'$, so that $H'\in\seg{BM}$ and $K'\in\seg{CN}$.
+\setcounter{claim}0
+\begin{claim}
+    Points $Q$, $Y$, $B'$ are collinear; points $P$, $X$, $C'$ are collinear; and $XPQY$ is cyclic.
+\end{claim}
+\begin{proof}
+    Since $\da CQY=\da CHY=90\dg-\da YCH=\da OCB=\da CBB'=\da CQB'$, points $Q$, $Y$, $B'$ are collinear. Analogously $P$, $X$, $C'$ are collinear. Finally the concyclicity follows from the converse of Reim's theorem. To spell it out, $\da PXY=\da PC'B'=\da PQB'=\da PQY$.
+\end{proof}
+\begin{claim}
+    Points $H$, $K'$, $C'$ are collinear if and only if points $Q$, $X$, $N$ are collinear. Symmetrically, points $K$, $H'$, $B'$ are collinear if and only if points $P$, $Y$, $M$ are collinear.
+\end{claim}
+\begin{proof}
+    Check that $\da K'QX=\da K'CX=\da NCB=\da C'QN$, so \[\seg{HK'C'}\iff\da C'QX=\da K'QX\iff\da C'QX=\da C'QN\iff\seg{QXN},\]
+    where $\seg{UVW}$ is the assertion that $U$, $V$, $W$ are collinear.
+\end{proof}
+\begin{claim}
+    Points $Q$, $X$, $N$ are collinear if and only if points $P$, $Y$, $M$ are collinear.
+\end{claim}
+\begin{proof}
+    Assume that $Q$, $X$, $N$ are collinear. It follows that $\da C'PY=\da XPY=\da XQY=\da NQB'=\da C'QN$, proving the claim.
+\end{proof}
+
+Putting these claims together yields the desired conclusion.
+
+\paragraph{Second solution to part (a), by moving points}     Let $M$ and $N$ be the midpoints of arcs $CB'$ and $BC'$ respectively. Choose a point $K$ on $\overline{BT}$; we construct $K'$ on $\overline{CN}$ with $\overline{KK'}\perp\overline{BC}$, let $H=\overline{CT}\cap\overline{C'K'}$, construct $H'$ on $\overline{BM}$ with $\overline{HH'}\perp\overline{BC}$, and let $K_0=\overline{BT}\cap\overline{B'H'}$. Our task is to prove that $K=K_0$.
+
+Move $K$ along line $BT$ at a linear rate, and let $\infty_{\perp BC}$ be the point at infinity perpendicular to $\overline{BC}$.
+\begin{itemize}[itemsep=0em]
+    \item By projection through $\infty_{\perp BC}$, $K'$ moves along $\overline{CN}$ at a linear rate.
+    \item By projection through $C'$, $H$ moves along $\overline{CT}$ at a linear rate.
+    \item By projection through $\infty_{\perp BC}$, $H'$ moves along $\overline{BM}$ at a linear rate.
+    \item By projection through $B'$, $K_0$ moves along $\overline{BT}$ at a linear rate.
 \end{itemize}
+Thus it suffices to verify the hypothesis for three values of $K$. We verify the following special cases:
+\begin{itemize}[itemsep=0em]
+    \item $K=B$: Then $K'$ lies on $\overline{BC}$, to $H$ is the reflection of $C$ over $T$. Then $H'=B$, so $K_0=B$.
+    \item $K$ is the reflection of $B$ over $T$: Then $K'=C$, so $H=C$ and $H'$ is a point on $\overline{CB'}$. Thus $K_0=K$.
+    \item $K$ is the point at infinity along $\overline{TB}$: Then $K'$ is the point at infinity along $\overline{CN}$, so $H=\overline{TC}\cap\overline{MC'}$. Then since $H'$ lies on $\overline{BM}$, it is the reflection of $H$ over $\overline{MN}$, so $\overline{B'H'}$ is tangent to $\omega$. It follows that $K_0=K$.
+\end{itemize}
+This completes the proof.
 
----
+\paragraph{Solution to part (b)}     First we present a well-known lemma.
+\begin{lemma*}[Folklore]
+    Circles $\Gamma_1$ and $\Gamma_2$ are externally tangent at $P$, circles $\Gamma_2$ and $\Gamma_3$ are externally tangent at $Q$, and circles $\Gamma_3$ and $\Gamma_1$ are externally tangent at $R$. Let $A$ be an arbitrary point on $\Gamma_1$. Line $AP$ intersects $\Gamma_2$ again at $B$, line $BQ$ intersects $\Gamma_3$ again at $C$, and line $\seg{CR}$ intersects $\Gamma_1$ again at $D$. Then $\seg{AD}$ is a diameter of $\Gamma_1$.
+\end{lemma*}
+\begin{proof}
+    Let $O_1$, $O_2$, $O_3$ be the centers of $\Gamma_1$, $\Gamma_2$, $\Gamma_3$, respectively. Since $D$ must be the insimilicenter of $\Gamma_1$ and $\Gamma_2$, rays $O_1A$ and $O_2B$ are parallel but in opposite directions. Similarly rays $O_2B$ and $O_3C$ are opposite and parallel, and so are rays $O_3C$ and $O_1D$.
 
-\begin{customsol}{to part (a)}
-    Let $\overline{KK'}$ and $\overline{HH'}$ intersect $\overline{BC}$ at $X$ and $Y$, respectively, and rays $BI$ and $CI$ meet $\omega$ again at $M$ and $N$, respectively. Also let $P$ and $Q$ denote the feet of the perpendiculars from $B$ and $C$, respectively, to $\overline{KB'}$ and $\overline{HC'}$, respectively.
-    \begin{center}
-        \begin{asy}
-            size(12cm);
-            defaultpen(fontsize(9pt));
+    Combining these, $\seg{O_1A}$ and $\seg{O_1D}$ are parallel but in opposite directions; in other words, $\seg{AD}$ must be a diameter of $\Gamma_1$, as claimed.
+\end{proof}
 
-            pen pri=deepblue;
-            pen sec=royalblue;
-            pen tri=blue;
-            pen qua=Cyan;
-            pen qui=deepcyan;
-            pen fil=pri+opacity(0.05);
-            pen sfil=sec+opacity(0.05);
-            pen tfil=tri+opacity(0.05);
-            pen qfil=qua+opacity(0.05);
-            pen qifil=qui+opacity(0.05);
+For now, ignore the two extra circles. We prove another concyclicity.
+\begin{claim}
+    $BKQIK'$ and $CHPIH'$ are cyclic.
+\end{claim}
+\begin{proof}
+    Since $\da BKK'=90\dg-\da XBK=90\dg-\da CC'B=\da BCC'=\da BQK'$, quadrilateral $BKQK'$ is cyclic. Furthermore $\da BIK'=\da BIN=\da BON=\da BQC'=\da BQK'$, as desired.
+\end{proof}
+\begin{claim}
+    $(JPK)$ and $\omega$ are tangent at $P$. Analogously $(JQH)$ and $\omega$ are tangent at $Q$.
+\end{claim}
+\begin{proof}
+    The tangent to $(JPK)$ at $K$ is $\seg{BT}$, which is parallel to the tangent to $\omega$ at $B'$. Thus by homothety, the tangency point between $(JPK)$ and $\omega$ lies on $\seg{KB'}$ and therefore must be $P$. The other case follows in a similar fashion.
+\end{proof}
 
-            pair O, T, B, C, Bp, Cp, I, K, Kp, H, Hp, M, NN, X, Y, P, Q, O1, O2, J, Kq, Hq;
-            O=(0, 0); T=(1.7, 0);
-            B=intersectionpoints(circle(O, 1), circle(T/2, length(T)/2))[0];
-            C=intersectionpoints(circle(O, 1), circle(T/2, length(T)/2))[1];
-            Bp=-B; Cp=-C;
-            I=incenter(O, B, C);
-            K=(2B+7T)/9;
-            Kp=extension(C, I, K, foot(K, B, C));
-            H=extension(Kp, Cp, T, C);
-            Hp=extension(B, I, H, foot(H, B, C));
-            M=dir(270);
-            NN=dir(90);
-            X=foot(K, B, C);
-            Y=foot(H, B, C);
-            P=foot(B, Bp, K);
-            Q=foot(C, Cp, H);
-            O1=extension(O, P, K, K+O-B);
-            O2=extension(O, Q, H, H+O-C);
-            J=intersectionpoint(O1 -- O2, circle(O1, length(K-O1)));
-            Kq=extension(K, J, H, Hp);
-            Hq=extension(H, J, K, Kp);
+Let $(JPK)$ intersect $\seg{KK'}$ again at $H^+$ and let $(JQH)$ intersect $\seg{HH'}$ again at $K^+$.
+\begin{claim}
+    $J$ lies on $\seg{KK^+}$ and $\seg{HH^+}$.
+\end{claim}
+\begin{proof}
+    Angle chasing, $\da KJH^+=\da BKH^+=90\dg-\da CBT$, and similarly $\da K^+JH=90\dg-\da TCB$. These are equal, so $\da KJH^+=\da K^+JH$. Since $\seg{KH^+}\parallel\seg{HK^+}$, we must have that $J=\seg{KK^+}\cap\seg{HH^+}$.
+\end{proof}
 
-            filldraw(circle(O, 1), fil, pri);
-            filldraw(circumcircle(B, X, P), sfil, sec);
-            filldraw(circumcircle(C, Y, Q), sfil, sec);
-            filldraw(circumcircle(P, X, Y), sfil, sec);
-            filldraw(circumcircle(B, Y, P), tfil, tri);
-            filldraw(circumcircle(C, X, Q), tfil, tri);
-            filldraw(circle(O1, length(K-O1)), qfil, qua);
-            filldraw(circle(O2, length(H-O2)), qfil, qua);
-            filldraw(circumcircle(B, K, Q), qifil, qui);
-            filldraw(circumcircle(C, H, P), qifil, qui);
-            draw(K -- Bp, tri);
-            draw(H -- Cp, tri);
-            draw(B -- Bp, pri);
-            draw(C -- Cp, pri);
-            draw(B -- T -- C -- B, pri);
-            draw(K -- Kp, pri);
-            draw(H -- Hp, pri);
-            draw(B -- M, sec);
-            draw(C -- NN, sec);
-            draw(M -- P -- Cp, qua);
-            draw(NN -- Q -- Bp, qua);
-            draw(B -- Kq -- K, qui);
-            draw(C -- Hq -- H, qui);
+By the lemma applied to $(JPK)$, $(JQH)$, $\omega$, we find that the second intersection of $\seg{QK^+}$ and $\omega$ must be the antipode of $B'$; id est it is $B$. It follows that $B$, $Q$, $K^+$ are collinear, and by symmetry so are $C$, $P$, $H^+$.
 
-            dot("$O$", O, W);
-            dot("$T$", T, E);
-            dot("$B$", B, N);
-            dot("$C$", C, S);
-            dot("$B'$", Bp, Bp);
-            dot("$C'$", Cp, Cp);
-            dot("$I$", I, W);
-            dot("$K$", K, dir(10));
-            dot("$H$", H, dir(-10));
-            dot("$K'$", Kp, dir(160));
-            dot("$H'$", Hp, dir(120));
-            dot("$M$", M, M);
-            dot("$N$", NN, NN);
-            dot("$X$", X, NE);
-            dot("$Y$", Y, SE);
-            dot("$P$", P, SE);
-            dot("$Q$", Q, dir(12));
-            dot("$J$", J, unit(O1-O2));
-            dot("$K^+$", Kq, dir(260));
-            dot("$H^+$", Hq, N);
-        \end{asy}
-    \end{center}
-    Assume that $H,K',C'$ are collinear. By symmetry, it suffices to prove that $K,H',B'$ are collinear. Check that $CQXK'$, $CYQH$, and $BXPK$ are cyclic with diameters $\overline{CK'}$, $\overline{CH}$, and $\overline{BK}$, respectively. Notice that \[\measuredangle CQY=\measuredangle CHY=90^\circ-\measuredangle YCH=\measuredangle OCB=\measuredangle CBO=\measuredangle CBB'=\measuredangle CQB',\]
-    so $Q,Y,B'$ are collinear, and similarly, $P,X,C'$ are collinear. Since $BCB'C'$ is a rectangle, \[\measuredangle XPY=\measuredangle C'PM=\measuredangle NPB=\measuredangle NQB=\measuredangle XQY,\]
-    whene $XPQY$ is cyclic. Since $\overline{NN}\parallel\overline{XK'}$, by Reim's Theorem on $\omega$ and $(CQXK')$, $Q,X,N$ are collinear. By Reim's Theorem on $\omega$ and $(XPQY)$, $P,Y,M$ are collinear. Since $BCB'C'$ is a rectangle, \[\measuredangle BPY=\measuredangle BPM=\measuredangle NQC=\measuredangle XQC=\measuredangle XK'C=90^\circ-\measuredangle NCB=90^\circ-\measuredangle CBM=\measuredangle BH'Y,\]
-    so $BPYH'$ is cyclic. Hence, $\measuredangle BPH'=\measuredangle BYH'=90^\circ=\measuredangle B'PK$, so $K,H',B'$ are collinear, and we win.
-\end{customsol}
-\begin{customsol}{to part (b)}
-    Notice that \[\measuredangle BQK'=\measuredangle BQC'=\measuredangle B'QC=\measuredangle B'BC=90^\circ-\measuredangle CBK=90^\circ-\measuredangle XBK=\measuredangle BKX=\measuredangle BKK',\]
-    whence $BKQK'$ is cyclic. Let $\omega$ and the circle tangent to $\overline{TB}$ intersect at $P'$. Then, the negative homothety at $P'$ between the two circles takes $K$ to $B'$, so $K,P,B'$ are collinear. This implies that $P=P'$, and similarly the circle tangent to $\overline{TC}$ touches $\omega$ at $Q$.
+To finish, remark that $\da BQJ=\da K^+QJ=\da JPK=\da BKJ$. Symmetry implies that $BKJQIK'$ and $CHJPKH'$ are cyclic, so we are done.
 
-    The key observation is that when two circles are tangent, the tangency point is the insimilicenter. Let $(JPK)$ intersect $\overline{XK}$ again at $H^+$ and $(JQH)$ intersect $\overline{YH}$ again at $K^+$. Since $\overline{KH^+}\parallel\overline{HK^+}$ and \[\measuredangle HJK^+=\measuredangle CHK^+=\measuredangle CHY=90^\circ-\measuredangle BCT=90^\circ-\measuredangle TBC=\measuredangle XKB=\measuredangle H^+KB=\measuredangle H^+JK,\]
-    we must have that $J=\overline{KK^+}\cap\overline{HH^+}$. Let $O_1$ and $O_2$ be the centers of $(JPK)$ and $(JQH)$, respectively. Notice that by homothety,
-    \begin{align*}
-        \measuredangle BOQ&=\measuredangle B'OQ=\measuredangle POQ+\measuredangle B'OP=\measuredangle POQ+\measuredangle KO_1P=\measuredangle POQ+\measuredangle JO_1P+\measuredangle KO_1J\\
-        &=\measuredangle POQ+\measuredangle JO_1P+\measuredangle K^+O_2P=\measuredangle POQ+\measuredangle JO_1P+\measuredangle QOJ+\measuredangle K^+O_2Q=\measuredangle K^+O_2Q,
-    \end{align*}
-    so $B,Q,K^+$ are collinear. Hence, \[\measuredangle BQJ=\measuredangle K^+QJ=\measuredangle KPJ=\measuredangle BKJ,\]
-    whence $J\in(BKQK')$. Finally, using cyclic quadrilateral $BION$ we can find that \[\measuredangle BIK'=\measuredangle BIN=\measuredangle BON=\measuredangle BMC'=\measuredangle BQC'=\measuredangle BQK',\]
-    and $BKJQIK'$ is cyclic. By symmetry, we are done.
-\end{customsol}

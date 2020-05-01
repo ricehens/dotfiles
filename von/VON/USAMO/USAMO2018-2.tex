@@ -1,0 +1,27 @@
+desc: Cyclic sum f(x+1/y) = 1
+source: USAMO 2018/2
+tags: [2020-04, oly, tricky, alg, fe, nice]
+
+---
+
+Find all functions $f:\mathbb R_{>0}\to\mathbb R_{>0}$ such that \[f\left(x+\frac1y\right)+f\left(y+\frac1z\right)+f\left(z+\frac1x\right)=1\]
+for all positive real numbers $x$, $y$, $z$ with $xyz=1$.
+
+---
+
+Consider the substitutions \[g(x):=f\left(\frac1x-1\right)\quad\text{and}\quad h(x):=g\left(x+\frac13\right)-\frac13.\]
+We have the following properties:
+\begin{align*}
+    g:(0,1)\to(0,1).&\qquad g(x)+g(y)+g(z)=1\quad\text{for}\quad x+y+z=1.\\
+    h:(-\tfrac13,\tfrac23)\to(-\tfrac13,\tfrac23).&\qquad h(x)+h(y)+h(z)=0\quad\text{for}\quad x+y+z=0.
+\end{align*}
+I contend all valid $h$ obey $h(x)\equiv kx$ for some constant $k$. Such $h$ obviously work when $k\in[\tfrac12,1]$ (and no other $k$ work), so we verify $h$ is of this form. We proceed in four steps:
+\begin{itemize}
+    \item By $z=0$, we find $h$ is odd.
+    \item From above, we have $h(x+y)=-h(-x)-h(-y)=h(x)+h(y)$ for $x,y\in(-\tfrac16,\tfrac16)$, so by bounded Cauchy, for some $k$ we have $h(x)=kx$ for $x$ on that interval.
+    \item For $x\in(-\tfrac13,\tfrac13)$, note $h(x)=-2h(-\tfrac12x)=2h(\tfrac12x)=kx$.
+    \item For $x\in[\tfrac13,\tfrac23)$, again note $h(x)=-2h(-\tfrac12x)=2h(\tfrac12x)=kx$, as needed.
+\end{itemize}
+
+Unravelling the substitutions, the answer is \[f(x)\equiv\frac k{x+1}+\frac{1-k}3,\]
+for each constant $k\in[\tfrac12,1]$.

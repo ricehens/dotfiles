@@ -1,0 +1,18 @@
+desc: Common external tangent lengths
+source: Mock AIME 2018/2
+tags: [2019-12, answer, ceasy, geo, length]
+author: Eric Shen
+
+---
+
+There exist two non-intersecting circles with radii $4$ and $3$. Suppose the length of their common internal tangent is $21$. Then, the length of their common external tangent is $\sqrt{d}$, where $d$ is a positive integer. Find $d$.
+
+---
+
+Suppose the center of the circle with radius $4$ is $P$ and the center of the circle with radius $3$ is $Q$. Suppose the common internal tangent touches circle $P$ at $A$ and circle $Q$ at $B$. Let $\overline{PQ}$ intersect $\overline{AB}$ at $X$. Then, by AA, $\triangle PAX\sim\triangle QBX$. It follows that $\frac{AX}{BX}=\frac{AP}{BQ}=\frac{4}{3}$. Since $AX+BX=21$, $AX=12$ and $BX=9$. It follows that $PX=4\sqrt{10}$ and $QX=3\sqrt{10}$, so $PQ=7\sqrt{10}$. 
+
+Suppose the common external tangent touches circle $P$ at $A'$ and $Q$ at $B'$. Suppose $C$ lies on $\overline{A'P}$ such that $\overline{A'P}\perp\overline{CQ}$. Then, since $\overline{A'P}\parallel\overline{B'Q}$, $CP=1$ and $AC=3$. Note that since $\overline{CQ}\parallel\overline{A'B'}$, $CQ=A'B'$. It is easy to see that $CQ=\sqrt{PQ^2-CP^2}=\sqrt{489}$, and the answer is $489$.
+
+---
+
+489

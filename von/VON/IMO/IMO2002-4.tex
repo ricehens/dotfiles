@@ -1,0 +1,18 @@
+desc: d_1d_2+...+d_{k-1}d_k < n^2
+source: IMO 2002/4
+tags: [2020-04, oly, easy, nt, size, waltz]
+
+---
+
+Let $n\ge2$ be a positive integer with divisors $1=d_1<d_2<\cdots<d_k=n$. Prove that $d_1d_2+d_2d_3+\cdots+d_{k-1}d_k$ is always less than $n^2$, and determine when it is a divisor of $n^2$.
+
+---
+
+The answer is $n$ prime, for which $k=2$ and $d_1d_2=n\mid n^2$. I claim no other integers work.
+
+Assume $n$ is composite ($k>2$), and let $p$ be its smallest prime factor. Note that
+\begin{align*}
+    \sum_{i=1}^{k-1}d_id_{i+1}&>d_{k-1}d_k=\frac{n^2}p,\\
+    \sum_{i=1}^{k-1}d_id_{i+1}&=\sum_{i=1}^{k-1}\frac{n^2}{d_id_{i+1}}\le\sum_{i=1}^{k-1}\frac{n^2}{i(i+1)}=n^2\cdot\frac{k-1}k<n^2.
+\end{align*}
+In summary, $d_1d_2+\cdots+d_{k-1}d_k$ is greater than $n^2/p$ and less than $n^2$, so it is less than $n^2$ but does not divide $n^2$.

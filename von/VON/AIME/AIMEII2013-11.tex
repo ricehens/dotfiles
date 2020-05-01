@@ -1,0 +1,49 @@
+desc: f(f(x)) constant
+source: AIME II 2013/11
+tags: [2020-04, answer, ctricky, alg, fe, arrows]
+
+---
+
+Let $A=\{1,2,3,4,5,6,7\}$, and let $N$ be the number of functions $f:A\to A$ such that $f(f(x))$ is the constant function. Find the remainder when $N$ is divided by $1000$.
+
+---
+
+The elements of $A$ can be partitioned into three subsets $A_0$, $A_1$, $A_2$ with the following properties:
+\begin{itemize}[itemsep=0em]
+    \item $A_2=\{c\}$, the constant value of $f\circ f$.
+    \item $A_1$ is the set of $x$ for which $f(x)=c$.
+    \item $A_0$ is the set of $x$ for which $f(f(x))=c$ but $f(x)\ne c$.
+\end{itemize}
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(12pt));
+    filldraw( (0,.5)--(1,.5)--(1,4.5)--(0,4.5)--cycle,springgreen+opacity(0.05),heavygreen);
+    filldraw( (2,.5)--(3,.5)--(3,4.5)--(2,4.5)--cycle,cyan+opacity(0.05),lightblue);
+    filldraw( (4,.5)--(5,.5)--(5,4.5)--(4,4.5)--cycle,lightred+opacity(0.05),lightred);
+    void arr(pair I, pair J) {
+        real t=0.2;
+        draw( (I+t*unit(J-I))--(J+t*unit(I-J)),purple+pink,Arrow());
+    }
+    arr( (.5,4),(2.5,1.5));
+    arr( (.5,3),(2.5,3.5));
+    arr( (.5,2),(2.5,1.5));
+    arr( (.5,1),(2.5,3.5));
+    arr( (2.5,3.5),(4.5,2.5));
+    arr( (2.5,1.5),(4.5,2.5));
+    label("1",(.5,4),deepgreen);
+    label("2",(.5,3),deepgreen);
+    label("5",(.5,2),deepgreen);
+    label("6",(.5,1),deepgreen);
+    label("4",(2.5,3.5),blue);
+    label("7",(2.5,1.5),blue);
+    label("3",(4.5,2.5),red);
+    label("$A_0$",(.5,4.5),N,deepgreen);
+    label("$A_1$",(2.5,4.5),N,blue);
+    label("$A_2$",(4.5,4.5),N,red);
+\end{asy}
+\end{center}
+Fix $c$; there are $7$ ways to do so. Let $k=|A_1|$, so $|A_0|=6-k$. There are $\binom6k$ ways to select $A_1$, and each of its elements point to $c$. For the $6-k$ elements of $A_0$, each may point to any of the $k$ elements of $A_1$. Hence the answer is \[7\cdot\sum_{k=1}^6\binom6k\cdot k^{6-k}=7399.\]
+
+---
+
+399

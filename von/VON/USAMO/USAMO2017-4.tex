@@ -1,13 +1,152 @@
 desc: Number of crossings fixed
 source: USAMO 2017/4
-tags: [2019-10, oly, medium, combo]
+tags: [2019-10, oly, easy, combo, process]
 
 ---
 
-Let $P_1,P_2,\ldots,P_{2n}$ be $2n$ distinct points on the unit circle $x^2+y^2=1$, other than $(1,0)$. Each point is colored either red or blue, with exactly $n$ red points and $n$ blue points. Let $R_1,R_2,\ldots,R_n$ be any ordering of the red points. Let $B_1$ be the nearest blue point to $R_1$ traveling counterclockwise around the circle starting from $R_1$. Then let $B_2$ be the nearest of the remaining blue points to $R_2$ traveling counterclockwise around the circle from $R_2$, and so on, until we have labeled all of the blue points $B_1,\ldots,B_n$. Show that the number of counterclockwise arcs of the form $R_i\to B_i$ that contain the point $(1,0)$ is independent of the way we chose the ordering $R_1,\ldots,R_n$ of the red points.
+Let $P_1$, $P_2$, $\ldots$, $P_{2n}$ be $2n$ distinct points on the unit circle $x^2+y^2=1$, none of which is $(1,0)$. Each point is colored either red of blue, with exactly $n$ red points and $n$ blue points. Let $R_1$, $R_2$, $\ldots$, $R_n$ be any ordering of the red points. Let $B_1$ be the nearest blue point to $R_1$ traveling counterclockwise around the circle starting from $R_1$. Then let $B_2$ be the nearest of the remaining blue points to $R_2$ traveling counterclockwise around the circle from $R_2$, and so on, until we have labeled all of the blue points $B_1$, $\ldots$, $B_n$.
+
+Show that the number of counterclockwise arcs of the form $R_i\to B_i$ that contain the point $(1,0)$ is independent of the way we chose the ordering $R_1$, $\ldots$, $R_n$ of the red points.
+
 
 ---
 
-If we progress from $(1,0)$ around the circle and keep track of $r$ and $b$, the number of red and blue points passed, respectively, the answer is the maximum value attained by $b-r$.
+\paragraph{First solution, by swapping adjacent points} For any $1\le i<n$, we will consider what happens when we swap the red points $R_i$, $R_{i+1}$.
+\begin{claim*}
+    If we swap $R_i$, $R_{i+1}$, then the new arcs $R_iB_i$, $R_{i+1}B_{i+1}$ will cover the same set of points with multiplicity.
+\end{claim*}
+\begin{proof}
+    Delete all the other points. There are three possible ways to orient the four remaining points $R_i$, $R_{i+1}$, $B_i$, $B_{i+1}$.
+    \begin{center}
+        \begin{asy}
+            size(8cm); defaultpen(fontsize(10pt));
+            picture pic11, pic12, pic21, pic22, pic31, pic32;
+            pair A,B,C,D;
+            A=(1,0);
+            B=(0,1);
+            C=(-1,0);
+            D=(0,-1);
 
-This is because if we remove $R_1$ and $B_1$, the difference changes appropriately: If $R_1\to B_1$ contains $(1,0)$, $B_1$ is before $R_1$, so $x$ decreases, and otherwise, $x$ remains invariant. Since $b-r$ is independent of the ordering of the red points, we are done.
+            draw(pic11,unitcircle);
+            draw(pic12,unitcircle);
+            draw(pic21,unitcircle);
+            draw(pic22,unitcircle);
+            draw(pic31,unitcircle);
+            draw(pic32,unitcircle);
+
+            void arr(picture p, int i, pair I, pair J) {
+                real t;
+                if (i == 0) t=0.85;
+                else t=0.7;
+
+                draw(p,arc(origin,t*I,t*J,CCW),purple,EndArrow(TeXHead));
+            }
+
+            arr(pic11,1,A,C);
+            arr(pic11,0,B,D);
+            arr(pic12,1,B,C);
+            arr(pic12,0,A,D);
+            arr(pic21,0,A,B);
+            arr(pic21,0,C,D);
+            arr(pic22,0,C,D);
+            arr(pic22,0,A,B);
+            arr(pic31,1,A,B);
+            arr(pic31,0,D,C);
+            arr(pic32,1,D,B);
+            arr(pic32,0,A,C);
+
+            dot(pic11,"$R_i$",A,A,red);
+            dot(pic12,"$R_{i+1}$",A,A,red);
+            dot(pic21,"$R_i$",A,A,red);
+            dot(pic22,"$R_{i+1}$",A,A,red);
+            dot(pic31,"$R_i$",A,A,red);
+            dot(pic32,"$R_{i+1}$",A,A,red);
+
+            dot(pic11,"$R_{i+1}$",B,B,red);
+            dot(pic12,"$R_i$",B,B,red);
+            dot(pic21,"$R_{i+1}$",C,C,red);
+            dot(pic22,"$R_i$",C,C,red);
+            dot(pic31,"$R_{i+1}$",D,D,red);
+            dot(pic32,"$R_i$",D,D,red);
+
+            dot(pic11,"$B_i$",C,C,blue);
+            dot(pic12,"$B_i$",C,C,blue);
+            dot(pic21,"$B_i$",B,B,blue);
+            dot(pic22,"$B_i$",D,D,blue);
+            dot(pic31,"$B_i$",B,B,blue);
+            dot(pic32,"$B_i$",B,B,blue);
+
+            dot(pic11,"$B_{i+1}$",D,D,blue);
+            dot(pic12,"$B_{i+1}$",D,D,blue);
+            dot(pic21,"$B_{i+1}$",D,D,blue);
+            dot(pic22,"$B_{i+1}$",B,B,blue);
+            dot(pic31,"$B_{i+1}$",C,C,blue);
+            dot(pic32,"$B_{i+1}$",C,C,blue);
+
+            add(shift(0,7)*pic11);
+            add(shift(4,7)*pic12);
+            add(shift(0,3.5)*pic21);
+            add(shift(4,3.5)*pic22);
+            add(shift(0,0)*pic31);
+            add(shift(4,0)*pic32);
+
+            label("Case 1:",(-3.5,7));
+            label("Case 2:",(-3.5,3.5));
+            label("Case 3:",(-3.5,0));
+        \end{asy}
+    \end{center}
+    Observe that in all three cases above, the claim holds.
+\end{proof}
+
+It suffices to check that for every permutation of $(1,\ldots,n)$, there is a sequence of moves in which we swap adjacent elements that results in the original ordering $(1,\ldots,n)$. This can be done via bubble sort, so we are done.
+
+\paragraph{Second solution, by deleting a chord} Start from $(1,0)$, and progress counterclockwise around the unit circle. Keep a running counter $x$, beginning at $0$. Increment it whenever we cross a blue point, and decrement it whenever we cross a red point.
+
+Say an arc $R_iB_i$ is \emph{good} if it contains $(1,0)$, and \emph{bad} otherwise. The following claim is independent of the labeling of the red points, so it will suffice:
+\begin{claim*}
+    The number of good arcs is the maximum value of $x$.
+\end{claim*}
+\begin{center}
+    \begin{asy}
+        size(4cm); defaultpen(fontsize(10pt));
+        draw(unitcircle);
+        pair X,A,B,C,D,EE,F,G,H;
+        X=(1,0);
+        A=dir(40);
+        B=A*A;
+        C=B*A;
+        D=C*A;
+        EE=D*A;
+        F=EE*A;
+        G=F*A;
+        H=G*A;
+
+        void arr(pair I, pair J) {
+            real t=0.05;
+            draw( (I+t*unit(J-I))--(J+t*unit(I-J)),purple,Arrow());
+        }
+        arr(H,A);
+        arr(B,D);
+        arr(C,EE);
+        arr(F,G);
+
+        dotfactor *= 1.5;
+        dot(X);
+        dot(A,blue);
+        dot(B,red);
+        dot(C,red);
+        dot(D,blue);
+        dot(EE,blue);
+        dot(F,red);
+        dot(G,blue);
+        dot(H,red);
+    \end{asy}
+\end{center}
+Reverse induct on $n$ by deleting $R_1$ and $B_1$. The base case $n=1$ is obvious. First note that arc $R_1B_1$ contains no blue points. There are two cases to consider:
+\begin{itemize}
+    \item Suppose $\widehat{R_1B_1}$ is bad. The maximum value of $x$ occurs immediately after crossing a blue point, so there is no change to $x$.
+    \item Suppose $\widehat{R_1B_1}$ is good. There are no blue points between $(1,0)$ and $B_1$, nor are there any between $R_1$ and $(1,0)$, so the maximum value of $x$ occurs on the counterclockwise arc $B_1R_1$. Thus deleting $R_1$ and $B_1$ decreases $x$ by $1$.
+\end{itemize}
+This proves the claim.
+
+

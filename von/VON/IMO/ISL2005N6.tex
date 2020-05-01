@@ -1,0 +1,13 @@
+desc: a^n+n divides b^n+n for all n
+source: ISL 2005 N6
+tags: [2020-04, oly, medium, nt, size, anti]
+
+---
+
+Let $a$ and $b$ be positive integers. If $a^n+n$ divides $b^n+n$ for every positive integer $n$, prove that $a=b$.
+
+---
+
+We will prove $a\equiv b\pmod p$ for every prime $p\nmid b-a$, which will imply the result.
+
+Indeed, for each such $p$, take an $n$ with $n\equiv1\pmod{p-1}$ and $n\equiv-a\pmod p$, so $k^n\equiv k\pmod p$ for all $k$. Then it follows that $p\mid a^n+n\mid b^n+n$, so $b\equiv-n\equiv a\pmod p$, as claimed

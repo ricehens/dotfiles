@@ -10,7 +10,7 @@ Circles $\omega_1$ and $\omega_2$ intersect at points $P$ and $K$. Line $XY$ is 
 
 \begin{center}
     \begin{asy}
-        size(12cm);
+        size(8cm);
         defaultpen(fontsize(10pt));
 
         pen pri=deepgreen+linewidth(0.5);
@@ -55,9 +55,9 @@ Circles $\omega_1$ and $\omega_2$ intersect at points $P$ and $K$. Line $XY$ is 
         draw(B -- L -- C, tri);
         filldraw(circumcircle(B, P, C), tfil, tri);
 
-        dot("$X$", X, dir(100));
-        dot("$Y$", Y, dir(80));
-        dot("$P$", P, dir(100));
+        dot("$X$", X, dir(170));
+        dot("$Y$", Y, dir(30));
+        dot("$P$", P, dir(195));
         dot("$K$", K, dir(-30));
         dot("$B$", B, dir(210));
         dot("$C$", C, dir(-30));
@@ -66,7 +66,7 @@ Circles $\omega_1$ and $\omega_2$ intersect at points $P$ and $K$. Line $XY$ is 
         dot("$L$", L, S);
     \end{asy}
 \end{center}
-Note that $K$ is the Miquel point of $BXCY$ and $Q$ is the Miquel point of $BXYC$. Let the spiral similarity at $Q$ sending $\overline{XY}$ to $\overline{BC}$ send $K$ to $L$, so $\triangle BLC\sim\triangle XKY$. Note that
+Note that $K$ is the Miquel point of $BXCY$ and $Q$ is the Miquel point of $BXYC$. Let the spiral similarity at $Q$ sending $\overline{XY}$ to $\overline{BC}$ send $K$ to $L$, so that $\triangle BLC\sim\triangle XKY$. Remark that
 \begin{align*}
     \measuredangle BLC&=\measuredangle XKY=\measuredangle XKP+\measuredangle XKP+\measuredangle PKY\\
     &=\measuredangle YXP+\measuredangle PYX=\measuredangle YPX=\measuredangle BPC,

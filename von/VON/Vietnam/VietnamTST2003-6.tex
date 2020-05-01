@@ -1,0 +1,14 @@
+desc: 2^n+1 no prime factors 8k+7
+source: Vietnam TST 2003/6
+tags: [2020-03, oly, easy, nt, heavynt, qr]
+
+---
+
+Prove that $2^n+1$ has no prime factors of the form $p=8k+7$.
+
+---
+
+Say $2^n\equiv-1\pmod p$, where $p=8j-1$ for some $j$. First note that $-1$ is not a quadratic residue. Otherwise \[1=\left(\frac{-1}p\right)=(-1)^{4j-1}=-1,\]
+contradiction. If $n$ is even, then $-1$ must be a quadratic residue, so $n$ is odd. In this case, $2^{n+1}\equiv-2\pmod p$, so $-2$ is a quadratic residue. Thus $2$ is a quadratic non-residue, and \[-1=\left(\frac2p\right)=(-1)^{\tfrac18\left(p^2-1\right)}=1,\]
+contradiction, since \[\frac18\left(p^2-1\right)=\frac18\left[(8j-1)^2-1\right]=8j^2-2j,\]
+which is even. This yields the desired contradiction.

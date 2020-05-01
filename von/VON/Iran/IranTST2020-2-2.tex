@@ -1,0 +1,16 @@
+desc: Greedy grid game
+source: Iran TST 2020/2/2
+tags: [2020-03, oly, trivial, combo, optimization, anti, waltz]
+
+---
+
+Alice and Bob take turns alternatively on a $2020\times2020$ board with Alice starting the game. In every move each person colors a cell that have not been colored yet and the number of points rewarded is the number of colored cells in the same row and column. When the table is colored completely, the points determine the winner. Who has the winning strategy and what is the maximum difference he/she can guarantee?
+
+---
+
+Bob wins, earning $2020^2/2$ points. Just note that:
+\begin{itemize}
+    \item Bob can always earn at least $2020^2/2$ points by playing the reflection of Alice's move across the midline,
+    \item If Alice plays greedily, so that on each move, she earns as many points as possible, Bob can earn at most one more point than she, so he earns at most $2020^2/2$ points.
+\end{itemize}
+The end.

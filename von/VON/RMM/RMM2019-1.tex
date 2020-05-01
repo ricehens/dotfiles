@@ -1,0 +1,16 @@
+desc: Squarefree part monovariant
+source: RMM 2019/1
+tags: [2020-02, oly, easy, nt, anti]
+
+---
+
+Amy and Bob play the game. At the beginning, Amy writes down a positive integer on the board. Then the players take moves in turn, Bob moves first. On any move of his, Bob replaces the number $n$ on the blackboard with a number of the form $n-a^2$, where $a$ is a positive integer. On any move of hers, Amy replaces the number $n$ on the blackboard with a number of the form $n^k$, where $k$ is a positive integer. Bob wins if the number on the board becomes zero.
+
+Can Amy prevent Bob’s win?
+
+---
+
+Bob wins. Say a \emph{round} involves Bob making a move followed by Amy making a move. I claim that in a round, Bob can ensure the squarefree part of the number on the board strictly decreases. Thus it is eventually $1$, and Bob immediately wins.
+
+First note that on any of Amy's moves, she should always choose an odd $k$. Otherwise $n^k$ is a perfect square, and Bob wins. Let the number on the board be $n=m^2t$, where $t$ is squarefree. Bob lets $a=m$, so that the number on the board is $n-m^2=m^2(t-1)$. After Amy's move, if $k=2j+1$, then the number on the board is \[\left(n-m^2\right)^{2j+1}=m^{2(2j+1)}(t-1)^{2j}(t-1),\]
+whose squarefree part divides $t-1$, and is thus strictly less than $t$.

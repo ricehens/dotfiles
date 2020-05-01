@@ -1,0 +1,16 @@
+desc: Mount Inequality
+source: USAMO 2017/6
+tags: [2019-11, oly, medium, alg, ineq, fineq]
+
+---
+
+Find the minimum possible value of \[\frac a{b^3+4}+\frac b{c^3+4}+\frac c{d^3+4}+\frac d{a^3+4},\]
+given that $a$, $b$, $c$, $d$ are nonnegative real numbers such that $a+b+c+d=4$.
+
+---
+
+The key is the tangent-line approximation \[\frac{x^3}{x^3+4}\le\frac x3\iff 0\le x(x+1)(x-2)^2.\]
+By AM-GM, $ab+bc+cd+da=(a+c)(b+d)\le4$, so \[\sum_\mathrm{cyc}\frac a{b^3+4}=\sum_\mathrm{cyc}\frac a4\left(1-\frac{b^3}{b^3+4}\right)\ge1-\sum_\mathrm{cyc}\frac{ab}{12}\ge\frac23,\]
+with equality achieved by $(a,b,c,d)=(2,2,0,0)$.
+
+

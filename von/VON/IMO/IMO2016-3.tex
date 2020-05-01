@@ -1,0 +1,48 @@
+desc: Area of lattice polygon divisible by n
+source: IMO 2016/3
+tags: [2020-04, oly, hard, nt, vp, nice, favorite]
+
+---
+
+Let $P=A_1A_2\cdots A_k$ be a convex polygon in the plane. The vertices $A_1$, $A_2$, $\ldots$, $A_k$ have integral coordinates and lie on a circle. Let $S$ be the area of $P$. An odd positive integer $n$ is given such that the squares of the side lengths of $P$ are integers divisible by $n$. Prove that $2S$ is an integer divisible by $n$.
+
+---
+
+Induct on $k$: first we settle the base case $k=3$. Let $A_i=(x_i,y_i)$, and shift $A_1$ to the origin. Then by shoelace formula, $2S=x_2y_3-x_3y_2$. We are given
+\begin{align*}
+    0&\equiv(x_2-x_3)^2+(y_2-y_3)^2\\
+    &\equiv\left(x_2^2+y_2^2\right)+\left(x_3^2+y_3^2\right)-2(x_2x_3+y_2y_3)\\
+    &\equiv-2(x_2x_3+y_2y_3)\pmod n.
+\end{align*}
+Since $n$ is odd, $n\mid T:=x_2x_3+y_2y_3$. But $n^2\mid\left(x_2^2+y_2^2\right)\left(x_3^2+y_3^2\right)=T^2+4S^2$, so $n\mid2S$, as required.
+
+If $n$ is divisible by at least two distinct primes, then the inductive step follows from Chinese Remainder theorem. Henceforth $n=p^e$, where $p$ is prime. I claim for $k\ge4$, there is a diagonal whose length squared is divisible by $p^e$. Then this diagonal dissects $P$ into two polygons with fewer sides, so we are done by strong induction. 
+
+Select $m$ so that $3\le m\le k-1$ and $\nu_p(A_1A_{m-1}^2)\ge\nu_p(A_1A_m^2)\le\nu_p(A_1A_{m+1}^2)$. If this is not possible, then either $2e\le\nu_p(A_1A_2^2)\le\nu_p(A_1A_3^2)$ or $\nu_p(A_1A_3^2)>\nu_p(A_1A_4^2)>\cdots>\nu_p(A_1A_k^2)\ge2e$. In either case, $n\mid A_1A_3^2$, and we are already done.
+
+Let $A$ denote the set of algebraic integers. Let $E=e+\nu_p\left(A_1A_m^2\right)$, so $\nu_p\left(A_1A_{m-1}^2\cdot A_mA_{m+1}^2\right)\ge E$ and $\nu_p\left(A_1A_{m+1}^2\cdot A_mA_{m-1}^2\right)\ge E$. By Ptolemy's theorem on $A_1A_{m-1}A_mA_{m+1}$, we have \[\sqrt{\frac{A_1A_m^2\cdot A_{m-1}A_{m+1}^2}{p^E}}=\sqrt{\frac{A_1A_{m-1}^2\cdot A_mA_{m+1}^2}{p^E}}+\sqrt{\frac{A_1A_{m+1}^2\cdot A_mA_{m-1}^2}{p^E}}\in A,\]
+so $p^E\mid A_1A_m^2\cdot A_{m-1}A_{m+1}^2$. It follows that $p^e\mid A_{m-1}A_{m+1}^2$, and the induction is complete. 
+\begin{remark}
+    In fact, we find a diagonal that dissects $P$ into a triangle and a polygon of $k-1$ sides, so regular induction suffices.
+\end{remark}
+\begin{remark}
+    The problem holds for even values of $n$, but there are more technical details in the case $p=2$.
+\end{remark}
+\begin{remark}
+    Here is an algebraic proof for squarefree $n$. Let $A_i=(x_i,y_i)$. Shift the points so that the circumcenter is at the origin, and dilate appropriately (while also scaling $n$).
+
+    Take indices modulo $n$. Then if the circumradius is $R$, we have $x_i^2+y_i^2=R^2$ and 
+    \begin{align*}
+        0&\equiv(x_{i+1}-x_i)^2+(y_{i+1}-y_i)^2\\
+        &\equiv2R^2-2(x_ix_{i+1}+y_iy_{i+1})\pmod n,\\
+        \implies R^2&\equiv x_ix_{i+1}+y_iy_{i+1}\pmod n.
+    \end{align*}
+    It follows that
+    \begin{align*}
+        R^2&=\left(x_i^2+y_i^2\right)\left(x_{i+1}^2+y_{i+1}^2\right)\\
+        &=(x_ix_{i+1}+y_iy_{i+1})^2+(x_iy_{i+1}-x_{i+1}y_i)^2.\\
+        \implies 0&\equiv(x_iy_{i+1}-x_{i+1}y_i)^2\pmod n.
+    \end{align*}
+    By the assumption $n$ is squarefree, $n\mid x_iy_{i+1}-x_{i+1}y_i$, so $n\mid2S$ by Shoelace formula.
+\end{remark}
+

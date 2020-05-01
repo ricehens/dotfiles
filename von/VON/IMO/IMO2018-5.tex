@@ -1,6 +1,6 @@
 desc: NT sequence eventually constant
 source: IMO 2018/5
-tags: [2019-10, oly, medium, nt, sequence, p-adic]
+tags: [2019-10, oly, medium, nt, sequence, vp]
 
 ---
 
@@ -10,18 +10,18 @@ is an integer. Prove that there is a positive integer $M$ such that $a_m=a_{m+1}
 ---
 
 Consider the partial difference \[x=\frac{a_n}{a_{n+1}}+\frac{a_{n+1}}{a_1}-\frac{a_n}{a_1}=\frac{a_1a_n+a_{n+1}^2-a_na_{n+1}}{a_1a_{n+1}}.\]
-Take a prime $p$ and analyze the $p$-adic valuation of the sequence. It suffices to show that $\nu_p(a_n)$ eventually becomes constant. Assume that for all $n$, $\nu_p(a_n)\ne\nu_p(a_{n+1})$. This is a valid assumption, because if $\nu_p(a_n)=\nu_p(a_{n+1})$, then $x=1$, which is an integer.
+Take a prime $p$ and analyze the $p$-adic valuation of the sequence. Assume that for all $n$, $\nu_p(a_n)\ne\nu_p(a_{n+1})$. This is a valid assumption, because if $\nu_p(a_n)=\nu_p(a_{n+1})$, then $x=1$, which is an integer.
 
 Since $x$ is always an integer, we have a few cases to consider:
-\begin{iclaim*}
+\begin{claim*}
     For all $n$,
     \begin{itemize}
         \item If $\nu_p(a_n)>\nu_p(a_{n+1})$, then $\nu_p(a_{n+1})\ge\nu_p(a_1)$.
         \item If $\nu_p(a_n)<\nu_p(a_{n+1})$, then $\nu_p(a_{n+1})=\nu_p(a_1)$.
     \end{itemize}
-\end{iclaim*}
+\end{claim*}
 \begin{proof}
-    The first case is trivial. Just note that $a_n/a_{n+1}$ will be an integer, so $a_1\mid a_{n+1}-a_n$. Now, if $\nu_p(a_n)<\nu_p(a_{n+1})$, then $a_n/a_{n+1}$ will not be an integer, whence $\nu_p(a_{n+1})\le\nu_p(a_1)$. However if $\nu_p(a_{n+1})<\nu_p(a_1)$, then $a_n/a_{n+1}$ and $(a_{n+1}-a_n)/a_1$ cannot sum to an integer, contradiction.
+    The first case is trivial. Just note that $\nu_p(a_n/a_{n+1})\ge0$, so $a_1\mid a_{n+1}-a_n$. Now, if $\nu_p(a_n)<\nu_p(a_{n+1})$, then $a_n/a_{n+1}$ will not be an integer, whence $\nu_p(a_{n+1})\le\nu_p(a_1)$. However if $\nu_p(a_{n+1})<\nu_p(a_1)$, then $a_n/a_{n+1}$ and $(a_{n+1}-a_n)/a_1$ cannot sum to an integer, contradiction.
 \end{proof}
 
-It is now obvious that the sequence defined by $\nu_p(a_n)$ will eventually converge, the end.
+It is now obvious that the sequence defined by $\nu_p(a_n)$ will eventually converge, and there can be a jump in the sequence of $\nu_p$'s (the second case above) only if $p\mid a_1$, which occurs for finitely many $p$. Thus the sequence is eventually constant.

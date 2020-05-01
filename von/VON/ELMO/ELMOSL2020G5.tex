@@ -1,0 +1,282 @@
+desc: Tangent ellipses
+source: ELMO SL 2020 G5
+tags: [2020-04, oly, hard, geo, weird, secret]
+author: Holden Mui
+
+---
+
+Let $\mathcal E$ be an ellipse and let $\mathcal E_1$, $\mathcal E_2$, $\mathcal E_3$ be ellipses inside $\mathcal E$ such that $\mathcal E_n$ is tangent to $\mathcal E$ at points $S_n$ and $T_n$ for $n=1,2,3$. Assume that $S_1$, $S_2$, $S_3$, $T_1$, $T_2$, $T_3$ lie on $\mathcal E$ in that order. For $n=1,2,3$, let the four points in $\mathcal E_{n-1}\cap\mathcal E_{n+1}$ (where indices are taken modulo $3$) form convex quadrilateral $A_nB_nC_nD_n$. Show that $\overline{A_1C_1}\cap\overline{A_2C_2}\in\overline{A_3C_3}\cup\overline{B_3D_3}$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(9cm); defaultpen(fontsize(10pt));
+
+        // tangency points
+        pair S1 = dir(-30);
+        pair S2 = dir(40);
+        pair S3 = dir(115);
+        pair T1 = dir(160);
+        pair T2 = dir(240);
+        pair T3 = dir(260);
+
+        //pair S1 = dir(65);
+        //pair S2 = dir(100);
+        //pair S3 = dir(205);
+        //pair T1 = dir(220);
+        //pair T2 = dir(340);
+        //pair T3 = dir(350);
+
+        // distance from foci of E_n to center of E
+        real d1 = 0.985;
+        real d2 = 0.970;
+        real d3 = 0.920;
+
+        //real d1 = 0.990;
+        //real d2 = 0.968;
+        //real d3 = 0.920;
+
+        // final affine transformation
+        transform t = yscale(1.2);
+
+        // labels A_n correctly
+        int n1 = 3;
+        int n2 = 1;
+        int n3 = 1;
+
+        // returns an ellipse given the two foci and a point on the ellipse
+        guide ellipse(pair F1, pair F2, pair P) {
+            real c = 1/2 * abs(F2 - F1);
+            real a = 1/2 * (abs(P - F1) + abs(P - F2));
+            real b = sqrt(a^2 - c^2);
+            return shift((F1 + F2) / 2) * rotate(degrees(F2 - F1)) * scale(a, b) * circle((0, 0), 1);
+        }
+
+        // returns an ellipse tangent to the unit circle given the two tangency points and the distance to the foci. This constructs the ellipses based on the fact that S_n, T_n, O, and the foci are concyclic.
+        guide tangentellipse(pair S, pair T, real d) {
+            path g = circle((0, 0), d);
+            path h = circumcircle(S, T, (0, 0));
+            pair f[] = intersectionpoints(g, h);
+            return ellipse(f[0], f[1], S);
+        }
+
+        // determines the affine transformation that maps three points to three other points
+        transform mapthreepoints(pair A, pair B, pair C, pair Ap, pair Bp, pair Cp) {
+            real[][] a = {
+                {1, 0, A.x, A.y, 0, 0},
+                {0, 1, 0, 0, A.x, A.y},
+                {1, 0, B.x, B.y, 0, 0},
+                {0, 1, 0, 0, B.x, B.y},
+                {1, 0, C.x, C.y, 0, 0},
+            {0, 1, 0, 0, C.x, C.y}};
+
+            real[] b = {Ap.x, Ap.y, Bp.x, Bp.y, Cp.x, Cp.y};
+
+            real[] x = solve(a, b);
+
+            return (x[0], x[1], x[2], x[3], x[4], x[5]);
+        }
+
+        guide aexcircle(pair A, pair B, pair C) {
+            pair I = incenter(A, B, C);
+            pair M = extension(A, I, circumcenter(A, B, C), (B + C) / 2);
+            pair IA = 2 * M - I;
+            real a = abs(B - C);
+            real b = abs(C - A);
+            real c = abs(A - B);
+            real s = 1/2 * (a + b + c);
+            return circle(IA, sqrt(s * (s - b) * (s - c) / (s - a)));
+        }
+
+        // determines the point A' where A'P', BP', CP' concur at the Gergonne point
+        transform inellipsetransform(pair A, pair B, pair C, pair P) {
+            pair D = extension(A, P, B, C);
+            pair E = extension(B, P, C, A);
+            pair F = extension(C, P, A, B);
+
+            if (intersectionpoints(A -- P, B -- C).length == 1) {
+                path c1 = circle(B, abs(F - B) / abs(D - B) * abs(C - B));
+                path c2 = circle(A, abs(F - A) / abs(E - A) * abs(C - A));
+
+                pair Cp = intersectionpoints(c1, c2)[1];
+
+                return mapthreepoints(A, B, Cp, A, B, C);
+            }
+
+            if (intersectionpoints(B -- P, C -- A).length == 1 || intersectionpoints(C -- P, A -- B).length == 1) {
+                return inellipsetransform(B, C, A, P);
+            }
+
+            path c1 = circle(B, abs(D - B) / abs(F - B) * abs(B - A));
+            path c2 = circle(C, abs(D - B) / abs(F - B) * abs(F - A) + abs(D - C));
+
+            pair Ap = intersectionpoints(c1, c2)[0];
+
+            return mapthreepoints(Ap, B, C, A, B, C);
+        }
+
+        // returns an ellipse tangent to the feet of three cevians that concur at P
+        guide inellipse(pair A, pair B, pair C, pair P) {
+            pair D = extension(A, P, B, C);
+            pair E = extension(B, P, C, A);
+            pair F = extension(C, P, A, B);
+
+            if (intersectionpoints(A -- P, B -- C).length == 1) {
+                path c1 = circle(B, abs(F - B) / abs(D - B) * abs(C - B));
+                path c2 = circle(A, abs(F - A) / abs(E - A) * abs(C - A));
+
+                pair Cp = intersectionpoints(c1, c2)[1];
+
+                return mapthreepoints(A, B, Cp, A, B, C) * aexcircle(A, B, Cp);
+            }
+
+            if (intersectionpoints(B -- P, C -- A).length == 1 || intersectionpoints(C -- P, A -- B).length == 1) {
+                return inellipse(B, C, A, P);
+            }
+
+            path c1 = circle(B, abs(D - B) / abs(F - B) * abs(B - A));
+            path c2 = circle(C, abs(D - B) / abs(F - B) * abs(F - A) + abs(D - C));
+
+            pair Ap = intersectionpoints(c1, c2)[0];
+
+            return mapthreepoints(Ap, B, C, A, B, C) * incircle(Ap, B, C);
+        }
+
+        // returns an ellipse arc given the two foci and two points on its perimeter
+        guide ellipsearc(pair F1, pair F2, pair P, pair Q) {
+            real c = 1/2 * abs(F2 - F1);
+            real a = 1/2 * (abs(P - F1) + abs(P - F2));
+            real b = sqrt(a^2 - c^2);
+
+            transform t = shift((F1 + F2) / 2) * rotate(degrees(F2 - F1)) * scale(a, b);
+
+            transform tp = inverse(t);
+
+            pair Pp = tp * P;
+            pair Qp = tp * Q;
+
+            real dPp = degrees(Pp);
+            real dQp = degrees(Qp);
+
+            if (dPp < dQp) {
+                return t * arc((0, 0), 1, dPp, dQp);
+            }
+            return t * arc((0, 0), 1, dPp - 360, dQp);
+
+        }
+
+        //returns an arc of an ellipse tangent to two points on the circle
+        guide tangentellipsearc(pair S, pair T, real d) {
+            path g = circle((0, 0), d);
+            path h = circumcircle(S, T, (0, 0));
+            pair f[] = intersectionpoints(g, h);
+            return ellipsearc(f[0], f[1], S, T);
+        }
+
+        path E = circle((0, 0), 1);
+
+        path E1 = tangentellipse(S1, T1, d1);
+        path E2 = tangentellipse(S2, T2, d2);
+        path E3 = tangentellipse(S3, T3, d3);
+
+        path E1a = tangentellipsearc(S1, T1, d1);
+        path E1b = tangentellipsearc(T1, S1, d1);
+
+        path E2a = tangentellipsearc(S2, T2, d2);
+        path E2b = tangentellipsearc(T2, S2, d2);
+
+        path E3a = tangentellipsearc(S3, T3, d3);
+        path E3b = tangentellipsearc(T3, S3, d3);
+
+        pair u1[] = intersectionpoints(E2, E3);
+        pair A1 = u1[(n1-0) % 4];
+        pair B1 = u1[(n1-1) % 4];
+        pair C1 = u1[(n1-2) % 4];
+        pair D1 = u1[(n1-3) % 4];
+
+        pair u2[] = intersectionpoints(E3, E1);
+        pair A2 = u2[(n2-0) % 4];
+        pair B2 = u2[(n2-1) % 4];
+        pair C2 = u2[(n2-2) % 4];
+        pair D2 = u2[(n2-3) % 4];
+
+        pair u3[] = intersectionpoints(E1, E2);
+        pair A3 = u3[(n3-0) % 4];
+        pair B3 = u3[(n3-1) % 4];
+        pair C3 = u3[(n3-2) % 4];
+        pair D3 = u3[(n3-3) % 4];
+
+        pair X1 = extension(A1, C1, B1, D1);
+        pair X2 = extension(A2, C2, B2, D2);
+        pair X3 = extension(A3, C3, B3, D3);
+
+        pair P = extension(B1, D1, B2, D2);
+        pair K1 = extension(A2, C2, A3, C3);
+        pair K2 = extension(A3, C3, A1, C1);
+        pair K3 = extension(A1, C1, A2, C2);
+
+        path IE = inellipse(K1, K2, K3, P);
+
+        draw(t * (E ^^ E1 ^^ E2 ^^ E3));
+        draw(t * (A1 -- C1 ^^ A2 -- C2));
+        draw(t * (A3 -- C3 ^^ B3 -- D3), dotted);
+        draw(t * (C1 -- K3 -- A2));
+        draw(t * (B3 -- K3), dotted);
+
+        dot("$S_1$", t * S1, dir(S1));
+        dot("$S_2$", t * S2, dir(S2));
+        dot("$S_3$", t * S3, dir(S3));
+        dot("$T_1$", t * T1, dir(T1));
+        dot("$T_2$", t * T2, dir(T2));
+        dot("$T_3$", t * T3, dir(T3));
+
+        dot("$A_1$", t * A1, 1.5 * dir(345));
+        dot("$B_1$", t * B1, dir(345));
+        dot("$C_1$", t * C1, dir(315));
+        dot("$D_1$", t * D1, dir(345));
+
+        dot("$A_2$", t * A2, dir(45));
+        dot("$B_2$", t * B2, dir(210));
+        dot("$C_2$", t * C2, dir(210));
+        dot("$D_2$", t * D2, dir(200));
+
+        dot("$A_3$", t * A3, 1.5 * dir(110));
+        dot("$B_3$", t * B3, 1.5 * dir(285));
+        dot("$C_3$", t * C3, 1.2 * dir(10));
+        dot("$D_3$", t * D3, 1.2 * dir(285));
+    \end{asy}
+\end{center}
+
+\paragraph{First solution (Jaedon Whyte)} Suppose $\mathcal E$ is the level set $0=e(x,y)$, where $e$ is some convex quadratic polynomial in $x$, $y$. Since $\mathcal E_1$, $\mathcal E_2$, $\mathcal E_3$ are tangent to $\mathcal E$, we can represent them as the level sets
+\begin{align*}
+    \mathcal E_1&:0=e(x,y)+a(x,y)^2\\
+    \mathcal E_2&:0=e(x,y)+b(x,y)^2\\
+    \mathcal E_3&:0=e(x,y)+c(x,y)^2,\\
+\end{align*}
+where $a$, $b$, $c$ are linear in $x$, $y$.
+\begin{remark}[Obligatory configuration checking]
+    I claim these level sets cover all doubly tangent interior ellipses via degrees of freedom. The set of ellipses tangent to the original ellipse at two points can be parametrized by a single real variable.
+
+    Consider the current construction. Let $a(x,y)$ have zeroes along the line connecting the two tangency points. Then the level set is still a conic section that intersects the ellipse twice at the desired tangency points. It suffices to show it is contained in the interior of the ellipse.
+
+    This is since $e(x,y)>0$ for all $(x,y)$ outside $\mathcal E$ (as $e$ is convex). Then $e(x,y)+a(x,y)^2>0$, so $(x,y)$ cannot be on $\mathcal E_1$. Also $a(x,y)$ is parametrized by a single real variable, as desired.
+\end{remark}
+Then $\mathcal E_2$, $\mathcal E_3$ intersect when $b(x,y)^2=c(x,y)^2$, i.e.\ $b(x,y)+c(x,y)=0$ or $b(x,y)-c(x,y)=0$. Thus the two diagonals of $A_1B_1C_1D_1$ are
+\begin{align*}
+    \ell_1&:0=b(x,y)+c(x,y)\\
+    \ell_1'&:0=b(x,y)-c(x,y).
+\end{align*}
+\begin{remark}[More obligatory configuration checking]
+    I claim $\ell_1$, $\ell_1'$ are indeed diagonals. Note that $\ell_1\cap\ell_1'$ is the point $(x,y)$ where $b(x,y)=c(x,y)=0$. But $b(x,y)=0$ is line $S_2T_2$ and $c(x,y)=0$ is line $S_3T_3$, and since ellipses are convex they intersect in the interior of both of $\mathcal E_2$, $\mathcal E_3$.
+\end{remark}
+Similarly define $\ell_2$, $\ell_2'$, $\ell_3$, $\ell_3'$. It is obvious $(\ell_1',\ell_2',\ell_3')$, $(\ell_1',\ell_2,\ell_3)$, $(\ell_1,\ell_2',\ell_3)$, $(\ell_1,\ell_2,\ell_3')$ are concurrent triples of lines. This completes the proof.
+
+\paragraph{Second solution (Andrew Gu)} View $\mathcal E$ as a sphere and $\mathcal E_i$ as circles on this sphere. (Scale $\mathcal E$ as necessary.)
+
+If you are looking at this with the right perspective, you should see that (without loss of generality) $B_2$ does not exist since $\mathcal E_3$ is passing in front of that point while $\mathcal E_1$ is passing behind (or vice versa). Assume without loss of generality $A_1$, $C_1$, $A_2$, $C_2$, $B_3$, $D_3$ exist.
+
+Since $A_1C_1A_2C_2$, $A_1C_1B_3D_3$, $A_2C_2B_3D_3$ are coplanar, lines $A_1C_1$, $A_2C_2$, $B_3D_3$ concur.
+\begin{remark}
+    See \url{https://mathworld.wolfram.com/DoubleContactTheorem.html}.
+\end{remark}

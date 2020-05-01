@@ -1,0 +1,14 @@
+desc: Formal series f(2/3)=3/2
+source: Putnam 2017 B3
+tags: [2019-11, oly, medium, nt, vp]
+
+---
+
+Let \[f(x)=\sum_{n\ge0}c_nx^n\]
+be a formal series with $c_n\in\{0,1\}$ for all $n\ge0$. Prove that if $f(2/3)=3/2$ then $f(1/2)$ is irrational.
+
+---
+
+Assume for contradiction $f(1/2)$ is rational; we will show that $f(2/3)\ne3/2$. Note that the binary representation of $f(1/2)$ has digits $c_0$, $c_1$, $c_2$, $\ldots$, so for $f(1/2)$ to be rational, $(c_n)_{n\ge0}$ must be eventually periodic. Thus there are $k$ and $t$ such that \[f(x)=\sum_{n=0}^{k-1}c_nx^n+\frac1{1-x^t}\sum_{n=k}^{k+t-1}c_nx^n.\]
+For any $p$ and $q$, it is clear that \[\nu_2\left(\sum_{n=p}^qc_n\left(\frac23\right)^n\right)\ge0,\]
+and furthermore $\nu_2(1-(2/3)^t)=0$ since it has odd numerator and denominator. Thus $\nu_2(f(2/3))\ge0$, so it cannot be $3/2$.

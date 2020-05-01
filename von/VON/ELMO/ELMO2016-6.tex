@@ -1,0 +1,69 @@
+desc: AST tangent to everything
+source: ELMO 2016/6
+tags: [2019-12, oly, medium, geo, iran-lemma, inversion]
+
+---
+
+In triangle $ABC$ with $AB\ne AC$, let its incircle be tangent to sides $BC$, $CA$, $AB$ at $D$, $E$, $F$, respectively. The internal angle bisector of $\angle BAC$ intersects lines $DE$ and $DF$ at $X$ and $Y$, respectively. Let $S$ and $T$ be distinct points on side $BC$ such that $\angle XSY=\angle XTY=90^\circ$. Finally, let $\gamma$ be the circumcircle of $\triangle AST$.
+\begin{enumerate}[label=(\alph*),itemsep=0em]
+    \item Show that $\gamma$ is tangent to the circumcircle of $\triangle ABC$.
+    \item Show that $\gamma$ is tangent to the incircle of $\triangle ABC$.
+\end{enumerate}
+
+---
+
+Let $I$ be the incenter. By the Iran lemma, $\seg{BX}$ and $\seg{CY}$ are perpendicular to $\seg{AI}$. Let $P=\seg{AI}\cap\seg{BC}$ and $Q$ be the foot of the external angle bisector.
+\begin{center}
+    \begin{asy}
+        size(8cm); defaultpen(fontsize(10pt));
+        pen pri=blue;
+        pen sec=purple;
+        pen tri=fuchsia;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair A,B,C,I,D,EE,F,X,Y,SS,T,P,L;
+        A=dir(150);
+        B=dir(220);
+        C=dir(320);
+        I=incenter(A,B,C);
+        D=foot(I,B,C);
+        EE=foot(I,C,A);
+        F=foot(I,A,B);
+        X=extension(A,I,D,EE);
+        Y=extension(A,I,D,F);
+        SS=intersectionpoints(B--C,circle( (X+Y)/2,length(X-Y)/2))[0];
+        T=2*foot(circumcenter(X,Y,SS),B,C)-SS;
+        P=extension(A,X,B,C);
+        L=(X+Y)/2;
+
+        filldraw(circumcircle(A,SS,T),tfil,tri);
+        draw(B--X,tri); draw(C--Y,tri);
+        filldraw(circumcircle(X,Y,T),sfil,sec);
+        draw(EE--D,sec); draw(F--Y,sec);
+        filldraw(circumcircle(A,B,C),fil,pri);
+        filldraw(incircle(A,B,C),fil,pri);
+        draw(A--Y,pri);
+        draw(A--B--C--A,pri);
+
+        dot("$A$",A,A);
+        dot("$B$",B,B);
+        dot("$C$",C,C);
+        dot("$D$",D,dir(240));
+        dot("$E$",EE,NE);
+        dot("$F$",F,dir(150));
+        dot("$X$",X,dir(170));
+        dot("$Y$",Y,SE);
+        dot("$S$",SS,SW);
+        dot("$T$",T,SE);
+        dot("$P$",P,SW);
+        dot("$I$",I,dir(60));
+        dot("$L$",L,SW);
+    \end{asy}
+\end{center}
+It follows that \[-1=(BC;PQ)=(XY;PA)\]
+by projection onto $\seg{AI}$, but $\angle XSY=\angle XTY=90\dg$, so $\seg{SX}$ and $\seg{SY}$ bisect $\angle AST$ and $\seg{TX}$ and $\seg{TY}$ bisect $\angle ATS$. It follows that $X$ and $Y$ are the incenter and $A$-excenter of $\triangle AST$, so $\seg{AS}$ and $\seg{AT}$ are isogonal, and part (a) follows.
+
+For part (b), note that \[\da IDX=\da IDE=90\dg+\da DFE=\da(\seg{DF},\seg{AI})=\da DYI,\]
+whence $IX\cdot IY=ID^2$, so $(I)$ and $(XY)$ are orthogonal. By the Incenter-Excenter lemma, the center $L$ of $(XY)$ lies on $(AST)$. Thus inversion at $(XY)$ fixes $(I)$ and sends $(AST)$ to $\seg{BC}$, which is tangent to $(I)$, as desired.

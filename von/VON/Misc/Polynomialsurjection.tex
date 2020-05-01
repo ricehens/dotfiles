@@ -1,0 +1,13 @@
+desc: No surjective degree-10 polynomial mod 101
+source: Polynomial surjection
+tags: [2020-04, oly, easy, nt, intpoly, waltz]
+
+---
+
+Let $P$ be a monic integer polynomial of degree $10$. Show that there exist integers $0\le a<b\le100$ such that $P(a)\equiv P(b)\pmod{101}$.
+
+---
+
+Work in $\mathbb F_{101}$. Assume that $P$ is surjective, and let $g$ be a primitive root modulo $101$. Recall that \[1^k+2^k+\cdots+100^k=1+g^k+\cdots+g^{100k}=\frac{g^{101k}-1}{g^k-1},\]
+which is $0$ for all $k<100$. Furthermore $1^{100}+2^{100}+\cdots+100^{100}=100$ by Fermat's little theorem. Since $P^2$ is monic and has degree $100$, we have \[0=\sum_{x=0}^{100}x^{10}=\sum_{x=0}^{100}P(x)^{10}=\sum_{x=0}^{100}\left[x^{100}+P(0)^{100}\right]=100,\]
+contradiction.

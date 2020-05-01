@@ -1,0 +1,27 @@
+desc: a^4+b^4=c^4+d^4=e^5
+source: USAMO 2015/5
+tags: [2020-02, oly, hard, nt, diophantine]
+
+---
+
+Let $a$, $b$, $c$, $d$, $e$ be distinct positive integers such that $a^4+b^4=c^4+d^4=e^5$. Show that $ac+bd$ is a composite number.
+
+---
+
+Assume for contradiction $p=ac+bd$ is prime, and assume without loss of generality $a<c$. Then
+\begin{align*}
+    p&\mid ac+bd
+    \mid a^4c^4-b^4d^4
+    \mid a^4\left(e^5-d^4\right)-d^4\left(e^5-a^4\right)\\
+    &=e^5\left(a^4-d^4\right)
+    =e^5(a-d)(a+d)\left(a^2+d^2\right).
+\end{align*}
+However note that:
+\begin{itemize}
+    \item $p>e$, since $p^5=(ac+bd)^5\ge(a+b)^5\ge a^5+b^5\ge a^4+b^4=e^5$, where equality never holds since $a$, $b$, $c$, $d$ distinct.
+    \item $p>a+d$, since $ac+bd\ge a+d$, where equality never holds since $a$, $b$, $c$, $d$ distinct.
+\end{itemize}
+Hence $p\mid a^2+d^2$. This means $ac+bd\le a^2+d^2$, or $a(c-a)\le d(d-b)$. Recall that $a<c$, so $b<d$ as well. This implies $a^4+b^4<c^4+d^4$, which is absurd.
+\begin{remark}
+    One solution is $37483800763^4+100380347806^4=84497381381^4+85132700038^4=635318657^5$. To generate this solution, we use the well-known equality $59^4+158^4=133^4+134^4$. We let the common value be $x$. Then $(59x)^4+(158x)^4=(133x)^4+(134x)^4=x^5$ works.
+\end{remark}

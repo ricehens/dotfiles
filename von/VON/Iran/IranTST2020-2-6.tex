@@ -1,0 +1,43 @@
+desc: Sum of x_i^k is fixed for k <= (p-1)/2
+source: Iran TST 2020/2/6
+tags: [2020-03, oly, tricky, nt, sums, qr, heavynt, nice, favorite, final]
+
+---
+
+Let $p$ be an odd prime. Find all $\left(\tfrac{p-1}2\right)$-tuples $\left(x_1,x_2,\dots,x_{(p-1)/2}\right)\in\mathbb Z_p^{\frac{p-1}2}$ such that \[\sum_{i=1}^{\frac{p-1}2} x_i\equiv\sum_{i=1}^{\frac{p-1}2}x_i^2\equiv\cdots\equiv\sum_{i=1}^{\frac{p-1}2}x_i^{\frac{p-1}2}\pmod p.\]
+
+---
+
+For $p=3$, $x_1$ can be anything. In what follows, $p\ge5$, and the answer is $x_i\in\{0,1\}$ for all $i$; these clearly work, so we show they are the only solutions.
+
+Denote by $R$ the set of quadratic residues modulo $p$, and let $a$ be the common value of the $\tfrac{p-1}2$ expressions.
+\begin{lemma*}
+    If for all $q\in R$, we have \[\left(\frac{(q-1)x+1}p\right)=1,\]
+    then $x\in\{0,1\}\pmod p$.
+\end{lemma*}
+\begin{proof}
+    If $g$ is a primitive root modulo $p$, note that \[\sum_{q\in R}q\equiv\sum_{k=0}^{\frac{p-1}2}g^{2k}\equiv\frac{g^{p-1}-1}{g^2-1}\equiv0\pmod p.\]
+    Assume that $x\not\equiv0\pmod p$. Then the linear map $q\mapsto(q-1)x+1$ is surjective, and thus it bijects $R$ to $R$. Thus \[0\equiv\sum_{q\in R}q\equiv\sum_{q\in R}\big((q-1)x+1\big)\equiv(1-x)\left(\frac{p-1}2\right)\pmod p,\]
+    whence $x\equiv1\pmod p$, as desired.
+\end{proof}
+
+For $q\in R$, consider the polynomial $P(x):=\big( (q-1)x+1\big)^{(p-1)/2}$. Note that the sum of the nonconstant coefficients is $P(1)-P(0)\equiv0\pmod p$ by quadratic reciprocity, so \[\sum_{i=1}^{\frac{p-1}2}P(x_i)\equiv a\big(P(1)-P(0)\big)+\frac{p-1}2\equiv\frac{p-1}2\pmod p.\]
+But $P(x)\in\{0,1,-1\}\pmod p$, so $P(x_i)=1$ for all $i$.
+
+It follows that for each $i$, \[\left(\frac{(q-1)x_i+1}p\right)=1\quad\text{for all }n\ne0.\]
+By the lemma, $x_i\in\{0,1\}\pmod p$ for each $i$, and we are done.
+\begin{remark}
+    Here are some notes on motivation. The case $p=3$ is moot, so it stands to reason we would consider $p=5$ first. It is a natural instinct to complete the square; that is, write \[\frac12\equiv\left(x_1^2-x_1+\frac14\right)+\left(x^2-x_2+\frac14\right)\equiv\left(x_1-\frac12\right)^2+\left(x_2-\frac12\right)^2\pmod5.\]
+    Indeed, two squares sum to $\tfrac12\equiv3$ when they are both $4$, and so $x_i-3\equiv\{2,3\}\pmod5$, giving the desired conclusion. This is so effective because $a$ disappears, and the value on the left-hand side determines the values of $(x_i-\tfrac12)^2$.
+
+    Turn to the case of general $p$. For all the $a$'s to disappear, we need the expansion on the right-hand side to contain $a\times(\text{multiple of }p)$, so it suffices for $P(0)\equiv P(1)\pmod p$. We also want to narrow down what each term on the right-hand side can be, so we would like $\deg P=\tfrac{p-1}2$, so that each term is $\{0,1,-1\}$.
+
+    Then the desired condition $P(0)\equiv P(1)\equiv 1$ comes from $P(x)=\big( (q-1)x+1\big)^{(p-1)/2}$. Summing gives $(q-1)x_i+1$ is a quadratic residue for all $i$.
+
+    This has certainly narrowed down all possible $x_i$: in fact it has narrowed it down \emph{completely}. This makes sense, since this restriction is strong --- this holds for all quadratic residues $q$. This motivates the lemma.
+
+    And to prove the lemma, note that $q\mapsto(q-1)x+1$ is a bijection between quadratic residues. To handle such bijections, we almost \emph{always} sum over powers. (For instance, see \href{https://artofproblemsolving.com/community/c6h1751589p11419598}{USA TST 2019/2} or the easier \href{https://artofproblemsolving.com/community/c6h473365p2650413}{Serbia 2012/4}, and \href{https://artofproblemsolving.com/community/c6h582821p3444911}{APMO 2014/3}.) In this case, directly summing over the $1$st powers works.
+
+    Happily $x_i\in\{0,1\}$, so we are done.
+\end{remark}
+

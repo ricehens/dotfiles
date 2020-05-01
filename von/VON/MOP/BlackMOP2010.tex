@@ -1,0 +1,12 @@
+desc: Polygon lamps
+source: Black MOP 2010
+tags: [2020-02, oly, easy, alg, int-poly, anti]
+
+---
+
+There are $n>2$ lamps arranged (evenly spaced) in a circle. Initially, one of them is turned on, and the rest are off. It is permitted to choose any regular polygon whose vertices are lamps and toggle all of their states simultaneously. For which positive integers $n$ is it possible to turn all the lamps off after a finite number of such operations?
+
+---
+
+No such $n$. Let $\zeta$ be a primitive $n$th root of unity. Label the lamps $0$, $\ldots$, $n-1$, where $0$ is the lamp initially on. Let $a_k$ be $1$ if lamp $k$ is on and $0$ if lamp $k$ is off. Consider the quantity \[I=a_0+a_1\zeta+a_2\zeta^2+\cdots+a_{n-1}\zeta^{n-1}.\]
+Initially, $I=1$. But at each step, we increment $I$ by $0$, so $I$ is forever $1$, and we cannot turn off all the lights.

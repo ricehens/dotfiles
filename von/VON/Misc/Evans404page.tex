@@ -1,0 +1,84 @@
+desc: Midpoint AH on incircle iff <AIH=90
+source: HMMT 2011 T12
+tags: [2020-03, oly, easy, geo, conditional, waltz]
+
+---
+
+Let $ABC$ be an acute scalene triangle with orthocenter $H$ and incenter $I$. Prove that the midpoint of $\overline{AH}$ lies on the incircle of $\triangle ABC$ if and only if $\angle AIH=90^\circ$.
+
+---
+
+\begin{center}
+\begin{asy}
+    size(8cm); defaultpen(fontsize(10pt));
+    pen pri=lightred;
+    pen sec=lightblue;
+    pen tri=purple+pink;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=tri+opacity(0.05);
+
+    real t=0.4;
+    pair O,M,I,B,C,A,H,K,D,EE,F,NN;
+    O=(0,0);
+    M=(0,-t);
+    I=(-sqrt(1-2t),0);
+    B=(-sqrt(1-t*t),-t);
+    C=(sqrt(1-t*t),-t);
+    A=extension(B,reflect(B,I)*C,C,reflect(C,I)*B);
+    H=A+B+C;
+    K=(A+H)/2;
+    D=foot(A,B,C);
+    EE=foot(B,C,A);
+    F=foot(C,A,B);
+    NN=circumcenter(D,EE,F);
+
+    filldraw(circumcircle(A,EE,F),tfil,tri);
+    draw(A--I,tri+dashed);
+    draw(K--NN,sec+Dotted);
+    draw(EE--F,sec);
+    filldraw(circumcircle(D,EE,F),sfil,sec);
+    filldraw(incircle(A,B,C),fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+    draw(A--D,pri);
+
+    dot("$A$",A,N);
+    dot("$B$",B,SW);
+    dot("$C$",C,SE);
+    dot("$D$",D,SW);
+    dot("$E$",EE,dir(60));
+    dot("$F$",F,SW);
+    dot("$H$",H,SE);
+    dot("$K$",K,SE);
+    dot("$I$",I,W);
+    dot("$N$",NN,SE);
+\end{asy}
+\end{center}
+Let $I$ be the incenter, $N$ the nine-point center, and $K$ the midpoint of $\seg{AH}$; also let $DEF$ be the orthic triangle. Note that $\seg{KN}$ is the perpendicular bisector of $\seg{EF}$. Hence the following are equivalent:
+\begin{align*}
+    &K\text{ lies on the incircle}\\
+    &\iff K\text{ is the Feuerbach point}\\
+    &\iff K,\ I,\ N\text{ collinear}\\
+    &\iff IE=IF\\
+    &\iff I\in(AEF)\\
+    &\iff \angle AIH=90\dg.
+\end{align*}
+Most of the steps above should be easy to follow. The only step that may require clarification is $K$, $I$, $N$ collinear imply $K$ is the Feuerbach point; if $K$ is not the Feuerbach point, the Feuerbach point must be the antipode of $K$ on the nine-point circle, which is the midpoint $M$ of $\seg{BC}$. However for $M$ to lie on the incircle, we must have $AB=AC$, contradiction.
+
+This completes the proof.
+
+\begin{remark}
+    Some notes on configuration. Let $A_0$ be the $A$-intouch point, $O$ the circumcenter, and $M$ the midpoint of $\seg{BC}$. Then $IA_0=IK=AK=OM$, so $IOMA_0$ is a rectangle and $\seg{IO}\parallel\seg{BC}$.
+
+    We also have parallelograms $AKA_0I$ and $KHA_0I$, which lead to some interesting properties, e.g.\ $\seg{A_0H}\perp\seg{EF}$.
+\end{remark}
+\begin{remark}
+    I will explain how the above asymptote diagram is constructed. As usual the circumradius is $R=1$. I will choose a real number $r\in(0,1)$ to be the length $OM$, i.e.\ the inradius. Then $OI^2=R(R-2r)=1-2r$, so $OI=\sqrt{1-2r}$. Thus
+    \begin{align*}
+        M&=(0,-t);\\
+        B&=\left(-\sqrt{1-t^2},-t\right);\\
+        C&=\left(\sqrt{1-t^2},-t\right);\\
+        I&=\left(-\sqrt{1-2t},0\right).
+    \end{align*}
+    From here, reflect $\seg{BC}$ across $\seg{BI}$ and $\seg{CI}$. By degrees of freedom/intuition, they intersect at $A$ on the circumcircle, and there we have $\triangle ABC$.
+\end{remark}

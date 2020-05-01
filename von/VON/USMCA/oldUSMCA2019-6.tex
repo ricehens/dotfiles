@@ -1,0 +1,14 @@
+desc: Mirrored polynomial
+source: old USMCA 2019/6
+tags: [2020-03, oly, tricky, alg, variation]
+
+---
+
+Let $n$ be a positive integer. Prove that if $f$ is a real polynomial satisfying $x^{2n}f(1/x)=f(x)$, and the $x^n$ coefficient of $f$ is zero, then $f$ has a complex root $z$ with $|z|=1$.
+
+---
+
+For all angles $\theta$, let \[g(\theta)=\frac{f(e^{i\theta})}{2(e^{i\theta})^2}=\frac12\sum_{k=1}^na_k\left(e^{i\theta k}+e^{-i\theta k}\right)=\sum_{k=1}^na_k\cos(k\theta).\]
+Since $|e^{i\theta}|=1$, it suffices to show that $g$ has a real root $\theta$. If $n=1$, simply take $\theta=\tfrac\pi k$, and we are done. Now, assume that $n>1$. Check that \[\sum_{t=0}^ng\left(\frac{2\pi t}{n+1}\right)=\sum_{k=1}^n \left(a_k\sum_{t=0}^n\cos\left(\frac{2\pi k}{n+1}\cdot t\right)\right)=\sum_{k=1}^n\left(a_k\cdot\operatorname{Re}\left(\sum_{t=0}^ne^{i\cdot \frac{2\pi k}{n+1}\cdot t}\right)\right),\]
+but since $k$ is always less than $n+1$, \[\operatorname{Re}\left(\sum_{t=0}^ne^{i\cdot \frac{2\pi k}{n+1}\cdot t}\right)=\operatorname{Re}\left(\frac{e^{i\cdot 2\pi k}-1}{e^{i\cdot\frac{2\pi k}{n+1}}-1}\right)=0\implies\sum_{t=0}^{n-1}g\left(\frac{2\pi t}{n+1}\right)=0.\]
+If for all $t$, $g(\tfrac{2\pi t}{n+1})=0$, we are done. Else, there exist $a$ and $b$ such that $g(\tfrac{2\pi a}n)>0$ and $g(\tfrac{2\pi b}n)<0$. Since $g$ is the sum of continuous functions, $g$ is continuous, so by the Intermediate Value Theorem, $g$ has a real root, and we are done.

@@ -1,0 +1,57 @@
+desc: Maximal length of quadratic sequence
+source: MCSP 2020/6
+tags: [2020-04, oly, tricky, alg, ineq, polynomial]
+
+---
+
+Construct a sequence of monic quadratic polynomials with real coefficients as follows: begin with the quadratic equation $x^2+p_1x+q_1=0$. For each positive integer $i$, if $x^2+p_ix+q_i=0$ has two real roots, then let the roots be $p_{i+1}$, $q_{i+1}$, with $p_{i+1}\le q_{i+1}$. Otherwise the sequence terminates.
+
+What is the maximal possible length of this sequence?
+
+---
+
+Let $f_i(x)=x^2+p_ix+q_i$. The maximum is $5$, achieved by the sequence
+\begin{align*}
+    x^2-347-16770&=0\\
+    x^2-43x+390&=0\\
+    x^2+13x+30&=0\\
+    x^2-10x-3&=0\\
+    x^2-(2\sqrt7-5)x+(2\sqrt7+5)&=0.
+\end{align*}
+First note that if there are any $0$'s among $p_i$, for $i\ge2$, or $q_i$, for $i\ge1$, then $q_1=0$. In this case,
+\begin{itemize}[itemsep=0em]
+    \item if $p_1>0$, then $f_2(x)=x^2-p_1x$ and $f_3(x)=x^2+p_1$, which has no real roots;
+    \item if $p_1<0$, then $f_2(x)=x^2-p_1$, which has no real roots.
+\end{itemize}
+Furthermore we discard the case $p_1=0$ and $q_1>0$, as this sequence has length $1$. Henceforth $p_i\ne0$ for $i\ge2$ and $q_i\ne0$ for $i\ge1$.
+
+We present two orthogonal claims:
+\setcounter{claim}0
+\begin{claim}
+    For some $2\le i\le4$, we have $p_i<0$ and $q_i<0$.
+\end{claim}
+\begin{proof}
+    Note that
+    \begin{itemize}[itemsep=0em]
+        \item if $q_i<0$, then $p_{i+1}<0$ and $q_{i+1}>0$;
+        \item if $p_i<0$ and $q_i>0$, then $p_{i+1}>0$ and $q_{i+1}>0$;
+        \item if $p_i>0$ and $q_i>0$, then $p_{i+1}<0$ and $q_{i+1}<0$.
+    \end{itemize}
+    If $p_1<0$ and $q_1>0$, then $p_3<0$ and $q_3<0$. If $p_1<0$ and $q_1>0$, then $p_2<0$ and $q_2<0$. If $q_1>0$, then $p_4<0$ and $q_4<0$.
+\end{proof}
+\begin{claim}
+    If $p_i<0$ and $q_i<0$ for $i\ge2$ (hence $p_i\le q_i$), then $f_{i+1}$ is the last polynomial in the sequence.
+\end{claim}
+\begin{proof}
+    Let $f_i(x)=x^2-ax-b$, so that $a\ge b>0$. Thus \[f_{i+1}(x)=x^2+\left(\frac{a-\sqrt{a^2+4b}}2\right)x+\left(\frac{a+\sqrt{a^2+4b}}2\right).\]
+    The discriminant of $f_{i+1}$ is
+    \begin{align*}
+        \Delta&=\left(\frac{a-\sqrt{a^2+4b}}2\right)^2-4\cdot\frac{a+\sqrt{a^2+4b}}2\\
+        &=\frac{a^2}2-2a+b-\left(\frac a2+2\right)\sqrt{a^2+4b}\\
+        &<\frac{a^2}2-a-\left(\frac a2+2\right)\cdot a\\
+        &=-3a<0
+    \end{align*}
+    so $f_{i+1}$ does not have real roots, as desired.
+\end{proof}
+
+Since $p_i<0$ and $q_i<0$ for some $2\le i\le 4$, the length of the sequence can be at most $5$. This completes the proof.

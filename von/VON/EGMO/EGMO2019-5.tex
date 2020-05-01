@@ -1,0 +1,18 @@
+desc: New sequence with bounds
+source: EGMO 2019/5
+tags: [2020-03, oly, easy, combo, sequence]
+
+---
+
+Let $n\ge 2$ be an integer, and let $a_1$, $a_2$, $\ldots$, $a_n$ be positive integers. Show that there exist positive integers $b_1$, $b_2$, $\ldots$, $b_n$ satisfying the following three conditions:
+\begin{enumerate}[label=(\roman*)]
+\item $a_i\le b_i$ for $i=1,2,\ldots,n$;
+\item the remainders of $b_1$, $b_2$, $\ldots$, $b_n$ upon division by $n$ are pairwise different; and
+\item we have \[b_1+\cdots+b_n\le n\left(\frac{n-1}2+\left\lfloor\frac{a_1+\cdots+a_n}n\right\rfloor\right).\]
+\end{enumerate}
+
+---
+
+Condition (iii) is equivalent to \[\big(b_1+\cdots+b_n\big)-\big(1+\cdots+(n-1)\big)\le n\left\lfloor\frac{a_1+\cdots+a_n}n\right\rfloor.\]
+By condition (ii), the LHS is divisible by $n$, so it is sufficient for \[\big(b_1+\cdots+b_n\big)-\big(1+\cdots+(n-1)\big)\le a_1+\cdots+a_n.\]
+We construct such a sequence with a greedy algorithm. Let $b_1=a_1$. Then, for $1<i\le n$, we let $b_i$ be the smallest number of the set $\{a_i,a_i+1,\ldots,a_i+(i-1)\}$ that is not equivalent to any of $\{b_1,b_2,\ldots,b_{i-1}\}$. We must then have that $b_i\le a_i+(i-1)$, so summing these yields the desired result.

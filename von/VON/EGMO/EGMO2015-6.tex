@@ -1,6 +1,6 @@
 desc: 60-degree triangle iff HG=GP'
 source: EGMO 2015/6
-tags: [2019-10, oly, medium, geo, conditional, 60deg]
+tags: [2019-10, oly, medium, geo, conditional, 60deg, conditional]
 
 ---
 
@@ -10,7 +10,7 @@ Let $H$ be the orthocenter and $G$ be the centroid of acute-angled triangle $ABC
 
 \begin{center}
     \begin{asy}
-        size(8cm);
+        size(7cm);
         defaultpen(fontsize(10pt));
 
         pen pri=deepgreen;
@@ -63,19 +63,13 @@ Let $H$ be the orthocenter and $G$ be the centroid of acute-angled triangle $ABC
     \end{asy}
 \end{center}
 Let $M$ be the midpoint of $\overline{BC}$, $L$ be the reflection of $O$ over $\overline{BC}$, and $A'$ the antipode of $A$, so that $M$ is the midpoint of $\overline{HA'}$. Let the $A$-symmedian meet $(ABC)$ again at $D$. Since $\overline{BC}$ bisects $\angle AMD$, $D$ and $P$ are reflections across $\overline{OL}$. Note the following series of equivalences, in which all steps are reversible, whence our conclusion goes both ways.
-\begin{itemize}
+\begin{itemize}[itemsep=0em]
     \item $\angle CAB=60^\circ$, one side of the condition.
-        \vspace{-0.75em}
     \item $GA=GL$, since $\angle A=60^\circ$ implies that $\overline{AL}$ is the perpendicular bisector of $\overline{OH}$.\footnote{This is well-known, but here is the proof. Let $K$ be the midpoint of arc $BAC$. Since $\angle BOC=2A=120^\circ$, $L$ is the midpoint of arc $BC$. Then, $\angle A=60^\circ$ yields $AH=2R\cos A=AO$, and since $H$ and $O$ are isogonal conjugates, $\overline{AL}$ must be the perpendicular bisector of $\overline{OH}$, on which $G$ lies.}
-        \vspace{-0.75em}
     \item $\measuredangle DAL=\measuredangle LAG=\measuredangle GLA$, in which the first equality comes from $\overline{AD}$ and $\overline{AG}$ being isogonal.
-        \vspace{-0.75em}
     \item $\overline{AD}\parallel\overline{GL}$, which is immediate.
-        \vspace{-0.75em}
     \item $\overline{DA'}\perp\overline{GL}$, since $\angle ADA'=90^\circ$.
-        \vspace{-0.75em}
     \item $\overline{HP'}\perp\overline{GL}$, by homothety at $M$ with scale factor $-1$.
-        \vspace{-0.75em}
     \item $GH=GP'$, since $OH'=OP$ implies $LH=LP'$.
 \end{itemize}
 Hence, we are done.

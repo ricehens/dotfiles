@@ -1,0 +1,46 @@
+desc: Great function with cyclic property
+source: USA TST 2019/4
+tags: [2019-12, oly, medium, nt, induction]
+
+---
+
+We say that a function $f:\mathbb Z_{\ge0}\times\mathbb Z_{\ge0}\to\mathbb Z$ is \emph{great} if for any nonnegative integers $m$ and $n$, \[f(m+1,n+1)f(m,n)-f(m+1,n)f(m,n+1)=1.\]
+If $A=(a_0,a_1,\ldots)$ and $B=(b_0,b_1,\ldots)$ are two sequences of integers, we write $A\sim B$ if there exists a great function $f$ satisfying $f(n,0)=a_n$ and $f(0,n)=b_n$ for every nonnegative integer $n$ (in particular, $a_0=b_0$).
+
+Prove that if $A$, $B$, $C$, $D$ are four sequences of integers satisfying $A\sim B$, $B\sim C$, and $C\sim D$, then $D\sim A$.
+
+---
+
+Say $A$, $B$ determine the function $t_{AB}:\mathbb Z_{\ge0}\to\mathbb Z$, and define $t_{BC}:\mathbb Z_{\ge0}\to\mathbb Z$, $t_{CD}:\mathbb Z_{\ge0}\to\mathbb Z$, and $t_{DA}:\mathbb Z_{\ge0}\to\mathbb Q$ analogously. Consider the function $t:\mathbb Z^2\to\mathbb Q$ such that for all $x,y\in\mathbb Z_{\ge0}$,
+\begin{align*}
+    t(x,y)&=t_{AB}(x,y)\\
+    t(-y,x)&=t_{BC}(x,y)\\
+    t(-x,-y)&=t_{CD}(x,y)\\
+    t(y,-x)&=t_{DA}(x,y).
+\end{align*}
+We know $t$ outputs integers in quadrants I, II, and III, and we want to show it output integers in quadrant IV as well.
+
+Consequently, the following claim suffices.
+\begin{claim*}
+    For any $3\times3$ subgrid \[
+        \begin{bmatrix}
+            h&g&e\\ f&d&b\\ c&a&w
+        \end{bmatrix}
+    \]
+    of the output of $t$, if $a,b,c,d,e,f,g,h\in\mathbb Z$, then $w\in\mathbb Z$.
+\end{claim*}
+\begin{proof}
+    It suffices to show that $ab\equiv-1\pmod d$. We know \[\pm1=gb-de\equiv gb\pmod d,\]
+    and similarly $\pm1\equiv af$ and $\pm1\equiv gf$. Note that $-1\equiv gb$ if and only if $g$ and $b$ lie in quadrant I or III, and similarly $-1\equiv af$ and $1\equiv gf$ if and only if $a$ and $f$ lie in quadrant I or III and $g$ and $f$ lie in quadrant I or III respectively.
+
+    With a bit of casework, we can verify that
+    \begin{itemize}[itemsep=0em]
+        \item $1\equiv gb$, $1\equiv af$ imply $-1\equiv gf$ (in quadrant IV).
+        \item $1\equiv gb$, $-1\equiv af$ imply $1\equiv gf$ (in quadrant III).
+        \item $-1\equiv gb$, $1\equiv af$ imply $1\equiv gf$ (in quadrant I).
+        \item $-1\equiv gb$, $-1\equiv af$ imply $-1\equiv gf$ (in quadrant II).
+    \end{itemize}
+    An odd number of the three terms $gb$, $af$, $gf$ are $-1\pmod d$, so $gbaf\equiv-gf\pmod d$, and $ab\equiv-1\pmod d$, as desired.
+\end{proof}
+
+Inductively applying the lemma, say with the bottom-right corner being $f(x,-y)$ by induction on $x+y$, $f$ outputs integers in quadrant IV as well, and we are done.

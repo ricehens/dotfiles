@@ -1,0 +1,24 @@
+desc: P+lambda*Q is a square
+source: USA TST 2017/3
+tags: [2020-03, oly, hard, alg, irreducibility, polynomial]
+author: Alison Miller
+
+---
+
+Let $P,Q\in\mathbb R[x]$ be relatively prime nonconstant polynomials. Show that there can be at most three real numbers $\lambda$ such that $P+\lambda Q$ is the square of a polynomial.
+
+---
+
+Assume for contradiction $R_i^2=P+\lambda_iQ$ for $i=1,2,3,4$. Note that \[\gcd\big(R_i^2,R_j^2\big)=\gcd\big(P+\lambda_iQ,Q(\lambda_i,\lambda_j)\big)=\gcd\big(P,Q(\lambda_i-\lambda_j)\big)\mid \lambda_i-\lambda_j,\]
+which is constant. Thus $R_i$ and $R_j$ are all relatively prime.
+
+We will assume $\deg P\ne\deg Q$; otherwise shift $P$ by an appropriate multiple of $Q$ so that the leading coefficient vanishes.
+
+Differentiating, we obtain $2R_iR_i'=P'+\lambda_iQ'$, so \[R_i\mid Q(P'+\lambda_iQ')-Q'(P+\lambda_iQ)=QP'-Q'P=Q^2(P/Q)'.\]
+This polynomial is not $0$ since $\gcd(P,Q)=1$, and since $R_i$ are relatively prime, by Chinese Remainder theorem \[R_1R_2R_3R_4\mid Q^2(P/Q)'.\]
+Since $\deg P\ne \deg Q$, we have $\deg R_i\le\tfrac12\max(\deg P,\deg Q)$; equality holds for at least $3$ of them, and if equality does not hold, then $\lambda_i=0$ and $\deg R_i\ge\tfrac12\min(\deg P,\deg Q)$. Hence
+\begin{align*}
+\deg(R_1R_2R_3R_4)&\ge\tfrac32\max(\deg P,\deg Q)+\tfrac12\min(\deg P,\deg Q)\\
+&>\deg P+\deg Q-1=\deg\left[Q^2(P/Q)'\right],
+\end{align*}
+contradiction.

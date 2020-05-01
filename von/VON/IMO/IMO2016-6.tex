@@ -1,0 +1,61 @@
+desc: Geoff frog
+source: IMO 2016/6
+tags: [2020-04, oly, tricky, combo, process, nice, waltz]
+
+---
+
+There are $n\ge2$ line segments in the plane such that every two segments cross and no three segments meet at a point. Geoff has to choose an endpoint of each segment and place a frog on it facing the other endpoint. Then he will clap his hands $n-1$ times. Every time he claps, each frog will immediately jump forward to the next intersection point on its segment. Frogs never change the direction of their jumps. Geoff wishes to place the frogs in such a way that no two of them will ever occupy the same intersection point at the same time.
+\begin{enumerate}[label=(\alph*),itemsep=0em]
+    \item Prove that Geoff can always fulfill his wish if $n$ is odd.
+    \item Prove that Geoff can never fulfill his wish if $n$ is even.
+\end{enumerate}
+
+---
+
+Draw a large circle that contains all intersection points, and extend the segments so that they are chords of the circle.
+\begin{center}
+\begin{asy}
+    size(5cm); defaultpen(fontsize(10pt));
+    pair A1,A2,B1,B2,C1,C2,D1,D2,E1,E2;
+    A1=dir(225);
+    A2=dir(60);
+    B1=dir(120);
+    B2=dir(315);
+    C1=dir(80);
+    C2=dir(240);
+    D1=dir(330);
+    D2=dir(210);
+    E1=dir(300);
+    E2=dir(100);
+
+    filldraw(circle(origin,1),cyan+opacity(0.1),blue);
+    draw(A1--A2,deepcyan);
+    draw(B1--B2,deepcyan);
+    draw(C1--C2,deepcyan);
+    draw(D1--D2,deepcyan);
+    draw(E1--E2,deepcyan);
+
+    dotfactor *= 1.5;
+    dot(A1,heavygreen);
+    dot(B1,heavygreen);
+    dot(C1,heavygreen);
+    dot(D1,heavygreen);
+    dot(E1,heavygreen);
+    dot(A2,gray);
+    dot(B2,gray);
+    dot(C2,gray);
+    dot(D2,gray);
+    dot(E2,gray);
+\end{asy}
+\end{center}
+Color green the endpoint of each chord on which the frog starts, and color the other endpoint gray.
+\begin{claim*}
+    Geoff fulfills his wish if and only if, if we traverse the circumference of the circle, we alternate between green and gray endpoints.
+\end{claim*}
+\begin{proof}
+    Assume this is not true, and two consecutive endpoints $A$, $B$ have the same color. Without loss of generality $A$, $B$ are green (since all frogs starting at the other end produces the same result). Suppose the chords through $A$, $B$ intersect at $C$. Then any chord that intersects segment $AC$ must intersect segment $BC$ as well, and vice versa, so the frogs starting at $A$, $B$ meet at $C$, contradiction.
+
+    Assume this is true. Let $A$, $B$ be two green endpoints whose chords intersect at $C$. I claim the number of intersection points on segment $AC$ and the number of intersection points on segment $BC$ have different parity, and are thus not equal. Indeed, if $P$ lies on arc $AB$ (contained in $\angle ACB$), then it intersects only one of segment $AC$ and segment $BC$, but if $P$ lies outside of arc $AB$, it either intersects both segment $AC$ and segment $BC$ or neither. Since an odd number of points lie on segment $AB$, the total number of intersection points on segments $AC$, $BC$ is odd, as claimed.
+\end{proof}
+
+If $n$ is odd, the above is clearly possible, but if $n$ is even, then attempting to color the chords as above results in some chord having endpoints the same color. This completes the proof.

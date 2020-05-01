@@ -1,0 +1,18 @@
+desc: Ant in circle
+source: Mock AIME 2018/9
+tags: [2019-12, answer, cmedium, combo, expected]
+author: Eric Shen
+
+---
+
+An ant is initially positioned at the origin. Every second, it moves $1$ unit in a direction that is chosen uniformly and at random. Suppose that for all nonnegative integers $n$, $E_n$ is the ant's expected distance from the origin. If $K$ denotes the smallest positive integer such that $E_K>2018$, find the remainder when $K$ is divided by $1000$.
+
+---
+
+Note that $E_0=0$. Suppose that when moving from time $n-1$ to time $n$, the ant moves $1$ unit in the direction that forms an angle of $\theta_n$ with the line connecting the origin and the point at which the ant was. Then, we have \[E_n^2=E_{n-1}^2+1-2E_{n-1}\cos\theta_n.\]
+Notice that the probability the ant moves at an angle of $\theta_n$ is equal to the probability the ant moves at an angle of $180-\theta_n$, and that $\cos\theta_n+\cos\left(180-\theta_n\right)=0$. It follows that the expected value of $\cos\theta_n$ is $0$, and by Linearity of Expectation, \[E_n^2=E_{n-1}^2+1.\]
+Since $E_0=0$, $E_n=\sqrt{n}$ by induction. Because after $K$ seconds we expect the ant to be more than $2018$ units from the origin, $E_K>2018$, so $K>2018^2$, and $K^2=2018^2+1\equiv 18^2+1=325\pmod{1000}$, and we are done.
+
+---
+
+325

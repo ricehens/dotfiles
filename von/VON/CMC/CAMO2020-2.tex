@@ -1,0 +1,38 @@
+author: Raymond Feng
+desc: Binomial congruence mod p^(2k+1)
+source: CAMO 2020/2
+tags: [2019-12, oly, medium, nt, sums]
+
+---
+
+Let $k$ be a positive integer, $p>3$ a prime, and $n$ an integer with $0\le n\le p^{k-1}$. Prove that \[\binom{p^k}{pn}\equiv\binom{p^{k-1}}n\pmod{p^{2k+1}}.\]
+
+---
+
+We use falling factorial notation: \[(x)_n=x(x-1)(x-2)\cdots(x-(n-1)).\]
+First, a lemma:
+\begin{lemma*}[Falling factorial congruence]
+    For $p>3$ and $i<n$, we have \[\left(p^k-pi-1\right)_{p-1}\equiv\big(p(i+1)-1\big)_{p-1}\pmod{p^{k+2}}.\]
+\end{lemma*}
+\begin{proof}
+    Expand the left-hand side and remove all multiples of $p^{k+2}$ to obtain \[\big(p(i+1)-1\big)_{p-1}+p^k\big(p(i+1)-1\big)_{p-1}\left[\sum_{j=1}^{p-1}\frac1{pi+j}\right]\pmod{p^{k+2}},\]
+    so it suffices to verify the bracketed term is $0\pmod{p^2}$.
+
+    The bracketed term equals
+    \begin{align*}
+        \sum_{j=1}^{p-1}\frac1{pi+j}&\equiv\sum_{j=1}^{\frac{p-1}2}\left(\frac1{pi+j}+\frac1{p(i+1)-j}\right)\\
+        &\equiv p(2i+1)\left[\sum_{j=1}^{\frac{p-1}2}\frac1{(pi+j)\big(p(i+1)-j\big)}\right]\pmod{p^2},
+    \end{align*}
+    so we need the new bracked term to be $0\pmod p$. It equals \[\sum_{j=1}^{\frac{p-1}2}\frac1{(pi+j)\big(p(i+1)-j\big)}\equiv-\sum_{j=1}^{\frac{p-1}2}\frac1{j^2}\equiv-\frac12\sum_{j=1}^{p-1}\frac1{j^2}\equiv-\frac12\sum_{j=1}^{p-1}j^2\equiv0\pmod p\]
+    when $p>3$, as desired.
+\end{proof}
+
+Rewrite the desired as
+\begin{align*}
+    \frac{\left(p^k\right)_{pn}}{(pn)!}&\equiv\frac{\left(p^{k-1}\right)_n}{n!}\pmod{p^{2k+1}}\\
+    \iff\left(p^k\right)_{pn}\cdot n!&\equiv\left(p^{k-1}\right)_n(pn)!\pmod{p^{2k+n+1}}\\
+        \impliedby\left(p^k-1\right)_{pn-1}\cdot(n-1)!&\equiv\left(p^{k-1}-1\right)_{n-1}(pn-1)!\pmod{p^{k+n+1}}.
+\end{align*}
+With some rearranging, the left-hand sign becomes \[p^{n-1}(n-1)!\left(p^{k-1}-1\right)_{n-1}\prod_{i=0}^{n-1}\left(p^k-pi-1\right)_{p-1}\pmod{p^{k+n+1}},\]
+and the right-hand sign becomes \[p^{n-1}(n-1)!\left(p^{k-1}-1\right)_{n-1}\prod_{i=0}^{n-1}\big(p(i+1)-1\big)_{n-1}\pmod{p^{k+n+1}}.\]
+Since both expressions already carry a $p^{n-1}$ term, they are equal by the lemma.

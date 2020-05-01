@@ -1,0 +1,17 @@
+desc: Number of ways to split into numbers divisible by m
+source: HMIC 2018/1
+tags: [2020-03, oly, easy, combo, rigid, waltz]
+
+---
+
+Let $m>1$ be a fixed positive integer. For a nonempty string of base-ten digits $S$, let $c(S)$ be the number of ways to split $S$ into contiguous nonempty strings of digits such that the base-ten number represented by each string is divisible by $m$. (For example, if $m=2$, then $c(1234)=2$ due to $1234$ and $12|34$.) These strings are allowed to have leading zeroes. 
+
+In terms of $m$, what are the possible values that $c(S)$ can take?
+
+---
+
+The answer is $0$ and powers of $2$. It is easy to achieve these: $c(1)=0$ and $c(0\cdots0)=2^n$ for $n+1$ zeros. Now we prove only these are attainable.
+
+Let $(\|)$ denote concatenation. Note that if $m\nmid S$, then $c(S)=0$. It is easy to see $c(x\|y)=2c(x)c(y)$ for $m\mid x,y$, and if $S$ cannot be expressed as $x\|y$ for $m\mid x,y$, then either $m\nmid S$ or $c(S)=1$.
+
+In all cases, $c(S)$ is either $0$ or a power of $2$.

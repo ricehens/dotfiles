@@ -1,6 +1,7 @@
 desc: Bicentric chaos
 source: IGO Advanced 2018/4
-tags: [2019-10, oly, hard, geo, projective, weird]
+tags: [2019-10, oly, hard, geo, projective, weird, conditional]
+author: Nikolai Beluhov
 
 ---
 
@@ -10,7 +11,7 @@ Let $ABCD$ be a tangential quadrilateral, and assume that diagonals $\overline{A
 
 \begin{center}
     \begin{asy}
-        size(12cm);
+        size(10cm);
         defaultpen(fontsize(10pt));
 
         pen pri=red;
@@ -64,32 +65,32 @@ Let $ABCD$ be a tangential quadrilateral, and assume that diagonals $\overline{A
     \end{asy}
 \end{center}
 Denote $E=\overline{AC}\cap\overline{BD}$, and let the incircle touch $\overline{AB}$, $\overline{BC}$, $\overline{CD}$, and $\overline{DA}$ at $K'$, $L'$ ,$M'$, and $N$, respectively. Let line $KM$ intersect $\overline{BC}$ and $\overline{DA}$ at $L^*$ and $N^*$, respectively, and let line $LN$ intersect $\overline{AB}$ and $\overline{CD}$ at $K^*$ and $M^*$, respectively.
-\setcounter{iclaim}0
-\begin{iclaim}
+\setcounter{claim}0
+\begin{claim}
     $\overline{AC}$, $\overline{KL}$, and $\overline{MN}$ concur at point $F$, the harmonic conjugate of $E$ with respect to $\overline{AC}$. Similarly, $\overline{BD}$, $\overline{LM}$, and $\overline{NK}$ concur at point $G$, the harmonic conjugate of $E$ with respect to $\overline{BD}$.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     The myriad angle bisectors yield the harmonic bundles $(AB;KK^*)$ and $(CB;LL^*)$, so $\overline{AC}$, $\overline{KL}$, and $\overline{K^*L^*}$  concur at a point $F$. Now, \[-1=(AB;KK^*)\stackrel{L^*}=(AC;EF).\]
     By symmetry, $\overline{AC}$, $\overline{KL}$, and $\overline{MN}$ concur at the harmonic conjugate of $E$ with respect to $\overline{AC}$.
 \end{proof}
-\begin{iclaim}
+\begin{claim}
     $\overline{K'M'}$ and $\overline{L'N'}$ intersect at $E$; $\overline{AC}$, $\overline{K'L'}$, and $\overline{M'N'}$ concur at point $F$; and $\overline{BD}$, $\overline{L'M'}$, $\overline{N'K'}$ concur at point $G$.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     By Brianchon's Theorem on $AKBCMD$ and $ABLCDN$, $E=\overline{K'M'}\cap\overline{L'N'}$. By Pascal's Theorem on $K'K'L'N'N'M'$, $F'=\overline{K'L'}\cap\overline{M'N'}$ lies on $\overline{AEC}$. It suffices to check that $-1=(AC;EF')$.
 
     Let $X=\overline{AB}\cap\overline{CD}$ and $Y=\overline{BC}\cap\overline{DA}$. By Pascal's Theorem on $K'K'L'M'M'N'$ and $K'L'L'M'N'N'$, $X$ and $Y$ lie on $\overline{FG}$. By Ceva-Menelaus, \[-1=(XY;GF')\stackrel B=(AC;EF'),\]
     as required.
 \end{proof}
-\begin{iclaim}
+\begin{claim}
     $K=K'$, and similarly for cyclic variations.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     We have proven that $(KLMN)$ and $(K'L'M'N')$ coincide as the polar circle of $\triangle EFG$. Since $K'$ lies on $\overline{AB}$, $K=K'$, and by symmetry our claim has been proven.
 \end{proof}
-\begin{iclaim}
+\begin{claim}
     Quadrilateral $ABCD$ is cyclic.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     This is just angle chasing: \[\angle BAD=180^\circ-\widehat{NK}=\widehat{LM}=180^\circ-\angle DCB,\]
     as desired.

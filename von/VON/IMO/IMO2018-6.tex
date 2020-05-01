@@ -1,6 +1,6 @@
 desc: Inversive isogonal conjugates
 source: IMO 2018/6
-tags: [2019-10, oly, hard, geo, inversion, angle-chasing]
+tags: [2019-10, oly, brutal, geo, inversion, angle-chasing, isogonal]
 
 ---
 
@@ -9,90 +9,88 @@ Prove that $\angle BXA+\angle DXC=180^\circ$.
 
 ---
 
-\begin{customenv}{First solution, by inversion}
-    We first require the following two lemmas.
-    \setcounter{boxlemma}0
-    \begin{boxlemma}
-        If two quadrilaterals have the same angles and both obey $AB\cdot CD=BC\cdot DA$, then they are similar.
-    \end{boxlemma}
-    \begin{proof}
-        Omitted.
-    \end{proof}
-    \begin{boxlemma}
-        If point $S$ in quadrilateral $ABCD$ has a isogonal conjugate $S^*$, then $\angle BSA+\angle DSC=180^\circ$.
-    \end{boxlemma}
-    \begin{proof}
-        Let $P=\overline{AB}\cap\overline{CD}$ and $Q=\overline{AD}\cap\overline{BC}$, and denote by $W$, $X$, $Y$, $Z$ the projections of $S$ onto $\overline{AB}$, $\overline{BC}$, $\overline{CD}$, $\overline{DA}$ respectively. Note that $S$ and $S^*$ are isogonal conjugates with respect to the four triangles $\triangle PAD$, $\triangle PBC$, $\triangle QAB$, and $\triangle QDC$. Since the center of the pedal circle of $S$ is the midpoint of $\overline{SS^*}$, points $W$, $X$, $Y$, $Z$ lie on the pedal circle of $S$.
+\paragraph{First solution, by inversion}     We first require the following two lemmas.
+\setcounter{lemma}0
+\begin{lemma}
+    If two quadrilaterals have the same angles and both obey $AB\cdot CD=BC\cdot DA$, then they are similar.
+\end{lemma}
+\begin{proof}
+    Omitted.
+\end{proof}
+\begin{lemma}
+    If point $S$ in quadrilateral $ABCD$ has a isogonal conjugate $S^*$, then $\angle BSA+\angle DSC=180^\circ$.
+\end{lemma}
+\begin{proof}
+    Let $P=\overline{AB}\cap\overline{CD}$ and $Q=\overline{AD}\cap\overline{BC}$, and denote by $W$, $X$, $Y$, $Z$ the projections of $S$ onto $\overline{AB}$, $\overline{BC}$, $\overline{CD}$, $\overline{DA}$ respectively. Note that $S$ and $S^*$ are isogonal conjugates with respect to the four triangles $\triangle PAD$, $\triangle PBC$, $\triangle QAB$, and $\triangle QDC$. Since the center of the pedal circle of $S$ is the midpoint of $\overline{SS^*}$, points $W$, $X$, $Y$, $Z$ lie on the pedal circle of $S$.
 
-        Now, all that remains is an angle chase:
-        \begin{align*}
-            \measuredangle BSA+\measuredangle DSC&=\measuredangle BSW+\measuredangle WSA+\measuredangle DSY+\measuredangle YSC\\
-            &=\measuredangle BXW+\measuredangle WZA+\measuredangle DZY+\measuredangle YXC\\
-            &=\measuredangle WZY+\measuredangle YXW=0^\circ,
-        \end{align*}
-        as desired.
-    \end{proof}
+    Now, all that remains is an angle chase:
+    \begin{align*}
+        \measuredangle BSA+\measuredangle DSC&=\measuredangle BSW+\measuredangle WSA+\measuredangle DSY+\measuredangle YSC\\
+        &=\measuredangle BXW+\measuredangle WZA+\measuredangle DZY+\measuredangle YXC\\
+        &=\measuredangle WZY+\measuredangle YXW=0^\circ,
+    \end{align*}
+    as desired.
+\end{proof}
 
-    Now, invert about $X$ with arbitrary radius $r$, denoting the inverse of $T$ by $T'$. Notice that $\measuredangle XB'A'=-\measuredangle XAB=-\measuredangle XCD=\measuredangle XD'C'$, and similarly $\measuredangle XC'B'=\measuredangle XA'D'$. Furthermore by the Inversion Distance Formula, \[A'B'\cdot C'D'=\frac{r^2\cdot AB}{XA\cdot XB}\cdot\frac{r^2\cdot CD}{XC\cdot XD}=\frac{r^2\cdot BC}{XB\cdot XC}\cdot\frac{r^2\cdot DA}{XD\cdot XA}=B'C'\cdot D'A'.\]
-    We can also check that \[\measuredangle D'A'B'=\measuredangle D'A'X+\measuredangle XA'B'=\measuredangle XDA+\measuredangle ABX=\measuredangle XBC+\measuredangle ABX=\measuredangle ABC,\]
-    and analogously we find by Lemma 1 that $D'A'B'C'\sim ABCD$. Transforming $D'A'B'C'$ back to $ABCD$, $X$ is mapped to its isogonal conjugate, so by Lemma 2, $\angle BXA+\angle DXC=180^\circ$, and we are done.
-    \begin{center}
-        \begin{asy}
-            size(11cm);
-            defaultpen(fontsize(10pt));
+Now, invert about $X$ with arbitrary radius $r$, denoting the inverse of $T$ by $T'$. Notice that $\measuredangle XB'A'=-\measuredangle XAB=-\measuredangle XCD=\measuredangle XD'C'$, and similarly $\measuredangle XC'B'=\measuredangle XA'D'$. Furthermore by the Inversion Distance Formula, \[A'B'\cdot C'D'=\frac{r^2\cdot AB}{XA\cdot XB}\cdot\frac{r^2\cdot CD}{XC\cdot XD}=\frac{r^2\cdot BC}{XB\cdot XC}\cdot\frac{r^2\cdot DA}{XD\cdot XA}=B'C'\cdot D'A'.\]
+We can also check that \[\measuredangle D'A'B'=\measuredangle D'A'X+\measuredangle XA'B'=\measuredangle XDA+\measuredangle ABX=\measuredangle XBC+\measuredangle ABX=\measuredangle ABC,\]
+and analogously we find by Lemma 1 that $D'A'B'C'\sim ABCD$. Transforming $D'A'B'C'$ back to $ABCD$, $X$ is mapped to its isogonal conjugate, so by Lemma 2, $\angle BXA+\angle DXC=180^\circ$, and we are done.
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
 
-            pen pri=green;
-            pen sec=springgreen;
-            pen tri=chartreuse;
-            pen fil=pri+opacity(0.1);
-            pen sfil=sec+opacity(0.05);
-            pen tfil=tri+opacity(0.05);
+        pen pri=heavygreen;
+        pen sec=heavycyan;
+        pen tri=deepcyan;
+        pen fil=pri+opacity(0.1);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
 
-            pair O, A, D, C, B, K, L, Q, R, X;
-            O=(0,0);
-            A=dir(140);
-            B=dir(190);
-            C=dir(350);
-            D=reflect(O,A+C)*(2*foot(O,B,(A+C)/2)-B);
-            Q=extension(A, D, B, C);
-            R=extension(A, C, B, D);
-            K=extension(A, reflect(A, incenter(A, B, D)) * R, C, reflect(C, incenter(C, B, D)) * R);
-            L=extension(B, reflect(B, incenter(B, A, C)) * R, D, reflect(D, incenter(D, A, C)) * R);
-            X=reflect(circumcenter(A, B, K), circumcenter(C, D, K)) * K;
+        pair O, A, D, C, B, K, L, Q, R, X;
+        O=(0,0);
+        A=dir(140);
+        B=dir(190);
+        C=dir(350);
+        D=reflect(O,A+C)*(2*foot(O,B,(A+C)/2)-B);
+        Q=extension(A, D, B, C);
+        R=extension(A, C, B, D);
+        K=extension(A, reflect(A, incenter(A, B, D)) * R, C, reflect(C, incenter(C, B, D)) * R);
+        L=extension(B, reflect(B, incenter(B, A, C)) * R, D, reflect(D, incenter(D, A, C)) * R);
+        X=reflect(circumcenter(A, B, K), circumcenter(C, D, K)) * K;
 
-            filldraw(A--B--C--D--cycle,fil,pri);
-            filldraw(circumcircle(B,Q,D),sfil,sec);
-            filldraw(circumcircle(A,B,K),tfil,tri);
-            filldraw(circumcircle(C,D,K),tfil,tri);
-            draw(C--A--Q--B--D,pri);
-            draw(A--K--C,pri);
-            draw(B--L--D,pri);
+        filldraw(A--B--C--D--cycle,fil,pri);
+        filldraw(circumcircle(B,Q,D),sfil,sec);
+        filldraw(circumcircle(A,B,K),tfil,tri);
+        filldraw(circumcircle(C,D,K),tfil,tri);
+        draw(C--A--Q--B--D,pri);
+        draw(A--K--C,pri);
+        draw(B--L--D,pri);
 
-            clip((Q+(-0.1,-100))--(Q+(-0.1,1.3))--(Q+(100,1.3))--(Q+(100,-100))--cycle);
+        clip((Q+(-0.1,-100))--(Q+(-0.1,1.3))--(Q+(100,1.3))--(Q+(100,-100))--cycle);
 
-            dot("$A$",A,N);
-            dot("$D$",D,NW);
-            dot("$C$",C,SE);
-            dot("$B$",B,S);
-            dot("$Q$",Q,SW);
-            dot("$R$",R,N);
-            dot("$K$",K,W);
-            dot("$L$",L,dir(30));
-            dot("$X$",X,E);
-        \end{asy}
-    \end{center}
-\end{customenv}
-\begin{customenv}{Second solution, by angle chasing}
-    Let $Q=\overline{AD}\cap\overline{BC}$. Since $AB/AD=CB/CD$, there exists a point $E$ on $\overline{BD}$ such that $\overline{AE}$ bisects $\angle DAB$ and $\overline{CE}$ bisects $\angle BCD$. Thus there exists a point $K$ on $\overline{BD}$ with $\measuredangle CAB=\measuredangle DAK$ and $\measuredangle BCA=\measuredangle KCD$. Let the circumcircles of $\triangle AKB$ and $\triangle CKD$ intersect at $X$. I claim that $X$ is the desired point. First, we prove a key claim.
-    \begin{iclaim*}
-        $\overline{BD}$ bisects $\angle AKC$.
-    \end{iclaim*}
-    \begin{proof}
-        Notice that \[\frac{KA}{KD}=\frac{\sin\angle BDA}{\sin\angle KAD}=\frac{\sin\angle BDA}{\sin\angle BAC}\quad\text{and}\quad\frac{KC}{KD}=\frac{\sin\angle BDC}{\sin\angle KCD}=\frac{\sin \angle BDC}{\sin\angle BCA}.\]
-        By the ratio lemma, \[\frac{KA}{KC}=\frac{\sin\angle BDA}{\sin\angle BDC}\cdot\frac{\sin\angle BCA}{\sin\angle BAC}=\frac{RA}{RC}\cdot\frac{DC}{DA}\cdot\frac{BA}{BC}=\frac{RA}{RC},\]
-        and the desired result readily follows.
-    \end{proof}
+        dot("$A$",A,N);
+        dot("$D$",D,NW);
+        dot("$C$",C,SE);
+        dot("$B$",B,S);
+        dot("$Q$",Q,SW);
+        dot("$R$",R,N);
+        dot("$K$",K,W);
+        dot("$L$",L,dir(30));
+        dot("$X$",X,E);
+    \end{asy}
+\end{center}
 
-    Notice that by the claim, $\measuredangle BXA+\measuredangle DXC=\measuredangle DXA+\measuredangle BXC=\measuredangle DKA+\measuredangle BKC=0^\circ$, so it is sufficient to show that $\measuredangle XBC=\measuredangle XDA$ (and the other case follows analogously). But \[\measuredangle BXD=\measuredangle BXK+\measuredangle KXD=\measuredangle BAK+\measuredangle KCD=\measuredangle CAD+\measuredangle BCA=\measuredangle CQA,\]
-    so $BQDX$ is cyclic and $\measuredangle XBC=\measuredangle XBQ=\measuredangle XDQ=\measuredangle XDA$, as desired.
-\end{customenv}
+\paragraph{Second solution, by angle chasing}     Let $Q=\overline{AD}\cap\overline{BC}$. Since $AB/AD=CB/CD$, there exists a point $E$ on $\overline{BD}$ such that $\overline{AE}$ bisects $\angle DAB$ and $\overline{CE}$ bisects $\angle BCD$. Thus there exists a point $K$ on $\overline{BD}$ with $\measuredangle CAB=\measuredangle DAK$ and $\measuredangle BCA=\measuredangle KCD$. Let the circumcircles of $\triangle AKB$ and $\triangle CKD$ intersect at $X$. I claim that $X$ is the desired point. First, we prove a key claim.
+\begin{claim*}
+    $\overline{BD}$ bisects $\angle AKC$.
+\end{claim*}
+\begin{proof}
+    Notice that \[\frac{KA}{KD}=\frac{\sin\angle BDA}{\sin\angle KAD}=\frac{\sin\angle BDA}{\sin\angle BAC}\quad\text{and}\quad\frac{KC}{KD}=\frac{\sin\angle BDC}{\sin\angle KCD}=\frac{\sin \angle BDC}{\sin\angle BCA}.\]
+    By the ratio lemma, \[\frac{KA}{KC}=\frac{\sin\angle BDA}{\sin\angle BDC}\cdot\frac{\sin\angle BCA}{\sin\angle BAC}=\frac{RA}{RC}\cdot\frac{DC}{DA}\cdot\frac{BA}{BC}=\frac{RA}{RC},\]
+    and the desired result readily follows.
+\end{proof}
+
+Notice that by the claim, $\measuredangle BXA+\measuredangle DXC=\measuredangle DXA+\measuredangle BXC=\measuredangle DKA+\measuredangle BKC=0^\circ$, so it is sufficient to show that $\measuredangle XBC=\measuredangle XDA$ (and the other case follows analogously). But \[\measuredangle BXD=\measuredangle BXK+\measuredangle KXD=\measuredangle BAK+\measuredangle KCD=\measuredangle CAD+\measuredangle BCA=\measuredangle CQA,\]
+so $BQDX$ is cyclic and $\measuredangle XBC=\measuredangle XBQ=\measuredangle XDQ=\measuredangle XDA$, as desired.
+

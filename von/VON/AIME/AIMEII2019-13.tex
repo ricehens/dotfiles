@@ -1,0 +1,35 @@
+desc: Polygon moving area
+source: AIME II 2019/13
+tags: [2019-12, answer, chard, geo, area]
+
+---
+
+Regular octagon $A_1A_2A_3A_4A_5A_6A_7A_8$ is inscribed in a circle of area $1$. Point $P$ lies inside the circle so that the region bounded by $\overline{PA_1}$, $\overline{PA_2}$, and the minor arc $\widehat{A_1A_2}$ of the circle has area $\tfrac17$, while the region bounded by $\overline{PA_3}$, $\overline{PA_4}$, and the minor arc $\widehat{A_3A_4}$ of the circle has area $\tfrac 19$. There is a positive integer $n$ such that the area of the region bounded by $\overline{PA_6}$, $\overline{PA_7}$, and the minor arc $\widehat{A_6A_7}$ is equal to $\tfrac18 - \tfrac{\sqrt 2}n$. Find $n$.
+
+---
+
+There are many solutions to this problem. Here is one that is not very beautiful, but is rather easy to come up with. First, notice that with indices taken modulo $8$, $[PA_iA_{i+1}]+[PA_{i+4}A_{i+5}]=\tfrac1{\sqrt2}$ is constant since $\overline{A_iA_{i+1}}\parallel\overline{A_{i+4}A_{i+5}}$ and $A_iA_{i+1}=A_{i+4}A_{i+5}$. Let $X=\overline{A_1A_2}\cap\overline{A_3A_4}$. The area of each segment is trivially $\tfrac18-\tfrac1{2\sqrt2\pi}$, and the side of the octagon is $\sqrt{\tfrac{2-\sqrt2}{\pi}}$. We find the area of quadrilateral $PA_1XA_4$ in two ways:
+\begin{itemize}
+    \item $[PA_1XA_4]=[PA_1X]+[PA_4X]$. Since $AX_2=\tfrac{A_1A_2}{\sqrt2}$, we determine that \[[PA_1X]=\left(1+\frac1{\sqrt2}\right)[PA_1A_2]\text{ and }[PA_4X]=\left(1+\frac1{\sqrt2}\right)[PA_3A_4],\]
+        so \[[PA_1XA_4]=\left(1+\frac1{\sqrt2}\right)\big([PA_1A_2]+[PA_3A_4]\big).\]
+    \item $[PA_1XA_4]=[PA_1A_2]+[PA_3A_4]+[XA_2A_3]+[PA_2A_3]$. It is easy to check that \[[XA_2A_3]=\frac{XA_2^2}2=\frac{\tfrac12 A_1A_2^2}2=\frac{2-\sqrt2}{4\pi}.\]
+        Furthermore,
+        \begin{align*}
+            [PA_1A_2]+[PA_3A_4]&=\left(\frac1{2\sqrt2\pi}+\frac17-\frac18\right)+\left(\frac1{2\sqrt2\pi}+\frac19-\frac18\right)\\
+            &=\frac1{\sqrt2\pi}+\frac1{252}.
+        \end{align*}
+\end{itemize}
+It follows that
+\begin{align*}
+    [PA_2A_3]&=\left(1+\frac1{\sqrt2}\right)\big([PA_1A_2]+[PA_3A_4]\big)\\
+    &\qquad-\big([PA_1A_2]+[PA_3A_4]\big)-\frac{2-\sqrt2}{4\pi}\\
+    &=\frac1{\sqrt2}\big([PA_1A_2]+[PA_3A_4]\big)-\frac{2-\sqrt2}{4\pi}\\
+    &=\frac1{2\pi}+\frac1{252\sqrt2}-\frac{2-\sqrt2}{4\pi}\\
+    &=\frac1{2\sqrt2\pi}+\frac1{252\sqrt2}.
+\end{align*}
+Hence \[\left[P\widehat{A_6A_7}\right]=\frac18-\frac1{2\sqrt2}+[PA_6A_7]=\frac18+\frac1{2\sqrt2}-[PA_2A_3]=\frac18-\frac{\sqrt2}{504},\]
+and the answer is $504$.
+
+---
+
+504

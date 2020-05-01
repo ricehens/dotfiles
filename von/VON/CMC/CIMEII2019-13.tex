@@ -1,0 +1,27 @@
+author: Justin Lee
+desc: Entries in 720x720 multiplication table
+source: CIME II 2019/13
+tags: [2019-12, answer, cbrutal, nt, sums]
+
+---
+
+The $n \times n$ multiplication table is the $n \times n$ table of values where the entry in the $i^{\text{th}}$ row and $j^{\text{th}}$ column corresponds to the value $ij.$ Let $N$ be the number of entries in the $720 \times 720$ multiplication table that are divisible by $720.$ Find the remainder when $N$ is divided by $1000.$
+
+---
+
+Let $\mathcal S(n)$ denote the number of entries of an $n\times n$ times table that are divisible by $n$. We claim that \[\mathcal S(n)=\sum_{d\mid n}\frac{\varphi(d)}d.\]
+
+First, we take a positive integer $m\le n$. If $d=\gcd(m,n)$, then $m=dm'$ and $n=dn'$, where $\gcd(m',n')=1$. It follows that if $n\mid mu$, then $n'\mid m'u$, so $n'\mid u$. There are exactly $d$ such $u$ that are divisible by $n'$, whence \[\mathcal S(n)=\sum_{m=1}^n \gcd(m,n).\]
+
+Now, we look at each divisor $d$ of $n$. Like above, notice that $d=\gcd(m,n)$ if and only if $m=dm'$ and $n=dn'$, where $\gcd(m',n')=1$. However, the number of $m$ with $\gcd(m,n)=1$ is $\varphi(n')=\varphi(d/n)$, so \[\mathcal S(n)=\sum_{m=1}^n\gcd(m,n)=\sum_{d\mid n}d\cdot\varphi\left(\frac{n}{d}\right)=n\sum_{d\mid n}\frac{\varphi(d)}{d},\]
+as required. A corollary of this claim is that $\mathcal S=\text{Id}*\varphi$, where $*$ denotes Dirichlet convolution and $\text{Id}(n)=n$. Since $\varphi$ and $\text{Id}$ are multiplicative, so is $\mathcal S$. Then, if $n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$,
+\begin{align*}
+    \mathcal S(n)&=\prod_{i=1}^k\left(p_i^{e_i}\sum_{j=0}^{e_i}\frac{\varphi(p_i^j)}{p_i^j}\right)\\
+    &=\prod_{i=1}^k p_i^{e_i}\left(1+\frac{e_i(p_i-1)}{p_i}\right)\\
+    &=\prod_{i=1}^k p_i^{e_i-1}((p_i-1)(e_i+1)+1).
+\end{align*}
+Since $720=2^4\cdot 3^2\cdot 5$, $N=48\cdot 21\cdot 9=9072$, and the requested remainder is $72$.
+
+---
+
+072

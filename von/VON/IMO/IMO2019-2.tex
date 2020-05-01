@@ -63,15 +63,13 @@ We present two ways to solve this problem, but both are relatively simple. Thus 
         dot("$B_2$",B2,B2);
     \end{asy}
 \end{center}
-\begin{customenv}{First solution, by Reim's Theorem}
-    Let $\seg{PP_1}$ and $\seg{QQ_1}$ intersect $\seg{AB}$ at $P_2$ and $Q_2$ respectively, and let $\seg{AA_1}$ and $\seg{BB_1}$ intersect the circumcircle of $\triangle ABC$ again at $A_2$ and $B_2$ respectively. By the problem statement it is obvious that $AP_1CP_2$ and $BQ_1CQ_2$ are cyclic. We claim that $P$, $Q$, $A_2$, $B_2$, $P_1$, $Q_1$ are all concyclic.
+\paragraph{First solution, by Reim's Theorem}     Let $\seg{PP_1}$ and $\seg{QQ_1}$ intersect $\seg{AB}$ at $P_2$ and $Q_2$ respectively, and let $\seg{AA_1}$ and $\seg{BB_1}$ intersect the circumcircle of $\triangle ABC$ again at $A_2$ and $B_2$ respectively. By the problem statement it is obvious that $AP_1CP_2$ and $BQ_1CQ_2$ are cyclic. We claim that $P$, $Q$, $A_2$, $B_2$, $P_1$, $Q_1$ are all concyclic.
 
-    Since $\seg{PQ}\parallel\seg{AB}$, by Reim's Theorem $PQA_2B_2$ is cyclic. Now $B_1P_1\cdot B_1P_2=AB_1\cdot CB_1=BB_1\cdot B_1B_2$, whence $PB_2P_2B$ is cyclic. However by Reim's Theorem $P_1B_2PQ$ is also cyclic, so $B_2$ lies on $(PQA_2B_2)$. Similarly $A_2$ lies on $(PQA_2B_2)$, so our claim has been proven. Thus $P$, $Q$, $P_1$, $Q_1$ all lie on a circle, so we are done.
-\end{customenv}
-\begin{customenv}{Second solution, by DDIT and Pappus' Theorem}
-    Let $P_2=\seg{AB}\cap\seg{PP_1}$, $Q_2=\seg{AB}\cap\seg{QQ_1}$, $T=\seg{PP_1}\cap\seg{QQ_1}$, $K=\seg{CT}\cap\seg{AB}$, and $S=\seg{AQ}\cap\seg{BP}$. By construction $AP_1CP_2$ and $BQ_1CQ_2$ are cyclic, and by Pappus' Theorem on $\seg{APA_1}$ and $\seg{BQB_1}$, points $S$, $C$, $T$ are collinear.
+Since $\seg{PQ}\parallel\seg{AB}$, by Reim's Theorem $PQA_2B_2$ is cyclic. Now $B_1P_1\cdot B_1P_2=AB_1\cdot CB_1=BB_1\cdot B_1B_2$, whence $PB_2P_2B$ is cyclic. However by Reim's Theorem $P_1B_2PQ$ is also cyclic, so $B_2$ lies on $(PQA_2B_2)$. Similarly $A_2$ lies on $(PQA_2B_2)$, so our claim has been proven. Thus $P$, $Q$, $P_1$, $Q_1$ all lie on a circle, so we are done.
 
-    Applying DDIT on $ABPQ$ from $T$, an involution swaps $(\seg{TA},\seg{TP})$, $(\seg{TB},\seg{TQ})$, $(\seg{T\infty_{AB}},\seg{TS})$, where $\infty_{AB}$ is the point at infinity on $\seg{AB}$. Projecting onto $\seg{AB}$, an inversion at $K$ swaps $(A,P_2)$ and $(B,Q_2)$. It follows that $KA\cdot KP_2=KB\cdot KQ_2$, so $\seg{TCSK}$ is the radical axis of $(AP_1CP_2)$ and $(BQ_1CQ_2)$. Now $TP_1\cdot TP_2=TQ_1\cdot TQ_2$, so $P_1P_2Q_2Q_1$ is cyclic.
+\paragraph{Second solution, by DDIT and Pappus' Theorem}     Let $P_2=\seg{AB}\cap\seg{PP_1}$, $Q_2=\seg{AB}\cap\seg{QQ_1}$, $T=\seg{PP_1}\cap\seg{QQ_1}$, $K=\seg{CT}\cap\seg{AB}$, and $S=\seg{AQ}\cap\seg{BP}$. By construction $AP_1CP_2$ and $BQ_1CQ_2$ are cyclic, and by Pappus' Theorem on $\seg{APA_1}$ and $\seg{BQB_1}$, points $S$, $C$, $T$ are collinear.
 
-    Finally, by Reim's Theorem, $PP_1Q_1Q$ is cyclic, and we are done.
-\end{customenv}
+Applying DDIT on $ABPQ$ from $T$, an involution swaps $(\seg{TA},\seg{TP})$, $(\seg{TB},\seg{TQ})$, $(\seg{T\infty_{AB}},\seg{TS})$, where $\infty_{AB}$ is the point at infinity on $\seg{AB}$. Projecting onto $\seg{AB}$, an inversion at $K$ swaps $(A,P_2)$ and $(B,Q_2)$. It follows that $KA\cdot KP_2=KB\cdot KQ_2$, so $\seg{TCSK}$ is the radical axis of $(AP_1CP_2)$ and $(BQ_1CQ_2)$. Now $TP_1\cdot TP_2=TQ_1\cdot TQ_2$, so $P_1P_2Q_2Q_1$ is cyclic.
+
+Finally, by Reim's Theorem, $PP_1Q_1Q$ is cyclic, and we are done.
+

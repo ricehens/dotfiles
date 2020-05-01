@@ -1,0 +1,19 @@
+desc: f^{2k}(n)=n+k
+source: ISL 2012 A6
+tags: [2020-04, oly, tricky, alg, fe, arrows]
+
+---
+
+Let $f:\mathbb N\to\mathbb N$ be a function, and let $f^m$ be $f$ applied $m$ times. Suppose that for every positive integer $n$ there exists a positive integer $k$ such that $f^{2k}(n)=n+k$, and let $k_n$ be the smallest such $k$. Prove that the sequence $k_1$, $k_2$, $\ldots$ is unbounded.
+
+---
+
+Assume the contrary --- that $k_n\le M$ for each $n$. It is given the sequence $1$, $f(1)$, $f^2(1)$, $\ldots$ is unbounded, so it contains no repeat elements; that is, $f^n(1)$ is injective in $n$.
+
+Consider the two sequences $(x_n)$, $(y_n)$ defined by $x_n=f^{2n-1}(1)-n$ and $y_n=f^{2n}(1)-n$. The given condition is equivalent to this:
+\begin{quote}
+    For each $n$, there is a $k\le M$ such that $x_n=x_{n+k}$. Similarly for each $n$, there is a $k\le M$ such that $y_n=y_{n+k}$.
+\end{quote}
+It follows that $(x_n)$, $(y_n)$ each contain finitely many distinct values, so they are bounded above by some positive integers $X$, $Y$ respectivey.
+
+Finally, consider $S=\{x_n+n:n\le m\}\cup\{y_n+n:n\le m\}$ for each $m$. Since $f^n(1)$ is injective, $S$ contains $2m$ distinct elements. But for any $m>\max\{X,Y\}$, we have $|S|\le\max\{X,Y\}+m<2m$, contradiction.

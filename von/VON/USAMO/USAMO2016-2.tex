@@ -1,17 +1,18 @@
 desc: Hook-length formula
 source: USAMO 2016/2
-tags: [2019-10, oly, tricky, nt, ineq, p-adic]
+tags: [2019-10, oly, tricky, nt, ineq, vp]
 
 ---
 
 Prove that for any positive integer $k$, \[(k^2)!\cdot\prod_{j=0}^{k-1}\frac{j!}{(j+k)!}\]
+is an integer.
 
 ---
 
 The key lemma is this:
-\begin{boxlemma*}
+\begin{lemma*}
     For all $k$ and $n$, \[\sum_{j=0}^{k-1}\left(\left\lfloor\frac{j+k}n\right\rfloor-\left\lfloor\frac jn\right\rfloor\right)\le\left\lfloor\frac{k^2}n\right\rfloor.\]
-\end{boxlemma*}
+\end{lemma*}
 \begin{proof}
     Rewrite this as \[\left\lfloor\frac{k^2}n\right\rfloor+\sum_{j=0}^{k-1}\left\lfloor\frac jn\right\rfloor>-1+\sum_{j=0}^{k-1}\left\lfloor\frac{j+k}n\right\rfloor.\]
     Noting that equality holds if we erase the floor symbols, we rewrite the inequality using the fractional part: Denote $\{x\}=x-\lfloor x\rfloor$ to obtain \[\left\{\frac{k^2}n\right\}+\sum_{j=0}^{k-1}\left\{\frac jn\right\}<1+\sum_{j=0}^{k-1}\left\{\frac{j+k}n\right\}.\]

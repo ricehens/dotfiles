@@ -1,0 +1,107 @@
+desc: DDIT constant insimilicenter
+source: China 2020/2
+tags: [2019-12, oly, tricky, geo, homothety, involution, pop]
+
+---
+
+Let $ABC$ be a triangle, and let the bisector of $\angle BAC$ intersect $\seg{BC}$ at $D$. Point $P$ lies on line $AD$ such that $P$, $A$, $D$ are collinear in that order. Suppose $\seg{PQ}$ is tangent to $(ABD)$ at $Q$, $\seg{PR}$ is tangent to $(ACD)$ at $R$, and $Q$ and $R$ lie on opposite sides of line $AD$. Lines $BR$ and $CQ$ meet at $K$. Prove that if the line through $K$ parallel to $\seg{BC}$ intersects lines $QD$, $AD$, $RD$ at $E$, $L$, $F$, respectively, then $EL=KF$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(9cm); defaultpen(fontsize(10pt));
+        pen pri=royalblue;
+        pen sec=deepgreen;
+        pen tri=deepcyan;
+        pen qua=heavygreen;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+        pen qfil=qua+opacity(0.05);
+
+        pair A,B,C,M,D,T,P,Q,Qp,R,Rp,K,L,EE,F;
+        A=dir(130);
+        B=dir(210);
+        C=dir(330);
+        M=dir(270);
+        D=extension(A,M,B,C);
+        T=extension(B,C,(A+D)/2,(A+D)/2+rotate(90)*(A-D));
+        P=2A-D;
+        pair[] qqq=intersectionpoints(circumcircle(A,B,D),circle( (P+circumcenter(A,B,D))/2,length(P-circumcenter(A,B,D))/2));
+        for (pair qq : qqq) {
+            if (intersectionpoints(T--qq,P--M).length==0) {
+                Q=qq;
+                break;
+            }
+        }
+        Qp=2*foot(circumcenter(A,B,D),T,Q)-Q;
+        pair[] rrr=intersectionpoints(circumcircle(A,C,D),circle( (P+circumcenter(A,C,D))/2,length(P-circumcenter(A,C,D))/2));
+        for (pair rr : rrr) {
+            if (intersectionpoints(T--rr,P--M).length>0) {
+                R=rr;
+                break;
+            }
+        }
+        Rp=2*foot(circumcenter(A,C,D),T,R)-R;
+        K=extension(B,R,C,Q);
+        L=extension(A,D,K,K+C-B);
+        EE=extension(Q,D,K,L);
+        F=extension(R,D,K,L);
+
+        filldraw(circumcircle(B,C,Q),tfil,tri);
+        filldraw(circumcircle(A,B,D),sfil,sec);
+        filldraw(circumcircle(A,C,D),sfil,sec);
+        filldraw(circumcircle(A,B,C),fil,pri);
+        fill(A--B--C--cycle,fil);
+        draw(EE--F,qua+dashed);
+        draw(Q--D--R,qua);
+        draw(Q--P--R,tri);
+        draw(B--M--C,tri);
+        draw(P--M,tri);
+        draw(B--R,sec); draw(C--Q,sec);
+        draw(R--T--C--A--B,pri);
+
+        dot("$A$",A,dir(150));
+        dot("$B$",B,SW);
+        dot("$C$",C,SE);
+        dot("$M$",M,S);
+        dot("$D$",D,dir(250));
+        dot("$T$",T,W);
+        dot("$P$",P,N);
+        dot("$Q$",Q,dir(160));
+        dot("$Q'$",Qp,N);
+        dot("$R$",R,dir(80));
+        dot("$R'$",Rp,SE);
+        dot("$K$",K,N);
+        dot("$L$",L,NE);
+        dot("$E$",EE,dir(240));
+        dot("$F$",F,dir(300));
+    \end{asy}
+\end{center}
+Let $M$ be the midpoint of arc $BC$ opposite $A$ on the circumcircle of $\triangle ABC$. Then $\da MBD=\da MBC=\da MAC=\da BAM$, so $\seg{MB}$ is tangent to $(ABD)$, and similarly $\seg{MC}$ is tangent to $(ACD)$.
+\begin{claim*}
+    Points $B$, $C$, $Q$, $R$ are concyclic.
+\end{claim*}
+We present two proofs.
+\begin{proof}[First proof, by Pitot's theorem]
+    Let $I=\seg{PQ}\cap\seg{MB}$ and $J=\seg{PR}\cap\seg{MC}$. Note that since $P$ and $M$ lie on the radical axis of $(ABD)$ and $(ACD)$, $PQ=PR$ and $MB=MC$. Furthermore by equal tangents, $IB=IQ$ and $JC=JR$. Summing, $PI+BJ=PJ+BI$, so by the converse Pitot's theorem, $PIMJ$ has an inscribed circle. Say it touches $\seg{MI}$, $\seg{IP}$, $\seg{PJ}$, $\seg{JM}$ at $B'$, $Q'$, $R'$, $C'$ respectively.
+
+    Since $MB=MC$ and $MB'=MC'$, we have $\seg{BC}\parallel\seg{B'C'}$, and similarly all the sides of $BQRC$ and parallel to those of $B'Q'R'C'$. Since $B'Q'R'C'$ is cyclic, $\da BQR=\da B'Q'R'=\da B'C'R'=\da BCR$, so $BQRC$ is cyclic, as desired.
+\end{proof}
+\begin{proof}[Second proof, by homothety]
+    Let $T$ be the exsimilicenter of $(ABD)$ and $(ACD)$. Since $\widehat{BD}$ and $\widehat{CD}$ have equal measure, $T$ lies on line $BC$.
+
+    We show that as $P$ varies on line $AD$, line $QR$ passes through $T$, and $TQ\cdot TR$ is fixed.
+
+    Redefine $\seg{QR}$ as a line through $T$, intersecting $(ABD)$ and $(ACD)$ at $Q$ and $R$ on different sides of $\seg{AD}$. The task is to show that $P=\seg{QQ}\cap\seg{RR}$ lies on $\seg{AD}$, and $TQ\cdot TR$ is fixed.
+
+    Let line $QR$ intersect $(ABD)$ and $(ACD)$ again at $Q'$ and $R'$, so that the homothety at $T$ sending $(ABD)$ to $(ACD)$ sends $Q$ to $R'$ and $Q'$ to $R$. Then if $P'=\seg{QQ}\cap\seg{QQ'}$, we have $P'Q=P'Q'$. By homothety, $\seg{Q'Q'}\parallel\seg{RR}$, so $\triangle P'QQ'\sim\triangle PQR$ and $PQ=PR$.
+
+    It follows that $P$ has equal power fo $(ABD)$ and $(ACD)$, so $P\in\seg{AD}$. Finally, $TQ\cdot TR\propto TQ\cdot TQ'$, which is fixed by power of a point.
+\end{proof}
+
+By Radical Axis theorem on $(ABD)$, $(ACD)$, $(BQRC)$, lines $AD$, $BQ$, $CR$ concur at a point $S$.
+
+Apply DDIT to $BQCR$ from $D$: we have that $(\seg{DB},\seg{DC})$, $(\seg{DQ},\seg{DR})$, $(\seg{DK},\seg{DS})$ are reciprocal pairs of some involution at $D$. Projecting onto $\seg{EKLF}$, we find that $(\infty_{EF},\infty_{EF})$, $(E,F)$, $(K,L)$ are reciprocal pairs of an involution on $\seg{EKLF}$, so it must be a reflection across some point on $\seg{EKLF}$. It follows that $\seg{EF}$ and $\seg{KL}$ share a midpoint, and we are done.
+

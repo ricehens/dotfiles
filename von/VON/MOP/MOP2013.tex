@@ -1,0 +1,20 @@
+desc: (p-1)^p+1 power of p
+source: MOP 2013
+tags: [2020-02, oly, nt, trivial, expnt, zsig]
+
+---
+
+For which primes $p$ is $(p-1)^p+1$ a power of $p$?
+
+---
+
+The answer is $p=3$, which can be easily seen to work. We prove it is the only solution in three ways.
+
+\paragraph{First solution, by Zsigmondy theorem}     Suppose $p\ne3$. Then by Zsigmondy theorem, there is a prime dividing $(p-1)^p+1$ but not $(p-1)^1+1=p$, so $(p-1)^p+1$ cannot be a power of $p$.
+
+\paragraph{Second solution, by lifting the exponent}     Assume $p\ge5$ (since $p=2$ fails). By LTE, \[\nu_p\left( (p-1)^p-(-1)^p\right)=\nu_p(p)+\nu_p(p)=2,\]
+so $p^2=(p-1)^p+1$. But $p-1<p+1<(p-1)^2$ when $p\ge5$, contradiction.
+
+\paragraph{Third solution, by bounding}     Assume $p\ge5$ (since $p=2$ fails). Note that \[(p-1)^{p-1}=\frac{p^n-1}{p-1}=1+p+p^2+\cdots+p^{n-1}\equiv n\pmod{p-1},\]
+so $p-1\mid n$. However $p^{2(p-1)}>p^p>(p-1)^p+1$, so $(p-1)^p+1=p^{p-1}$. However $p^{p-1}>(p-1)^p$ forces $p\le3$, contradiction.
+

@@ -1,0 +1,18 @@
+desc: y_1, ..., y_k all prime
+source: RMM 2013/1
+tags: [2019-12, oly, medium, nt, qr]
+
+---
+
+For a positive integer $a$, define a sequence of integers $x_1$, $x_2$, $\ldots$ by letting $x_1=a$ and $x_{n+1}=2x_n+1$ for $n\ge1$. Let $y_n=2^{x_n}-1$. Determine the largest possible $k$ such that for some positive integer $a$, the numbers $y_1$, $\ldots$, $y_k$ are all prime.
+
+---
+
+The answer is $2$, achieved by $x_1=2$ (thus $y_1=3$, $y_2=31$, but $y_3=2047$, which is composite). Suppose that $y_1$, $y_2$, $y_3$ are all prime, and $x_1>2$. Then $x_1$, $x_2$, $x_3$ must be prime (in particular, $a=2b+1$ for some $b$), as otherwise $y_1$, $y_2$, $y_3$ can be factored.
+
+The key claim is this, which suffices.
+\begin{claim*}
+    $x_3\mid y_2$.
+\end{claim*}
+Let $x=x_3$ be $7\pmod8$ since $x_3=8b+7$. Then \[\left(\frac2x\right)=(-1)^{\frac18(x^2-1)}=1,\]
+so $2$ is a quadratic residue and $y_2+1\equiv2^{(x-1)/2}\equiv1\pmod x$.

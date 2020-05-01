@@ -1,0 +1,38 @@
+desc: Polynomial without the digit 7
+source: USAMO 2019/3
+tags: [2020-04, oly, hard, nt, polynomial, nice]
+
+---
+
+Let $K$ be the set of all positive integers that do not contain the digit $7$ in their base-$10$ representation. Find all polynomials $f$ with nonnegative integer coefficients such that $f(n)\in K$ whenever $n\in K$.
+
+---
+
+It is easy to verify these functions work: $f\equiv d$, $f(n)\equiv10^en$, and $f(n)\equiv10^en+d$ for $e\ge0$, $d<10^e$, and $d\in K$. We prove they are the only solutions.
+
+Say a function is \emph{happy} if the problem condition is satisfied. The key is the tackle monomials first. In particular, we claim:
+\begin{lemma*}[Monomial case]
+    If a nonconstant function of the form $f(n)\equiv cn^d$ is happy, then $c$ is a power of $10$ and $d=1$.
+\end{lemma*}
+The lemma follows from the following two claims:
+\setcounter{claim}0
+\begin{claim}
+    If $f(n)=cn$ is happy, then $c$ is a power of $10$.
+\end{claim}
+\begin{proof}
+    We have $1$, $c$, $c^2$, $c^3$, $\ldots$ are all elements of $K$, but if $\log_{10}c$ is irrational, then for some $k$ we have $\{\log_{10}c^k\}\in[\log_{10}7,\log_{10}8)$; that is, the leftmost digit of $c^k$ is $7$, contradiction.
+\end{proof}
+\begin{claim}
+    If $f(n)=cn^d$ is happy, then $d\in\{0,1\}$.
+\end{claim}
+\begin{proof}
+    Assume $d>0$. If $n\in K$, then $10^en+3\in K$ for each $e\ge1$; in particular,
+    \begin{align*}
+        K&\ni f(10^en+3)=c\cdot3^d+cd\cdot3^{d-1}\cdot10^en+c\binom d2\cdot3^{d-2}\cdot10^{2e}n^2+\cdots,
+    \end{align*}
+    so by taking $e$ sufficiently large, $cd\cdot3^{d-1}n\in K$ for all $n$. Thus the function $g(n)=cd\cdot3^{d-1}n$ is happy, so $cd\cdot3^{d-1}$ is a power of $10$ by the first claim. Then $d=1$ follows.
+\end{proof}
+
+Having established the lemma, we now solve the general case. Let $f(n)=a_0+a_1n+a_2n^2+\cdots$, and for each $n$, plug in $f(10^en)$ where $10^e>a_kn^k$ for each $k$. It follows that each of the monomials $a_0$, $a_1n$, $a_2n^2$, $\ldots$ are elements of $K$, so the function $g_k(n)\equiv a_kn^k$ is happy for each $k$.
+
+It follows that either $f\equiv d$ or $f(n)\equiv10^en+d$ for some $e$, $d$, and we can directly check that if $d\ne0$, then $d<10^e$ and $d\in K$.

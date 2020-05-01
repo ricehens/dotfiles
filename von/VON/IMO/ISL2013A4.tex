@@ -1,0 +1,21 @@
+desc: Periodic sequence sum n^2
+source: ISL 2013 A4
+tags: [2019-10, oly, tricky, alg, ineq, equality, sequence]
+
+---
+
+Let $n$ be a positive integer, and consider a sequence $a_1$, $a_2$, $\ldots$, $a_n$ of positive integers. Extend it periodically to an infinite sequence $a_1$, $a_2$, $\ldots$ by defining $a_{n+i}=a_i$ for all $i\ge1$. If \[a_1\le a_2\le\cdots\le a_n\le a_1+n\quad\text{and}\quad a_{a_i}\le n+i-1\quad\text{for }i=1,2,\ldots,n,\]
+prove that $a_1+\cdots+a_n\le n^2$.
+
+---
+
+The key observation is that $\sum_{j=a_i+1}^{a_{i+1}}\le(n+i)(a_{i+1}-a_i)$. Applying this,
+\begin{align*}
+    \sum_{j=1}^na_j&=\sum_{j=1}^{a_i}a_j+\sum_{i=1}^{a_i-1}\sum_{j=a_i+1}^{a_{i+1}}a_j+\sum_{j=a_{a_1}+1}^na_j\\
+    &\le\sum_{j=1}^{a_1}a_j+\left(\sum_{i=1}^{a_1-1}(n+i)(a_{i+1}-a_i)\right)+(n+a_1)(n-a_{a_1})\\
+    &=\left(\sum_{j=1}^{a_1}a_j\right)+n(a_{a_1}-a_1)+(a_i-1)a_{a_1}-\left(\sum_{j=1}^{a_1-1}a_j\right)+(n+a_1)(n-a_{a_1})\\
+    &\le n(a_{a_1}-a_1)+a_1a_{a_1}+(n+a_1)(n-a_{a_1})\\
+    &=n^2,
+\end{align*}
+as desired.
+

@@ -1,0 +1,20 @@
+desc: Inductive inequality
+source: CGMO 2012/1
+tags: [2019-11, oly, trivial, alg, ineq]
+
+---
+
+Let $n$ be a positive integer, and let $a_1$, $a_2$, $\ldots$, $a_n$ be nonnegative real numbers. Show that \[\frac1{1+a_1}+\frac{a_1}{(1+a_1)(1+a_2)}+\cdots+\frac{a_1a_2\cdots a_{n-1}}{(1+a_1)(1+a_2)\cdots(1+a_n)}\le1.\]
+When does equality hold?
+
+---
+
+Just rewrite the left-hand expression.
+\begin{claim*}
+    We have that \[\sum_{i=1}^n\frac{\prod_{j=1}^{i-1}a_j}{\prod_{j=1}^i1+a_j}=1-\frac{\prod_{i=1}^na_i}{\prod_{i=1}^n1+a_i}.\]
+\end{claim*}
+\begin{proof}
+    Induction; details omitted.
+\end{proof}
+
+From here, it is clear that the left-hand expression does not exceed $1$, with equality attained whenever $0\in\{a_1,a_2,\ldots,a_n\}$.

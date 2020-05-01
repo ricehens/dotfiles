@@ -1,0 +1,24 @@
+desc: If P(s) and P(t) are integers, then so is P(st)
+source: APMO 2018/5
+tags: [2020-02, oly, hard, alg, irreducibility, int-poly, nice, waltz]
+
+---
+
+Find all polynomials $P(x)$ with integer coefficients such that for all real numbers $s$ and $t$, if $P(s)$ and $P(t)$ are both integers, then $P(st)$ is also an integer.
+
+---
+
+The answer is $\pm x^e+c$, which clearly work. Without loss of generality $P$ has positive leading coefficient.
+\begin{lemma*}[MOP 2007]
+    There are arbitrarily large $u>0$ such that $P(x)-u$ is irreducible.
+\end{lemma*}
+\begin{proof}
+    Let $Q(x)=P(x)-u=a_nx^n+\cdots+a_0$. We let $a_0=-p$ with $p$ a very large prime. Then if $Q$ is reducible, one of the factors $R$ has a constant term of $\pm1$. Its roots have product with magnitude at most $1$, so $Q$ has a root on or inside the unit circle.
+
+    But if $p>|a_1|+|a_2|+\cdots+|a_n|$ then $Q$ does not have roots on our inside the unit circle by triangle inequality.
+\end{proof}
+
+Take some $u$ as in the above lemma, and suppose $P(\alpha)=u$. Then $P(2\alpha)=v$ is an integer. We have \[P(x)-u\mid P(2x)-v\]
+since $P(x)-u$ is irreducible and $\alpha$ is a root of both. This immediately implies $P$ has at most one nonconstant term, so if $P$ is nonconstant, we have $P(x)=ax^e+c$ for some integers $a>0$ and $c$.
+
+Now take $s=t=a^{-1/e}$. This gives $P(st)=1/a+c$ is an integer, so $a=1$, and we are done.

@@ -11,9 +11,9 @@ For each positive integer $n$, the Bank of Cape Town issues coins of denominatio
 We prove that if we have a finite collection of coins with total value at most $N-1/2$, then it is possible to split the coins in to $N$ or fewer groups. For any subset of coins with sum $1$, put them in a group and forget about them. Henceforth assume no subset of the coins sum to $1$.
 
 Let $\chi(n)=n\cdot 2^{-\nu_2(n)}$ be the greatest odd divisor of $n$. For all coins $1/m$ with $\chi(m)\le 2N-1$, put $1/m$ in group $\tfrac12(\chi(m)+1)$. We will deal with the other coins later.
-\begin{iclaim*}
+\begin{claim*}
     The sum of the coins in any group is less than $1$.
-\end{iclaim*}
+\end{claim*}
 \begin{proof}
     Assume for the sake of contradiction the coins sum to at least $1$; we show there is a subset of the coins with sum exactly $1$, proving the claim. Combine any two identical coins of the form $\tfrac1{2^ak}$, with $a>1$, until this operation can no longer be done. Then for all $a\ge 1$, there is at most one coin of this form, and thus these coins sum to less than $\sum_{a=1}^\infty\frac1{2^ak}=\frac1k$. Hence for the sum to be at least $1$, there must be a coin of value $1$, contradiction.
 \end{proof}

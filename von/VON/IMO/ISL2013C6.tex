@@ -8,7 +8,7 @@ In some country several pairs of cities are connected by direct two-way flights.
 
 ---
 
-Pick an arbitrary city $V$, and let $S_1$, $S_2$, $S_3$, $S_4$ be the set of cities a distance of exactly $1$, $2$, $3$, $4$ from $V$. Call the children of a cities $U$ the set of cities whose distance from $V$ is one more than the distance from $U$ to $V$, and whose shortest path to $V$ passes through $U$.
+Pick an arbitrary city $V$, and let $S_1$, $S_2$, $S_3$, $S_4$ be the set of cities a distance of exactly $1$, $2$, $3$, $4$ from $V$. Call the children of a city $U$ the set of cities whose distance from $V$ is one more than the distance from $U$ to $V$, and whose shortest path to $V$ passes through $U$.
 
 Let $m=|S_2|$ and $k=|S_1|$, and let $x_i$, $i\le k$, denote the number of children of each element of $S_1$, so that $m=x_1+x_2+\cdots+x_k$. By hypothesis on arbitrary nodes in $S_1$, each node has at most $100-m+x_i$ great-grandchildren, for $i\le k$. Hence \[|S_4|\le\sum_{i=1}^k(100-m+x_k)=k(100-m)+m\le m(101-m)\le2550,\]
 as desired.

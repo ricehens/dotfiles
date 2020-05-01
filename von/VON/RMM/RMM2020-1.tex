@@ -1,0 +1,79 @@
+desc: Right triangle concurrent circles
+source: RMM 2020/1
+tags: [2020-02, oly, medium, geo, construction, angle-chasing, nice]
+
+---
+
+Let $ABC$ be a triangle with right angle at $C$. Let $I$ be the incenter of $\triangle ABC$, and let $D$ be the foot of the altitude from $C$ to $\seg{AB}$. The incircle of $\triangle ABC$ is tangent to sides $BC$, $CA$, $AB$ at $A_1$, $B_1$, $C_1$, respectively. Let $E$ and $F$ be the reflections of $C$ in lines $C_1A_1$ and $C_1B_1$, respectively; let $K$ and $L$ be the reflections of $D$ in lines $C_1A_1$ and $C_1B_1$, respectively.
+
+Prove that the circumcircles of $\triangle A_1EI$, $\triangle B_1FI$, $\triangle C_1KL$ have a common point.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(9cm); defaultpen(fontsize(10pt));
+        pen pri=heavycyan;
+        pen sec=lightblue;
+        pen tri=royalblue;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair O,A,B,C,I,D,A1,B1,C1,EE,F,K,L,T;
+        O=(0,0);
+        A=dir(150);
+        B=-A;
+        C=reflect(O,(1,0))*A;
+        I=incenter(A,B,C);
+        D=foot(C,A,B);
+        A1=foot(I,B,C);
+        B1=foot(I,C,A);
+        C1=foot(I,A,B);
+        EE=reflect(C1,A1)*C;
+        F=reflect(C1,B1)*C;
+        K=reflect(C1,A1)*D;
+        L=reflect(C1,B1)*D;
+        T=reflect(circumcenter(A1,EE,I),circumcenter(B1,F,I))*I;
+
+        draw(EE--C--F,tri+dashed);
+        draw(K--D--L,tri+dashed);
+        draw(K--C1--L,sec+dashed);
+        draw(K--T,sec);
+        filldraw(A1--I--T--EE--cycle,sfil,sec+opacity(1));
+        filldraw(B1--I--T--F--cycle,sfil,sec+opacity(1));
+        filldraw(A1--B1--C1--cycle,fil,pri);
+        filldraw(incircle(A,B,C),fil,pri);
+        filldraw(A--B--C--cycle,fil,pri);
+
+        dot("$A$",A,N);
+        dot("$B$",B,SE);
+        dot("$C$",C,SW);
+        dot("$I$",I,SW);
+        dot("$D$",D,N);
+        dot("$A_1$",A1,S);
+        dot("$B_1$",B1,SW);
+        dot("$C_1$",C1,dir(75));
+        dot("$E$",EE,S);
+        dot("$F$",F,W);
+        dot("$K$",K,NE);
+        dot("$L$",L,SW);
+        dot("$T$",T,E);
+    \end{asy}
+\end{center}
+Since $\seg{A_1C_1}$ is parallel to the external angle bisector of $\angle ABC$, reflection across $\seg{A_1C_1}$ swaps lines parallel to $\seg{AB}$ with lines parallel to $\seg{BC}$. In particular,
+\begin{itemize}[itemsep=0em]
+    \item $\seg{CA_1}\parallel\seg{BC}\implies\seg{EA_1}\parallel\seg{AB}$ (and similarly $\seg{FB_1}\parallel\seg{AB}$).
+    \item $\seg{DC_1}\parallel\seg{AB}\implies\seg{KC_1}\parallel\seg{BC}$ (and similarly $\seg{LC_1}\parallel\seg{AC}$).
+    \item $\seg{CD}\perp\seg{AB}\implies\seg{EK}\perp\seg{BC}$ (and similarly $\seg{FL}\perp\seg{AC}$).
+\end{itemize}
+Consider the point $T$ such that $A_1ITE$ is an isosceles trapezoid with $\seg{A_1I}\parallel\seg{ET}$. I claim $T$ is the common point. Since $IT=A_1E=A_1C=IA_1$, we have $T$ lies on the incircle.
+
+Angle chasing gives
+\begin{align*}
+    \da B_1IT&=90\dg+\da A_1IT=90\dg+\da EA_1I=\da EA_1B=\da ABC\\
+    &=90\dg+\da BAC=90\dg+\da FB_1I=\da FB_1I,
+\end{align*}
+and since $IT=IB_1=B_1C=B_1F$, we have $B_1ITF$ is also an isosceles trapezoid. It follows that $T$ lies on $(A_1EI)$ and $(B_1FI)$, so it remains to show $C_1KTL$ is cyclic.
+
+Recall that $\seg{EK}\perp\seg{BC}$. Since $\seg{A_1I}\parallel\seg{ET}$, we have $E$, $T$, $K$ collinear, so $\seg{TK}\parallel\seg{AC}$. We've seen that $\seg{LC_1}\parallel\seg{AC}$, so $C_1KTL$ is a rectangle. This completes the proof.

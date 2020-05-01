@@ -1,0 +1,121 @@
+author: Nikolai Beluhov
+desc: Limp rook
+source: ISL 2009 C6
+tags: [2020-02, oly, brutal, combo, optimization, coloring, nice]
+
+---
+
+On a $999\times999$ board, a \emph{limp rook} may move in the following way: from any square it can move to any of its adjacent squares, i.e.\ a square having a common side with it, and every move must be a turn, i.e.\ the directions of any two consecutive moves must be perpendicular. A \emph{non-intersecting route} of the limp rook consists of a sequence of pairwise different squares that the limp rook can visit in that order by an admissible sequence of moves. Such a non-intersecting route is called \emph{cyclic} if the limp rook can, after reaching the last square of the route, move directly to the first square of the route and start over.
+
+How many squares does the longest possible cyclic, non-intersecting route of a limp rook visit?
+
+---
+
+The answer is $996000$. We prove the answer for an $n\times n$ board, with $n\equiv3\pmod4$ and $n\ge7$, is $n^2-2n-3$.
+
+\bigskip
+
+\textbf{Proof of lower bound:}     We first show $n^2-2n-3$ is achievable. Shown below is a construction for $n=15$:
+\begin{center}
+    \begin{asy}
+        size(8cm); defaultpen(fontsize(10pt));
+        fill( (.5,.5)--(15.5,.5)--(15.5,15.5)--(.5,15.5)--cycle,pink+white+white);
+        fill( (4.5,8.5)--(7.5,8.5)--(7.5,11.5)--(4.5,11.5)--cycle,purple+white+white);
+        fill( (.5,3.5)--(1.5,3.5)--(1.5,5.5)--(.5,5.5)--cycle,purple+white+white);
+        fill( (.5,.5)--(1.5,.5)--(1.5,1.5)--(.5,1.5)--cycle,purple+white+white);
+        fill( (13.5,.5)--(15.5,.5)--(15.5,2.5)--(14.5,2.5)--(14.5,1.5)--(13.5,1.5)--cycle,purple+white+white);
+        fill( (12.5,2.5)--(13.5,2.5)--(13.5,3.5)--(12.5,3.5)--cycle,purple+white+white);
+        fill( (14.5,14.5)--(14.5,15.5)--(15.5,15.5)--(15.5,14.5)--cycle,purple+white+white);
+        fill( (11.5,12.5)--(12.5,12.5)--(12.5,11.5)--(13.5,11.5)--(13.5,13.5)--(11.5,13.5)--cycle,purple+white+white);
+        fill(reflect( (0,0),(1,1))*( (13.5,.5)--(15.5,.5)--(15.5,2.5)--(14.5,2.5)--(14.5,1.5)--(13.5,1.5)--cycle),purple+white+white);
+        fill(reflect( (0,0),(1,1))*( (12.5,2.5)--(13.5,2.5)--(13.5,3.5)--(12.5,3.5)--cycle),purple+white+white);
+        fill( (2.5,6.5)--(4.5,6.5)--(4.5,7.5)--(3.5,7.5)--(3.5,8.5)--(2.5,8.5)--cycle,purple+white+white);
+        fill(shift(-4,4)*( (13.5,.5)--(15.5,.5)--(15.5,2.5)--(14.5,2.5)--(14.5,1.5)--(13.5,1.5)--cycle),purple+white+white);
+        fill(shift(-4,4)*( (12.5,2.5)--(13.5,2.5)--(13.5,3.5)--(12.5,3.5)--cycle),purple+white+white);
+        fill( (10.5,10.5)--(11.5,10.5)--(11.5,11.5)--(10.5,11.5)--cycle,purple+white+white);
+        fill( (7.5,10.5)--(8.5,10.5)--(8.5,11.5)--(7.5,11.5)--cycle,purple+white+white);
+
+        for (real i = 1; i <= 14+1e-9; i += 1) {
+            draw( (i+.5,.5)--(i+.5,15.5),gray);
+            draw( (.5,i+.5)--(15.5,i+.5),gray);
+        }
+        draw( (.5,.5)--(15.5,.5)--(15.5,15.5)--(.5,15.5)--cycle,linewidth(1));
+
+        draw( (1,2)--(2,2)--(2,1)--(3,1)--(3,2)--(4,2)--(4,1)--(5,1)--(5,2)--(6,2)--(6,1)--(7,1)--(7,2)--(8,2)--(8,1)--(9,1)--(9,2)--(10,2)--(10,1)--(11,1)--(11,2)--(12,2)--(12,1)--(13,1)--(13,2)--(14,2)--(14,3)--(15,3)--(15,4)--(14,4)--(14,5)--(15,5)--(15,6)--(14,6)--(14,7)--(15,7)--(15,8)--(14,8)--(14,9)--(15,9)--(15,10)--(14,10)--(14,11)--(15,11)--(15,12)--(14,12)--(14,13)--(15,13)--(15,14)--(14,14)--(14,15)--(13,15)--(13,14)--(12,14)--(12,15)--(11,15)--(11,14)--(10,14)--(10,15)--(9,15)--(9,14)--(8,14)--(8,15)--(7,15)--(7,14)--(6,14)--(6,15)--(5,15)--(5,14)--(4,14)--(4,15)--(3,15)--(3,14)--(2,14)--(2,13)--(1,13)--(1,12)--(2,12)--(2,11)--(1,11)--(1,10)--(2,10)--(2,9)--(1,9)--(1,8)--(2,8)--(2,7)--(1,7)--(1,6)--(2,6)--(2,5)--(3,5)--(3,6)--(4,6)--(4,5)--(5,5)--(5,6)--(6,6)--(6,5)--(7,5)--(7,6)--(8,6)--(8,5)--(9,5)--(9,6)--(10,6)--(10,7)--(11,7)--(11,8)--(10,8)--(10,9)--(11,9)--(11,10)--(10,10)--(10,11)--(9,11)--(9,10)--(8,10)--(8,9)--(9,9)--(9,8)--(8,8)--(8,7)--(7,7)--(7,8)--(6,8)--(6,7)--(5,7)--(5,8)--(4,8)--(4,9)--(3,9)--(3,10)--(4,10)--(4,11)--(3,11)--(3,12)--(4,12)--(4,13)--(5,13)--(5,12)--(6,12)--(6,13)--(7,13)--(7,12)--(8,12)--(8,13)--(9,13)--(9,12)--(10,12)--(10,13)--(11,13)--(11,12)--(12,12)--(12,11)--(13,11)--(13,10)--(12,10)--(12,9)--(13,9)--(13,8)--(12,8)--(12,7)--(13,7)--(13,6)--(12,6)--(12,5)--(13,5)--(13,4)--(12,4)--(12,3)--(11,3)--(11,4)--(10,4)--(10,3)--(9,3)--(9,4)--(8,4)--(8,3)--(7,3)--(7,4)--(6,4)--(6,3)--(5,3)--(5,4)--(4,4)--(4,3)--(3,3)--(3,4)--(2,4)--(2,3)--(1,3)--cycle);
+
+        draw( (.5,4.5)--(11.5,4.5)--(11.5,11.5)--(4.5,11.5)--(4.5,8.5)--(7.5,8.5)--(7.5,11.5),linewidth(1));
+    \end{asy}
+\end{center}
+The route of the limp rook forms a ``snake'' that coils around the board, leaving only a $3\times3$ square unfilled. Furthermore the two ends of the snake each leave $2$ squares unfilled, and each turn of the snake leaves $4$ squares unfilled.
+
+This construction leaves a total of $2n+3$ squares unfilled, as desired.
+
+\bigskip
+
+\textbf{Proof of upper bound:}     We prove $n^2-2n-3$ is maximal. Color the squares in the grid as follows:
+\begin{center}
+    \begin{asy}
+        size(4cm); defaultpen(fontsize(10pt));
+
+        for (real i = 0; i <= 6+1e-9; i += 2)
+        for (real j = 0; j <= 6+1e-9; j += 2) {
+            fill( (i,j)--(i,j+1)--(i+1,j+1)--(i+1,j)--cycle,lightred+white);
+        }
+        for (real i = 1; i <= 6+1e-9; i += 2)
+        for (real j = 0; j <= 6+1e-9; j += 2) {
+            fill( (i,j)--(i,j+1)--(i+1,j+1)--(i+1,j)--cycle,lightyellow+white);
+        }
+        for (real i = 0; i <= 6+1e-9; i += 2)
+        for (real j = 1; j <= 6+1e-9; j += 2) {
+            fill( (i,j)--(i,j+1)--(i+1,j+1)--(i+1,j)--cycle,lightgreen+white);
+        }
+        for (real i = 1; i <= 6+1e-9; i += 2)
+        for (real j = 1; j <= 6+1e-9; j += 2) {
+            fill( (i,j)--(i,j+1)--(i+1,j+1)--(i+1,j)--cycle,lightblue+white);
+        }
+
+        for (real i = 1; i <= 6+1e-9; i += 1) {
+            draw( (i,0)--(i,7),gray);
+            draw( (0,i)--(7,i),gray);
+        }
+        draw( (0,0)--(0,7)--(7,7)--(7,0)--cycle);
+    \end{asy}
+\end{center}
+Let $R$ denote the color red, and so on. The sequence of colors on the route of the limp rook must repeat in the pattern \[R,\ Y,\ B,\ G,\ R,\ Y,\ B,\ G,\ \ldots\]
+(or the above sequence reversed). It follows that the length of the sequence is $4T$, where $T$ is the number of blue squares on the limp rook's route.
+\begin{claim*}
+    The limp rook cannot pass through all the blue squares.
+\end{claim*}
+\begin{proof}
+    Assume for contradiction the limp rook passes through all the blue squares. Say two blue squares are \emph{consecutive} if the limp rook visits them without visiting any other blue square in between. Note that two consecutive blue squares must be either orthogonally adjacent or diagonally adjacent.
+
+    Checkerboard color the blue squares periwinkle and navy blue. Since there is an odd number of blue squares, the number of periwinkle squares and the number of navy blue squares are unequal. Thus there is at least one pair of diagonally adjacent consecutive blue squares.
+    \begin{center}
+        \begin{asy}
+            size(3.5cm); defaultpen(fontsize(10pt));
+            for (real i = 0; i <= 4+1e-9; i += 2)
+            for (real j = i % 4; j <= 4+1e-9; j += 4) {
+                filldraw( (i,j)--(i,j+1)--(i+1,j+1)--(i+1,j)--cycle,lightblue+white,gray);
+            }
+            for (real i = 0; i <= 4+1e-9; i += 2)
+            for (real j = (i+2) % 4; j <= 4+1e-9; j += 4) {
+                filldraw( (i,j)--(i,j+1)--(i+1,j+1)--(i+1,j)--cycle,lightcyan+white,gray);
+            }
+
+
+            draw( (.5,2.5)--(1.4,2.5),Arrow());
+            draw( (1.5,2.4)--(1.5,1.6),Arrow());
+            draw( (1.6,1.5)--(2.4,1.5),Arrow());
+            draw( (2.5,1.4)--(2.5,0.5),Arrow());
+
+            draw( (2.5,3.5)--(2.5,2.6),Arrow());
+            draw( (2.6,2.5)--(3.5,2.5),Arrow());
+        \end{asy}
+    \end{center}
+    Without loss of generality the limp rook moves \[(a,b+2)\to(a+1,b+2)\to(a+1,b+1)\to(a+2,b+1)\to(a+2,b).\]
+    Then since the limp rook must move in the pattern $R$, $Y$, $B$, $G$, $\ldots$, at some point in the sequence the limp rook moves $(a+2,b+3)\to(a+2,b+2)\to(a+3,b+2)$. Then the rook must eventually move from $(a+2,b)$ to $(a+2,b+3)$ and $(a+3,b+2)$ to $(a,b+2)$. It is clear these two paths must intersect, contradiction.
+\end{proof}
+
+Hence the length of the limp rook's route is at most \[4\left[\left(\frac{n-1}2\right)^2-1\right]=n^2-2n-3,\]
+and we are done.
+

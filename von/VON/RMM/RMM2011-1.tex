@@ -1,0 +1,16 @@
+desc: f\circ g decreases, g\circ f increases
+source: RMM 2011/1
+tags: [2020-04, oly, hard, alg, fe, free]
+
+---
+
+Determine whether there exist functions $f,g:\mathbb R\to\mathbb R$ such that $f\circ g$ is strictly decreasing but $g\circ f$ is strictly increasing.
+
+---
+
+The answer is yes. Let $g(0)=0$. For each nonzero $x$, if $k$ is the integer such that $|x|\in[2^k,2^{k+1})$, then take $g(x)=(-1)^kx$. Also take $f(x)=g(2x)$ for all $x$. Then
+\begin{itemize}[itemsep=0em]
+    \item $f(g(x))=g(2g(x))=(-1)^{k+1}\cdot(-1)^kx=-x$, which is strictly decreasing;
+    \item $g(f(x))=g(g(2x))=(-1)^k\cdot(-1)^kx=x$, which is strictly increasing.
+\end{itemize}
+End proof.

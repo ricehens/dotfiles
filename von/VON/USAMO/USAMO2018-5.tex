@@ -4,58 +4,61 @@ tags: [2019-10, oly, easy, geo, angle-chasing, pop, pappus]
 
 ---
 
-In convex cyclic quadrilateral $ABCD$, we know that lines $AC$ and $BD$ intersect at $E$, lines $AB$ and $CD$ intersect at $F$, and lines $BC$ and $DA$ intersect at $G$. Suppose that the circumcircle of $\triangle ABE$ intersects line $CB$ at $B$ and $P$, and the circumcircle of $\triangle ADE$ intersects line $CD$ at $D$ and $Q$, where $C,B,P,G$ and $C,Q,D,F$ are collinear in that order. Prove that if lines $FP$ and $GQ$ intersect at $M$, then $\angle MAC=90^\circ$.
+In convex cyclic quadrilateral $ABCD$, lines $AC$ and $BD$ intersect at $E$, lines $AB$ and $CD$ intersect at $F$, and lines $BC$ and $DA$ intersect at $G$. Suppose that the circumcircle of $\triangle ABE$ intersects line $CB$ at $B$ and $P$, and the circumcircle of $\triangle ADE$ intersects line $CD$ at $D$ and $Q$, where $C$, $B$, $P$, $G$ and $C$, $Q$, $D$, $F$ are collinear in that order. Prove that if lines $FP$ and $GQ$ intersect at $M$, then $\angle MAC=90^\circ$.
 
 ---
 
-\begin{customenv}{First solution, by Pappus' Theorem}\
-    \begin{center}
-        \begin{asy}
-            size(12cm);
-            defaultpen(fontsize(10pt));
-            pen pri=royalblue+linewidth(0.5);
-            pen sec=deepgreen+linewidth(0.5);
-            pen tri=springgreen+linewidth(0.5);
-            pen fil=royalblue+opacity(0.05);
-            pen sfil=deepgreen+opacity(0.05);
-            pen tfil=springgreen+opacity(0.05);
-            pair A, B, C, D, EE, F, G, P, Q, T, M;
-            A=dir(165);
-            B=dir(85);
-            C=dir(350);
-            D=dir(190);
-            EE=extension(A, C, B, D);
-            F=extension(A, B, C, D);
-            G=extension(A, D, B, C);
-            P=intersectionpoint(G -- (B+(G-B)*0.01), circumcircle(A, B, EE));
-            Q=intersectionpoint(C -- (D+(C-D)*0.01), circumcircle(A, D, EE));
-            T=extension(B, Q, D, P);
-            M=extension(F, P, G, Q);
+\paragraph{First solution, by Pappus' Theorem} This is a Miquel point problem with respect to quadrilateral $BPDQ$, as evidenced by the following three observations:
+\begin{itemize}[itemsep=0em]
+    \item $CB\cdot CP=CA\cdot CE=CD\cdot CQ$, so $BPDQ$ is cyclic.
+    \item $\da AEP=\da ABP=\da ABC=\da ADC=\da ADQ=\da AEQ$, so $E$ lies on $\seg{PQ}$.
+    \item It follows that $A$ is the Miquel point of $BDQP$.
+\end{itemize}
+Let $T=\seg{BQ}\cap\seg{DP}$; by properties of the Miquel point $\angle TAC=90\dg$. By Pappus theorem on $BQGDPF$, we have $M$, $A$, $T$ collinear, so $\angle MAC=90\dg$ as well.
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+        pen pri=royalblue+linewidth(0.5);
+        pen sec=deepgreen+linewidth(0.5);
+        pen tri=heavycyan+linewidth(0.5);
+        pen fil=royalblue+opacity(0.05);
+        pen sfil=deepgreen+opacity(0.05);
+        pen tfil=cyan+opacity(0.05);
+        pair A, B, C, D, EE, F, G, P, Q, T, M;
+        A=dir(165);
+        B=dir(85);
+        C=dir(350);
+        D=dir(190);
+        EE=extension(A, C, B, D);
+        F=extension(A, B, C, D);
+        G=extension(A, D, B, C);
+        P=intersectionpoint(G -- (B+(G-B)*0.01), circumcircle(A, B, EE));
+        Q=intersectionpoint(C -- (D+(C-D)*0.01), circumcircle(A, D, EE));
+        T=extension(B, Q, D, P);
+        M=extension(F, P, G, Q);
 
-            draw(B -- F -- C, pri); draw(C -- G -- D, pri); draw(A -- C, pri); draw(B -- D, pri); filldraw(circumcircle(A, B, C), fil, pri);
-            filldraw(circumcircle(A, B, EE), tfil, tri); filldraw(circumcircle(A, D, EE), tfil, tri);
+        draw(B -- F -- C, pri); draw(C -- G -- D, pri); draw(A -- C, pri); draw(B -- D, pri); filldraw(circumcircle(A, B, C), fil, pri);
+        filldraw(circumcircle(A, B, EE), tfil, tri); filldraw(circumcircle(A, D, EE), tfil, tri);
 
-            draw(F -- P, tri); draw(G -- Q, tri);
-            draw(B -- T -- P, sec); draw(P -- Q, sec); filldraw(circumcircle(B, D, P), sfil, sec);
-            draw(T -- M, cyan);
+        draw(F -- P, tri); draw(G -- Q, tri);
+        draw(B -- T -- P, sec); draw(P -- Q, sec); filldraw(circumcircle(B, D, P), sfil, sec);
+        draw(T -- M, heavygreen);
 
-            dot("$A$", A, dir(155));
-            dot("$B$", B, NE);
-            dot("$C$", C, SE);
-            dot("$D$", D, SW);
-            dot("$E$", EE, dir(120));
-            dot("$F$", F, SW);
-            dot("$G$", G, N);
-            dot("$P$", P, NE);
-            dot("$Q$", Q, SE);
-            dot("$T$", T, S);
-            dot("$M$", M, dir(350));
-        \end{asy}
-    \end{center}
-    By Power of a Point, $CB\cdot CP=CA\cdot CE=CD\cdot CQ$, so $BDQP$ is cyclic. Furthermore, \[\measuredangle AEP=\measuredangle ABP=\measuredangle ABC=\measuredangle ADC=\measuredangle ADQ=\measuredangle AEQ,\]
-    whence $E\in\overline{PQ}$. Then, $A$ is the Miquel Point of $BDQP$. If $T=\overline{BQ}\cap\overline{DP}$, then it is well-known that $\angle TAC=90^\circ$. However, by Pappus' Theorem on $\overline{BPG}$ and $\overline{DQF}$, $M\in\overline{AT}$, so $\measuredangle MAC=\measuredangle TAC=90^\circ$, and we are done. 
-\end{customenv}
-\begin{customenv}{Second solution, by harmonic bundles}
-    First since \[\da BAC=\da BDC=\da EDQ=\da EAQ=\da CAQ,\]
-    $\seg{AC}$ bisects $\angle BAQ$ and similarly $\angle DAP$. Let their external angle bisectors intersect $\seg{DC}$ and $\seg{BC}$ at $X$ and $Y$ respectively. Since $-1=(CX;FQ)=(CY;PG)$, lines $XY$, $FP$, $GQ$ concur. But $\seg{FP}$ and $\seg{GQ}$ intersect at $M$, so $\seg{AM}\perp\seg{AC}$, as desired.
-\end{customenv}
+        dot("$A$", A, dir(155));
+        dot("$B$", B, NE);
+        dot("$C$", C, SE);
+        dot("$D$", D, SW);
+        dot("$E$", EE, dir(120));
+        dot("$F$", F, SW);
+        dot("$G$", G, N);
+        dot("$P$", P, NE);
+        dot("$Q$", Q, SE);
+        dot("$T$", T, S);
+        dot("$M$", M, dir(350));
+    \end{asy}
+\end{center}
+\paragraph{Second solution, by harmonic bundles} First since \[\measuredangle BAC=\measuredangle BDC=\measuredangle EDQ=\measuredangle EAQ=\measuredangle CAQ,\]
+$\overline{AC}$ bisects $\angle BAQ$ and similarly $\angle DAP$. Let their common external angle bisectors intersect $\overline{BC}$ and $\overline{DC}$ at $X$ and $Y$ respectively. Since $-1=(CX;PG)=(CY;FQ)$, lines $XY$, $FP$, $GQ$ concur at $M$. It is clear that $\seg{AM}\perp\seg{AC}$.
+
+

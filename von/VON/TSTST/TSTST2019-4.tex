@@ -9,9 +9,9 @@ Consider coins with positive real denominations not exceeding $1$. Find the smal
 ---
 
 The answer is $\tfrac{50}{51}$. This is possible by giving $49$ coins a value of $1$ and $51$ coins a value of $\tfrac1{51}$. Now, suppose the values of the coins are denoted $a_1\le a_2\le\cdots\le a_{100}$. Call a gap between two consecutive elements $a_n$ and $a_{n+1}$ \emph{big} if $a_{n+1}-a_n>\tfrac{50}{51}$.
-\begin{iclaim*}
+\begin{claim*}
     A gap can be big only if $n=50$.
-\end{iclaim*}
+\end{claim*}
 \begin{proof}
     Assume that $k<50$ is a big gap. Then, $a_i<\tfrac1{51}$ for all $i\le k$ and $a_i>\tfrac{50}{51}$ for all $i>k$. Hence, \[\sum_{i=1}^{100}a_i>\frac{50}{51}(100-k)\ge\frac{50\cdot51}{51}=50,\]
     a contradiction. Similarly, if $k>50$ is a big gap, then \[\sum_{i=1}^{100}a_k<\frac1{51}k+(100-k)=100-\frac{50}{51}k\ge100-\frac{50\cdot 51}{51}=50,\]

@@ -10,7 +10,7 @@ Let $ABC$ be a triangle with incenter $I$. Points $K$ and $L$ are chosen on segm
 
 \begin{center}
     \begin{asy}
-        size(15cm);
+        size(12cm);
         defaultpen(fontsize(10pt));
 
         pen pri=royalblue;
@@ -63,9 +63,9 @@ Let $ABC$ be a triangle with incenter $I$. Points $K$ and $L$ are chosen on segm
     \end{asy}
 \end{center}
 Let $I_B$, $J_B$, $I_C$, and $J_C$ denote the incenters of $\triangle ABK$, $\triangle ABL$, $\triangle ACL$, and $\triangle ACK$, respectively. Also let $r_{\triangle XYZ}$ denote the inradius of $\triangle XYZ$ for all $X,Y,Z$.
-\begin{boxlemma*}
+\begin{lemma*}
     For any points $K$ and $L$ on $\overline{BC}$ of $\triangle ABC$, if $I_B$, $J_B$, $I_C$, and $J_C$ denote the incenters of $\triangle ABK$, $\triangle ABL$, $\triangle ACL$, and $\triangle ACK$, respectively, then $\overline{I_BI_C}$, $\overline{J_BJ_C}$, and $\overline{BC}$ concur at a point $T$.
-\end{boxlemma*}
+\end{lemma*}
 \begin{proof}
     Rotation by $\tfrac12\angle A$ about $A$ gives \[A(BI_B;IJ_B)=A(IJ_C;CI_C)=A(CI_C;IJ_C),\]
     and thus $(BI_B;IJ_B)=(CI_C;IJ_C)$ and the result follows.\footnote{Alternatively we can directly compute that \[A(BI_B;IJ_B)=\frac{\sin\tfrac12\angle BAC\cdot\sin\tfrac12\angle KAL}{\sin\tfrac12\angle KAC\cdot\sin\tfrac12\angle BAL}=A(CI_C;IJ_C).\]}

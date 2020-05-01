@@ -1,0 +1,33 @@
+author: Eric Shen
+desc: a+b+2c+3d=89
+source: Mock AIME 2018/13
+tags: [2019-12, answer, chard, combo, casework]
+
+---
+
+There are $N$ ordered quadruples of positive integers $(a,b,c,d)$ that satisfy $a+b+2c+3d=89$. Find the remainder when $N$ is divided by $1000$.
+
+---
+
+It is nicer to deal with nonnegative integers. Suppose $w=a-1$, $x=b-1$, $y=c-1$, and $z=d-1$. Then, $w+x+2y+3z=82$. We will attempt to find a function that returns the number of quadruples for which $w+x+2y+3z$ is equal to some value by recursion.
+
+Suppose $P_1(n)$ is the number of solutions where $x=y=z=0$. It is easy to see that \[P_1(n)=1.\]
+Similarly, suppose $P_2(n)$ is the number of solutions where $y=z=0$. Then, $w+x=n$. It is easy to see that \[P_2(n)=\sum_{i=0}^n P_1(i)=n+1.\]
+Suppose $P_3(n)$ is the number of solutions where $z=0$. This case is more tricky, because the coefficient of $y$ in our Diophantine Equation is $2$, not $1$. We can split into two cases: $n=2m$ and $n=2m-1$. If $n=2m$, then \[P_3(2m)=\sum_{i=0}^m P_2(2i)=\sum_{i=1}^{m+1} 2i-1=(m+1)^2=\frac{(n+2)^2}{4}.\]
+If $n=2m-1$, then \[P_3(2m-1)=\sum_{i=1}^m P(2i-1)=\sum_{i=1}^m 2i=m(m+1)=\frac{(n+2)^2-1}{4}.\]
+Finally, we have a total of $2\cdot 3=6$ cases for $P_4(n)$, as we need to consider different values modulo $6$. However, we seek $P_4(82)=P_4(6\cdot 13+4)$. Therefore, we only need to consider $P_4(6m+4)$. We have
+\begin{align*}
+    P_4(6m+4)&=P_3(1)+P_3(4)+\cdots+P_3(6m+1)+P_3(6m+4)\\
+    &=\sum_{i=0}^m P_3(6i+1)+\sum_{i=0}^m P_3(6i+4)\\
+    &=\frac{1}{4}\left(\left(\sum_{i=1}^{2m+2} (3i)^2\right)-(m+1)\right)\\
+    &=\frac{1}{4}\left(\frac{3(2m+2)(2m+3)(4m+5)}{2}-(m+1)\right)\\
+    P_4(6\cdot 13+4)&=\frac{1}{4}\left(\frac{3\cdot 28\cdot 29\cdot 57}{2}-14\right)\\
+    &=\frac{1}{4}\left(14\cdot (3\cdot 29\cdot 57-1)\right)\\
+    &=\frac{7}{2}\cdot 4958\\
+    &=7\cdot 2479\equiv 7\cdot 479\equiv 353\pmod{1000},
+\end{align*}
+and we are done.
+
+---
+
+353

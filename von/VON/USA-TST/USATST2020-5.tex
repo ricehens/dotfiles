@@ -1,0 +1,45 @@
+desc: Polynomial order relatively prime to modulus
+source: USA TST 2020/5
+tags: [2020-04, oly, medium, nt, int-poly, trash]
+
+---
+
+Find all integers $n\ge2$ for which there exists an integer $m$ and a polynomial $P(x)$ with integer coefficients satisfying the following three conditions:
+\begin{itemize}[itemsep=0em]
+    \item $m>1$ and $\gcd(m,n)=1$;
+    \item the numbers $P(0)$, $P^2(0)$, $\ldots$, $P^{m-1}(0)$ are not divisible by $n$; and
+    \item $P^m(0)$ is divisible by $n$.
+\end{itemize}
+Here $P^k$ means $P$ applied $k$ times, so $P^1(0)=P(0)$, $P^2(0)=P(P(0))$, etc.
+
+---
+
+All $n$ for which $\rad(n)$ is the product of the first $k$ primes (for some $k$) fail, while all other $n$ work.
+
+Let $\mathbf{period}(P\mod n)$ denote the smallest positive integer $m$ with $P^m(0)\equiv0\pmod n$, and infinity if such $m$ does not exist. The key observation is \[\mathbf{period}(P\bmod n)=\mathop{\lcm}_{p^e\parallel n}\mathbf{period}\left(P\bmod p^e\right),\tag{$*$}\]
+which follows from Chinese Remainder theorem.
+
+\bigskip
+
+\textbf{Construction:} We first construct prime powers:
+\setcounter{claim}0
+\begin{claim}
+    Given a prime power $p^e$, for each $1\le m<p$ there is a polynomial $P\in(\mathbb Z/p^e\mathbb Z)[X]$ with $\mathbf{period}(P\bmod p^e)=m$
+\end{claim}
+\begin{proof}
+    Just take \[P(X)=X+1-\frac m{(m-1)!}\cdot X(X-1)\cdots(X-m+2).\]
+    We can check $P(0)=1$, $P(1)=2$, $\ldots$, $P(m-2)=m-1$, $P(m-1)=0$.
+\end{proof}
+
+For valid $n$, take $p^e\parallel n$ with $q<p$ a prime not dividing $n$, and consider the polynomial $Q$ such that $\mathbf{period}(P\bmod p^e)=q$. Let $t$ be a multiple of $n/p^e$ with $t\equiv1\pmod{p^e}$ (which exists by Chinese Remainder theorem), and set $P=t\cdot Q$. Then $P$ works by $(*)$.
+
+\bigskip
+
+\textbf{Proof of necessity:} What follows is more-or-less the converse of Claim 1. By $(*)$ it is sufficient to prove the claim.
+\begin{claim}
+    Given a prime power $p^e$, a polynomial $P$, and a prime $q$, if $q\mid\mathbf{period}(P\bmod p)$, then $q\le p$.
+\end{claim}
+\begin{proof}
+    We induct on $e$. Clearly $\mathbf{period}(P\bmod p)\le p$ by Pigeonhole on $P(0)$, $P^2(0)$, $\ldots$, $P^p(0)$. By the same argument, we have $\mathbf{period}(P\bmod p^e)\mid \mathbf{period}(P\bmod p^{e+1})$ and \[\frac{\mathbf{period}(P\bmod p^{e+1})}{\mathbf{period}(P\bmod p^e)}\in\{1,2,\ldots,p\}.\]
+    The inductive step follows.
+\end{proof}

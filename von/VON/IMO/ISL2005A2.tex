@@ -1,0 +1,42 @@
+desc: f(x)f(y)=2f(x+yf(x))
+source: ISL 2005 A2
+tags: [2020-02, oly, hard, alg, fe, nice, favorite, waltz]
+
+---
+
+Find all functions $f:\mathbb R_{>0}\to\mathbb R_{>0}$ such that \[f(x)f(y)=2f(x+yf(x))\]
+for all positive real numbers $x$ and $y$.
+
+---
+
+The answer is $f\equiv2$. It is not hard to check that there are no other linear solutions. Let $P(x,y)$ denote the assertion. The proof proceeds in several steps:
+\setcounter{claim}0
+\begin{claim}
+    $f(x)\ge2$ for all $x$.
+\end{claim}
+\begin{proof}
+    If the range of $f$ has a greatest lower bound $a$, then $P(x,x)$ gives \[a\le f(x+xf(x))=\frac{f(x)^2}2\implies f(x)\ge\sqrt{2a},\]
+    so $\sqrt{2a}$ is another lower bound. By the assumption that $a$ is the greatest lower bound, we have $\sqrt{2a}\le a$, or $a\ge2$.
+
+    Assume on the other hand $f$ can be arbitrarily small. In particular, we may choose $z$ such that $f(z)<1$. Then, \[P\left(z,\frac z{1-f(z)}\right)\implies f(z)f\left(\frac z{1-f(z)}\right)=2f\left(\frac z{1-f(z)}\right),\]
+    whence $f(z)=2$, which is absurd.
+\end{proof}
+\begin{claim}
+    $f$ is nondecreasing.
+\end{claim}
+\begin{proof}
+    Note that for all $y$, \[f(x+yf(x))=f(x)\cdot\frac{f(y)}2\ge f(x),\]
+    but $x+yf(x)$ attains all numbers greater than $x$ as we vary $y$.
+\end{proof}
+\begin{claim}
+    Either $f\equiv2$ or $f$ is injective.
+\end{claim}
+\begin{proof}
+    Assume $f\not\equiv2$. If $f(z)=2$ for some $z$, then $P(z,z)$ gives $f(3z)=2$, so $f$ equals $2$ at arbitrarily large points. Since $f$ is nondecreasing, this implies $f\equiv2$, contradiction.
+
+    Assume for contradiction $f(a)=f(b)$ while $a<b$. Then, \[P\left(a,a,\frac{b-a}{f(a)}\right)\implies f(a)f\left(\frac{b-a}{f(a)}\right)=2f(b)\implies f\left(\frac{b-a}{f(a)}\right)=2,\]
+    contradiction.
+\end{proof}
+
+Assume $f\not\equiv2$, so $f$ is injective. Then $P(x,1)$ and $P(1,x)$ give \[f(x+f(x))=\frac{f(x)f(1)}2=f(1+xf(1)),\]
+whence $x+f(x)=1+xf(1)$ and $f(x)$ is linear. This implies $f\equiv2$, contradiction.

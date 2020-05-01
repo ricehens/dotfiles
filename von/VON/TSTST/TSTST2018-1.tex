@@ -1,6 +1,6 @@
 desc: "\u03B8(p(x))=p(\u03B8(x))"
 source: TSTST 2018/1
-tags: [2019-10, oly, medium, nt, FE]
+tags: [2019-10, oly, medium, nt, FE, nice]
 
 ---
 
@@ -12,7 +12,7 @@ As usual, let $\mathbb Z[x]$ denote the set of single-variable polynomials in $x
 
 ---
 
-The answer is $\theta(p)=p(c)$ for some $c$. These clearly work, so we show these are the only solutions; it is sufficient to show that $\theta(p(x))=p(\theta(x))$.
+The answer is $\theta(p)\equiv p(c)$ for some $c$. These clearly work, so we show these are the only solutions; it is sufficient to show that $\theta(p(x))=p(\theta(x))$.
 
 The first condition says $\theta(p+a)=\theta(p)+a$ for all integers $a$; to obtain negative $a$, write $\theta(p)=\theta(p+a)-a$. For all $a$, $x-a\mid p(x)-p(a)$, so $\theta(x)-a\mid\theta(p(x))-p(a)$. But $a\equiv\theta(x)\pmod{\theta(x)-a}$, so \[0\equiv\theta(p(x))-p(a)\equiv\theta(p(x))-p(\theta(x))\pmod{\theta(x)-a}\]
 for all $a$. Hence it is zero.

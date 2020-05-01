@@ -1,0 +1,128 @@
+desc: Exsimilicenter lies on polar
+source: USA TST 2020/2
+tags: [2019-12, oly, medium, geo, inversion, animation]
+author: Merlijn Staps
+
+---
+
+Two circles $\Gamma_1$ and $\Gamma_2$ have common external tangents $\ell_1$ and $\ell_2$ meeting at $T$. Suppose $\ell_1$ touches $\Gamma_1$ at $A$ and $\ell_2$ touches $\Gamma_2$ at $B$. A circle $\Omega$ through $A$ and $B$ intersects $\Gamma_1$ again at $C$ and $\Gamma_2$ again at $D$, such that quadrilateral $ABCD$ is convex.
+
+Suppose lines $AC$ and $BD$ meet at point $X$, while lines $AD$ and $BC$ meet at point $Y$. Show that $T$, $X$, $Y$ are collinear.
+
+---
+
+\paragraph{First solution, by inversion (Brandon Wang)}     Let $\ell_1$ and $\ell_2$ intersect $\Omega$ again at $E$ and $F$ respectively.
+\begin{center}
+    \begin{asy}
+        size(11cm); defaultpen(fontsize(9pt));
+        pair T,A,B,O1,O2,P,Q,X,C,D,EE,F,Y,Z;
+        T=(0,0);
+        A=dir(40);
+        B=0.4/A;
+        draw(A--T--B);
+        O1=2*circumcenter(T,A,1/A);
+        O2=2*circumcenter(T,B,reflect(T,O1)*B);
+        P=intersectionpoint(circle(O1,length(O1-A)),circle(O2,length(O2-B)));
+        Q=reflect(T,O1)*P;
+        real x=0.55;
+        X=x*P+(1-x)*Q;
+        C=2*foot(O1,X,A)-A;
+        D=2*foot(O2,X,B)-B;
+        EE=2*foot(circumcenter(A,B,C),T,A)-A;
+        F=2*foot(circumcenter(A,B,C),T,B)-B;
+        Y=extension(B,C,A,D);
+        Z=extension(A,B,C,D);
+
+        draw(circumcircle(A,B,C),gray);
+        draw(C--A--Y--B--D,gray+dashed);
+        draw(A--Z--D,gray);
+        draw(circle(O1,length(O1-A)));
+        draw(circle(O2,length(O2-B)));
+        draw(A--T--(1/A));
+        draw(EE--T--F);
+        draw(T--Y);
+        draw(Z--F);
+
+        real y=1.1;
+        clip( (100,y)--(-100,y)--(-100,-100)--(100,-100)--cycle);
+
+        dot("$T$",T,N);
+        dot("$A$",A,dir(150));
+        dot("$B$",B,SW);
+        dot("$P$",P,dir(-75));
+        dot("$Q$",Q,dir(70));
+        dot("$X$",X,N);
+        dot("$C$",C,dir(-20));
+        dot("$D$",D,dir(20));
+        dot("$E$",EE,SW);
+        dot("$F$",F,W);
+        dot("$Y$",Y,E);
+        dot("$Z$",Z,S);
+    \end{asy}
+\end{center}
+The key claim is this:
+\begin{claim*}
+    $\seg{AB}$, $\seg{CD}$, $\seg{EF}$ concur.
+\end{claim*}
+\begin{proof}
+    Invert at $A$, using $\bullet'$ to denote the inverse, to obtain the following picture.
+    \begin{center}
+        \begin{asy}
+            size(5cm); defaultpen(fontsize(9pt));
+
+            pair O,B,U,T,A,C,P,D,Q;
+            O=(0,0);
+            B=dir(10);
+            U=1.8*B;
+            A=intersectionpoint( (0,1)--(20,1),circle(U,length(B-U)));
+            T=2*foot(U,(0,1),(20,1))-A;
+            C=U+length(B-U)*dir(270)-(0.4,0);
+            P=extension(A,T,B,C);
+            D=2*foot(O,B,C)-B;
+            Q=2*foot(U,B,C)-B;
+
+            real x=1.8, y=1.3;
+            draw(circle(O,1));
+            draw(circle(U,length(B-U)));
+            draw(P--C);
+            draw(foot(P+(-x,0),C,C+(1,0))--(C+(y,0)));
+            draw(foot(C+(y,0),A,T)--(P+(-x,0)));
+
+            label("$\ell_1'$",P+(-x,0),N);
+            label("$\Gamma_1'$",foot(P+(-x,0),C,C+(1,0)),N);
+            label("$\Gamma_2'$",dir(160),dir(160));
+            label("$\ell_2'$",U+(length(B-U),0),E);
+            dot("$B'$",B,E);
+            dot("$T'$",T,N);
+            dot("$A$",A,N);
+            dot("$C'$",C,S);
+            dot("$E'$",P,N);
+            dot("$D'$",D,SW);
+            dot("$F'$",Q,NE);
+        \end{asy}
+    \end{center}
+    The homothety at $B'$ sending $\Gamma_2'$ to $\ell_2'$ sends $\ell_1'$ to $\Gamma_1'$, so \[\frac{B'C'}{B'F'}=\frac{B'E'}{B'D'}\implies B'C'\cdot B'D'=B'E'\cdot B'F',\]
+    whence $B'$ lies on the radical axis of $(AC'D')$ and $(AE'F')$. Inverting back gives the desired conclusion.
+\end{proof}
+
+Let $Z=\seg{AB}\cap\seg{CD}$, and let $\ell$ be the polar of $Z$ with respect to $\Omega$. By Brokard's theorem on $ABCD$, $\ell=\seg{XY}$, but by Brokard's theorem on $ABEF$, $\ell=\seg{TX}$. Thus $T$, $X$, $Y$ are collinear, as desired.
+
+\paragraph{Second solution, by moving points}     Since $ABCD$ is convex, $\Gamma_1$ and $\Gamma_2$ intersect at two points $P$ and $Q$; else, the radical axis intersects all four segments $AB$, $BC$, $CD$, $DA$, which is absurd.
+
+By radical axis theorem, $X$ lies on $\ell:=\seg{PQ}$. Animate $X$ on $\ell$. We will show that $\seg{AD}$, $\seg{BC}$, $\seg{TX}$ concur at a point $Y$.
+
+Then $C$ and $D$ move projectively on their respective circles, so $\seg{AC}$, $\seg{BD}$ each have degree $2$ and $\seg{TX}$ has degree $1$. The concurrence has degree $5$, so we need to verify the hypothesis for $6$ values of $X$.
+\begin{itemize}
+    \item Take $X$ at infinity along $\ell$. Then $C$ and $D$ are the reflections of $A$ and $B$ in the line through the centers of $\Gamma_1$ and $\Gamma_2$, so $Y=T$.
+    \item Take $X=\ell\cap\seg{AB}$. Then $A$, $B$, $C$, $D$ collinear, so the result is clear.
+    \item Take $X=\ell\cap\seg{AT}$. Then $C=A$, so $Y=A$, which lies on $\seg{TX}$. The case $X=\ell\cap\seg{BT}$ follows analogously.
+    \item Take $X=P$. Then, $C=D=P$, so $Y=P$, from which the conclusion is clear. The case $X=Q$ follows analogously.
+\end{itemize}
+This completes the proof.
+\begin{remark}
+    Edward Wan notes that we can instead move the center $O$ of $\Omega$ and show that $-1=T(AB;XZ)$, where $Z=\seg{AB}\cap\seg{CD}$. It can be shown that $O\to X$ and $O\to Z$ are projective, so this reduces the problem to three cases.
+\end{remark}
+\begin{remark}
+    I think working in $\mathbb C\mathbb P^2$ allows us to discard the condition that $\Gamma_1$ and $\Gamma_2$ intersect (that is, $ABCD$ convex) by choosing $P$ and $Q$ as their non-real intersections if they do not intersect.
+\end{remark}
+

@@ -1,0 +1,24 @@
+desc: Systsem (x+1)(xy+1)=6, x^2(y^2+y+1)=7
+source: c6h2011654p14101685
+tags: [2020-02, answer, cmedium, alg, aops, waltz]
+
+---
+
+Find all pairs of real numbers $(x,y)$ satisfying the following system of equations:
+\begin{align*}
+    (x+1)(xy+1)&=6,\\
+    x^2(y^2+y+1)&=7.
+\end{align*}
+
+---
+
+We substitute twice:
+\begin{itemize}[itemsep=0em]
+    \item Let $z=xy$, so that $(x+1)(z+1)=6$ and $z^2+xz+x^2=7$. 
+    \item Let $a=x+z$ and $b=xz$, so that $a+b=5$ and $a^2-b=7$.
+\end{itemize}
+Substituting $b=5-a$, we have $0=a^2+a-12=(a-3)(a+4)$, so the solutions in $(a,b)$ are $(3,2)$ and $(-4,9)$. Their corresponding solutions in $(x,y)$ are $(1,2)$ and $(2,\tfrac12)$.
+
+---
+
+$(1,2)$, $(2,\tfrac12)$

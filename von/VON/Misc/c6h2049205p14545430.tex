@@ -1,0 +1,29 @@
+desc: x=2-y^2, y=2-z^2, z=2-x^2
+source: c6h2049205p14545430
+tags: [2020-04, answer, ctricky, alg, trig, aops, waltz]
+
+---
+
+Determine the number of ordered triples $(x,y,z)$ of real numbers such that
+\begin{align*}
+    x&=2-y^2\\
+    y&=2-z^2\\
+    z&=2-x^2.
+\end{align*}
+
+---
+
+We characterize all solutions:
+
+First if $|x|>2$, then $|x|<|x|^2-2<|z|$, so $|x|<|z|<|y|<|x|$, preposterous. Let $a=-x/2$, $b=-y/2$, $c=-z/2$, so that $|a|,|b|,|c|\le1$. The equations rewrite as $a=2b^2-1$, $b=2c^2-1$, $c=2b^2-1$. Then let $a=\cos\alpha$, $b=\cos\beta$, $c=\cos\gamma$, so $\cos\alpha=\cos2\beta$, $\cos\beta=\cos2\gamma$, $\cos\gamma=\cos2\beta$. From these equations, $\cos\alpha=\cos8\alpha$, so $\alpha=\tfrac{2\pi}7k$ and $\alpha=\tfrac{2\pi}9k$ describe all solutions.
+
+Then our two sets of solutions are:
+\begin{itemize}
+    \item $(x,y,z)=(-2\cos\tfrac{2\pi}7k,-2\cos\tfrac{4\pi}7k,-2\cos\tfrac{8\pi}7k)$;
+    \item $(x,y,z)=(-2\cos\tfrac{2\pi}9k,-2\cos\tfrac{4\pi}9k,-2\cos\tfrac{8\pi}9k)$.
+\end{itemize}
+It is easy to confirm that there are $8$ solutions.
+
+---
+
+8

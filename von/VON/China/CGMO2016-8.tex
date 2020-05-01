@@ -1,0 +1,67 @@
+desc: Limit of f_{2016}(MN)/f_{2015}(MN)
+source: CGMO 2016/8
+tags: [2020-01, oly, hard, nt, vp, involved, waltz]
+
+---
+
+Let $\mathbb Q$ be the set of rational numbers, $\mathbb Z$ be the set of integers. On the coordinate plane, given positive integer $m$, define \[A_m=\left\{(x,y)\mid x,y\in\mathbb{Q},\;xy\ne0,\;\frac{xy}{m}\in\mathbb Z\right\}.\]
+For segment $MN$, define $f_m(MN)$ as the number of points on segment $MN$ belonging to set $A_m$.
+
+Find the smallest real number $\lambda$, such that for any line $\ell$ on the coordinate plane, there exists a constant $\beta(\ell)$ related to $\ell$, satisfying the following condition: for any two points $M$, $N$ on $\ell$, \[f_{2016}(MN)\le\lambda f_{2015}(MN)+\beta(\ell).\]
+
+---
+
+The answer is $2015/6$. It is easy to take care of horizontal and vertical lines, so we ignore them. Let $\ell$ be the line $ax+by=c$, where $a$, $b$, $c$ are integers. Then the product $ax\cdot by$ is an integer by definition of $A_m$, and $ax+by=c$ is an integer. It follows that $u=ax$ and $v=by$ are both integers.
+
+Let $g_m(n)$ be the number of integers in $(0,n]$ such that $mab\mid u(c-u)$. If $M$ has $x$-coordinate $an_1$ and $N$ has $x$-coordinate $an_2$, $f_m(MN)=g_m(n_2)-g_m(n_1)+O(1)$, so we just want to maximize \[\lambda:=\lim_{n\to\infty}\frac{g_{2016}(n)}{g_{2015}(n)}.\]
+The pith of this computation is this lemma:
+\begin{lemma*}[Looking at each prime divisor]
+    If $\nu_p(c)=k$, then the number of residues $u$ modulo $p^e$ with $p^e\mid u(c-u)$ is
+    \begin{itemize}[itemsep=0em]
+        \item $2p^k$ when $2k<e$, and
+        \item $p^{\lfloor e/2\rfloor}$ when $2k\ge e$.
+    \end{itemize}
+\end{lemma*}
+\begin{proof}[Proof for $2k<e$]
+    Let $c=p^k\cdot t$, where $p\nmid t$. Then I claim all such $u$ are either $0\pmod{p^{e-k}}$ or $c\pmod{p^{e-k}}$. It is obvious that these $u$ work, since both are divisible by $p^k$ and at least one is divisible by $p^{e-k}$.
+
+    If $\nu_p(u)\ne k$, then $e-\nu_p(u)\le\nu_p(c-u)=\min(k,\nu_p(u))$. If $k\le\nu_p(u)$, then $\nu_p(u)\ge e-k$, as desired. Otherwise $\nu_p(u)\le k$ and $\nu_p(u)\ge e/2>k$, contradiction.
+
+    Now we only need to consider the case $\nu_p(u)=k$. Here, we need $\nu_p(c-u)\ge e-k$, so $u\equiv c\pmod{p^{e-k}}$, as claimed. It follows that there are $2\cdot p^e/p^{e-k}=2p^k$ such $u$.
+\end{proof}
+\begin{proof}[Proof for $2k\ge e$]
+    Let $c=p^k\cdot t$, where $p\nmid t$. Then I claim all such $u$ are $0\pmod{p^{\lceil e/2\rceil}}$. Since for such $u$, $k\ge\lceil e/2\rceil$, it is clear $p^e\mid u(c-u)$.
+
+    If $\nu_p(u)\ne k$, then $e-\nu_p(u)\le\nu_p(c-u)=\min(k,\nu_p(u))$. If $\nu_p(u)\le k$, then $\nu_p(u)\ge e/2$ (and thus $\nu_p(u)\ge\lceil e/2\rceil$), as desired. Otherwise $\nu_p(u)\ge k\ge e/2$ already.
+
+    Finally comes the case $\nu_p(u)=k$, which works since $k\ge e/2$. It follows that there are $p^e/p^{\lceil e/2\rceil}=p^{\lfloor e/2\rfloor}$ such $u$.
+\end{proof}
+
+Now recall $2016=2^5\cdot3^2\cdot7$ and $2015=5\cdot13\cdot31$. If $ab$ has a prime factor $p$ not among $\{2,3,7,5,13,31\}$, then $g_{2016}(n)$ and $g_{2015}(n)$ increase by the same factor (either $2p^k$ or $p^{\lfloor\nu_p(ab)/2\rfloor}$), so we may ignore them. Assume $ab=2^{e_1}3^{e_2}7^{e_3}\cdot5^{f_1}13^{f_2}31^{f_3}$.
+
+Let $w_m(n)$ be the number of residues modulo $n$ with $n\mid u(c-u)$. It is easy to see that \[\lambda=\frac{w_{2016}(n)/2016}{w_{2015}(n)/2015}=\frac{w_{2016}(n)}{w_{2015}(n)}\cdot\frac{2015}{2016}.\]
+We will compute $w_m(n)$ via Chinese Remainder theorem by looking at each prime factor independently.
+
+Let $h(p)$ be the factor that selecting the exponent of the prime $p$ in $ab$ contributes to $w_{2016}(n)/w_{2015}(n)$. Thus $\lambda=h(2)h(3)h(7)h(5)h(11)h(13)$.
+\setcounter{claim}0
+\begin{claim}
+    We have $h(2)\le8$, $h(3)\le6$, $h(7)\le7$, and equality holds.
+\end{claim}
+\begin{proof}
+    Let $e=\nu_p(ab)$. Note that $h(p)=p$ is possible, since we can take $e>2k$.
+
+    If we choose $e$ such that $e\le 2k<e+\nu_p(2016)$, then \[h(p)=\frac{2p^k}{p^{\lfloor e/2\rfloor}}\le2p^{\left\lfloor\tfrac{e+\nu_p(2016)}2\right\rfloor-\left\lfloor\tfrac e2\right\rfloor},\]
+    which equals $8$ and $6$ for $p=2$ and $p=3$ respectively, with equality easily achievable. For $p=7$, we must have $e=2k$, so $e$ is even and $h(7)=2$.
+
+    Finally if $e>2k$, then $h(p)=2p^k/(2p^k)=1$, so the maximum possible $h(p)$ are $8$, $6$, $7$ for $p=2$, $p=3$, $p=7$, respectively.
+\end{proof}
+\begin{claim}
+    We have $h(5)\le1$, $h(13)\le1$, $h(31)\le1$, and equality holds.
+\end{claim}
+\begin{proof}
+    For $p\in\{5,13,31\}$, by the same argument as Claim 1, $1/p$ and $1$ are achievable. Otherwise $e\le2k<e+\nu_p(2015)$, and \[h(p)=\frac{p^{\lfloor e/2\rfloor}}{2p^k}<1,\]
+    so the maximum possible value of $h(p)$ is $1$.
+\end{proof}
+
+Finally, by Chinese Remainder theorem \[\lambda\le8\cdot6\cdot7\cdot\frac{2015}{2016}=\frac{2015}6.\]
+To achieve equality, take $a=1$, $b=21$, $c=84\cdot2015$. It is easy to see that all our bounds are now equalities, so we are done.

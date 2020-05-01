@@ -1,0 +1,49 @@
+desc: Semicircle in triangle, find perimeter
+source: OMO Fall 2014/11
+tags: [2020-01, answer, cmedium, geo, length, nice, waltz]
+
+---
+
+Given a triangle $ABC$, consider the semicircle with diameter $\overline{EF}$ on $\overline{BC}$ tangent to $\overline{AB}$ and $\overline{AC}$. If $BE=1$, $EF=24$, and $FC=3$, find the perimeter of $\triangle ABC$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(5cm); defaultpen(fontsize(10pt));
+        
+        pair A,B,C,I,EE,F,P,Q;
+        A=(0,24);
+        B=(-10,0);
+        C=(18,0);
+        I=(3,0);
+        EE=(-9,0);
+        F=(15,0);
+        P=foot(I,A,B);
+        Q=foot(I,A,C);
+
+        draw(arc(I,12,0,180,CCW));
+        draw(A--I,dashed);
+        draw(P--I--Q);
+        draw(A--B--C--A);
+        draw(rightanglemark(A,P,I,45));
+        draw(rightanglemark(A,Q,I,45));
+
+        dot("$A$",A,N);
+        dot("$B$",B,SW);
+        dot("$C$",C,SE);
+        dot("$I$",I,S);
+        dot("$E$",EE,S);
+        dot("$F$",F,S);
+        dot("$P$",P,NW);
+        dot("$Q$",Q,NE);
+    \end{asy}
+\end{center}
+Let the semicircle have center $I$, and let it touch $\seg{AB}$ and $\seg{AC}$ at $P$ and $Q$ respectively. The first step is to determine $BP=5$ and $CQ=9$, which may be done by either Pythagorean theorem on $\triangle IBP$ and $\triangle ICQ$ or direct power of a point.
+
+Since $IP=IQ$, we have by HL that $\triangle API\cong\triangle AQI$. Denote $x=AP=AQ$, and remark that $\seg{AI}$ bisects $\angle BAC$. By Angle Bisector theorem, \[\frac{x+5}{x+9}=\frac{BI}{IC}=\frac{13}{15}\implies x=21.\]
+Summing the known lengths, the perimeter of $\triangle ABC$ is $84$.
+
+---
+
+84

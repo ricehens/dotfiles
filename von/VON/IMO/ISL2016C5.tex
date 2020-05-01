@@ -1,6 +1,6 @@
 desc: Intersecting diagonals are perpendicular
 source: ISL 2016 C5
-tags: [2019-10, oly, medium, combo, equality, optimization]
+tags: [2019-10, oly, medium, combo, combo-geo, equality, optimization, waltz]
 
 ---
 
@@ -9,18 +9,18 @@ Let $n\ge3$ be a positive integer. Determine the maximal number of diagonals of 
 ---
 
 The answer is $n-3$ if $n$ odd and $n-2$ if $n$ even. First suppose $n$ is odd.
-\setcounter{iclaim}0
-\begin{iclaim}
+\setcounter{claim}0
+\begin{claim}
     If $n$ is odd, no two chords are perpendicular.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     Assume otherwise, and that $\seg{AC}\perp\seg{BD}$. Then $\arc{AC}+\arc{BD}=180\dg$, so if the polygon has side length $1$, and $d(P,Q)$ is the distance from $P$ to $Q$ along the perimeter of the polygon, $d(A,C)+d(B,D)=n/2$, absurd.
 \end{proof}
 
 It follows that by induction, the answer is $n-3$, achieved by any triangulation. Henceforth assume $n$ is even. Call a chord \emph{fun} if it intersects another chord in the interior of the polygon, and \emph{boring} otherwise.
-\begin{iclaim}
+\begin{claim}
     All fun lines are either parallel or perpendicular.
-\end{iclaim}
+\end{claim}
 \begin{proof}
     Say we have two fun perpendicular lines $\ell_1$ and $\ell_2$ intersecting in the interior of the polygon. Then $\ell_1$ and $\ell_2$ divide the circumcircle into four arcs, each of which measures less than $180\dg$. Hence no two lines $m_1$ and $m_2$ are both contained in an arc.
 \end{proof}

@@ -1,0 +1,35 @@
+desc: Labeling complete graph
+source: ISL 2005 C4
+tags: [2020-03, oly, tricky, combo, rigid, graph, waltz]
+
+---
+
+Let $n\ge3$ be a fixed integer. The edges of the complete graph $K_n$ are labeled with a number from the set $\{1,\ldots,r\}$ such that
+\begin{itemize}
+    \item each of the $r$ labels is used at least once; and
+    \item in any triangle, two of the edges are labeled with the same number, and this number is greater than the label of the third side.
+\end{itemize}
+Find the maximal $r$ for which such a labeling is possible, and determine how many such labelings achieve this maximum.
+
+---
+
+The answers are $r=n-1$ and $\dfrac{n!(n-1)!}{2^{n-1}}$. We will prove these inductively. The base cases are clear.
+
+\paragraph{Solution to part (a)}     Say a \emph{family} is a set of vertices such that the edge between any two vertices in the family is less than $r$. We say a family is \emph{egotistic} if it is not a subset of another family.
+
+Note that if any vertex $v$ is connected to a vertex $u$ of a family, if $\seg{vu}$ is labeled less than $r$, then for all vertices $w$ of the egotistic family, $\seg{vw}$ cannot be labeled $r$; hence the family union $v$ is also a family, and hence the family is not egotistic.
+
+Thus we may split the vertices into $k$ egotistic families $F_1$, $\ldots$, $F_k$, where $|F_1|+\cdots+|F_k|=n$, and any two vertices from distinct egotistic families are connected by an edge with label $r$. (Here, $|F|$ is the number of vertices of $F$.)
+
+By the inductive hypothesis, family $F_i$ may have at most $|F_i|-1$ distinct labels. Hence the number of distinct labels in $K_n$ is at most \[1+\sum_{i=1}^k(|F_i|-1)=\left(\sum_{i=1}^k|F_i|\right)-(k-1)\le n-1,\]
+as desired.
+
+\paragraph{Solution to part (b)}     Let $b_n$ be the answer. By part (a), for equality to hold, the edges of $K_n$ with label $n-1$ must form a complete bipartite graph. If the bipartite graph splits $K_n$ into graphs of size $i$ and $n-i$, we may choose the vertex sets in $\tbinom ni$ ways, and then we may split the colors in $\tbinom{n-2}{i-1}$ ways. Hence
+\begin{align*}
+    b_n&=\frac12\sum_{i=1}^{n-1}\binom ni\binom{n-2}{i-1}b_ib_{n-i}.\\
+    &\stackrel{\text{I-H}}=\frac12\sum_{i=1}^{n-1}\frac{n!(n-2)!i!(i-1)!(n-i)!(n-i-1)!}{i!(n-i)!(i-1)!(n-i-1)!2^{i-1}2^{n-i-1}}\\
+    &=\frac12\sum_{i=1}^{n-1}\frac{n!(n-2)!}{2^{n-2}}\\
+    &=\frac{n!(n-1)!}{2^{n-1}},
+\end{align*}
+and we are done.
+

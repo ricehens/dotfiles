@@ -1,6 +1,6 @@
 desc: Golden ratio probabilistic
 source: USAMO 2010/6
-tags: [2019-10, oly, hard, combo, probabilistic]
+tags: [2019-10, oly, hard, combo, probabilistic, nice]
 
 ---
 
@@ -8,13 +8,15 @@ A blackboard contains $68$ pairs of nonzero integers. Suppose that for each posi
 
 ---
 
-The answer is $43$. Let $S=68$ and $\phi=\frac{1+\sqrt5}2$. I first claim that it is always possible to score $S/\phi$ points. Without loss of generality assume all pairs of the form $(k,k)$ obey $k>0$. For each positive integer $k$, take $+k$ with probability $1/\phi$ and $-k$ with probability $1-1/\phi=1/\phi^2$.
+Assume without loss of generality all pairs of the form $(k,k)$ obey $k>0$. Otherwise swap all instances of $k$ and $-k$. For each $k>0$, erase all instances of $k$ with probability $p$, and erase all instances of $-k$ with probability $1-p$. Then, for $k,a,b>0$:
+\begin{itemize}[itemsep=0em]
+    \item some element of $(k,k)$ is erased with probability $p$;
+    \item some element of $(a,b)$, $a\ne b$ is erased with probability $1-(1-p)^2>p$;
+    \item some element of $(a,-b)$  is erased with probability $1-p(1-p)>p$;
+    \item some element of $(-a,-b)$ is erased with probability $1-p^2=p$.
+\end{itemize}
+Hence we expect at least $\lceil68p\rceil=43$ points.\\
 
-Suppose that $S\cdot a$ of the pairs are of the form $(k,k)$, with $k>0$, and of the pairs with unequal elements, $S\cdot b$ are of the form $(+,+)$, $S\cdot c$ are of the form $(+,-)$, and $S\cdot d$ are of the form $(-,-)$. Then the fraction of the pairs with at least one erased integer is
-\begin{align*}
-    &a\cdot\frac1{\phi^2}+b\left(1-\left(1-\frac1\phi\right)^2\right)+c\left(1-\frac1\phi\left(1-\frac1\phi\right)\right)+d\left(1-\frac1{\phi^2}\right)\\
-    &\ge a\cdot\frac1\phi+(1-a)\left(1-\frac1{\phi^2}\right)=a\cdot\frac1\phi+(1-a)\cdot\frac1\phi=\frac1\phi,
-\end{align*}
-as claimed. Now consider the following construction showing $43$ is attainable: For each $1\le k\le 8$, take five instances of $(k,k)$ and for all $-8\le a<b\le-1$, take a single instance of $(a,b)$. Thus there are $40+28=68$ pairs. I claim the maximum possible number of points that can be scored is $43$.
+Now we establish the upper bound. For each $k=1,\ldots,8$, take five instances of $(k,k)$, and for all $1\le a<b\le8$, take a single instance of $(-a,-b)$. Thus we have chosen $5\cdot8+\tbinom82=68$ pairs. It suffices to show at most $43$ points can be scored.
 
-For each $k=1,\ldots,8$, we can take either $k$ or $-k$, so make the choices iteratively. Assuming that at a given state, we have chosen a negative number a total of $t$ times, it is easy to see that the number of points gained by choosing $-k$ is $7-t$, but if we choose $+k$, we automatically gain $5$ points. Thus the maximum possible score is $7+6+5+5+5+5+5+5=43$, and we are done.
+Iterate over $k=1,\ldots,8$ and choose whether we erase $k$ or $-k$. At any given point, we have chosen $t$ negative numbers, then we earn $7-t$ points by choosing $-k$, and we earn $5$ points by choosing $k$. Thus the maximum attainable score is $7+6+5+5+5+5+5+5=43$, the end.

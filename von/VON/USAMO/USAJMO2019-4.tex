@@ -4,11 +4,19 @@ tags: [2019-10, oly, trivial, geo]
 
 ---
 
-Let $ABC$ be a triangle with $\angle ABC$ obtuse. The $A$-\emph{excircle} is a circle in the exterior of $\triangle ABC$ that is tangent to side $\overline{BC}$ and and tangent to the extensions of the other two sides. Let $E,F$ be the feet of the altitudes from $B$ and $C$ to lines $AC$ and $AB$, respectively. Can line $EF$ be tangent to the $A$-excircle?
+Let $ABC$ be a triangle with $\angle ABC$ obtuse. The $A$-excircle is a circle in the exterior of $\triangle ABC$ that is tangent to side $BC$ of the triangle and tangent to the extensions of the other two sides. Let $E$, $F$ be the feet of the altitudes from $B$ and $C$ to lines $AC$ and $AB$, respectively. Can line $EF$ be tangent to the $A$-excircle?
 
 ---
 
-The answer is no.
+It is not possible. Assume for contradiction line $EF$ is tangent to the $A$-excircle.
+
+\paragraph{First solution, by similarity} Since $\angle B=90\dg$, we have $A$, $E$, $C$ collinear in that order, and also $A$, $B$, $F$ collinear in that order.
+
+Note the $A$-excircle is tangent to all three sides of $\triangle AEF$; I contend it is its $A$-excircle as well. Indeed, the $A$-excircle lies in the interior of $\angle EAF$, but it touches $\seg{AC}$ farther away from $A$ than $E$.
+
+But $\triangle ABC$, $\triangle AEF$ are inversely similar, and they share an $A$-exradius, so they are congruent. Now $AB=AE=AB\cos A$, so $\cos A=1$ and $\angle A=0\dg$, absurd.
+
+\paragraph{Second solution, by length chasing} Let the $A$-excircle touch $\seg{AC}$, $\seg{AB}$, $\seg{EF}$ at $B'$, $S$, $C'$.
 \begin{center}
     \begin{asy}
         size(6cm);
@@ -34,7 +42,7 @@ The answer is no.
         draw(B -- C, pri);
         filldraw(circle(IA, length(Bp-IA)), fil, pri);
         fill(A--B--C--cycle,fil);
-        draw(B -- EE, sec); draw(C -- F, sec); 
+        draw(B -- EE, sec); draw(C -- F, sec);
         draw(EE -- F, tri); draw(Bp -- IA -- Cp, pri); draw(SS -- IA, tri);
 
         dot("$A$", A, N);
@@ -44,8 +52,16 @@ The answer is no.
         dot("$I_A$", IA, SE);
         dot("$B'$", Bp, NE);
         dot("$C'$", Cp, W);
-        dot("$S$", SS, NW);
-        dot("$F'$", F, W);
+        dot("$S$", SS, dir(120));
+        dot("$F$", F, W);
     \end{asy}
 \end{center}
-Assume for the sake of contradiction such a configuration exists. Since $\overline{BC}$ and $\overline{EF}$ are antiparallel with respect to $\angle A$, $\triangle ABC\sim\triangle AEF$. Note that the problem states that $\triangle ABC$ and $\triangle AEF$ share an $A$-excircle and therefore an $A$-exradius. Thus, $\triangle ABC\cong\triangle AEF$, so $\cos A=AE/AB=1,$ whence $\angle A=0^\circ$, a contradiction.
+If $\rho$ denotes the semiperimeter, then
+\begin{align*}
+    BC\cos A&=EF=ES+FS=EB'+FC'\\
+    &=(\rho-AE)+(\rho-AF)\\
+    &=AB+BC+CA-(AB+CA)\cos A,
+\end{align*}
+from which $\cos A=1$, absurd.
+
+

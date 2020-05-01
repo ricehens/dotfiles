@@ -1,0 +1,18 @@
+desc: Sum of sin(k)
+source: AIME II 2015/13
+tags: [2019-12, answer, chard, alg, trig]
+
+---
+
+Define the sequence $a_1,a_2,a_3,\ldots$ by $a_n=\sum_{k=1}^n\sin(k)$, where $k$ represents radian measure. Find the index of the $100^\text{th}$ term for which $a_n<0$.
+
+---
+
+On the complex unit circle, let $T_k$ be the point defined by $e^{ik}$. Notice that for each $k$, $a_k$ is the imaginary part of \[b_n=\sum_{k=1}^n e^{ik}=e^i\cdot\frac{1-e^{in}}{1-e^i}=-\frac{e^{i(n+1)}-e^i}{1-e^i}.\]
+Then, $a_n<0$ iff $\pi<\arg(b_n)<2\pi$. However, notice that \[\arg(b_n)=\arg\left(-\frac{e^{i(n+1)}-e^i}{1-e^i}\right)=\measuredangle T_0T_1T_{n+1},\]
+where $\measuredangle ABC=\angle ABC$ if $A,B,C$ are counterclockwise and $\pi+\angle ABC$ otherwise. Hence, $a_k<0$ iff $T_{n+1}$ lies on the minor arc $\widehat{T_0T_1}$, or \[2\pi t<n+1<2\pi t+1\]
+for some $t$. Each positive integer $t$ determines a unique $n$, so the $100^\text{th}$ index such that $a_n<0$ is satisfied when $t=100$, or $n=628$.
+
+---
+
+628

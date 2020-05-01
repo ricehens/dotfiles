@@ -1,0 +1,43 @@
+desc: Geometric series on a bunch of circles
+source: AIME II 2017/12
+tags: [2019-12, answer, ctricky, geo, complex, sequence]
+
+---
+
+Circle $C_0$ has radius $1$, and the point $A_0$ is a point on the circle. Circle $C_1$ has radius $r<1$ and is internally tangent to $C_0$ at point $A_0$. Point $A_1$ lies on circle $C_1$ so that $A_1$ is located $90^{\circ}$ counterclockwise from $A_0$ on $C_1$. Circle $C_2$ has radius $r^2$ and is internally tangent to $C_1$ at point $A_1$. In this way a sequence of circles $C_1,C_2,C_3,...$ and a sequence of points on the circles $A_1,A_2,A_3,...$ are constructed, where circle $C_n$ has radius $r^n$ and is internally tangent to circle $C_{n-1}$ at point $A_{n-1}$, and point $A_n$ lies on $C_n$ $90^{\circ}$ counterclockwise from point $A_{n-1}$, as shown in the figure below. There is one point $B$ inside all of these circles. When $r=\tfrac{11}{60}$, the distance from the center of $C_0$ to $B$ is $\tfrac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+\begin{center}
+    \begin{asy}
+        size(5cm); defaultpen(fontsize(10pt));
+        real r = 0.8;
+
+        pair nthCircCent(int n){
+            pair ans = (0, 0);
+            for(int i = 1; i <= n; ++i)
+            ans += rotate(90 * i - 90) * (r^(i - 1) - r^i, 0);
+            return ans;
+        }
+
+        void dNthCirc(int n){
+            draw(circle(nthCircCent(n), r^n));
+        }
+
+        dNthCirc(0);
+        dNthCirc(1);
+        dNthCirc(2);
+        dNthCirc(3);
+
+        dot("$A_0$", (1, 0), dir(0));
+        dot("$A_1$", nthCircCent(1) + (0, r), dir(135));
+        dot("$A_2$", nthCircCent(2) + (-r^2, 0), dir(0));
+    \end{asy}
+\end{center}
+
+---
+
+We use complex numbers. Suppose that $O_n$ is the center of circle $C_n$, and let $o_0=0$ and $a_0=1$. Then, since $C_n\subset C_{n-1}$, we seek $\lim_{n\to\infty} |o_n|$. However, \[\lim_{n\to\infty} o_n=\sum_{k=0}^\infty (1-r)r^ki^k=\frac{1-r}{1-ri}=\frac{49}{60}\div\left(1-\frac{11}{60}i\right),\]
+whence \[\lim_{n\to\infty}|o_n|=\left|\frac{49}{60}\div\left(1-\frac{11}{60}i\right)\right|=\frac{49}{60}\div\left|1-\frac{11}{60}i\right|=\frac{49}{61},\]
+and the required sum is $49+61=110$.
+
+---
+
+110

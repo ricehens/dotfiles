@@ -1,0 +1,14 @@
+desc: 2^(2^n)+a not prime
+source: ELMO 2015/4
+tags: [2020-03, oly, easy, nt, expnt]
+
+---
+
+Let $a>1$ be a positive integer. Prove that there are infinitely many nonnegative integers such that the number $2^{2^n}+a$ is not prime.
+
+---
+
+Assume for contradiction that there is an integer $N$ such that $2^{2^k}+a$ is prime for all $k\ge N$. Take $p=2^{2^n}+a$ where $n\gg e:=\nu_2(a-1)$ and $n\ge N$. I claim that $p\mid2^{2^m}+a$, where \[m:=n+\vphi\left(\frac{p-1}{2^e}\right).\]
+By Euler's theorem, $2^m\equiv2^n\pmod{(p-1)/2^e}$, and furthermore since $2^m\equiv2^n\equiv0\pmod{2^e}$, we have $2^m\equiv2^n\pmod{p-1}$ by Chinese Remainder theorem. Hence $2^{2^m}\equiv2^{2^n}\equiv-a\pmod p$ by Fermat's little theorem, so $p\mid2^{2^m}+a$.
+
+But $2^{2^m}+a$ is prime and greater than $p$, absurd.

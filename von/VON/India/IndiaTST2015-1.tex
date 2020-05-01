@@ -1,6 +1,6 @@
 desc: Incenters concyclic iff excenters concyclic
 source: India TST 2015/1
-tags: [2019-10, oly, trivial, geo, pop]
+tags: [2019-10, oly, trivial, geo, pop, conditional]
 
 ---
 
@@ -9,9 +9,9 @@ Diagonals $\seg{AC}$ and $\seg{BD}$ of convex quadrilateral $ABCD$ meet at $P$. 
 ---
 
 The pith of this problem is this lemma:
-\begin{boxlemma*}
+\begin{lemma*}
     If $I$ and $I_A$ are the incenter and $A$-excenter of a triangle $ABC$, then $AB\cdot AC=AI\cdot AI_A$.
-\end{boxlemma*}
+\end{lemma*}
 \begin{proof}
     Since $\angle BAI=\angle I_AAC$ and $\angle ABI=\angle IBC=\da II_AC=\da AI_AC$, $\triangle ABI\sim\triangle AI_AC$ by AA, whence \[\frac{AB}{AI}=\frac{AI_A}{AC}\implies AB\cdot AC=AI\cdot AI_A,\]
     as requested.

@@ -16,13 +16,15 @@
 
 %%fakesection options
 \newif\ifcime\cimefalse
+\newif\ifcarml\carmlfalse
 \newif\iffigurewarn\figurewarnfalse
 \DeclareOption{cime}{\cimetrue}
+\DeclareOption{arml}{\carmltrue}
 \DeclareOption{figure}{\figurewarntrue}
 \ProcessOptions\relax
 
 \ifcime
-%%fakesection macros
+%%fakesection cime macros
     \newcommand\@theday{tbd}
     \newcommand\@themonth{tbd, tbd}
     \newcommand\@theyear{tbd}
@@ -45,7 +47,7 @@
     \newcommand\thecamoendday[1]{\renewcommand{\@thecamoendday}{#1}}
     \newcommand\thecamoenddate[1]{\renewcommand{\@thecamoenddate}{#1}}
 
-%%fakesection preamble
+%%fakesection cime preamble
     \usepackage[noformat,t1]{shen}
     \usepackage[condensed]{roboto}
     \usepackage[
@@ -107,7 +109,7 @@
     \newcommand{\cmcr}[1]{\colorstring[BrickRed,ForestGreen]{#1}}
     \newcommand{\cmcg}[1]{\colorstring[ForestGreen,BrickRed]{#1}}
 
-%%fakesection first page
+%%fakesection cime first page
     \AtBeginDocument{
         \title{\@theyear\ CIME \@thetest}
         \date{\@theday, \@themonth}
@@ -166,7 +168,7 @@
         }
     }
 
-%%fakesection last page
+%%fakesection cime last page
     \AtEndDocument{
         \newpage
 
@@ -205,4 +207,42 @@
             Nathan Xiong\\ Joseph Zhang\\
         \end{center}
     }
+\else\ifcarml
+    % use \documentclass[12pt]{scrartcl}
+    \usepackage[noformat]{shen}
+    \usepackage[left=1.2in,right=1.2in,top=1.2in,bottom=1.2in]{geometry}
+
+    \newcommand\@theyear{}
+    \newcommand\theyear[1]{\renewcommand\@theyear{#1}}
+    \newcounter{oddprob}
+    \newcounter{evenprob}
+    \setcounter{oddprob}{-1}
+    \setcounter{evenprob}0
+    \newcommand{\armlbox}{
+        \addtocounter{oddprob}2
+        \addtocounter{evenprob}2
+        \newpage
+        \begin{center}
+            \fontsize{16}{19.2} \selectfont
+            \@theyear\ CMC ARML Individual Questions \arabic{oddprob} and \arabic{evenprob}\\
+            (10 minutes)\\[4ex]
+            \begin{mdframed}[linewidth=1.0,leftmargin=1,
+                    rightmargin=1,outerlinecolor=blue,
+                skipbelow=\baselineskip]
+                \fontsize{14}{25} \selectfont
+                \begin{tabular}{@{}ll}
+                    Name: &\underline{\hspace{6cm}}\\
+                    Team: &\underline{\hspace{6cm}}\\
+                \end{tabular}
+                \vspace{0.5em}
+
+                \setlength\fboxrule{1.0pt}
+                Answer to I-\arabic{oddprob}: \fbox{\rule{1.2in}{0pt}\rule[-1.25ex]{0pt}{4ex}}\hfill Answer to I-\arabic{evenprob}: \fbox{\rule{1.2in}{0pt}\rule[-1.25ex]{0pt}{4ex}}\vspace{0.4em}
+            \end{mdframed}
+        \end{center}
+    }
+    %\pagenumbering{gobble}
+
+    \newlist{indiv}{enumerate}{3}
+    \setlist[indiv]{label=\textbf{I-\arabic*.},resume,topsep=3.5ex,itemsep=2ex}
 \fi

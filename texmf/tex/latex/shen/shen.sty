@@ -343,10 +343,11 @@
         \setkomafont{author}{\large\seriffont}
         \setkomafont{date}{\large\seriffont}
 
-        \@ifundefined{chapter}{}{
+        \@ifundefined{chapter}{
+            \addtokomafont{sectionentry}{\sffamily}
+        }{
             \addtokomafont{chapterentry}{\sffamily}
         }
-        \addtokomafont{sectionentry}{\sffamily}
     }
 \else
     \providecommand{\thetitle}{\@title}

@@ -18,8 +18,10 @@
 \newif\ifcime\cimefalse
 \newif\ifcarml\carmlfalse
 \newif\iffigurewarn\figurewarnfalse
+\newif\ifsolutions\solutionsfalse
 \DeclareOption{cime}{\cimetrue}
 \DeclareOption{arml}{\carmltrue}
+\DeclareOption{sol}{\solutionstrue}
 \DeclareOption{figure}{\figurewarntrue}
 \ProcessOptions\relax
 
@@ -207,6 +209,7 @@
             Nathan Xiong\\ Joseph Zhang\\
         \end{center}
     }
+%%fakesection arml
 \else\ifcarml
     % use \documentclass[12pt]{scrartcl}
     \usepackage[noformat]{shen}
@@ -245,4 +248,9 @@
 
     \newlist{indiv}{enumerate}{3}
     \setlist[indiv]{label=\textbf{I-\arabic*.},resume,topsep=3.5ex,itemsep=2ex}
-\fi
+\else\ifsolutions
+    \usepackage[default]{shen}
+    \author{Albert Wang, Allen Baranov, Andrew Wen, Ankan Bhattacharya, Anthony Wang, \\ Eric Shen, Elliott Liu, Federico Clerici, Joseph Zhang, Justin Lee, Kaiwen Li, \\ Kyle Lee, Luke Choi, Mason Fang, Minjae Kwon, Nathan Xiong, Preston Fu, \\ Raymond Feng, Rishabh Das, Sean Li, Tovi Wen, and Valentio Iverson}
+    \renewcommand\theauthor{Eric Shen}
+    \newenvironment{prob}{\color{Purple}\small}{\hrulebar}
+\fi\fi

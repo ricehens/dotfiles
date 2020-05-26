@@ -291,10 +291,10 @@
 \ifcolorsecstyle
     \hypersetup{
         colorlinks,
-        citecolor=astral,
-        filecolor=astral,
-        linkcolor=astral,
-        urlcolor=astral
+        citecolor=ForestGreen,
+        filecolor=RubineRed,
+        linkcolor=RoyalBlue,
+        urlcolor=RubineRed
     }
 
     \newcommand{\announcefont}{\bfseries
@@ -568,11 +568,11 @@
                 leftline=true,
                 topline=false,
                 bottomline=false,
-                linecolor=LimeGreen,
-                backgroundcolor=LimeGreen!5,
+                linecolor=Goldenrod,
+                backgroundcolor=Goldenrod!5,
             }
             \declaretheoremstyle[
-                headfont=\sffamily\bfseries\color{LimeGreen!70!black},
+                headfont=\sffamily\bfseries\color{Goldenrod!70!black},
                 bodyfont=\normalfont,
                 spaceabove=2pt,
                 spacebelow=1pt,
@@ -591,11 +591,11 @@
                 innertopmargin=4pt,
                 innerbottommargin=8pt,
                 %                nobreak=true,
-                backgroundcolor=LimeGreen!5,
-                linecolor=LimeGreen,
+                backgroundcolor=Goldenrod!5,
+                linecolor=Goldenrod,
             }
             \declaretheoremstyle[
-                headfont=\bfseries\color{LimeGreen!70!black},
+                headfont=\bfseries\color{Goldenrod!70!black},
                 mdframed={style=mdlimeborder},
                 headpunct={\\[3pt]},
                 postheadspace={0pt},
@@ -674,7 +674,7 @@
                 \innercustomboxprob
             }{\endinnercustomboxprob}
 
-            \declaretheorem[style=thmlimeborder,name=Solution]{innercustomsol}
+            \declaretheorem[style=thmlimeborder,name=Solution]{innercustomboxsol}
             \newenvironment{customboxsol}[1]{
                 \renewcommand\theinnercustomboxsol{#1}\innercustomboxsol
             }{\endinnercustomboxsol}

@@ -222,6 +222,10 @@
         \rule{0.95\linewidth}{.7pt}\hspace{\fill}
     \end{center}
 }
+\newenvironment{moral}{%
+    \begin{mdframed}[linecolor=green!70!black]%
+    \bfseries\color{green!70!black}}%
+{\end{mdframed}}
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\cis}{cis}
 \DeclareMathOperator{\ord}{ord}
@@ -348,6 +352,9 @@
         }{
             \addtokomafont{chapterentry}{\sffamily}
         }
+
+        \usepackage[tocindentauto]{tocstyle}
+        \usetocstyle{KOMAlike}
     }
 \else
     \providecommand{\thetitle}{\@title}
@@ -970,6 +977,10 @@
 \ifdocisbeamer\AtBeginDocument{
         \renewenvironment{theorem}[1][]{
             \ifthenelse{\isempty{#1}}{\begin{block}{Theorem}}{\begin{block}{Theorem (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
+        }
+        \newenvironment{proposition}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{block}{Proposition}}{\begin{block}{Proposition (#1)}}
             }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
         }
         \renewenvironment{problem}[1][]{

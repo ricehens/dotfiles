@@ -1,0 +1,54 @@
+%%
+% Does not work with KOMA
+% Instead use \documentclass[11pt,a4paper]{article}
+%%
+\ProvidesPackage{cornell}
+
+\PassOptionsToPackage{inline}{enumitem}
+\usepackage[noformat]{shen}
+\date{\today}
+
+%%fakesection GEOMETRY
+\usepackage{geometry}
+\newgeometry{left=6cm,right=2cm,top=2.5cm,bottom=2cm} 
+
+%%fakesection SECTION MODIFICATION
+\usepackage{titlesec}
+\titleformat{\subsection}[leftmargin]
+  {\normalfont\sffamily\bfseries\filright}
+  {\thesubsection}
+  {1em}
+  {}
+\titlespacing*{\subsection}
+  {3.5cm}
+  {2ex plus .2ex minus .2ex}
+  {1em}% should be 0, but it must be positive
+
+\titleformat{\section}[leftmargin]
+  {\normalfont\sffamily\bfseries\filright}
+  {\thesection}
+  {1em}
+  {\color{blue}}
+\titlespacing*{\section}
+  {3.5cm}
+  {2ex plus .2ex minus .2ex}
+  {1em}% should be 0, but it must be positive
+
+\setcounter{secnumdepth}0
+%%fakesection FANCY HEADER
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\footnotesize\textbf{\@title}}
+\rhead{\footnotesize\textbf{\@author} (\@date)}
+
+\setlength{\headsep}{10pt}
+\setlength{\headheight}{13.6pt}
+
+%\fancyheadoffset[leh,roh]{\marginparsep}
+\fancyheadoffset[loh,reh]{4cm}
+\fancyfootoffset[loh,reh]{4cm}
+
+%%fakesection ITEMIZE
+\setlist[enumerate]{topsep=0em,itemsep=0em,first=\vspace{-\baselineskip}}
+\setlist[itemize]{topsep=0em,itemsep=0em}
+

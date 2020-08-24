@@ -19,10 +19,12 @@
 \newif\ifcarml\carmlfalse
 \newif\iffigurewarn\figurewarnfalse
 \newif\ifsolutions\solutionsfalse
+\newif\ifcmcwatermark\cmcwatermarkfalse
 \DeclareOption{cime}{\cimetrue}
 \DeclareOption{arml}{\carmltrue}
 \DeclareOption{sol}{\solutionstrue}
 \DeclareOption{figure}{\figurewarntrue}
+\DeclareOption{draft}{\cmcwatermarktrue}
 \ProcessOptions\relax
 
 \ifcime
@@ -248,9 +250,20 @@
 
     \newlist{indiv}{enumerate}{3}
     \setlist[indiv]{label=\textbf{I-\arabic*.},resume,topsep=3.5ex,itemsep=2ex}
+%%fakesection solutions
 \else\ifsolutions
     \usepackage[default]{shen}
     \author{Albert Wang, Allen Baranov, Andrew Wen, Ankan Bhattacharya, Anthony Wang, \\ Eric Shen, Elliott Liu, Federico Clerici, Joseph Zhang, Justin Lee, Kaiwen Li, \\ Kyle Lee, Luke Choi, Mason Fang, Minjae Kwon, Nathan Xiong, Preston Fu, \\ Raymond Feng, Rishabh Das, Sean Li, Tovi Wen, and Valentio Iverson}
     \renewcommand\theauthor{Eric Shen}
     \newenvironment{prob}{\color{Purple}\small}{\hrulebar}
 \fi\fi
+
+%%fakesection watermark
+\ifcmcwatermark
+    \usepackage{draftwatermark}
+    \SetWatermarkAngle{32}
+    \SetWatermarkLightness{0.90}
+    \SetWatermarkFontSize{32pt}
+    \SetWatermarkScale{2.718}
+    \SetWatermarkText{\shortstack{CONFIDENTIAL\\ Internal Use}}
+\fi

@@ -4,7 +4,20 @@
 %%
 \ProvidesPackage{cornell}
 
+\newif\ifcornellsansseriffontused\cornellsansseriffontusedfalse
+\newif\ifroyenumerate\royenumeratefalse
+
+\DeclareOption{sans}{\cornellsansseriffontusedtrue}
+\DeclareOption{roy}{\royenumeratetrue}
+
+\ProcessOptions\relax
+
+%%%%%%%%
+
 \PassOptionsToPackage{inline}{enumitem}
+\ifcornellsansseriffontused
+    \PassOptionsToPackage{sans}{shen}
+\fi
 \usepackage[noformat]{shen}
 \date{\today}
 
@@ -49,6 +62,8 @@
 \fancyfootoffset[loh,reh]{4cm}
 
 %%fakesection ITEMIZE
-\setlist[enumerate]{topsep=0em,itemsep=0em,first=\vspace{-\baselineskip}}
+\ifroyenumerate\setlist[enumerate]{topsep=0em,itemsep=0em,first=\vspace{-\baselineskip}}
+\else\setlist[enumerate]{topsep=0em,itemsep=0em}
+\fi
 \setlist[itemize]{topsep=0em,itemsep=0em}
 

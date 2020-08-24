@@ -37,6 +37,8 @@
 \newif\ifasyenabled\asyenabledtrue
 \newif\ifrollingboxprob\rollingboxprobfalse
 \newif\ifdocisbeamer\docisbeamerfalse
+\newif\ifdiagramsenabled\diagramsenabledfalse
+\newif\ifchineseenabled\chineseenabledfalse
 
 \newif\ifvonstyexists
 \IfFileExists{von.sty}{\vonstyexiststrue}{\vonstyexistsfalse}
@@ -136,9 +138,15 @@
     \rollingboxprobtrue
 }
 
+% TikZ commutative diagrams
+\DeclareOption{diagrams}{\diagramsenabledtrue}
+
 % Evan's ``von'' problem manager
 \DeclareOption{von}{\vonenabledtrue}
 \DeclareOption{vonbrave}{\vonenabledtrue\vonbravetrue}
+
+% Chinese, Japanese, Korean font family
+\DeclareOption{chinese}{\chineseenabledtrue}
 
 \ProcessOptions\relax
 
@@ -150,7 +158,12 @@
 \PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
 \usepackage{xcolor}
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+\ifteeonefontencoding
+    \usepackage[T1]{fontenc}
+\else
+    \usepackage{textcomp} % Text fonts
+\fi
+\usepackage[utf8]{inputenc} % Load after T1 if applicable
 \usepackage[english]{babel}
 \usepackage{mathdots} % Fancy dots
 \usepackage[final]{pdfpages} % Inserting PDF's
@@ -164,12 +177,10 @@
 \usepackage{epigraph} % Quotes!
 \usepackage{hyperref} % Referrences
 \usepackage{mathrsfs} % Math fonts
-\ifteeonefontencoding
-    \usepackage[T1]{fontenc}
-\else
-    \usepackage{textcomp} % Text fonts
-\fi
 \usepackage{xparse} % Parsing fancy headers and von
+\ifdiagramsenabled
+    \usepackage{tikz-cd}
+\fi
 
 %%fakesection BASIC FORMATTING
 % Colorful text
@@ -231,6 +242,12 @@
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\pow}{Pow}
 \DeclareMathOperator{\rad}{rad}
+\DeclareMathOperator{\GL}{GL} 
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\pr}{Pr}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\img}{im}
 
 % \wideparen for good-looking arc symbols
 \DeclareFontFamily{OMX}{yhex}{}
@@ -641,6 +658,8 @@
             \declaretheorem[style=thmbluebox,numbered=no,name=Corollary]{corollary*}
             \declaretheorem[style=thmbluebox,sibling=theorem,name=Proposition]{proposition}
             \declaretheorem[style=thmbluebox,numbered=no,name=Proposition]{proposition*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=Conjecture]{conjecture}
+            \declaretheorem[style=thmbluebox,numbered=no,name=Conjecture]{conjecture*}
             \declaretheorem[style=thminlinebluebox,numbered=no,name=\$]{shell}
             \declaretheorem[style=thmbluebox,sibling=theorem,name=Algorithm]{algorithm}
             \declaretheorem[style=thmbluebox,numbered=no,name=Algorithm]{algorithm*}
@@ -665,7 +684,7 @@
             \declaretheorem[style=thminlineorangebox,numbered=no,name=Claim]{claim*}
             \declaretheorem[style=thmblackbox,numbered=no,name=Remark]{remark}
             \declaretheorem[style=thmblackbox,numbered=no,name=Note]{note}
-            \declaretheorem[style=thmblackbox,numbered=no,name=Fact]{fact}
+            \declaretheorem[style=thmblackbox,sibling=theorem,name=Fact]{fact}
             \declaretheorem[style=thmpurplebox,sibling=theorem,name=Definition]{definition}
             \declaretheorem[style=thmpurplebox,numbered=no,name=Definition]{definition*}
 
@@ -789,6 +808,7 @@
 
     \theoremstyle{definition}
     \newtheorem{exercise}[theorem]{Exercise}
+    \newtheorem{question}[theorem]{Question}
     \newtheorem*{exercise*}{Exercise}
     \newtheorem{challenge}[theorem]{Challenge}
     \newtheorem*{challenge*}{Challenge}
@@ -983,6 +1003,10 @@
             \ifthenelse{\isempty{#1}}{\begin{block}{Proposition}}{\begin{block}{Proposition (#1)}}
             }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
         }
+        \newenvironment{conjecture}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{block}{Conjecture}}{\begin{block}{Conjecture (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
+        }
         \renewenvironment{problem}[1][]{
             \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
             }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
@@ -1011,6 +1035,24 @@
             }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} % vim alignment fix
         }
     }
+\fi
+
+%%fakesection CHINESE SUPPORT
+% By default, we will use songti
+% Use \cn to invoke kaiti (prettier ig)
+\ifchineseenabled
+    \usepackage{CJKutf8}
+
+    \newenvironment{gkai}{\begin{CJK}{UTF8}{gkai}}{\end{CJK}}
+    \newenvironment{gbsn}{\begin{CJK}{UTF8}{gbsn}}{\end{CJK}}
+    \newenvironment{min}{\begin{CJK}{UTF8}{min}}{\end{CJK}}
+    \newenvironment{mj}{\begin{CJK}{UTF8}{mj}}{\end{CJK}}
+    \newcommand{\cn}[1]{\begin{gkai}#1\end{gkai}}
+    \newcommand{\jp}[1]{\begin{min}#1\end{min}}
+    \newcommand{\ko}[1]{\begin{mj}#1\end{mj}}
+
+    \AtBeginDocument{\begin{CJK}{UTF8}{gbsn}}
+    \AtEndDocument{\end{CJK}}
 \fi
 
 %%fakesection DEFAULT VALUES

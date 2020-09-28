@@ -146,7 +146,7 @@
 \DeclareOption{vonbrave}{\vonenabledtrue\vonbravetrue}
 
 % Chinese, Japanese, Korean font family
-\DeclareOption{chinese}{\chineseenabledtrue}
+\DeclareOption{chinese}{\chineseenabledtrue\setlinespacingfalse}
 
 \ProcessOptions\relax
 
@@ -1042,6 +1042,7 @@
 % Use \cn to invoke kaiti (prettier ig)
 \ifchineseenabled
     \usepackage{CJKutf8}
+    \setlength{\parindent}{2em}
 
     \newenvironment{gkai}{\begin{CJK}{UTF8}{gkai}}{\end{CJK}}
     \newenvironment{gbsn}{\begin{CJK}{UTF8}{gbsn}}{\end{CJK}}

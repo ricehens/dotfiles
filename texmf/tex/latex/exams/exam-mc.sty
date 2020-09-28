@@ -13,8 +13,23 @@
 
 \ifmcsprint
     \makeatletter
-    \renewcommand{\author}[1]{\gdef\@author{\textsc{#1}}\rhead{#1}}
-    \renewcommand{\date}[1]{\gdef\@date{\textrm{#1}}}
+    %\renewcommand{\author}[1]{\gdef\@author{\textsc{#1}}\rhead{#1}}
+    %\renewcommand{\date}[1]{\gdef\@date{\textrm{#1}}}
+    \@ifundefined{KOMAClassName}{
+        \preauthor{\begin{center}
+                \large \lineskip 0.5em%
+                \begin{tabular}[t]{c}
+                \scshape}
+        \postauthor{\end{tabular}\par\end{center}}
+        \predate{\begin{center}\large}
+        \postdate{\par\end{center}}
+
+        \lhead{\footnotesize\textbf{\@title}}
+        \rhead{\footnotesize\textbf{\theauthor} (\thedate)}
+    }{
+        \setkomafont{author}{\large\scshape}
+        \setkomafont{date}{\large}
+    }
     \makeatother
 \else
     \rfoot{\textit{Time limit: 6 minutes per pair\\
@@ -130,7 +145,7 @@
 \makeatother
 
 \newcommand{\ansheader}{
-    \newgeometry{margin=1in,bottom=0.75in}
+    \newgeometry{margin=1in}
     \fancyhfoffset[E,O]{0pt}
     \rfoot{}
     \section*{Answer Key}

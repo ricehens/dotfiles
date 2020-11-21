@@ -1,5 +1,5 @@
 Here are some dotfiles (and other stuff) from my system. They are optimized for
-* Thinkpad T490 at 1080p
+* Thinkpad T490 at 1080p 
 * Arch Linux x86\_64
 * i3wm + i3blocks
 

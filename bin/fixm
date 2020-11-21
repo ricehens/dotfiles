@@ -44,6 +44,3 @@ done
 xrandr --output $screen --mode $resolution --scale $scale --$locat eDP-1 --set "Broadcast RGB" "$color"
 xrandr --auto
 i3-msg restart
-
-# Adjust brightness of external monitor
-# redshift -m randr:crtc=1 -P -O 5000 -b 0.7

@@ -8,3 +8,5 @@ To use fixm, use the command line arguments:
     -scr/--screen/-out/--output:	Name of monitor (xrandr --current), default DP-2
     -sca/--scale:			Dilation factor, default 1.8x1.8
     -res/--resolution/-mod/--mode:	Resolution of monitor, default 1920x1080
+Adjust brightness of external monitor without undermining redshift
+$ redshift -m randr:crtc=1 -P -O 5000 -b 0.7

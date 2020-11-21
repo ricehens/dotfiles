@@ -1,0 +1,34 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with $AB=340$, $BC=146$, and $CA=390$. If $M$ is a point on the interior of segment $BC$ such that the length $AM$ is an integer, then the average of all distinct possible values of $AM$ can be expressed in the form $\tfrac pq$, where $p$ and $q$ are relatively prime positive integers. Find $p+q$.
+\begin{center}
+    \begin{asy}
+        size(3.5cm); defaultpen(fontsize(10pt));
+        pair A,B,C,M;
+        A=dir(95);
+        B=dir(-117);
+        C=dir(-63);
+        M=(2B+3C)/5;
+
+        draw(A--B--C--A);
+        draw(A--M,dashed);
+        dot("$A$",A,N);
+        dot("$B$",B,SW);
+        dot("$C$",C,SE);
+        dot("$M$",M,NW);
+        label("$340$",A--B,W);
+        label("$390$",A--C,E);
+        label("$146$",B--C,S);
+    \end{asy}
+\end{center} 
+
+---
+
+Check that $390^2-340^2=50\cdot730=250\cdot146>146^2$, so $\angle ABC$ is obtuse. It follows that the set of possible values of $AM$ is $(340,390)$. Its integer elements average to $(340+390)/2=365$, and the requested sum is $365+1=366$.
+
+---
+
+366

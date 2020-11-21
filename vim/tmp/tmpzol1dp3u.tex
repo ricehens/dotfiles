@@ -1,0 +1,45 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n\ge2$ be an integer. Consider an $n\times n$ chessboard consisting of $n^2$ unit squares. A configuration of $n$ rooks on this board is \emph{peaceful} if every row and every column contains exactly one rook. Find the greatest positive integer $k$ such that, for each peaceful configuration of $n$ rooks, there is a $k\times k$ square which does not contain a rook on any of its $k^2$ unit squares.
+
+---
+
+The answer is $k=\left\lfloor\sqrt{n-1}\right\rfloor$. The proof contains two steps:
+
+\bigskip
+
+\textbf{Proof $k=\left\lfloor\sqrt{n-1}\right\rfloor$ works:} Let $n=k^2+a$. Assume without loss of generality the rook in the bottom row is not in the bottom $a\times a$ square, so the bottom $a\times a$ square contains at most $a-1$ rooks. If the bottom $a\times a$ square contains $a-i$ rooks, $i\ge1$, then the bottom-left $a\cdot k^2$ rectangle contains $i$ rooks, and so does the top-right $k^2\cdot a$ rectangle.
+
+Hence the top-left $k^2\times k^2$ square contains $k^2-i<k^2$ rooks. Split the $k^2\times k^2$ grid into $k^2$ smaller $k\times k$ grids; by Pigeonhole, one of these $k\times k$ grid contains no rook.
+
+\bigskip
+
+\textbf{Proof $k^2\ge n$ fail:} We will construct a $n\times n$ grid where every $k\times k$ square contains a rook.
+
+Construct a $k^2\times k^2$ grid as follows: give the $k\times k$ squares coordinates $(I,J)$, and also impose a similar coordinate system within each $k\times k$ square. In the $k\times k$ square with coordinates $(I,J)$, place a rook in the cell with coordinates $(J,I)$.
+
+An example for $k=3$ is shown below.
+Evidently the configuration is peaceful, and each $k\times k$ square contains at least one rook:
+\[
+    \left[
+        \begin{array}{ccc|ccc|ccc}
+            1&0&0&0&0&0&0&0&0\\
+            0&0&0&1&0&0&0&0&0\\
+            0&0&0&0&0&0&1&0&0\\
+            \hline
+            0&1&0&0&0&0&0&0&0\\
+            0&0&0&0&1&0&0&0&0\\
+            0&0&0&0&0&0&0&1&0\\
+            \hline
+            0&0&1&0&0&0&0&0&0\\
+            0&0&0&0&0&1&0&0&0\\
+            0&0&0&0&0&0&0&0&1
+        \end{array}
+    \right]
+\]
+Now take the upper-left $n\times n$ square. Ignore all rooks in the bottom $(k^2-n)\times(k^2-n)$ square; evidently the number of rooks in the $(k^2-n)\times n$ rectangle below the $n\times n$ square is equal to the number of rooks in the $n\times(k^2-n)$ rectangle to the right of the $n\times n$ square.
+
+Pair them up, and for each pair of rooks, where the one below the $n\times n$ square has vertical coordinate $J$ and the one to the right of the $n\times n$ square has horizontal coordinate $I$, instead place a rook in the square in $(I,J)$. This configuration is also peaceful, so the construction is complete.

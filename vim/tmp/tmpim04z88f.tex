@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Prove that for every positive integer $k\le2010$, there is a permutation $(a_1,a_2,\ldots,a_{2010})$ of $(1,2,\ldots,2010)$ such that \[a_1a_2+a_2a_3+a_3a_4+\cdots+a_{2009}a_{2010}+a_{2010}a_1\equiv k\pmod{2011}.\]
+
+---
+
+Replace $2011$ with $p$, any $3\pmod4$ prime. Let $L$ be the left-hand expression.
+\begin{itemize}
+    \item For all $t\not\equiv0$, take $a_i=ti^{-1}$. This gives\[L\equiv t^2\left[\frac1{p-1}+\sum_{x=1}^{p-1}\frac1{x(x+1)}\right]\equiv t^2\left[\frac1{p-1}+\sum_{x=1}^{p-1}\left(\frac1x-\frac1{x+1}\right)\right]\equiv t^2\pmod p.\]
+
+    \item For all $t\not\equiv0$, take $a_i=ti$. This gives\[L\equiv t^2\left[p-1+\sum_{x=1}^{p-1}x(x+1)\right]\equiv t^2\left(-1+\sum_{x=1}^p x+\sum_{x=1}^p x^2\right)\equiv -t^2\pmod p\]for $p>3$.
+\end{itemize}
+Since $\left(\frac{-1}p\right)=-1$, all quadratic non-residues are covered by $-t^2$, so we are done.
+

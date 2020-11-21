@@ -1,0 +1,30 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Athena and Beus play a game with $N\ge2012$ coins and 2012 boxes arranged around a circle. Initially, Athena distributes the coins among the boxes so that there is at least one coin in each box. Then the two of them alternate turns making moves, with Beus going first, by the following rules:
+\begin{itemize}
+    \item On every move of his, Beus passes one coin from every box to an adjacent box.
+    \item On every move of hers, Athena chooses several coins that were not involved in Beus's previous move and are in different boxes. She passes every coin to an adjacent box.
+\end{itemize}
+Athena's goal is to ensure at least one coin in each box after every move of hers, regardless of how Beus plays and how many moves are made. Find the least $N$ that enables her to succeed.
+
+---
+
+Let $n=2012$. The answer is $2n-2=4022$ coins.
+
+\bigskip
+
+\textbf{Athena's strategy for $2n-2$:} Label the coins 1, 2, 3, \ldots, $n$. Say a configuration of $2n-2$ coins is \emph{good} if all boxes contain either one or two coins (hence exactly two boxes contain one one coin), and the two boxes with only one coin have labels of different parity.
+
+Start with a good configuration, and place a \emph{counterfeit coin} in each of the two boxes with only one coin. Beus never moves the counterfeit coins. Whenever Beus moves a coin from box $i$ to $i-1$, Athena moves the remaining coin in box $i$ (counterfeit or not) to $i+1$, and vice versa. Hence every box always contains two (real or counterfeit) coins.
+
+Now the boxes with the counterfeit coins always have labels of different parity, so the counterfeit coins are never in the same box. Thus if we ever remove the counterfeit coins, the configuration is still good.
+
+\bigskip
+
+\textbf{Beus's strategy for $2n-3$:} Designate one of the boxes to be the \emph{black hole}, and let $\delta$ be the sum of the distances of the coins to the black hole. On each of his moves, Beus moves every coin (that he can move) closer to the black hole. The coin in the black hole must move away from the black move by a distance of one, but every other coin moves closer by a distance of one, so $\delta$ decreases by $n-2$.
+
+On Alice's move, she can move at most $n-3$ coins (since she cannot move from boxes with one coin), so she can increase $\delta$ by at most $n-3$. Thus, Beus can ensure $\delta$ is strictly decreasing after every round, so Beus must win eventually.
+

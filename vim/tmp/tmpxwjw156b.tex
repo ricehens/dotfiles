@@ -1,0 +1,58 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $ABCDE$ be a convex pentagon such that $AB=BC=CD$, $\angle EAB=\angle BCD$, and $\angle EDC=\angle CBA$. Prove that the perpendicular line from $E$ to $\seg{BC}$ and the line segments $AC$ and $BD$ are concurrent.
+
+---
+
+\begin{center}
+\begin{asy}
+    size(6cm);
+    defaultpen(fontsize(10pt));
+    pair O,T,SS,U,R,V,A,B,C,D,EE,X,H,Y,Z;
+
+    O=(0,0);
+    T=dir(270);
+    SS=dir(225);
+    U=dir(350);
+    R=SS*T/U;
+    V=T*U/SS;
+    A=2*circumcenter(O,R,SS);
+    B=2*circumcenter(O,SS,T);
+    C=2*circumcenter(O,T,U);
+    D=2*circumcenter(O,U,V);
+    EE=2*circumcenter(O,V,R);
+    X=extension(A,C,B,D);
+    H=orthocenter(X,B,C);
+    Y=extension(A,EE,B,C);
+    Z=extension(D,EE,B,C);
+
+    draw(circumcircle(A,B,H),gray);
+    draw(circumcircle(D,C,H),gray);
+    draw(A--Y--B,gray);
+    draw(C--Z--D,gray);
+    draw(A--EE--D);
+    draw(C--A--B--C--D--B);
+    draw(EE--foot(EE,Y,Z),gray);
+
+    dot("$A$",A,NW);
+    dot("$B$",B,S);
+    dot("$C$",C,S);
+    dot("$D$",D,NE);
+    dot("$E$",EE,N);
+    dot("$X$",X,dir(110));
+    dot("$H$",H,dir(200));
+    dot("$Y$",Y,SW);
+    dot("$Z$",Z,SE);
+    dot(foot(EE,Y,Z));
+\end{asy}
+\end{center}
+Let $X=\seg{AC}\cap\seg{BD}$, $Y=\seg{AE}\cap\seg{BC}$, and $Z=\seg{DE}\cap\seg{BC}$. Also let $H$ denote the orthocenter of $\triangle XBC$. We will show that $E$, $H$, $X$ all lie on the perpendicular bisector of $\seg{YZ}$.
+
+First since $\da BHX=\da XCB=\da ACB=\da BAC=\da BAX$, quadrilateral $ABXH$ is cyclic, and similarly so is $DCXH$. By construction $\triangle YAB\cong\triangle ZCD$, and since $\seg{BH}\perp\seg{AC}$, $HA=HC$ and analogously $HB=HD$. Thus $HAYB\cong HCZD$ and consequently $HY=HZ$.
+
+Finally since $\angle EYZ=\angle YZE$, $EY=EZ$, and thus $\seg{EH}\perp\seg{YZ}$. By definition $\seg{HX}\perp\seg{YZ}$, so we are done.
+

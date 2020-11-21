@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ be a positive integer. Define a chameleon to be any sequence of $3n$ letters, with exactly $n$ occurrences of each of the letters $a$, $b$, $c$. Define a swap to be the transposition of two adjacent letters in a chameleon. Prove that for any chameleon $X$, there exists a chameleon $Y$ such that $X$ cannot be changed to $Y$ using fewer than $3n^2/2$ swaps.
+
+---
+
+Let $\opname{dist}(X,Y)$ be the bubble sort distance $X$ between $Y$. Define
+\[P=\underbrace{aa\cdots a}_n\underbrace{bb\cdots b}_n\underbrace{cc\cdots c}\quad\text{and}\quad Q=\underbrace{cc\cdots c}_n\underbrace{bb\cdots b}_n\underbrace{aa\cdots a}.\]
+Since $P\longleftrightarrow Q$ has $3n^2$ inversions, $\opname{dist}(P,Q)=3n^2$.
+
+Then let $X$ be any chameleon. We have
+\[3n^2=\opname{dist}(P,Q)\ge\opname{dist}(P,X)+\opname{dist}(Q,X),\]
+so at least one of $\opname{dist}(P,X)$, $\opname{dist}(Q,X)$ is at least $3n^2/2$, as needed.
+

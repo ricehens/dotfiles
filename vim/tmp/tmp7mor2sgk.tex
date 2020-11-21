@@ -1,0 +1,32 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
+        pen pri=deepgreen+linewidth(0.5);
+        pen fil=green+opacity(0.05);
+        pen sfil=springgreen+opacity(0.05);
+        pair O, A, B, C, D, P, M;
+        O=(0, 0);
+        A=dir(21);
+        B=dir(90.01);
+        C=dir(69);
+        D=dir(138);
+        M=(C+D)/2;
+        P=extension(A, B, C, D);
+        filldraw(circle(O, 1), fil, pri);
+        draw(A -- B, pri); draw(C -- D, pri);
+        filldraw(circumcircle(O, P, M), sfil, pri);
+        draw(O -- M, pri);
+        dot("$O$", O, unit(O-P));
+        dot("$P$", P, unit(O-P));
+        dot("$M$", M, unit(M-(O+P)/2));
+        dot("$B$", C, C);
+        dot("$A$", D, D);
+    \end{asy}
+\end{center}
+Let $O$ be the center of $\omega$, and denote by $\Gamma$ the circle with diameter $\seg{OP}$. Let $\seg{AB}$ be any chord of $\omega$ passing through $P$ and let $M$ be the midpoint of $\seg{AB}$. Then, since $\seg{OM}\perp\seg{AB}$, $\angle OMP=90^\circ$, so by Thales's Theorem, $M$ lies on $\Gamma$, and we are done. 

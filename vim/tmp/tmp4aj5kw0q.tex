@@ -1,0 +1,41 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Suppose $a_1$, $\ldots$, $a_n$ are integers and $\zeta_1$, $\ldots$, $\zeta_n$ are roots of unity. Let $\alpha=a_1\zeta_1+\cdots+a_n\zeta_n$. Prove that if $|\alpha|=1$ then $\alpha$ is a root of unity.
+
+---
+
+Take $\zeta$ such that $\zeta_1$, $\ldots$, $\zeta_n$ are all powers of $\zeta$, and suppose $\zeta$ is a primitive $N$th root of unity. Then $a=P(\zeta)$ for some polynomial $P$ with integer coefficients.
+
+Ultimately we want to use the following lemma:
+\begin{boxlemma*}[Kronecker]
+    Let $\alpha$ be an algebraic integer. If all its $\mathbb Q$-Galois conjugates have absolute value $1$, then $\alpha$ is a root of unity.
+\end{boxlemma*}
+\begin{proof}
+    Let $\alpha_1$, $\ldots$, $\alpha_n$ be the $n$ Galois conjugates. For integers $e$, define \[P_e(X):=(X-\alpha_1^e)\cdots(X-\alpha_n^e),\]
+    so $P_1(X)$ is the minimal polynomial of $\alpha$. Then the coefficients of each $P_e(X)$ are symmetric polynomials in $\alpha_i$, so $P_e(X)$ has integer coefficients for all $e$.
+
+    However the magnitude of the coefficient of $X^k$ in $P_e(X)$ is at most $\binom nk$ by the triangle inequality, so there are finitely many possible values of $P_e(X)$. Thus by Pigeonhole there must exist some integer polynomial $P$ with $P(X)=P_e(X)$ for infinitely many $e$.
+
+    Let $S$ be the set of roots of $P(X)$, so that $S=\{\alpha_1^e,\ldots,\alpha_n^e\}$ for all $e$. There are only finitely many permutations of these roots, so by Pigeonhole, there are $e$ and $f$ with $\alpha_i^e=\alpha_i^f$ for all $i$. This implies that $\alpha_i$ are roots of unity, as desired.
+\end{proof}
+\setcounter{iclaim}0
+\begin{iclaim}
+    All the Galois conjugates of $P(\zeta)$ are of the form $P(\zeta^i)$ for some $i\perp N$.
+\end{iclaim}
+\begin{proof}
+    Upon expansion, we have \[\prod_{i\perp N}\left(X-P(\zeta^i)\right)\in\mathbb Z[X]\]
+    since all the coefficients are symmetric polynomials in $\zeta^i$. The minimal polynomial of $P(\zeta)$ divides this polynomial, thus the claim has been proven.
+\end{proof}
+\begin{iclaim}
+    For $i\perp N$, we have $|P(\zeta^i)|=1$.
+\end{iclaim}
+\begin{proof}
+    Note that $\zeta$ is a root of \[Q(X)=X^N\left(|P(X)^2|-1\right)=X^N\big(P(X)P(1/X)-1\big),\]
+    which is a polynomial in $X$. Since the Galois conjugates of $\zeta$ are $\zeta^i$ for all $i\perp N$, these are also a subset of the roots of $Q$.
+\end{proof}
+
+Since $\zeta$ is an algebraic integer, so is $\alpha$. The two claims show that the Galois conjugates of $\alpha$ have magnitude $1$, so we are done by Kronecker.
+

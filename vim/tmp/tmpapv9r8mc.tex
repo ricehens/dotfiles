@@ -1,0 +1,36 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+The infinite sequence $a_0$, $a_1$, $\ldots$ of integers satisfies the relations $0\le a_n\le n$ and
+\[\binom n{a_0}+\binom n{a_1}+\cdots+\binom n{a_n}=2^n\]
+for every nonnegative integer $n$. Show that every nonnegative integer appears in the sequence.
+
+---
+
+The key is to describe all possible multisets $\{a_0,\ldots,a_n\}$. The following claim suffices to solve the problem:
+\begin{claim*}
+    The multiset $\{a_0,\ldots,a_n\}$ consists of the numbers
+    \[0,\;0,\;1,\;1,\;2,\;2,\;3,\;3,\;\ldots,\;i,\;n-i,\;i+1,\;n-(i+1),\;i+2,\;n-(i+2),\;\ldots\]
+\end{claim*}
+\begin{proof}
+    The proof is by induction on $n$, with base case trivial.
+
+    Assume the hypothesis for $n$. I claim the possible values for $a_{n+1}$ are $i$ and $(n+1)-i$. It will suffice to show
+    \[2^{n+1}=\binom{n+1}{a_0}+\binom{n+1}{a_1}+\cdots+\binom{n+1}{a_n}+\binom{n+1}i,\]
+    since $\binom{n+1}i=\binom{n+1}{(n+1)-i}$.
+
+    Indeed,
+    \begin{align*}
+        \sum_{i=0}^n\binom{n+1}{a_i}
+        &=\binom{n+1}0+\binom{n+1}0+\binom{n+1}1+\binom{n+1}1+\cdots\\
+        &\qquad+\binom{n+1}i+\binom{n+1}{n-i}+\binom{n+1}{i+1}+\binom{n+1}{n-(i+1)}+\cdots\\
+        &=\binom{n+1}0+\binom{n+1}{n+1}+\binom{n+1}1+\binom{n+1}n+\cdots\\
+        &\qquad+\binom{n+1}i+\binom{n+1}{n-i}+\binom{n+1}{i+1}+\binom{n+1}{n-(i+1)}+\cdots\\
+        &=\left[\sum_{i=0}^{n+1}\binom{n+1}i\right]-\binom{n+1}{(n+1)-i}
+        =2^{n+1}-\binom{n+1}i.
+    \end{align*}
+\end{proof}
+The proof is complete by observing the claim for all values of $n$.
+

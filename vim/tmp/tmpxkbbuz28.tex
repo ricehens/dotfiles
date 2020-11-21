@@ -1,0 +1,29 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $\star$ be a binary operation on a set $S$. Suppose that $\star$ is
+\begin{enumerate}[label=(\roman*),itemsep=0em]
+    \item associative, meaning $a\star(b\star c)=(a\star b)\star c$, and
+    \item totally non-commutative, meaning $a\star b\ne b\star a$ whenever $a\ne b$.
+\end{enumerate}
+Prove that $a\star(b\star c)=a\star c$ for any $a,b,c\in S$.
+
+---
+
+The second condition is better interpreted as follows: if $a\star b=b\star a$, then $a=b$.
+\begin{iclaim*}
+    We have $a\star a=a$ and $a\star b\star a=a$ for all $a,b\in S$.
+\end{iclaim*}
+\begin{proof}
+    These come from
+    \begin{itemize}[itemsep=0em]
+        \item $a\star(a\star a)=(a\star a)\star a$ and
+        \item $a\star(a\star b\star a)=a\star b\star a=(a\star b\star a)\star b$,
+    \end{itemize}
+    respectively.
+\end{proof}
+
+Finally $(a\star c)\star(a\star b\star c)=a\star b\star c=(a\star b\star c)\star(a\star c)$, and the conclusion follows.
+

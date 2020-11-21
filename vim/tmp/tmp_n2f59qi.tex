@@ -1,0 +1,52 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n\ge3$ be an integer. A sequence $P_1$, $P_2$, $\ldots$, $P_n$ of distinct points in the plane is called \emph{good} if no three of them are collinear, the polyline $P_1P_2\cdots P_n$ is non-self-intersecting and the triangle $P_iP_{i+1}P_{i+2}$ is oriented counterclockwise for every $i=1,2,\ldots,n-2$.
+
+For every positive integer $n\ge3$, determine the greatest possible integer $k$ with the following property: there exist $n$ distinct points $A_1$, $A_2$, $\ldots$, $A_n$ in the plane for which there are $k$ distinct permutations $\sigma:\{1,2,\ldots,n\}\to\{1,2,\ldots,n\}$ such that $A_{\sigma(1)}$, $A_{\sigma(2)}$, $\ldots$, $A_{\sigma(n)}$ is good.
+
+(A polyline $P_1P_2\cdots P_n$ consists of the segments $P_1P_2$, $P_2P_3$, $\ldots$, $P_{n-1}P_n$.)
+
+---
+
+Let $\mathcal H=\{H_1,\ldots,H_k\}$ be the convex hull, with the points $H_1$, $H_2$, $\ldots$, $H_k$ on $\mathcal H$ in counterclockwise order.
+\setcounter{iclaim}0
+\begin{iclaim}
+    No subsequence of the polyline is of the form $H_iQ_1\cdots Q_kH_j$, where $Q_1,\ldots,Q_k\notin\mathcal H$. In other words, we cannot leave the convex hull and return to it.
+\end{iclaim}
+\begin{proof}
+    Assume for contradiction otherwise. Then I claim we never reach $H_t$ for $t\notin\{i,i+1,\ldots,j\}$. By symmetry it suffices to show that we never reach $H_t$ after $H_j$.
+
+    Indeed, we are henceforth trapped in the region defined by segments $H_iQ_1$, $Q_1Q_2$, $\ldots$, $Q_kH_j$ and the rays $H_{i-1}H_i$, $H_{j+1}H_j$. The claim follows.
+\end{proof}
+
+Hence the path is of the form $A_iA_{i-1}\cdots A_1H_tH_{t+1}\cdots H_{t-1}B_1B_2\cdots B_j$. Let $\mathcal A=\{A_i,\ldots,A_1\}$, $\mathcal B=\{B_1,\ldots,B_j\}$.
+\begin{iclaim}
+    There is a line intersecting segment $H_tH_{t-1}$ that divides $\mathcal A$, $\mathcal B$.
+\end{iclaim}
+\begin{proof}
+    Note that $\mathcal A$ is always on one side of $\seg{H_tA_1}$ and $\mathcal B$ is always on one side of $\seg{H_{t-1}B_1}$. Hence any line between segments $H_tA_1$, $H_{t-1}B_1$ works.
+\end{proof}
+\begin{iclaim}
+    The choice of $t$, $\mathcal A$, $\mathcal B$ (where a line intersects $\seg{H_tH_{t-1}}$ and divides $\mathcal A$, $\mathcal B$) uniquely determines the polyline.
+\end{iclaim}
+\begin{proof}
+    For convenience let $A_0=H_t$. Then for $\ell\ge0$, it is easy to check line $A_\ellA_{\ell+1}$ splits the plane into two half-planes, one of which contains $A_\ell$, $A_{\ell+1}$, $\ldots$, $A_i$.
+
+    Hence $A_\ell$ uniquely determines $A_{\ell+1}$ for $\ell\ge0$, so $A_1$, $\ldots$, $A_i$ are determined. Similarly $B_1$, $\ldots$, $B_j$ are determined, as claimed.
+\end{proof}
+
+Let $\mathcal G$ be the set of points in the polyline not in $\mathcal H$, so $|\mathcal G|=n-k$. Let there be $v_t$ points on $\seg{H_tH_{t-1}}$ that lie on line $UV$ for some $U,V\in\mathcal G$. Say a $t$-\emph{partitioner} is a line through $\seg{H_tH_{t-1}}$ partitioning $\mathcal G$ into two sets (where $t$-partitioners are equivalent if they partition $\mathcal G$ into the same two sets). The goal is to compute the total number of partitioners.
+\begin{iclaim}
+    The number of $t$-partitioners is $n-k+1+v_t$.
+\end{iclaim}
+\begin{proof}
+    Situate a moving point $M$ on $\seg{H_tH_{t-1}}$ starting at $H_t$. Initially there are $n-k+1$ different partitioners through $M$. For each $U,V\in\mathcal G$ such that line $UV$ intersects $\seg{H_tH_{t-1}}$, note that as $M$ crosses $\seg{H_tH_{t-1}}\cap\seg{UV}$, one partition swaps $U$, $V$, so the number of partitioners is incremented.
+
+    There are $v_t$ such instances where the number of partitioners is incremented, so the number of $t$-partitioners is $n-k+1+v_t$, as claimed.
+\end{proof}
+
+Finally, the number of partitioners is \[\sum_{t=1}^k(n-k+1+v_t)=k(n-k+1)+2\binom{n-k}2.\]
+This is strictly decreasing, so it is maximized at $k=3$. The answer is $n^2-4n+6$.

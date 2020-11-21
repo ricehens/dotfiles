@@ -1,0 +1,76 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABCD$ be a circumscribed quadrilateral. Let $g$ be a line through $A$ which meets segment $BC$ at $M$ and line $CD$ at $N$. Denote by $I_1$, $I_2$, $I_3$ the incenters of $\triangle ABM$, $\triangle MNC$, $\triangle NDA$, respectively. Prove that the orthocenter of $\triangle I_1I_2I_3$ lies on $g$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(7cm); defaultpen(fontsize(10pt));
+
+        pair I,WW,X,Y,Z,A,B,C,D,M,NN,I1,I2,I3,H,EE;
+        I=(0,0);
+        WW=dir(100);
+        X=dir(170);
+        Y=dir(300);
+        Z=dir(30);
+        A=2*WW*X/(WW+X);
+        B=2*X*Y/(X+Y);
+        C=2*Y*Z/(Y+Z);
+        D=2*Z*WW/(Z+WW);
+        M=(2*B+7*C)/9;
+        NN=extension(A,M,C,D);
+        I1=incenter(A,B,M);
+        I2=incenter(M,NN,C);
+        I3=incenter(NN,D,A);
+        H=orthocenter(I1,I2,I3);
+        EE=extension(I1,I3,A,M);
+
+        draw(incircle(A,B,M),gray);
+        draw(incircle(M,NN,C),gray);
+        draw(incircle(NN,D,A),gray);
+        draw(C--reflect(I1,I3)*foot(I1,A,M));
+        draw(circumcircle(I1,I2,I3));
+        draw(unitcircle);
+        draw(A--B--C--D--A--NN--C);
+
+        dot("$A$",A,NW);
+        dot("$B$",B,S);
+        dot("$C$",C,dir(30));
+        dot("$D$",D,NE);
+        dot("$M$",M,S);
+        dot("$N$",NN,SE);
+        dot("$I_1$",I1,W);
+        dot("$I_2$",I2,SE);
+        dot("$I_3$",I3,N);
+        dot("$E$",EE,dir(240));
+    \end{asy}
+\end{center}
+Let $\omega$, $\omega_1$, $\omega_2$, $\omega_3$ be the incircles of $ABCD$, $\triangle ABM$, $\triangle MNC$, $\triangle NDA$ respectively.
+\setcounter{iclaim}0
+\begin{iclaim}
+    The other common internal tangent of $\omega_1$ and $\omega_3$ passes through $C$.
+\end{iclaim}
+\begin{proof}
+    Let the second tangent from $C$ to $\omega_1$ intersect $g$ at $E$. Then $ABCD$ and $ABCE$ are tangential, so by Pitot's theorem,
+    \begin{align*}
+        AB+CD&=BC+DA,\\
+        AB+CE&=BC+EA.
+    \end{align*}
+    Subtracting and rearranging, \[CD+EA=DA+CE,\]
+    so $ADCE$ is tangential, and $E$ is the insimilicenter of $\omega_1$, and $\omega_3$, as desired.
+\end{proof}
+\begin{iclaim}
+    $C$ lies on $(I_1I_2I_3)$.
+\end{iclaim}
+\begin{proof}
+    Note that \[\angle I_1I_2I_3=\angle I_2NM+\da NMI_2=\frac{\angle CNM+\angle NMC}2=\frac{\angle BCD}2,\]
+    and furthermore \[\angle I_1CI_2=\angle I_1CE+\ange ECI_3=\frac{\angle BCE+\angle ECD}2=\frac{\angle BCD}2,\]
+    as desired.
+\end{proof}
+
+Finally $g$ is the Steiner line of $C$ with respect to $\triangle I_1I_2I_3$, so the orthocenter of $\triangle I_1I_2I_3$ lies on $g$, and we are done.
+

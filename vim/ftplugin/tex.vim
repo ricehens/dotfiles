@@ -3,3 +3,4 @@
 
 " Enough of this quotation nonsense
 let g:Tex_SmartKeyQuote=0
+

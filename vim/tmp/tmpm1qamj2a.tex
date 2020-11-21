@@ -1,0 +1,29 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+The figure below shows a ring made of six small sections which you are to paint on a wall. You have four paint colors available and will paint each of the six sections a solid color. Find the number of ways you can choose to paint each of the six sections if no two adjacent section can be painted with the same color.
+\begin{center}
+    \begin{asy}
+        size(3cm);
+        draw(unitcircle);
+        draw(scale(0.6)*unitcircle);
+        for(int i = 0; i < 6; ++i){
+            draw(dir(60*i)--0.6*dir(60*i));
+        }
+    \end{asy}
+\end{center}
+
+---
+
+Let $a_n$ be the number of ways to color $n$ sections such that the first and last sections are not the same, and no two adjacent sections are the same. Clearly, $a_1=0,a_2=4\cdot 3=12$, and $a_n=2a_{n-1}+3a_{n-2}$, where the first addend is setting the penultimate as not the first color, and the second addend is setting the penultimate as the first color. Then,
+\begin{tabular}{c|c|c|c|c|c|c}
+    $n$ & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+    $a_n$ & 0 & 12 & 24 & 84 & 240 & 732
+\end{tabular}
+and $a_6=732$.
+
+---
+
+732

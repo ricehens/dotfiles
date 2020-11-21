@@ -1,0 +1,12 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+If $a$, $b$, $c$ are three positive real numbers such that $ab+bc+ca=1$, prove that \[\sqrt[3]{\frac1a+6b}+\sqrt[3]{\frac1b+6c}+\sqrt[3]{\frac1c+6a}\le\frac1{abc}.\]
+
+---
+
+By AM-GM, \[abc\le\left(\frac{ab+bc+ca}3\right)^{3/2}=3^{-3/2}\implies\frac3{\sqrt[3]{abc}}\le\frac1{abc}.\]
+By H\"older's inequality, \[\cycsum\sqrt[3]{\frac1a+6b}\le\left(\cycsum\frac1a\right)^{1/3}\left[\cycsum(6ab+1)\right]^{1/3}\left(\cycsum1\right)^{1/3}=\frac3{\sqrt[3]{abc}}\le\frac1{abc},\]
+where the equality is since $1/a+1/b+1/c=1/(abc)$.

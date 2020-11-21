@@ -1,0 +1,55 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+There is a grid of equilateral triangles with a distance $1$ between any two neighboring grid points. An equilateral triangle with side length $n$ lies on the grid so that all of its vertices are grid points, and all of its sides match the grid. Now, let us decompose this equilateral triangle into $n^2$ smaller triangles (not necessarily equilateral triangles) so that the vertices of all these smaller triangles are all grid points, and all these small triangles have equal areas. Prove that there are at least $n$ equilateral triangles among these smaller triangles.
+
+---
+
+Apply an affine homography sending the points to lattice points, so that the desired area is $1/2$. By Pick's theorem, the area of a triangle with $I$ interior points and $B$ boundary points is given by \[A=I+\frac B2-1\ge0+\frac32-1=\frac12;\]
+hence no triangles contain any points other than its vertices in its interior or on its boundary.
+
+Assume there is a diagonal of length greater than $\sqrt3$, and let the longest diagonal be $AC>\sqrt3$. Let $B$ and $D$ be the points whose projections onto $\seg{AC}$ lie on segment $AC$ such that $[ABC]=[ADC]=\sqrt3/4$. These are unique since no lattice points lie on $\seg{AC}$, and the locus of points $B$ and $D$ are two lines parallel to $\seg{AC}$.
+\begin{center}
+    \begin{asy}
+        size(7cm); defaultpen(fontsize(10pt));
+
+        pair A,B,C,D,Bp;
+        A=(1,0);
+        B=(2+1/2,1);
+        C=(3+1/2,1);
+        D=(2,0);
+        Bp=(0,0);
+
+        draw(B--Bp,purple+dashed);
+        filldraw(A--D--C--cycle,green+opacity(0.1),heavygreen);
+        filldraw(A--Bp--C--cycle,red+opacity(0.1),red);
+        filldraw(A--B--C--cycle,blue+opacity(0.1),blue);
+
+        for (real i = 0; i <= 3+1e-9; i += 1) {
+            for (real j = 0; j <= 1+1e-9; j += 1) {
+                dot( (i+j/2,j));
+            }
+        }
+
+        label("$A$",A,S);
+        label("$B$",B,NW);
+        label("$C$",C,NE);
+        label("$D$",D,SE);
+        label("$B'$",Bp,SW);
+    \end{asy}
+\end{center}
+\begin{iclaim*}
+    $\triangle ABC$ and $\triangle ADC$ are in the dissection.
+\end{iclaim*}
+\begin{proof}
+    All other points $B'$ on the same side of $\seg{AC}$ as $B$ for which the area of $\triangle AB'C$ is also $\sqrt3/4$ lie on the line through $B$ parallel to $\seg{AC}$. Without loss of generality $\angle CBB'$ is obtuse (otherwise take $\angle ABB'$), so $CB'>BB'\ge AC$ since no lattice points lie on $\seg{AC}$. This contradicts the assumption that $\seg{AC}$ is the longest diagonal.
+\end{proof}
+
+Now, perform this process until all diagonals have length at most $\sqrt3$: take the longest diagonal $\seg{AC}$, and replace $\triangle ABC$ and $\triangle ADC$ with $\triangle ABD$ and $\triangle BCD$. Since $AC>\sqrt3$, this generates no equilateral triangles, so the number of equilateral triangles is fixed, but the sum of the perimeters of all the triangles strictly decreases.\\
+
+Eventually, all triangles are either equilateral or have sides of length $1$, $1$, $\sqrt3$. Call the latter kind \emph{sharp triangles}. Note that sharp triangles come in pairs: If $\triangle ABC$ is a sharp triangle with base $\seg{AC}$, then the point $D$ such that $ABCD$ is a parallelogram has the property that $\triangle ACD$ is also in the decomposition. Call a composition $ABCD$ of two sharp triangles a \emph{long parallelogram}. We are left with tiling the equilateral triangle of side length $n$ with equilateral triangles and long parallelograms.
+
+Color the $n^2$ equilateral triangles in the triangular grid alternating colors black and white, with each vertex being black. Each long parallelogram covers exactly one black triangle and exactly one white triangle, but there are $n$ more black triangles than white triangles. Thus at least $n$ of the triangles in the decomposition are equilateral, and we are done.
+

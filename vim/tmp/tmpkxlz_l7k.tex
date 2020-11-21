@@ -1,0 +1,82 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with circumcircle $\omega$ and circumcenter $O$. Suppose that $AB=30$, $AC=28$, and $P$ is a point in the interior of $\triangle ABC$ such that $AP=13$, $BP^2=409$, and $P$ is closer to $\overline{AC}$ than $\overline{AB}$. Let $E$, $F$ be the points where $\overline{BP}$, $\overline{CP}$ intersect $\omega$ again, and let $Q$ be the intersection of $\overline{EF}$ and the tangent to $\omega$ at $A$. Given that $AQOP$ is cyclic and that $CP^2$ is expressible in the form $a-b\sqrt c$ for positive integers $a$, $b$, $c$ where $c$ is squarefree, find $a+b+c$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(7cm); defaultpen(fontsize(10pt));
+
+        pair O,A,B,C,Pp,P,EE,F,Q,D,X,Y,Z,Xp,Ap;
+        O=(0,0);
+        A=dir(110);
+        B=dir(210);
+        C=dir(330);
+        real t=37;
+        Pp=extension(B,B+rotate(-t)*(B-A),C,C+rotate(t)*(C-A));
+        P=(A+Pp)/2;
+        EE=2*foot(O,B,P)-B;
+        F=2*foot(O,C,P)-C;
+        Q=extension(EE,F,A,A+rotate(90)*(O-A));
+        D=2*foot(O,A,P)-A;
+        X=reflect(O,Q)*A;
+        Y=2*foot(O,B,Pp)-B;
+        Z=2*foot(O,C,Pp)-C;
+        Xp=2*foot(O,P,X)-X;
+        Ap=-A;
+
+        draw(EE--B--Y,gray);
+        draw(F--C--Z,gray);
+        draw(F--Q,gray+dashed);
+        draw(X--Xp,gray+dashed);
+        draw(A--Xp--Ap,gray+Dotted);
+        draw(circle(O,1));
+        draw(A--B--C--A);
+        draw(circumcircle(A,P,Q),dashed);
+        draw(D--A--Q);
+
+        dot("$O$",O,S);
+        dot("$A$",A,NW);
+        dot("$B$",B,B);
+        dot("$C$",C,C);
+        dot("$P'$",Pp,dir(-60));
+        dot("$P$",P,dir(195));
+        dot("$E$",EE,dir(-75));
+        dot("$F$",F,F);
+        dot("$Q$",Q,N);
+        dot("$D$",D,D);
+        dot("$X$",X,E);
+        dot("$Y$",Y,N);
+        dot("$Z$",Z,W);
+        dot("$X'$",Xp,Xp);
+        dot("$A'$",Ap,Ap);
+    \end{asy}
+\end{center}
+Let $P'$ be the reflection of $A$ over $P$, and let $(APOQ)$ intersect $\omega$ again at $X$. Also let $\seg{AP}$, $\seg{BP'}$, $\seg{CP'}$, $\seg{XP}$ intersect $\omega$ again at $D$, $Y$, $Z$, $X'$. Finally let $A'$ be the antipode of $A$ on $\omega$.
+
+The key claim is this:
+\begin{iclaim*}
+    $\angle ABP'=\angle ACP'$.
+\end{iclaim*}
+\begin{proof}
+    It will suffice to prove that $AYA'Z$ is a kite, i.e.\ $-1=(AA';YZ)$.
+
+    Several observations to note:
+    \begin{itemize}[itemsep=0em]
+        \item $\angle OXQ=\angle OAQ=90\dg$, so $\seg{QX}$ is also tangent to $(ABC)$.
+        \item Since $OA=OX$, we have $\da OPD=\da OPA=\da XPO$, thus $PD=PX$.
+        \item Since $PD=PX$, we have $PX'=PA=PP'$, so $\angle AXP'=90\dg$ and $X'$, $P'$, $A'$ collinear.
+    \end{itemize}
+    From this, we have \[-1=(AX;EF)\stackrel P=(DX';BC)\stackrel{P'}=(AA';YZ),\]
+    as claimed.
+\end{proof}
+
+The rest is routine computation: in fact $\angle ACP'=\angle ABP'=60\dg$ by median formula and Law of Cosines, and so $CP=365-28\sqrt{22}$, and the requested sum is $365+28+22=415$.
+
+---
+
+415

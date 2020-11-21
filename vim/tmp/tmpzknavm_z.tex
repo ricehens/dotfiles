@@ -1,0 +1,11 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Sir Alex is coaching a soccer team of $n$ players of distinct heights. He wants to line them up so that for each player $P$, the total number of players that are either to the left of $P$ and taller than $P$ or to the right of $P$ and shorter than $P$ is even. In terms of $n$, how many possible orders are there?
+
+---
+
+The answer is $\lfloor n/2\rfloor!\cdot\lceil n/2\rceil!$. Label the players $1$, $2$, $\ldots$, $n$ in order of height. It is necessary and sufficient for the position of player $a$ to be congruent to $a\pmod2$. Therefore the odds are permuted and the evens are permuted.
+

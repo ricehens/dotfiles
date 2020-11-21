@@ -1,7 +1,8 @@
 To use xrandr
-	LIST MONITORS:	xrandr --current
-	SET MONITORS:	xrandr --output DP-2 --mode 1920x1080 --scale 1.8x1.8 --below eDP-1
-	FIX MONITORS:	xrandr --auto
+    LIST MONITORS:	xrandr --current
+    SET MONITORS:	xrandr --output DP-1 --mode 1920x1080 --scale 1.8x1.8 --right-of eDP-1
+    FIX MONITORS:	xrandr --auto
+    ROTATE MONITOR: xrandr --output DP-1 --rotate <left|normal>
 To use fixm, use the command line arguments:
     -loc/--location:			left-of, right-of, below, above, default right-of
     -scr/--screen/-out/--output:	Name of monitor (xrandr --current), default DP-2

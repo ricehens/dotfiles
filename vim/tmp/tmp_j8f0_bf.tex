@@ -1,0 +1,29 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For any positive integer $k$, denote the sum of digits of $k$ in its decimal representation by $S(k)$. Find all polynomials $P(x)$ with integer coefficients such that for any positive integer $n\ge2016$, the integer $P(n)$ is positive and
+\[S(P(n))=P(S(n)).\]
+
+---
+
+The answers are $P\equiv c$ for $c\in\{0,1,\ldots,9\}$ and $P(n)\equiv n$. Let
+\[P(n)=a_0+a_1\cdot n+a_2\cdot n^2+\cdots.\]
+\begin{claim*}
+    All of $P$'s coefficients are nonnegative.
+\end{claim*}
+\begin{proof}
+    Observe that $S(P(10^k))=P(S(10^k))=P(1)$, which is fixed. But if any of $P$'s coefficients is negative, then by taking $k$ large, the decimal representation of $P(10^k)$ will have an $k-O(1)$ number of 9's.
+\end{proof}
+
+Now plug in $n=9\cdot10^k$ for large $k$ to obtain
+\[\sum_{i\ge0}a_i\cdot9^i=P(9)=P(S(9\cdot10^k))=S(P(9\cdot10^k))=\sum_{i\ge0}S(a_i\cdot 9^i).\]
+(The key is that the factor of $10^k$ will pull the monomial terms far enough apart so that they don't affect each other.)
+
+Since $n\ge S(n)$, with equality if and only if $n\in\{0,\ldots,9\}$, we have $a_i\cdot9^i\in\{0,\ldots,9\}$.
+
+It can be seen that the only monomials $a_i\cdot n^i$ with $a_i\cdot9^i\in\{0,\ldots,9\}$ are constants in $\{0,\ldots,9\}$ and the identity $n$. We've reduced the set of possible solutions to $P\equiv c$ and $P(n)\equiv n+c$, with $c\in\{0,\ldots,9\}$.
+
+But $P(n)\equiv n+c$ does not work for $c>0$, say by taking $n=9999$.
+

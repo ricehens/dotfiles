@@ -1,0 +1,26 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A triangle is \emph{Pythagorean} if it is similar to a right triangle with integer side lengths. Find all integers $n\ge3$ for which it is possible to dissect a regular $n$-gon into Pythagorean triples.
+
+---
+
+The answer is $n=4$. To see this is possible, use two right triangles with sides $3$, $4$, $5$ to form a $3\times4$ rectangle, then stack this $4$ times along the direction of the side of length $3$ and $3$ times along the direction of the side of length $4$ to form a $12\times12$ square.
+
+We now show this is the only possible $n$. Call an angle $\theta$ \emph{sensible} if $\cos\theta$ and $\sin\theta$ are both rational. Thus all angles of a Pythagorean triangle are sensible.
+\begin{iclaim*}
+    If $\alpha$ and $\beta$ are sensible, then so is $\alpha+\beta$.
+\end{iclaim*}
+\begin{proof}
+    This is just by the addition formulas:
+    \begin{align*}
+        \cos(\alpha+\beta)&=\cos\alpha\cos\beta-\sin\alpha\sin\beta\in\mathbb Q,\\
+        \sin(\alpha+\beta)&=\sin\alpha\cos\beta+\cos\alpha\sin\beta\in\mathbb Q,
+    \end{align*}
+    as desired.
+\end{proof}
+
+If such a dissection exists, each angle of the $n$-gon is split into sensible angles, so each interior angle of the $n$-gon is sensible. It follows that $\tfrac{2\pi}n$ is sensible. By Niven's theorem, $\cos\tfrac{2\pi}n\in\mathbb Q$ implies $n\in\{3,4,6\}$, and only for $n=4$ is $\sin\tfrac{2\pi}n\in\mathbb Q$.
+

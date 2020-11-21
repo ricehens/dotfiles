@@ -1,0 +1,36 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Determine all pairs $(m,n)$ of distinct positive integers such that there exists a positive integer $s$ for which the number of divisors of $sm$ and of $sn$ are equal.
+
+---
+
+If $m$ divides $n$ or $n$ divides $m$, obviously no such $s$ exists. Otherwise, I claim the problem is true. To begin, set
+\begin{align*}
+    m&=z\cdot p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}\cdot q_1^{e_1'}q_2^{e_2'}\cdots q_k^{e_\ell'}\\
+    n&=z\cdot p_1^{f_1}p_2^{f_2}\cdots p_k^{f_k}\cdot q_1^{f_1'}q_2^{f_2'}\cdots q_k^{f_\ell'},
+\end{align*}
+so that $e_i<f_i$ and $e_i'>f_i'$ for all $i$. By our assumption, $k,\ell\ge1$. The extra term $z$ consists of all primes with the same exponent in $m$ and $n$, which we may ignore.
+
+The goal is to find positive integers $x_1$, $x_2$, \ldots, $x_k$, $y_1$, $y_2$, \ldots, $y_\ell$ such that
+\[\prod_{i=1}^k\frac{e_i+x_i}{f_i+x_i}\cdot\prod_{i=1}^\ell\frac{e_i'+y_i}{f_i'+y_i}=1.\]
+Then take
+\[s=p_1^{x_1-1}p_2^{x_2-1}\cdots p_k^{x_k-1}\cdot q_1^{y_1-1}q_2^{y_2-1}\cdots q_\ell^{y_\ell-1}\]
+to win.
+
+First, a claim:
+\begin{claim*}
+    For fixed $e<f$, for sufficiently large $T$ we can find a positive integer $x$ such that
+    \[\frac{e+x}{f+x}=\frac T{T+1}.\]
+\end{claim*}
+\begin{proof}
+    Just let $x=T(f-e)-e$, which is positive for large $T$.
+\end{proof}
+
+Now select large $T$, and let
+\[\frac{e_i+x_i}{f_i+x_i}=\frac{kT+i-1}{kT+i}\quad\text{and}\quad\frac{f_i'+y_i}{e_i'+y_i}=\frac{\ell T+i-1}{\ell T+i}\]
+for all $i$. Then the products telescope to
+\[\prod_{i=1}^k\frac{e_i+x_i}{f_i+x_i}\cdot\prod_{i=1}^\ell\frac{e_i'+y_i}{f_i'+y_i}=\frac{kT}{kT+k}\cdot\frac{\ell T+\ell}{\ell T}=1.\]
+

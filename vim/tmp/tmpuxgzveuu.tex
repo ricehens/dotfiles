@@ -1,0 +1,26 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+It suffices to focus on a single prime $p$. The given condition tells us that \[\nu_p(s_i-s_j)+\nu_p(t_i-t_j)\in\mathbb Z\quad\text{for all }i,j.\]
+\setcounter{iclaim}0
+\begin{iclaim}
+    For all $i$, $j$, $k$, we have $\nu_p(s_i-s_j)+\nu_p(t_i-t_k)\ge0$.
+\end{iclaim}
+\begin{proof}
+    Assume for contradiction otherwise. Note that \[\nu_p(s_i-s_j)<-\nu_p(t_i-t_k)\le\nu_p(s_i-s_k),\]
+    from which $\nu_p(s_j-s_k)=\nu_p(s_i-s_j)$. Similarly $\nu_p(t_j-t_k)=\nu_p(t_i-t_k)$. Summing, \[\nu_p(s_j-s_k)+\nu_p(t_j-t_k)=\nu_p(s_i-s_j)+\nu_p(t_i-t_k)<0,\]
+    contradiction.
+\end{proof}
+\begin{iclaim}
+    For all $i$, $j$, $k$, $l$, we have $\nu_p(s_i-s_j)+\nu_p(t_k-t_\ell)\ge0$.
+\end{iclaim}
+\begin{proof}
+    This proof is similar to that of Claim 1. Assume for contradiction otherwise. Note that \[\nu_p(s_i-s_j)<-\nu_p(t_k-t_\ell)\le\nu_p(s_i-s_k),\]
+    where the second inequality is by Claim 1. It follows that $\nu_p(s_i-s_k)=\nu_p(s_i-s_j)$. Similarly $\nu_p(t_i-t_k)=\nu_p(t_k-t_\ell)$, and summing, \[\nu_p(s_i-s_k)+\nu_p(t_i-t_k)=\nu_p(s_i-s_j)+\nu_p(t_k-t_\ell)<0,\]
+    contradiction.
+\end{proof}
+
+With these claims, it is clear that \[\min_{i,j}\nu_p(s_i-s_j)+\min_{i,j}\nu_p(t_i-t_j)\ge0,\]
+so it is possible to choose $\nu_p(r)$ so that $\nu_p(s_i-s_j)+\nu_p(r)\ge0$ and $\nu_p(t_i-t_j)-\nu_p(r)\ge0$ for all $i$, $j$. This completes the proof.

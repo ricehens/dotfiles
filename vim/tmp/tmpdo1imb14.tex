@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+The numbers $1,2,3,\ldots,1024$ are written on a blackboard. The following procedure is performed ten times: partition the numbers on the board into disjoint pairs, and replace each pair with its nonnegative difference. Determine all possible values of the final number.
+
+---
+
+The answer is all nonnegative evens less than $1024$. Note that after one move, the largest possible number on the board is $1023$, and thereafter, the largest number on the board is nondecreasing, so the last number does not exceed $1023$. Furthermore, the sum of the numbers on the board is invariant, so the last number must be even.
+
+Consider this construction: Partition the numbers into
+\begin{align*}
+    (1,2k+2)&,(2,3),(4,5),\ldots,(2k,2k+1),\\ &(2k+3,2k+4),\ldots,(1023,1024),
+\end{align*}
+thence the board now reads $2k+1,1,1,\ldots,1$. It is now obvious that after one move, the board becomes $2k,0,0,\ldots,0$, and the numbers eventually coalesce into $2k$, as desired.

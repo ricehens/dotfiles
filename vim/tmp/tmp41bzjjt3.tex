@@ -1,0 +1,45 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABCDE$ be a convex pentagon with $\angle ABC=\angle CDE=\angle DEA=90^\circ$ and $AB=15$, $CD=20$, $DE=60$, $EA=75$. There is a unique point $X$ on side $BC$ such that $\seg{EX}$ divides the pentagon $ABCDE$ into two quadrilaterals of equal area. Find $EX$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(6cm); defaultpen(fontsize(10pt));
+
+        pair EE,Y,Z,B,C,A,D,X;
+        EE=(0,100*75/125);
+        Y=(-100^2/125,0);
+        Z=(75^2/125,0);
+        B=Y+(20,0);
+        C=Z-(25,0);
+        A=extension(EE,Y,B,B+(0,1));
+        D=foot(C,EE,Z);
+        X=(Y+Z)/2;
+
+        draw(arc(X,length(EE-X),0,180),gray);
+        draw(A--Y--B);
+        draw(C--Z--D);
+        draw(EE--A--B--C--D--EE--X);
+
+        dot("$E$",EE,N);
+        dot("$A$",A,unit(EE-Z));
+        dot("$B$",B,S);
+        dot("$C$",C,S);
+        dot("$D$",D,dir(75));
+        dot("$X$",X,S);
+        dot("$Y$",Y,SW);
+        dot("$Z$",Z,SE);
+    \end{asy}
+\end{center}
+Let $Y=\seg{EA}\cap\seg{BC}$ and $Z=\seg{ED}\cap\seg{BC}$. We can determine (say, by solving some equations or plain wishful thinking) that $AY=25$, $BY=20$, $CZ=25$, $DZ=15$; that is, $\triangle ABY\cong\triangle CDZ$ and $YZ=125$.
+
+Since $\triangle ABY$ and $\triangle CDZ$ have equal area and $EABX$ and $EDCX$ have equal area, $\seg{EX}$ bisects the area of $\triangle EYZ$, thus $X$ is the midpoint of $\seg{YZ}$, and $EX$ is the circumradius, or $YZ/2=125/2$.
+
+---
+
+$125/2$

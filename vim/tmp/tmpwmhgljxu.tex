@@ -1,0 +1,46 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A \emph{disk} is the union of a circle's interior and its circumference. Determine the minimum number of unit disks needed to completely cover a disk of radius $2$.
+
+---
+
+The answer is $7$, achieved by the diagram below. The centers of the six outer unit disks are $\sqrt3$ away from the center of the disk of radius $2$, and they form a hexagon. It is not hard to check that this works.
+\begin{center}
+\begin{asy}
+    size(4cm); defaultpen(fontsize(10pt));
+    pen pri=blue;
+    pen sec=purple;
+    pen fil=cyan+opacity(0.05);
+    pen sfil=purple+opacity(0.05);
+
+    pair O,A,B,C,D,EE,F;
+    O=(0,0);
+    A=sqrt(3)*dir(0);
+    B=sqrt(3)*dir(60);
+    C=sqrt(3)*dir(120);
+    D=sqrt(3)*dir(180);
+    EE=sqrt(3)*dir(240);
+    F=sqrt(3)*dir(300);
+
+    filldraw(circle(O,2),sfil,sec);
+    filldraw(circle(O,1),fil,pri);
+    filldraw(circle(A,1),fil,pri);
+    filldraw(circle(B,1),fil,pri);
+    filldraw(circle(C,1),fil,pri);
+    filldraw(circle(D,1),fil,pri);
+    filldraw(circle(EE,1),fil,pri);
+    filldraw(circle(F,1),fil,pri);
+\end{asy}
+\end{center}
+We now prove six unit disks fail. Let the disk of radius $2$ be $\Gamma$ and have center $O$, and let $\omega$ be a unit disk. Assume $\Gamma$ and $\omega$ intersect at $A$ and $B$. Since $\seg{AB}$ is a chord of $\omega$, the maximum possible length $AB$ is $2$, so the maximum possible measure of $\angle AOB$ is $60\dg$.
+
+Thus six unit disks can cover at most $360\dg$ of $\Gamma$'s circumference, so equality must hold; that is, all unit disks intersect $\Gamma$ at two points forming an arc of measure $60\dg$, and adjacent unit disks intersect on the circumference of $\Gamma$.
+
+As seen in the diagram above, six unit disks positioned in such a manner cannot cover $\Gamma$, as desired.
+\begin{boxremark}
+    See \url{https://artofproblemsolving.com/community/c1068820h2028652p14288835}. This is also known as the ``Disk covering problem.''
+\end{boxremark}
+

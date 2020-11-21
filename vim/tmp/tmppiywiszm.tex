@@ -1,0 +1,24 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For sufficiently large $n$, prove that: for $n$ points in general position, at most $66.67\%$ of the triangles are acute.
+
+---
+
+The geometry is mostly irrelevant. The key is the following claim:
+\begin{claim*}
+    If for any $n$ points (in general position), at most $c$ triangles are acute, then for any $n+1$ points (in general position), at most $c\cdot\frac{n+1}{n-2}$ triangles are acute.
+\end{claim*}
+\begin{proof}
+    Select any point $v$ among the $n+1$ points. Then there are at most $c$ acute triangles not containing $v$. Summing over all $v$, we count each acute triangle $n-2$ times, so the number of acute triangles is at most $c\cdot\frac{n+1}{n-2}$.
+\end{proof}
+
+So if $c_n$ denotes the maximum number of acute triangles for any $n$ points in general position, then
+\[c_{n+1}\le\left\lfloor\frac{n+1}{n-2}\cdot c_n\right\rfloor.\]
+
+We can now verify via induction that
+\[c_n\le\frac23\binom n3+\frac13\left\lfloor\frac n3\right\rfloor,\]
+and the result follows.
+

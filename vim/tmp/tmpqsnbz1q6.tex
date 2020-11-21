@@ -1,0 +1,26 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a_1$, $a_2$, $\ldots$, $a_m$ be a finite sequence of positive integers. Prove that there exist nonnegative integers $b$, $c$, and $N$ such that \[\left\lfloor\sum_{i=1}^m\sqrt{n+a_i}\right\rfloor=\left\lfloor\sqrt{bn+c}\right\rfloor\]
+holds for all integers $n>N$.
+
+---
+
+Let $S=a_1+a_2+\cdots+a_m$. If $a_1=a_2=\cdots=a_m$, take $b=m^2$ and $c=mS$; henceforth assume that they are not all equal. We claim that taking $b=m^2$ and $c=mS-1$ is valid.
+
+For the upper bound, by Jensen's Inequality \[\sum_{i=1}^m\sqrt{n+a_i}<m\sqrt{n+\frac Sm}=\sqrt{bn+c+1}\le\left\lfloor\sqrt{bn+c}\right\rfloor+1,\]
+so we only need to prove that $\sum_{i=1}^m\sqrt{n+a_i}\ge\left\lfloor\sqrt{bn+c}\right\rfloor$.
+\begin{iclaim*}
+    For all $k<1/2$ and $x$, there is an $N$ such that for all $n>N$, we have $\sqrt{n+x}\ge\sqrt n+k\frac x{\sqrt n}$.
+\end{iclaim*}
+\begin{proof}
+Squaring both sides, we find that the inequality holds when\[\left(\sqrt n+\frac{kx}{\sqrt n}\right)^2\le\left(\sqrt{n+x}\right)^2\iff n+2kx+k^2\frac{x^2}n\le n+x\iff n\ge\frac{k^2x}{1-2k},\]
+    as desired.
+\end{proof}
+
+By the above argument, $\sqrt{n+x}\ge\sqrt n+\frac x{2\sqrt n}$ for all $n$ and $x$. Take some $k<1/2$ such that \[\frac{kS}{\sqrt n}\ge\frac{mS-1}{2m\sqrt n}\iff k\ge\frac12-\frac1{2mS}.\]
+We arrive at the conclusion that \[\sum_{i=1}^n\sqrt{n+a_i}\ge m\sqrt n+\frac{kS}{\sqrt n}\ge m\sqrt n+\frac{mS-1}{2m\sqrt n}\ge\sqrt{bn+c},\]
+which is sufficient.
+

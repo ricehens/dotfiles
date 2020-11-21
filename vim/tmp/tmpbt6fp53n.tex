@@ -1,0 +1,28 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n\ge2$ be a positive integer, and let $\sigma(n)$ denote the sum of the positive divisors of $n$. Prove that the $n^\text{th}$ smallest positive integer relatively prime to $n$ is at least $\sigma(n)$, and determine for which $n$ equality holds.
+
+---
+
+The answer is all prime powers $p^e$, where $p$ is prime and $e\ge1$. The key observation is that over any interval of $m$ positive integers, exactly $\vphi(m)$ of them are relatively prime to $m$.
+
+Say that $d_1$, $d_2$, $\ldots$, $d_k$ are the divisors of $n$, in any order, so that $\sigma(n)=d_1+\cdots+d_k$. Define $f(x,y)$ as the number of $k$ in $(x,x+y]$ relatively prime to $n$, and let $g(m)=f(0,m)$.
+\begin{iclaim*}
+    $g(\sigma(n))\le n$, with equality only if $n$ is a prime power.
+\end{iclaim*}
+\begin{proof}
+    Note that for all $x$, $f(x,d_i)\le\vphi(d_i)$, since any integer relatively prime to $n$ is relatively prime to $d_i$. Then,
+    \begin{align*}
+        g(\vphi(n))&=f(0,d_1)+f(d_1,d_2)+\cdots+f(d_1+\cdots+d_{k-1},d_k)\\
+        &\le\vphi(d_1)+\vphi(d_2)+\cdots+\vphi(d_k)=n
+    \end{align*}
+    since $\operatorname{id}=\vphi\star1$, where $(\star)$ denotes Dirichlet convolution.
+
+    Suppose $n$ is divisible by distinct primes $p<q$. Without loss of generality order the divisors of $n$ such that $d_1=q$. Then $f(0,q)<\vphi(q)$, since $f(0,q)$ does not include $p$, but $\vphi(q)$ does. Hence if $n$ is not a prime power, then $g(\sigma(n))<n$.
+\end{proof}
+
+Note that $g$ is nondecreasing, so the problem hypothesis is strict for all $n$ that are not prime powers. On the other hand, if $n=p^e$ for some $e$, then $\sigma(n)=1+p+\cdots+p^e$, and only multiples of $p$ are not relatively prime to $n$. The number of $t$ less than $n$ not relatively prime to $n$ is $\lfloor\sigma(n)/p\rfloor=\sigma(n)-n$, so $\sigma(n)$ is the $n^\text{th}$ smallest positive integer relatively prime to $n$, as desired.
+

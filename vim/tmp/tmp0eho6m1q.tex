@@ -1,0 +1,32 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Suppose $P$ is a polynomial with integer coefficients such that for every positive integer $n$, the sum of the decimal digits of $|P(n)|$ is not a Fibonacci number. Must $P$ be constant?
+
+(A \emph{Fibonacci number} is an element of the sequence $F_0,F_1,\ldots$ defined recursively by $F_0=0$, $F_1=1$, and $F_{k+2}=F_{k+1}+F_k$ for $k\ge 0$.)
+
+---
+
+The answer is yes.
+\setcounter{boxlemma}0
+\begin{boxlemma}
+    Fibonacci numbers are surjective modulo $9$.
+\end{boxlemma}
+\begin{proof}
+    Omitted.
+\end{proof}
+\begin{boxlemma}
+    Let $n$ be the degree of $P$. The exists a (cubic) polynomial $Q$ such that $P(Q(x))$ has $x^{3n-1}$ as its only negative coefficient.
+\end{boxlemma}
+\begin{proof}
+    The key is that $Q(x)=x^3+x+1$ \emph{almost} works for $P(x)=x^n$, except the $x^{3n-1}$ coefficient is $0$. Take large positive constants $C$ and $D$, and consider $$Q(x)=C(Dx^3-x^2+Dx+D).$$
+    With $C$ sufficiently big, only the $x^n$ term of $P$ matters, so $Q$ works.
+\end{proof}
+
+Now, for all sufficiently large $k$, consider $P(Q(10^k))$. The coefficients will all be isolated, besides the $x^{3n-1}$ term. As we increase $k$, we increase the decimal digit sum of $|P(Q(10^k))|$ by $9$, so there are a fixed $b$ and $c$ such that all numbers of the form $9a+b$ with $a\ge c$ are achievable.
+
+Since Fibonacci numbers are periodic, we are done by Lemma 1.
+

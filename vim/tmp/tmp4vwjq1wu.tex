@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $p>13$ be a prime of the form $2q+1$ where $q$ is prime. Find the number of ordered pairs of integers $(m,n)$ such that $0\le m<n<p-1$ and \[3^m+(-12)^m\equiv3^n+(-12)^n\pmod p.\]
+
+---
+
+The answer is $q-1$. Note that \[\left(\frac3p\right)\left(\frac{-12}p\right)=\left(\frac{-36}p\right)=\left(\frac{36}p\right)\left(\frac{-1}p\right)=-1,\]
+so exactly one of $3$ and $-12$ is a quadratic residue mod $p$. Furthermore if $g\in\{3,-12\}$ is a quadratic nonresidue, then $\ord_p(g)\mid2q$, $\ord_p(g)\nmid q$, and $\ord_p(g)\notin\{1,2\}$, so $\ord_p(g)=2q$, and $g$ is a primitive root. Thus there is a $k$ such that $\{g,g^{2k}\}=\{3,12\}$.
+
+We want to count the number of $0\le m<n<p-1$ with \[g^m+g^{2km}\equiv g^n+g^{2kn}\pmod p.\]
+This is half the number of solutions to $0\le m,n<p-1$ with $m\ne n$. Since $g^m$ and $g^n$ achieve every nonzero residue mod $p$, we want to show the number of $1\le a,b\le p-1$ with \[a+a^{2k}\equiv b+b^{2k}\pmod p\]
+is exactly $2(q-1)=p-3$. This rewrites to \[-b^{1-2k}\equiv\frac{(a/b)^{2k}-1}{a/b-1}\pmod p,\]
+so every choice of $a/b$ determines a unique value of $-b^{1-2k}$ (since $1-2k$ is odd and thus invertible mod $2q$), which in turn determines $b$ and thus $a$. We cannot choose $a/b\in\{0,1,-1\}$, so there are $p-3$ such $(a,b)$, and we are done.

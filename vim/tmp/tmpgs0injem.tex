@@ -1,0 +1,44 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with $\angle BAC=90^\circ$, and let $X$ be the foot of the altitude from $A$. If $Y$ is the midpoint of $\seg{XC}$ and $D$ lies on line $AB$ such that $AB=BD$, show that $\seg{DX}$ and $\seg{AY}$ are perpendicular.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(6cm); defaultpen(fontsize(10pt));
+
+        pair A,B,C,X,Y,Z,D,SS;
+        A=dir(130);
+        B=(-1,0);
+        C=(1,0);
+        X=foot(A,B,C);
+        Y=(X+C)/2;
+        Z=2A-C;
+        D=2B-A;
+        SS=2B-C;
+
+        draw(A--B--C--cycle);
+        draw(circumcircle(A,X,D));
+        draw(Z--X--A--Z,gray);
+        draw(SS--B--D--X,gray);
+        draw(A--Y,gray);
+
+        dot("$A$",A,NE);
+        dot("$B$",B,NW);
+        dot("$C$",C,E);
+        dot("$X$",X,SE);
+        dot("$D$",D,SE);
+        dot("$S$",SS,SW);
+        dot("$Z$",Z,NW);
+        dot("$Y$",Y,S);
+    \end{asy}
+\end{center}
+Let $Z$ and $S$ be the reflections of $C$ over $A$ and $B$ respectively.
+
+Since $\angle ZAD=90^\circ$, $\overline{SZ}\parallel\overline{AB}$, and $SZ=2AB=AD$, $AZSD$ is a rectangle. Furthermore $\angle AXS=90^\circ$, so $X$ lies on the circumcircle of $AZSD$, thus $\angle ZXD=90^\circ$.
+
+However $\overline{AY}\parallel\overline{ZX}$, so $\overline{DX}\perp\overline{AY}$, as desired.

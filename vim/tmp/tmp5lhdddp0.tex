@@ -1,0 +1,20 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $q=\frac{3p-5}2$, where $p$ is an odd prime, and let \[S_q=\frac1{2\cdot3\cdot4}+\frac1{5\cdot6\cdot7}+\cdots+\frac1{q(q+1)(q+2)}.\]
+Prove that if $\frac1p-2S_q=\frac mn$ for integers $m$ and $n$, then $m-n$ is divisible by $p$.
+
+---
+
+Let $H_n=\sum_{k=1}^n1/k$. It is not hard to see that
+\begin{align*}
+    S_q&=\sum_{k=1}^{\frac12(p-1)}\frac1{3k(3k-1)(3k+1)}\\
+        &=\sum_{k=1}^{\frac12(p-1)}\left(\frac{1/2}{3k-1}-\frac1{3k}+\frac{1/2}{3k+1}\right)\\
+        &=\frac12\sum_{k=1}^{\frac12(p-1)}\left(\frac1{3k-1}+\frac1{3k}+\frac1{3k+1}\right)-\frac32\sum_{k=1}^{\frac12(p-1)}\frac1{3k}\\
+        &=\frac12\left(H_{\frac12(3p-1)}-H_{\frac12(p-1)}-1\right),
+\end{align*}
+whence \[\frac mn=\frac1p-2S_q=\frac1p-\left(H_{\frac12(3p-1)}-H_{\frac12(p-1)}-1\right)=1-\left(\sum_{k=\frac12(p+1)}^{\frac12(3p-1)}\frac1k\right)+\frac1p.\]
+Conveniently the $1/p$ cancels out, so taking everything modulo $p$, \[\frac mn\equiv 1-\sum_{k=1}^{p-1}\frac1k\equiv 1-\sum_{k=1}^{p-1}k\equiv 1\pmod p,\]
+i.e.\ $m-n\equiv 0\pmod p$, as desired.

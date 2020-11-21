@@ -1,0 +1,74 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Rectangle $ABCD$ is a golden rectangle, meaning that if we construct points $P_1$ and $P_2$ on $\overline{AB}$ and $\overline{CD}$, respectively, such that $AP_1P_2D$ is a square, then rectangles $ABCD$ and $P_2P_1BC$ are similar. In other words, $P_2P_1BC$ is also a golden rectangle. Continue this construction on rectangle $P_2P_1BC$: construct points $P_3$ and $P_4$ on $\overline{P_2P_1}$ and $\overline{BC}$, respectively, such that $P_2P_3P_4C$ is a square, so that $P_4P_3P_1B$ is also a golden rectangle. If this construction repeats infinitely, then there is one point $G$ inside all of these golden rectangles. What is $\tan\angle BAG$?
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
+        real iphi=(sqrt(5)-1)/2;
+
+        pair A, B, C, D, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, G;
+        A=(0, 0);
+        B=(1/iphi, 0);
+        C=(1/iphi, 1);
+        D=(0, 1);
+        P1=(1, 0);
+        P2=(1, 1);
+        P3=P2-(0, iphi);
+        P4=P3+(iphi, 0);
+        P5=P4-(iphi^2, 0);
+        P6=P5-(0, iphi^2);
+        P7=P6+(0, iphi^3);
+        P8=P7-(iphi^3, 0);
+        P9=P8+(iphi^4, 0);
+        P10=P9+(0, iphi^4);
+        P11=P10-(0, iphi^5);
+        P12=P11+(iphi^5, 0);
+        P13=P12-(iphi^6, 0);
+        P14=P13-(0, iphi^6);
+        P15=P14+(0, iphi^7);
+        P16=P15-(iphi^7, 0);
+        P17=P16+(iphi^8, 0);
+        P18=P17+(0, iphi^8);
+        P19=P18-(0, iphi^9);
+        P20=P19+(iphi^9, 0);
+        P21=P20-(iphi^10, 0);
+        P22=P21-(0, iphi^10);
+        P23=P22-(iphi^11, 0);
+        P24=P23-(iphi^11, 0);
+        G=foot(P2, A, P4);
+
+        draw(A -- B -- C -- D -- A);
+        draw(P1 -- P2); draw(P3 -- P4);
+        draw(P5 -- P6); draw(P7 -- P8);
+        draw(P9 -- P10); draw(P11 -- P12);
+        draw(P13 -- P14); draw(P15 -- P16);
+        draw(P17 -- P18); draw(P19 -- P20);
+        draw(P21 -- P22); draw(P23 -- P24);
+
+        dot("$A$", A, SW);
+        dot("$B$", B, SE);
+        dot("$C$", C, NE);
+        dot("$D$", D, NW);
+        dot("$P_1$", P1, S);
+        dot("$P_2$", P2, N);
+        dot("$P_3$", P3, W);
+        dot("$P_4$", P4, E);
+        dot("$P_5$", P5, N);
+        dot("$P_6$", P6, S);
+        dot("$P_7$", P7, E);
+        dot("$P_8$", P8, W);
+    \end{asy}
+\end{center}
+
+---
+
+Note that $G$ must be the center of homothety between $ABCD$ and $P_8P_7P_5P_3$, so $G$ lies on $\angle P_1AP_8$. It follows that \[\tan\angle BAG=\frac{P_1P_8}{AP_1}=\frac1{\vphi^3}=\sqrt5-2,\]
+where $\vphi=\frac{1+\sqrt5}2$.
+
+---
+
+$\sqrt5-2$

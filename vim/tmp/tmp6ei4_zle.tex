@@ -1,0 +1,102 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $ABC$ be an acute scalene triangle and let $P$ be a point in its interior. Let $A_1$, $B_1$, and $C_1$ be projections of $P$ onto sides $BC$, $CA$, and $AB$, respectively. Find the locus of points $P$ such that $\overline{AA_1}$, $\overline{BB_1}$, and $\overline{CC_1}$ are concurrent, and $\angle PAB+\angle PBC+\angle PCA=90^\circ$.
+
+---
+
+Let $O,H,I$ denote the circumcenter, orthocenter, and incenter of $\triangle ABC$. The answer is $P\in\{O,H,I\}$, which all clearly work. Assume that $P\notin\{O,H\}$, so it suffices to prove that $P=I$. Our assumption implies that $A_1$ is not the midpoint of $\overline{BC}$, so by Ceva's Theorem, $\overline{BC}$ and $\overline{B_1C_1}$ are not parallel. Moreover, $P$ does not lie on $\overline{AA_1}$, $\overline{BB_1}$, or $\overline{CC_1}$.
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=red;
+        pen sec=orange;
+        pen tri=fuchsia;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair A, B, C, P, A1, B1, C1, T, Q, R, H;
+        A=dir(140);
+        B=dir(210);
+        C=dir(330);
+        P=incenter(A, B, C);
+        A1=foot(P, B, C);
+        B1=foot(P, C, A);
+        C1=foot(P, A, B);
+        T=extension(B, C, B1, C1);
+        Q=extension(B, P, B1, C1);
+        R=extension(C, P, B1, C1);
+        H=extension(B, R, C, Q);
+
+        filldraw(A -- B -- C -- cycle, fil, pri+linewidth(1.2));
+        draw(C -- H -- B -- T -- Q, sec);
+        fill(H -- B -- C -- cycle, sfil);
+        draw(H -- A1, sec);
+        draw(A -- P, tri);
+        draw(B -- Q, sec); draw(C -- R, sec);
+        draw(B1 -- P -- C1, tri);
+        filldraw(circumcircle(B, A1, P), tfil, tri);
+        filldraw(circumcircle(C, A1, P), tfil, tri);
+        filldraw(circumcircle(B, C, Q), sfil, sec);
+        clip((B+(-100, -.2)) -- (B+(100, -.2)) -- (B+(100, 100)) -- (B+(-100, 100)) -- cycle);
+
+        dot("$A$", A, N);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$P$", P, dir(25));
+        dot("$A_1$", A1, dir(260));
+        dot("$B_1$", B1, N);
+        dot("$C_1$", C1, NW);
+        dot("$T$", T, SW);
+        dot("$Q$", Q, N);
+        dot("$R$", R, NW);
+        dot("$H$", H, N);
+    \end{asy}
+\end{center}
+Let $T=\overline{BC}\cap\overline{B_1C_1}$, $Q=\overline{BP}\cap{B_1C_1}$, $R=\overline{CP}\cap\overline{B_1C_1}$, and $H=\overline{BR}\cap\overline{CQ}$. Since $\overline{AA_1},\overline{BB_1},\overline{CC_1}$ concur, by Ceva-Menelaus, $(BC;TA_1)$ is harmonic. However, by Ceva-Menelaus on $\triangle HBC$, $A_1\in\overline{HP}$. Check that
+\begin{align*}
+    \measuredangle CRQ&=\measuredangle CRB_1=\measuredangle CB_1R+\measuredangle RCB_1=90^\circ+\measuredangle PB_1C_1+\measuredangle PCB_1\\
+    &=90^\circ+\measuredangle PAC_1+\measuredangle PCA=90^\circ+\measuredangle PAB+\measuredangle PCA=\measuredangle CBQ,
+\end{align*}
+whence $BCQR$ is cyclic. Let $M$ be the circumcenter of $BCQR$. By Brocard's Theorem on $BCQR$, $\overline{TM}\perp\overline{HP}$, so $M$ lies on $\overline{BC}$, thence $\angle BQC=\angle BRC$, so that $H$ is the orthocenter of $\triangle PBC$. Finally, \[\measuredangle ABP=\measuredangle C_1BP=\measuredangle C_1RP=\measuredangle QRC=\measuredangle QBC=\measuredangle PBC,\]
+and similarly $\measuredangle ACP=\measuredangle PCB$, so $P$ is the incenter of $\triangle ABC$, as desired. 
+\begin{customenv}{Second solution, using analytic methods}
+    Again we claim the answer is $\{O,H,I\}$. Define $x_1=\angle PAB$, $x_2=\angle PBC$, $x_3=\angle PCA$, $y_1=\angle PAC$, $y_2=\angle PBA$, and $y_3=\angle PCB$. It is given that
+    \setcounter{equation}{0}
+    \begin{equation}
+        x_1+x_2+x_3=y_1+y_2+y_3=90^\circ.
+    \end{equation}
+    By Trig Ceva,
+    \begin{equation}
+        \sin x_1\sin x_2\sin x_3=\sin y_1\sin y_2\sin y_3.
+    \end{equation}
+    Moreover, since $BA_1=BP\cos x_2$, $A_1C=CP\cos y_3$, and cyclic variations, by Ceva,
+    \begin{equation}
+        \prod\frac{BP\cos x_2}{CP\cos y_3}=1\implies \cos x_1\cos x_2\cos x_3=\sin x_1\sin x_2\sin x_3.
+    \end{equation}
+    For $k\in\{1,2,3\}$, define $a_k=e^{ix_k}$ and $b^k=e^{iy_k}$. Our three conditions can now be converted to equations in terms of $a_k$ and $b_k$ as follows:
+    \begin{align}
+        \tag{1'}a_1a_2a_3&=b_1b_2b_3=i,\\
+        \tag{2'}\prod_\mathrm{cyc}\left(a_1-\frac1{a_1}\right)&=\prod_\mathrm{cyc}\left(b_1-\frac1{b_1}\right),\\
+        \tag{3'}\prod_\mathrm{cyc}\left(a_1+\frac1{a_1}\right)&=\prod_\mathrm{cyc}\left(b_1+\frac1{b_1}\right).
+    \end{align}
+    Now, utilizing $(1')$ we can rewrite $(2')$ and $(3')$ as
+    \begin{align}
+        \tag{2''}\prod_\mathrm{cyc}\left(a_1^2-1\right)&=\prod_\mathrm{cyc}\left(b_1^2-1\right),\\
+        \tag{3''}\prod_\mathrm{cyc}\left(a_1^2+1\right)&=\prod_\mathrm{cyc}\left(b_1^2+1\right).
+    \end{align}
+    Let $P$ be the monic cubic polynomial with roots $a_1^2,a_2^2,a_3^2$ and $Q$ be the monic cubic polynomial with roots $b_1^2,b_2^2,b_3^2$. Note that $(1')$ automatically yields $P(0)=Q(0)=-1$. Furthermore, the LHS of $(2'')$ equals $-P(1)$ and the RHS $-Q(1)$. Analogously the LHS and RHS of $(3'')$ are equal to $-P(-1)$ and $-Q(-1)$ as well. Since $P$ and $Q$ are equal at three points but are monic, they must be the same polynomial, whence $\{a_1,a_2,a_3\}=\{b_1,b_2,b_3\}$, or $\{x_1,x_2,x_3\}=\{y_1,y_2,y_3\}$. We can finish by taking cases:
+    \begin{itemize}
+        \item \textit{Case 1:} $x_1=y_1$. If $x_2=y_3$, then $\angle B=\angle C$, a contradiction. Thus, $(x_2,x_3)=(y_2,y_3)$, so $P$ is the incenter, which works.
+        \item \textit{Case 2:} $x_1=y_2$. If $x_2=y_1$, then $\angle A=\angle B$, a contradiction. Thus, $(x_2,x_3)=(y_3,y_1)$, from which $PA=PB=PC$, so $P$ is the circumcenter, which works.
+        \item \textit{Case 3:} $x_1=y_3$. If $x_3=y_1$, then $\angle A=\angle C$, a contradiction. Thus, $(x_2,x_3)=(y_1,y_2)$, from which $\angle BPC=180^\circ-\angle A$, and similarly for cyclic variations, whence $P$ is the orthocenter, which works.
+    \end{itemize}
+    Hence, we are done. 
+\end{customenv}
+

@@ -1,0 +1,28 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Determine whether there exists an infinite sequence of nonzero digits $a_1$, $a_2$, $a_3$, $\ldots$ and a positive integer $N$ such that for every integer $k>N$, the number $\overline{a_ka_{k-1}\cdots a_1}$ is a perfect square.
+
+---
+
+No such sequence exists. Assume such a sequence exists, and let $x_k^2=\seg{a_ka_{k-1}\cdots a_1}$ for all $k$. Then for all $k$,
+\[x_{k+1}^2-x_k^2\in\{10^k,2\cdot10^k,\ldots,9\cdot10^k\}.\]
+\begin{itemize}
+    \item Suppose there is a $k>N$ with $\nu_5(x_k^2)<k$. Since
+        \[x_k^2\equiv x_{k+1}^2\equiv x_{k+2}^2\equiv\cdots\pmod{10^k},\]
+        we have $\nu:=\nu_5(x_k^2)=\nu_5(x_{k+1}^2)=\cdots$.
+
+        Then take $j\gg k$. so $10^j\mid(x_{j+1}-x_j)(x_{j+1}+x_j)$. Evidently
+        \[\nu=\nu_5(2x_{j+1})\ge\min\big\{\nu_5(x_{j+1}-x_j),\nu_5(x_{j+1}+x_j)\big\},\]
+        so $\nu_5(x_{j+1}\pm x_j)\ge j-\nu$ by choosing the sign appropriately. Then
+        \[x_{j+1}^2\ge\left(\frac{x_{j+1}\pm x_j}2\right)^2\ge\left(\frac{5^{j-\nu}}2\right)^2\ge10^{j+1}\]
+        for large enough $j$, contradiction.
+
+    \item Otherwise, suppose $\nu_5(x_k^2)\ge k$ for all $k>N$. Since 5 divides $x_k$, $a_1=5$, so all the $(x_k)$ are odd. Take $j\gg k$, and note that $10^j\mid(x_{j+1}-x_j)(x_{j+1}+x_j)$. Evidently
+        \[1=\nu_2(2x_{j+1})\ge\min\big\{\nu_2(x_{j+1}-x_j),\nu_2(x_{j+1}+x_j)\},\]
+        so $\nu_2(x_{j+1}\pm x_j)\ge j-1$ by choosing the sign appropriately. Recall that $\nu_5(x_{j+1}\pm x_j)\ge j/2$, so
+        \[x_{j+1}^2\ge\left(\frac{x_{j+1}\pm x_j}2\right)^2\ge\left(2^{j-2}5^{j/2}\right)^2\ge10^{j+1}\]
+        for large enough $j$, contradiction.
+\end{itemize}

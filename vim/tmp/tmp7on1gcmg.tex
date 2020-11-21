@@ -1,0 +1,23 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ be the least positive integer for which $149^n-2^n$ is divisible by $3^3\cdot5^5\cdot7^7$. Find the number of positive divisors of $n$.
+
+---
+
+Since $3,7\mid147=149-2$, we may apply LTE for $p=3,7$. We have
+\begin{align*}
+    3&\le\nu_3\left(149^n-2^n\right)=\nu_3(147)+\nu_3(n)=\nu_3(n)+1.\\
+    7&\le\nu_7\left(149^n-2^n\right)=\nu_7(147)+\nu_7(n)=\nu_7(n)+2.
+\end{align*}
+Hence $\nu_3(n)\ge2$, $\nu_7(n)\ge5$.
+
+For $p=5$, in order for $149^n\equiv2^n\pmod5$, we must have $4\mid n$. Since $5\mid149^4-2^4$, we may apply LTE again. We have
+\[5\le\nu_5\left( \left(149^4\right)^{n/4}-\left(2^4\right)^{n/4}\right)=\nu_5\left(149^4-2^4\right)+\nu_5(n/4)=\nu_5(n)+1,\]
+so $\nu_5(n)\ge4$. Then the set of valid $n$ is the set of multiples of $2^2\cdot3^2\cdot5^4\cdot7^5$, so the smallest $n$ is $2^2\cdot3^2\cdot5^4\cdot7^5$, and the answer is $3\cdot3\cdot5\cdot6=270$.
+
+---
+
+270

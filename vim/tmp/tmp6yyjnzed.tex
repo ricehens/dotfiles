@@ -1,0 +1,79 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $ABC$ be a scalene triangle with circumcircle $\Omega$ and incenter $I$. Ray $AI$ meets $\overline{BC}$ at $D$ and meets $\Omega$ again at $M$; the circle with diameter $\overline{DM}$ cuts $\Omega$ again at $K$. Lines $MK$ and $BC$ meet at $S$, and $N$ is the midpoint of $\overline{IS}$. The circumcircles of $\triangle KID$ and $\triangle MAN$ intersect at points $L_1$ and $L_2$. Prove that $\Omega$ passes through the midpoint of either $\overline{IL_1}$ or $\overline{IL_2}$.
+
+---
+
+Let $I_A$, $I_B$, and $I_C$ be the $A$-, $B$-, and $C$-excenters, respectively. The key is to consider $\triangle I_AI_BI_C$ as our reference triangle.
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=red+linewidth(0.5);
+        pen sec=orange+linewidth(0.5);
+        pen tri=fuchsia+linewidth(0.5);
+        pen fil=red+opacity(0.05);
+        pen sfil=orange+opacity(0.05);
+        pen tfil=fuchsia+opacity(0.05);
+
+        pair IA, IB, IC, A, B, C, I, M, D, P, Mp, SS, L, K, NN, IAp;
+        IA=dir(110);
+        IB=dir(230);
+        IC=dir(310);
+        A=foot(IA, IB, IC);
+        B=foot(IB, IC, IA);
+        C=foot(IC, IA, IB);
+        I=orthocenter(IA, IB, IC);
+        M=(IA+I)/2;
+        D=extension(A, IA, B, C);
+        P=(B+C)/2;
+        Mp=(IB+IC)/2;
+        SS=extension(B, C, IB, IC);
+        L=intersectionpoint(SS -- (IA+(SS-IA)*0.01), circumcircle(IA, IB, IC));
+        K=intersectionpoint(SS -- (M+(SS-M)*0.01), circumcircle(A, B, C));
+        NN=(SS+I)/2;
+        IAp=-IA;
+
+        filldraw(circumcircle(IA, IB, IC), fil, pri);
+        filldraw(circumcircle(I, SS, A), fil, pri);
+        filldraw(circumcircle(A, B, C), sfil, sec);
+        filldraw(circumcircle(D, P, M), sfil, sec);
+        filldraw(circumcircle(M, A, NN), tfil, tri);
+        filldraw(circumcircle(K, I, D), tfil, tri);
+
+        draw(IA -- IB -- IC -- IA, pri);
+        draw(IA -- SS -- IB, pri); draw(B -- SS -- M, pri);
+        draw(IA -- A, sec+dashed); draw(IB -- B, sec+dashed); draw(IC -- C, sec+dashed);
+        draw(K -- Mp, tri); draw(L -- IAp, tri); draw(M -- Mp, tri);
+        draw(SS -- I, tri+dashed);
+
+        dot("$I_A$", IA, N);
+        dot("$I_B$", IB, IB);
+        dot("$I_C$", IC, IC);
+        dot("$A$", A, dir(285));
+        dot("$B$", B, E);
+        dot("$C$", C, NW);
+        dot("$I$", I, NE);
+        dot("$M$", M, dir(75));
+        dot("$D$", D, dir(60));
+        dot("$P$", P, dir(75));
+        dot("$X$", Mp, S);
+        dot("$S$", SS, SW);
+        dot("$L$", L, W);
+        dot("$K$", K, NW);
+        dot("$N$", NN, S);
+        dot("$I_A'$", IAp, IAp);
+    \end{asy}
+\end{center}
+Clearly $I$ is the orthocenter of $\triangle I_AI_BI_C$. Now, let $X$ be the midpoint of $\overline{I_BI_C}$ and $I_A'$ be the reflection of $I$ over $X$, so that $I_A'$ is the antipode of $I_A$ on $(I_AI_BI_C)$. Also denote by $P$ the midpoint of $\overline{BC}$. Since $\Omega$ is the nine-point circle of $\triangle I_AI_BI_C$, $M$ is the midpoint of $\overline{I_AI}$ and $X$ is the antipode of $M$ on $\Omega$. Because $\measuredangle MXD=90^\circ=\measuredangle MKX$, $K,D,X$ are collinear. Furthermore, $\overline{MK},\overline{BC},\overline{XA}$ concur at the orthocenter $S$ of $\triangle DMX$.
+
+Let $L$ be the foot from $X$ to $\overline{AS}$. Notice that $L$ is the Miquel Point of $I_BI_CBC$, so $L,I,X,I_A'$ are collinear and $\measuredangle I_ALI_A'=90^\circ$. It follows that $L\in(I_AI_BI_C)$, whence the midpoint of $\overline{IL}$ lies on $\Omega$.
+
+Obviously $(LMAN)$ is the nine-point circle of $\triangle AIS$. Notice that \[XD\cdot XK=XP\cdot XM=XA\cdot XS=XI\cdot XL,\]
+whence $L\in(KID)$, and we win. 
+

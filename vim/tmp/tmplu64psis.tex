@@ -1,0 +1,12 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $S$ be a finite set of points in the plane, no three collinear. For each convex polygon $P$ whose vertices are in $S$, let $a(P)$ be the number of vertices of $P$, and let $b(P)$ be the number of points of $S$ which are outside $P$. (A line segment, a point, and the empty set are considered as convex polygons of $2$, $1$, and $0$ vertices respectively.) Prove that for every real number $x$, \[\sum_P{x^{a(P)}(1-x)^{b(P)}}=1,\]
+where the sum is taken over all convex polygons with vertices in $S$.
+
+---
+
+For each element $A$ of $S$, let $A\in T$ with probability $x$ and $A\notin T$ with probability $1-x$. Then $x^{a(P)}(1-x)^{b(P)}$ is the probability $P$ is the convex hull of $T$.
+

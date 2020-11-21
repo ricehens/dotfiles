@@ -1,13 +1,19 @@
 #!/bin/bash
 locat="right-of"
-screen="DP-2"
-scale="1.8x1.8"
+screen="DP-1"
+scale="1x1"
+color="Full"
 resolution="1920x1080"
 
 while [[ $# -gt 0 ]]
 do
     key="$1"
     case $key in
+        -rot|--rotate)
+            dir="$2"
+            xrandr --output $screen --rotate $dir
+            exit 0
+            ;;
         -loc|--location)
             locat="$2"
             shift # past argument
@@ -28,9 +34,16 @@ do
             shift # past argument
             shift # past value
             ;;
+        -col|--color) # https://losca.blogspot.com/2013/11/workaround-for-setting-full-rgb-when.html
+            color="$2" # Full / Automatic
+            shift # past argument
+            shift # past value
     esac
 done
 
-xrandr --output $screen --mode $resolution --scale $scale --$locat eDP-1
+xrandr --output $screen --mode $resolution --scale $scale --$locat eDP-1 --set "Broadcast RGB" "$color"
 xrandr --auto
 i3-msg restart
+
+# Adjust brightness of external monitor
+# redshift -m randr:crtc=1 -P -O 5000 -b 0.7

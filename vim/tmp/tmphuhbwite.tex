@@ -1,0 +1,15 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ be a positive integer. Define a sequence by setting $a_1=n$ and, for each $k>1$, letting $a_k$ be the unique integer in the range $0\leq a_k\leq k-1$ for which $a_1+a_2+\cdots+a_k$ is divisible by $k$. For instance, when $n=9$ the obtained sequence is 9, 1, 2, 0, 3, 3, 3, $\ldots$. Prove that for any $n$ the sequence $a_1$, $a_2$, $\ldots$ eventually becomes constant.
+
+---
+
+Consider the sequence
+\[b_k:=\frac{a_1+\cdots+a_k}k.\]
+It can be shown that $(b_k)$ is nonincreasing, so it is eventually constant.
+
+This means $(a_k)$ is eventually constant too.
+

@@ -1,9 +1,9 @@
 #!/bin/bash
-if xinput list-props 11 | grep "Device Enabled (164):.*1" >/dev/null
+if xinput list-props 11 | grep "Device Enabled (167):.*1" >/dev/null
 then
-  xinput disable 11
+  xinput set-prop 11 172 0
   notify-send -u low -i mouse "Trackpad disabled"
 else
-  xinput enable 11
+  xinput set-prop 11 172 1
   notify-send -u low -i mouse "Trackpad enabled"
 fi

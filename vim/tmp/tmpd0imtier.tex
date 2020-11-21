@@ -1,0 +1,24 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$, $b$, $c$ be positive real numbers such that $a^2+b^2+c^2+(a+b+c)^2\le 4$. Prove that \[\frac{ab+1}{(a+b)^2}+\frac{bc+1}{(b+c)^2}+\frac{ca+1}{(c+a)^2}\ge 3.\]
+
+---
+
+The given condition is equivalent to
+\begin{align*}
+    2a^2+2b^2+2c^2+2ab+2bc+2ca&\le 4\\
+    \implies a^2+b^2+c^2+ab+bc+ca&\le 2.
+\end{align*}
+Notice that
+\begin{align*}
+    \frac{ab+1}{(a+b)^2}&\ge\frac{ab+\frac{1}{2}\left(a^2+b^2+c^2+ab+bc+ca\right)}{(a+b)^2}\\
+    &=\frac{a^2+2ab+b^2+c^2+ab+bc+ca}{2(a+b)^2}\\
+    &=\frac{(a+b)^2+(b+c)(c+a)}{2(a+b)^2}\\
+    &=\frac{1}{2}+\frac{(b+c)(c+a)}{2(a+b)^2}.
+\end{align*}
+It follows that by AM-GM that\[\sum_{\mathrm{cyc}}\frac{ab+1}{(a+b)^2}\ge\frac{3}{2}+\frac{1}{2}\sum_{\mathrm{cyc}}\frac{(b+c)(c+a)}{(a+b)^2}\ge\frac{3}{2}+\frac{3}{2}\sqrt[3]{\prod_{\mathrm{cyc}}\frac{(b+c)(c+a)}{(a+b)^2}}=3,\]
+as desired.
+

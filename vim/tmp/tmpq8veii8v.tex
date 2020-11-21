@@ -1,0 +1,25 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For a prime $p$, a subset $S$ of residues modulo $p$ is called a \emph{sum-free multiplicative subgroup} of $\mathbb F_p$ if
+\begin{itemize}
+    \item there is a nonzero residue $\alpha$ modulo $p$ such that $S=\{1,\alpha,\alpha^2,\ldots\}$ (all considered mod $p$), and
+    \item there are no $a,b,c\in S$ (not necessarily distinct) such that $a+b\equiv c\pmod p$.
+\end{itemize}
+Prove that for every integer $N$, there is a prime $p$ and a sum-free multiplicative subgroup $S$ of $\mathbb F_p$ such that $|S|\ge N$.
+
+---
+
+I claim for every $n$ not divisible by $3$, we can choose a prime $p\equiv1\mod n$ such that there is a sum-free multiplicative subgroup in $\mathbb F_p$ of size $n$.
+
+Let $P(x)=x^n-1$ and $Q(x)=(1+x^k)^n-1$. First I claim $P$ and $Q$ are relatively prime over $\mathbb C[x]$. If $P$ and $Q$ share a root $\omega$, then $\omega$ and $1+\omega^k$ are both roots of unity. Then the vectors defined by $\omega^k$, $1$, $-(1+\omega^k)$ form an equilateral triangle, which is absurd since $3\nmid n$.
+
+Thus the greatest common factor of $P$ and $Q$ over $\mathbb Z[x]$ is a positive integer $m$, so by B\'ezout's lemma we may choose polynomials $A$ and $B$ in $\mathbb Z[x]$ with
+\begin{equation}
+    A(x)\left(x^n-1\right)+B(x)\left[\left(1+x^k\right)^n-1\right]=m.\tag{$*$}
+\end{equation}
+Assume $S$ has size $n$ and choose a prime $p>m$ such that $p\equiv1\mod n$. A multiplicative subgroup exists by taking $\alpha=g^{(p-1)/n}$, where $g$ is a primitive root modulo $p$. If $S$ is not sum-free, then it contains elements $\alpha^x$, $\alpha^y$, $\alpha^z$ with $\alpha^x+\alpha^y=\alpha^z$. It follows that $(1+\alpha^{y-x})^n=1$, which is absurd since the left-hand expression vanishes modulo $p$ when taking $x=\alpha$ and $k=y-x$ in $(\star)$.
+
+

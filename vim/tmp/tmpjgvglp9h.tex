@@ -1,0 +1,35 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Prove that there is a constant $c>0$ with the following property: If $a$, $b$, $n$ are positive integers such that $\gcd(a+i,b+j)>1$ for all $i,j\in\{0,1,\ldots,n\}$, then \[\min\{a,b\}>c^n\cdot n^{n/2}.\]
+
+---
+
+To simplify computation, we only use $i,j\in\{1,\ldots,n\}$. We will prove the bound $\min\{a,b\}>n^{n/2}-n$ for sufficiently large $n$.
+
+Consider the $n\times n$ grid defined by the points $(a+i,b+j)$, and note the following estimates:
+\begin{itemize}[itemsep=0em]
+    \item Each prime $p<n$ divides at most $(1+n/p)^2$ the cells of the grid.
+    \item Each prime $p\ge n$ divdes at most one cell of the grid.
+\end{itemize}
+Let there be $T$ primes $p\ge n$ dividing some cell of the grid; then
+\[
+    T&\ge n^2-\sum_{p<n}\left(1+\frac np\right)
+    =n^2-\pi(n)-2n\sum_{p<n}\frac1n-n^2\sum_{p<n}\frac1{p^2}
+    >\frac{n^2}2
+\]
+for sufficiently large $n$.
+\begin{remark}
+    The estimate $T>\tfrac12n^2$ is obtained by the following:
+    \begin{align*}
+        \pi(n)&=\frac n{\log n}\left(1+O\left(\frac1{\log n}\right)\right)\\
+        \sum_{p<n}\frac1p&=\log\log n\cdot(1+o(1))\\
+        \sum_{p<n}\frac1{p^2}&<\sum_p\frac1{p^2}\approx0.452<\frac12.
+    \end{align*}
+\end{remark}
+Hence \[(a+n)^n>(a+1)\cdots(a+n)>n^T>n^{n^2/2}\implies x>n^{n/2}-n,\]
+The required bound follows.
+
+

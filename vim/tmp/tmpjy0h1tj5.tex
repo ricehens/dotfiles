@@ -1,0 +1,35 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $G$ be a graph with $19998$ vertices so that any $9999$-vertex subgraph of $G$ has at least $9999$ edges. Determine the minimum possible number of edges in $G$.   
+
+---
+
+Let $n=3333$. The answer is $15n=49995$. Equality is achieved by $n$ copies of $K_6$, which works by Jensen's inequality.
+
+We now prove the lower bound. Let $f(k)$ denote the minimum number of edges in a graph of $k$ vertices such that any $3n$-vertex subgraph has at least $3n$ edges.
+\setcounter{iclaim}0
+\begin{iclaim}
+    For all $k$, \[\frac{f(k+1)}{k+1}\ge\frac{f(k)}{k-1}.\]
+\end{iclaim}
+\begin{proof}
+    Consider a graph with $k+1$ vertices and as few vertices as possible, so it has $f(k+1)$ edges. Each of the $k+1$ subgraphs of $k$ vertices has at least $f(k)$ edges, and each edge is a member of $k-1$ of these subgraphs, thus the claim is true by double counting.
+\end{proof}
+
+Note that for each $k$, \[f(k+1)-f(k)\ge\frac{2f(k)}{k-1}\]
+by Claim 1, but also \[\frac{f(k+1)}k>\frac{f(k+1)}{k+1}\ge\frac{f(k)}{k-1},\]
+so $f(k)/(k-1)$ is strictly increasing.
+\begin{iclaim}
+    $f(an)\ge\tbinom a2n$.
+\end{iclaim}
+\begin{proof}
+    We induct on $a$. The base case $a=3$ is given. Assume the claim holds for $a$. Then \[f(an+1)-f(an)>\frac{2\cdot\binom a2n}{an-1}>a-1,\]
+    so $f(an+1)-f(an)\ge a$. Then \[f\big( (a+1)n\big)-f(an)\ge n\big(f(an+1)-f(an)\big)\ge an,\]
+    whence \[f\big( (a+1)n\big)\ge f(an)+an\ge\binom a2n+an=\binom{a+1}2n,\]
+    as claimed.
+\end{proof}
+
+Thus $f(6n)\ge15n$, and we are done.
+

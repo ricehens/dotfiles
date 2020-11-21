@@ -1,0 +1,39 @@
+#!/bin/bash
+temp=$(
+    sensors 'coretemp-*' \
+        | grep '^Package id' \
+        | awk '{ print $4 }' \
+        | grep -o '[0-9]\+' \
+        | head -n1
+)
+
+: <<'END'
+if [[ "$temp" -lt 30 ]]; then
+    printf '\uf2cb'
+elif [[ "$temp" -lt 40 ]]; then
+    printf '\uf2ca'
+elif [[ "$temp" -lt 50 ]]; then
+    printf '\uf2c9'
+elif [[ "$temp" -lt 60 ]]; then
+    printf '\uf2c8'
+else
+    printf '\uf2c9'
+fi
+
+printf ' %s\u2009°C\n' $temp
+END
+
+printf '温度 %s°C\n' $temp
+printf '%s°C\n' $temp
+
+if [[ "$temp" -lt 40 ]]; then
+    printf '#00FF66\n'
+elif [[ "$temp" -lt 60 ]]; then
+    printf '#A8FF00\n'
+elif [[ "$temp" -lt 70 ]]; then
+    printf '#FFF600\n'
+elif [[ "$temp" -lt 80 ]]; then
+    printf '#FFAF00\n'
+else
+    printf '#FF0000\n'
+fi

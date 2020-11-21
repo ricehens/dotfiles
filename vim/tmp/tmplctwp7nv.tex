@@ -1,0 +1,45 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all polynomials $P,Q\in\mathbb Q[x]$ such that
+\[P(x)^3+Q(x)^3\equiv x^{12}+1.\]
+
+---
+
+Observe that the factorizations
+\begin{align*}
+    x^{12}+1&=\left(x^4+1\right)\left(x^8-x^4+1\right)\\
+    P^3+Q^3&=(P+Q)\left(P^2+Q^2-PQ\right).
+\end{align*}
+It can be verified that $x^{12}+1$ is fully factorized above. hence
+\[\left\{P+Q,P^2+Q^2-PQ\right\}=\left\{k\left(x^4+1\right),k^{-1}\left(x^8-x^4+1\right)\right\}\]
+for some constant $k$.
+
+However $\deg(P^2+Q^2-PQ)=2\max\{\deg P,\deg Q\}>\deg(P+Q)$. (Note that if $\deg P=\deg Q$, then the leading coefficient of $P^2+Q^2-PQ$ is still positive.) Hence
+\begin{align*}
+    P+Q&=k\left(x^4+1\right)\\
+    P^2+Q^2-PQ&=k^{-1}\left(x^8-x^4+1\right).
+\end{align*}
+
+\begin{claim*}
+    $\deg P\ne\deg Q$.
+\end{claim*}
+\begin{proof}
+    Assume not, and let $p$, $q$ be the leading coefficients of $P$, $Q$. The leading coefficient $p^2+q^2-pq>0$ does not vanish in $P^2+Q^2-PQ$, so $\deg P=\deg Q=4$. Then by $P^3+Q^3=x^{12}+1$, we have
+    \[p^3+q^3=1,\]
+    which is impossible for rational $p$, $q$ by Fermat's last theorem.
+\end{proof}
+
+Then let $\deg P=4$ and $\deg Q<4$. so the leading coefficient of $P+Q$ is $p=k$, and the leading coefficient of $P^2+Q^2-PQ$ is $p^2=k^{-1}$; it follows that $p=k=1$. Hence
+\begin{align*}
+    P+Q&=x^4+1\\
+    P^2+Q^2-PQ&=x^8-x^4+1.
+\end{align*}
+Then observe that
+\[x^8-x^4+1=(P+Q)^2-3PQ=\left(x^8+2x^4+1\right)-3PQ,\]
+hence $PQ=x^4$.
+
+The only solution is $P(x)\equiv x^4$, $Q\equiv1$ (and its permutation), which works.
+

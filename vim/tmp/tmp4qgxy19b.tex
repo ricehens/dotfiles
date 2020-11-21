@@ -1,0 +1,41 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Steve is piling $m\ge 1$ indistinguishable stones on the squares of an $n\times n$ grid. Each square can have an arbitrarily high pile of stones. After he finished piling his stones in some manner, he can perform \emph{stone moves}, defined as follows. Consider any four grid squares, which are corners of a rectangle, i.e. in positions $(i,k),(i,l),(j,k),(j,l)$ for some $1\le i,j,k,l\le n$, such that $i<j$ and $k<l$. A stone move consists of either removing one stone from each of $(i,k)$ and $(j,l)$ and moving them to $(i,l)$ and $(j,k)$ respectively, or removing one stone from each of $(i,l)$ and $(j,k)$ are moving them to $(i,k)$ and $(j,l)$ respectively.
+
+Two ways of piling the stones are equivalent if they can be obtained from one another by a sequence of stone moves. How many different non-equivalent ways can Steve pile the stones on the grid?
+
+---
+
+The answer is $\tbinom{m+n-1}m^2$. Let $a_i$ denote the sum of the stones in square $(i,j)$ for some $j$, and $b_j$ denote the sum of the stones in squares $(i,j)$ for some $i$. We claim that all tuples $T=(a_1,a_2,\ldots,a_n,b_1,b_2\ldots,b_n)$ with $a_1+a_2+\cdots+a_n=b_1+b_2+\cdots+b_n=m$
+uniquely determine a set of equivalent pilings.
+\begin{boxlemma}
+    After a stone move, $T$ remains invariant.
+\end{boxlemma}
+\begin{proof}
+    During each stone move, one of $(i,j)$ and $(i,k)$ loses a stone, but the other gains a stone. Hence, $a_i$ remains invariant, and by symmetry, we are done.
+\end{proof}
+\begin{boxlemma}
+    For each tuple $T$, at least one tiling exists.
+\end{boxlemma}
+\begin{proof}
+    We use a greedy algorithm to distribute the stones recursively. Let $\mathbf P_{i,j,t}$ be the problem of distributing $t$ stones in the subgrid with top-left corner $(i,j)$ and bottom-right corner $(n,n)$, so that we start at $\mathbf P_{1,1,m}$. Let $a_i'$ and $b_j'$ denote the number of stones yet to be placed in row $i$ and column $j$, respectively, at any given time.
+
+    For $\mathbf P_{i,j,t}$, if $a_i'\le b_j'$, put $a_i'$ stones in $(i,j)$ and move to $\mathbf P_{i+1,j,t-a_i'}$. Otherwise, put $b_j'$ stones in $(i,j)$ and move to $\mathbf P_{i,j+1,t-b_j'}$. This way, each row is completely filled. Furthermore, it is always possible to continue in the manner because $a_i$ and $b_j$ both sum to $m$.
+\end{proof}
+\begin{boxlemma}
+    If two tilings have the same tuple $T$, they are equivalent.
+\end{boxlemma}
+\begin{proof}
+    Suppose that $X$ and $Y$ are two tilings, and we want to transform $X$ into $Y$. Denote \[|X,Y|=\sum_{i=1}^n\sum_{j=1}^n\left|X_{i,j}-Y_{i,j}\right|.\]
+    At any point where $X\ne Y$, take $i$ and $j$ such that $X_{i,k}<Y_{i,k}$. Such $(i,k)$ exists since if for all $I,k$, $X_{i,k}\ge Y_{i,k}$, then $X=Y$ because they share the same $T$.
+
+    Now, since $a_i$ and $b_k$ are the same for both grids, there exist $j$ and $l$ such that $X_{j,k}>Y_{j,k}$ and $X_{i,l}>Y_{j,l}$. Then, perform the $i,j,k,l$-stone move, adding a stone each to $X_{i,k}$ and $X_{j,l}$ and removing one each from $X_{i,j}$ and $X_{k,l}$. Then, $|X_{i,k}-Y_{i,k}|$, $|X_{j,k}-Y_{j,k}|$, and $|X_{i,l}-Y_{i,l}|$ each decrease by $1$, and $|X_{j,l}-Y_{j,l}|$ either increases or decreases by$1$. Hence, $|X,Y|$ decreases by either $2$ and $4$. Since \[|X,Y|\equiv\sum_{i=1}^n\sum_{j=1}^n\left|X_{i,j}-Y_{i,j}\right|\equiv\sum_{i=1}^n\sum_{j=1}^n\left(X_{i,j}-Y_{i,j}\right)\equiv 0\pmod2,\]
+    this process will eventually terminate, so $X$ and $Y$ are equivalent, as desired.
+\end{proof}
+
+By Lemmas $1,2,3$, the number of non-equivalent tilings is the number of $T$. Since \[a_1+a_2+\cdots+a_n=m,\]
+by Stars and Bars, the number of $(a_1,a_2,\ldots,a_n)$ is $\tbinom{m+n-1}m$. Similarly, the number of $(b_1,b_2,\ldots,b_n)$ is $\tbinom{m+n-1}m$ as well. Since the distributions of $a_i$ and $b_i$ are independent, the number of such $T$ is $\tbinom{m+n-1}m^2$, and we are done.

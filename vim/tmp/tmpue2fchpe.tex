@@ -1,0 +1,30 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $N\ge2$ be an integer, and let $\mathbf a=(a_1,\ldots,a_N)$ and $\mathbf b=(b_1,\ldots,b_N)$ be sequences of nonnegative integers. Let $a_i=a_{i+N}$ and $b_i=b_{i+N}$ for all integers $i$. We say $\mathbf a$ is \emph{$\mathbf b$-harmonic} if each $a_i$ equals the following arithmetic mean: \[a_i=\frac1{2b_i+1}\sum_{s=-b_i}^{b_i}a_{i+s}.\]
+Suppose that neither $\mathbf a$ nor $\mathbf b$ is a constant sequence, and that both $\mathbf a$ is $\mathbf b$-harmonic and $\mathbf b$ is $\mathbf a$-harmonic.
+
+Prove that at least $N+1$ of the numbers $a_1$, $\ldots$, $a_N$, $b_1$, $\ldots$, $b_N$ are zero.
+
+---
+
+The pith is this lemma:
+\begin{boxlemma*}
+    If $0\notin\{a_{i+1},\ldots,a_{j-1}\}$ and $\{a_i,\ldots,a_j\}$ contains more than one element, then $b_i=\cdots=b_j=0$.
+\end{boxlemma*}
+\begin{proof}
+    First I will show $b_t=0$ is forced for some $i<t<j$. Since $(a_i,\ldots,a_j)$ is nonconstant, consider its maximum $M$. Then there must be a $t$ with $a_t=M$ and $M\notin\{a_{t-1},a_{t+1}\}$, as otherwise $(a_i,\ldots,a_j)$ is constant at $M$.
+
+    Assume $b_t>0$. Since $\mathbf a$ is $\mathbf b$-harmonic, $a_t$ is the average of a subsequence of $(a_i,\ldots,a_j)$. Each element of this subsequence is at most $M$, so the average of the subsequence is at most $M$, with equality iff all its elements equal $M$; since $a_t=M$, equality must hold. But $a_{t-1}$ and $a_{t+1}$ are in the subsequence, and at least one is less than $M$, contradiction.
+
+    Hence $b_t=0$. I now claim by induction $b_{t+k}=0$ for $k\ge0$ and $t+k\le j$. An analogous argument will show $b_{t-k}=0$ for $k\ge0$ and $t-k\ge i$, thus proving the lemma. The base case is $b_t=0$.
+
+    Suppose that for some $k\ge0$ with $t+k<j$, we have $b_{t+k}=0$. It is given that $a_{t+k}\ne0$. Since $\mathbf b$ is $\mathbf a$-harmonic, $b_{t+k}$ is the average of a subsequence of $(b_i,\ldots,b_j)$. Each element of this subsequence is nonnegative, so the average is at least $0$, with equality iff all its elements equal $0$; since $a_t=0$, equality must hold. But $a_{t+k}>0$, so $b_{t+k+1}=0$, as desired.
+\end{proof}
+
+It is easy to finish from here. If $\mathbf a$ has no zeros, then by the lemma, $\mathbf b$ is constant at zero, contradiction. Otherwise, if $a_i\ne0$, then $b_i=0$ by the lemma. Furthermore there exists an $i$ with $a_i=0$ but $\{a_{i-1},a_{i+1}\}\ne\{0\}$, so by the lemma, $b_i=0$.
+
+If among $\mathbf a$ there are $k$ nonzero elements, then $\mathbf b$ contains at least $k+1$ zeros, so the number of zeros among $a_1$, $\ldots$, $a_N$, $b_1$, $\ldots$, $b_N$ is at least $(N-k)+(k+1)=N+1$, and we are done.
+

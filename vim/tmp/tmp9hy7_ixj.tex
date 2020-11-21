@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$, $b$, $c$ be positive integers. Prove that \[\frac{\gcd(a,b,c)^2}{\gcd(a,b)\gcd(b,c)\gcd(c,a)}=\frac{\lcm(a,b,c)^2}{\lcm(a,b)\lcm(b,c)\lcm(c,a)}.\]
+
+---
+
+Let $p$ be an arbitrary prime and let $x=\nu_p(a)$, $y=\nu_p(b)$, $z=\nu_p(c)$. Without loss of generality $x\le y\le z$. If $\mathrm{LHS}$, $\mathrm{RHS}$ denote the left-hand and right-hand expressions, then
+\begin{align*}
+    \nu_p(\mathrm{LHS})&=2\min(x,y,z)-\min(x,y)-\min(y,z)-\min(z,x)=-y\\
+    \nu_p(\mathrm{RHS})&=2\max(x,y,z)-\max(x,y)-\max(y,z)-\max(z,x)=-y,
+\end{align*}
+so $\mathrm{LHS}=\mathrm{RHS}$.
+

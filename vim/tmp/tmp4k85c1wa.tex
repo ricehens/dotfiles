@@ -1,0 +1,57 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Determine all functions $f:\mathbb Q\to\mathbb Z$ satisfying
+\[f\left(\frac{f(x)+a}b\right)=f\left(\frac{x+a}b\right)\]
+for all $x\in\mathbb Q$, $a\in\mathbb Z$, and $b\in\mathbb Z_{>0}$.
+
+---
+
+The answer is constants, $f(x)\equiv\lfloor x\rfloor$, and $f(x)\equiv\lceil x\rceil$, which work. We now prove these are the only solutions.
+
+In what follows, we will assume $f$ is not constant. Let $P(x,a,b)$ denote the assertion, and let $S$ denote the set of all values of $f(x)-x$. By $P(x,a-f(x),b)$, with $s=x-f(x)$, we have
+\[\boxed{f\left(\frac ab\right)=f\left(\frac{a+s}b\right)}\]
+for all $a\in\mathbb Z$, $b\in\mathbb Z_{>0}$, $s\in S$. Call this assertion $Q(s,a,b)$.
+\setcounter{claim}0
+\begin{claim}
+    $f(n)=n$ for all integers $n$. Furthermore, $f(n+s)=n$ for all $s\in S$.
+\end{claim}
+\begin{proof}
+    Otherwise for some $n$, $n-f(n)\ne0$ is a nonzero integer $m\in S$, so by $Q(m,am,bm)$,
+    \[f\left(\frac ab\right)=f\left(\frac{am}{bm}\right)=f\left(\frac{am+m}{bm}\right)=f\left(\frac{a+1}b\right).\]
+    It is easy to show $f$ is constant from here, contradiction.
+
+    Then $Q(s,n,1)$ gives $n=f(n)=f(n+s)$ for all $s\in S$. (Also observe that if $f(n+s)=n$ for some $n$, then $s\in S$.)
+\end{proof}
+\begin{claim}
+    If $s\in S$, then for all positive integers $b$, we also have $s/b\in S$.
+\end{claim}
+\begin{proof}
+    By $Q(s,bn,b)$, we have
+    \[n=f(n)=f\left(n+\frac sb\right),\]
+    so $x=n+s/b$ obeys $x-f(x)=s/b$.
+\end{proof}
+
+Note that for some odd integer $k$,
+\[\frac k2=\frac12-f\left(\frac12\right)\in S.\]
+By Claim 2, either $1/2\in S$ or $-1/2\in S$. In the former case, $f(1/2)=0$ and in the latter case, $f(-1/2)=0$. Since $f$ is a solution if and only if $x\mapsto-f(-x)$ is a solution, we may assume without loss of generality we are in the $1/2\in S$ case.
+
+We will show that $f(x)\equiv\lfloor x\rfloor$.
+
+\begin{claim}[Main induction]
+    $f(x)=0$ for all $0<x<1$. (Equivalently, $x\in S$ for all $0<x<1$.)
+\end{claim}
+\begin{proof}
+    We will show by induction on $q$ that $f(p/q)=0$ for all $0<p<q$. Assume the hypothesis holds for all positive integers less than $q$. If $\gcd(p,q)\ne1$, we already know $f(p/q)=0$, so assume $\gcd(p,q)=1$.
+    \begin{itemize}
+        \item For $p\le q-2$, let $0<r<q$ satisfy $pr\equiv-1\pmod q$. We can check $r\ge2$ and $\frac{pr+1}q<r$, so since $\frac1r\in S$,
+            \[f\left(\frac pq\right)=f\left(\frac{p+\frac1r}q\right)=f\left(\frac{\frac{pr+1}q}r\right)=0.\]
+        \item For $p=q-1$, the above argument no longer works, since $r$ would be 1. However, an easy fix is to run the above argument in reverse; note that $\frac1q\in S$, so
+            \[f\left(\frac{q-1}q\right)=f\left(\frac{(q-2)+\frac1q}{q-1}\right)=f\left(\frac{q-2}{q-1}\right)=0.\]
+    \end{itemize}
+\end{proof}
+
+The proof is basically complete. Combining Claim 1 and Claim 3, we have $f(n+s)=n$ for all integers $n$ and $0\le s<1$, as needed.
+

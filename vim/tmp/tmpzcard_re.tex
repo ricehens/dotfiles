@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb R\to\mathbb R$ such that for all $x,y\in\mathbb R$, \[f\left(f(x)^2-y^2\right)^2+f(2xy)^2=f\left(x^2+y^2\right)^2.\]
+
+---
+
+The answer is $f\equiv0$ and $|f(x)|=|x|$, which clearly work. Make the obvious substitution $g(x)=f(x)^2$, so that the functional equation is $g:\mathbb R\to\mathbb R_{\ge0}$, and \[g\left(g(x)-y^2\right)+g(2xy)=g\left(x^2+y^2\right).\]
+Let this assertion be $P(x,y)$. Some normal FE arguments give:
+\begin{itemize}[itemsep=0em]
+    \item $P(0,0)\implies g(g(0))=0$, and $P(0,\sqrt{g(0)})\implies\boxed{g(0)=0}$.
+    \item $P(0,y)\implies g(-y^2)=g(y^2)$, so $\boxed{g\text{ even}}$.
+    \item $P(x,x)\implies\boxed{g(g(x)-x^2)=0}$.
+\end{itemize}
+Now let $g(z)=0$. Note that $P(z,z)$ gives $g(-z^2)=0$, so $g(z^2)=0$. Also for each $|a|<z$, we can find $x$ and $y$ with $x^2+y^2=z$ and $2xy=a$, and since all terms in the functional equation are positive, we will have $g(a)=g(2xy)=0$.
+
+If $g(z)=0$ for $z>1$, then $g(z)=0$ for arbitrarily large $z$, and thus $g$ is constant at $0$. If $g(z)=0$ only for $z=0$, then $g(g(x)-x^2)=0$ gives $g(x)=x^2$ for all $x$. In the final case, there is an $\veps>0$ such that $g(x)=0$ for all $|x|<\veps$, but $g(x)\ne0$ for all $|x|>\veps$.
+
+Take $0<y^2=\veps-\delta$ for arbitrarily small $\delta$, and choose $\sqrt{\delta}<x<\min(\veps,\tfrac{\veps}{2y})$. Then $x^2+y^2>\veps$, but $g(x^2+y^2)=0$, absurd.
+

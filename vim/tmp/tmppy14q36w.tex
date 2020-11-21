@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+An infinite family of equidistant parallel lines is colored blank in the plane. Find all integers $n\ge3$ for which one can draw a regular $n$-gon all of whose vertices lie on black lines, but no two vertices lie on the same black line.
+
+---
+
+The answer is $3$, $4$, $6$, which can easily be seen to work. Let $\ell$ be a line perpendicular to this family of black lines. Select four adjacent points $A$, $B$, $C$, $D$ on the $n$-gon and project them to $A'$, $B'$, $C'$, $D'$ on $\ell$. Then $A'D'$ and $B'C'$ are commensurable, so $AD$ and $BC$ are too.
+
+However \[\mathbb Q\ni\frac{AD}{BC}=\frac{\sin\frac{3\pi}n}{\sin\frac{\pi}n}=3-4\sin^2\frac{\pi}n=1+2\cos\frac{2\pi}n,\]
+whence $\cos\tfrac{2\pi}n\in\mathbb Q$, so by Niven's theorem, $n\in\{3,4,6\}$.
+

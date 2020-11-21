@@ -1,0 +1,28 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ be a positive integer relatively prime to $6$. We paint the vertices of a regular $n$-gon with three colours so that there is an odd number of vertices of each colour. Show that there exists an isosceles triangle whose three vertices are of different colours.
+
+---
+
+The $\gcd(n,6)=1$ condition implies
+\begin{itemize}[itemsep=0em]
+    \item there are no equilateral triangles, and
+    \item for every chord $AB$, there is a unique vertex $C$ with $CA=CB$.
+\end{itemize}
+Let there be $A$, $B$, $C$ vertices of the three colors, respectively.
+
+Let $X_A$ be the number of triangles with exactly two $A$'s, and $Y$ the number of monochromatic triangles colored $A$. Assume for contradiction all isosceles triangles contain at most two distinct colors, so $X_A+X_B+X_C+Y_A+Y_B+Y_C=\binom n2$.
+
+Of the $\binom A2$ segments with both endpoints colored $A$, each determines three isosceles triangles: it is the base of one and the leg of two; moreover, for each of these $3\binom A2$ triangles, at least two vertices are colored $A$.
+
+Double counting, we can verify
+\[X_A+3Y_A=3\binom A2.\]
+In particular,
+\[\binom n2\equiv\binom A2+\binom B2+\binom C2\pmod2.\]
+Note that for odd $x$, we have $\binom x2\equiv\frac{x-1}2\pmod2$, so
+\[\frac{n-1}2\equiv\frac{A-1}2+\binom{B-1}2+\frac{C-1}2\equiv\frac{n-3}2\pmod2,\]
+contradiction.
+

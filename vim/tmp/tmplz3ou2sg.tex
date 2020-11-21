@@ -1,0 +1,63 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with orthocenter $H$ and let $P$ be the second intersection of the circumcircle of $\triangle AHC$ with the internal bisector of $\angle BAC$. Let $X$ be the circumcenter of $\triangle APB$ and $Y$ the orthocenter of $\triangle APC$. Prove that the length of segment $XY$ is equal to the circumradius of $\triangle ABC$.
+
+---
+
+By properties of the orthocenter, $(APC)$ is the reflection of $(ABC)$ over $\seg{AC}$, and the reflection of $Y$ over $\seg{AC}$ lies on $(APC)$, so $Y$ lies on $(ABC)$. Let $O'$ be the circumcenter of $\triangle APC$, i.e.\ the reflection of $O$ over $\seg{AC}$, and let $P'$ be the reflection of $P$ over $\seg{AC}$, so that $P'$ lies on $(ABC)$ and $\seg{YPP'}\perp\seg{AC}$.
+\begin{center}
+\begin{asy}
+    size(8cm); defaultpen(fontsize(10pt));
+    pen pri=lightred;
+    pen sec=purple+pink;
+    pen tri=lightblue;
+    pen qua=heavygreen;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=cyan+opacity(0.05);
+
+    pair O,A,B,C,Op,P,X,Y,Pp;
+    O=(0,0);
+    A=dir(105);
+    B=dir(215);
+    C=dir(325);
+    Op=A+C;
+    P=2*foot(Op,A,incenter(A,B,C))-A;
+    X=circumcenter(A,P,B);
+    Y=orthocenter(A,P,C);
+    Pp=reflect(A,C)*P;
+
+    draw(X--Y,qua);
+    draw(A--Op,qua);
+    filldraw(A--O--Y--cycle,tfil,tri);
+    filldraw(O--X--Op--cycle,tfil,tri);
+    draw(Y--Pp,sec+dashed);
+    filldraw(circumcircle(A,P,B),sfil,sec);
+    filldraw(circumcircle(A,P,C),sfil,sec);
+    filldraw(circle(O,1),fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+
+    dot("$O$",O,unit(-A));
+    dot("$A$",A,A);
+    dot("$B$",B,SW);
+    dot("$C$",C,SE);
+    dot("$O'$",Op,E);
+    dot("$P$",P,S);
+    dot("$X$",X,NW);
+    dot("$Y$",Y,Y);
+    dot("$P'$",Pp,Pp);
+\end{asy}
+\end{center}
+\begin{claim*}
+    $\triangle OAY\sim\triangle OO'X$.
+\end{claim*}
+\begin{proof}
+    First $\da OXO'=\da BAP=\da PAC=\da XO'O$, so $OX=OO'$. Furthermore \[\da OYA=90\dg+\da PP'A=90\dg+\da APP'=\da PAC=\da XO'O,\]
+    and the claim readily follows.
+\end{proof}
+
+Thus $O$ is the center of spiral similarity sending $\seg{AY}$ to $\seg{O'X}$. As spiral similarities come in pairs, $\triangle OXY\sim\triangle OO'A$. Since $OY=OA$, this similarity is a rotation, so $XY=AO'=AO$, as needed.
+

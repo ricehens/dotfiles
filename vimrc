@@ -1,7 +1,11 @@
+" Honestly I don't really remember what half of this does
 """"" ===== Standard Options
 set nocompatible
 set backspace=indent,eol,start
 set smartcase
+set encoding=utf-8
+set clipboard=unnamed " PRIMARY
+set belloff=all
 
 """"" ===== VUNDLE
 
@@ -17,7 +21,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-latex/vim-latex'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -106,6 +110,8 @@ let g:tex_flavor='latex'
 set sw=2
 set iskeyword+=:
 set shellcmdflag=-ic
+let g:latex_view_general_viewer = 'zathura'
+let g:vimtex_view_method = 'zathura'
 
 """"" ===== INDENTION
 """ Recognize indention while hard-breaking lines

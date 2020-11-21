@@ -1,0 +1,23 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+The real numbers $a$, $b$, $c$, $d$ are such that $a\ge b\ge c\ge d>0$ and $a+b+c+d=1$. Prove that
+\[(a+2b+3c+4d)\,a^a\,b^b\,c^c\,d^d<1.\]
+
+---
+
+The $a^ab^bc^cd^d$ term is highly irrelevant: just observe that
+\begin{align*}
+    (a+2b+3c+4d)\,a^a\,b^b\,c^c\,d^d&<(a+2b+3c+4d)\left(a^2+b^2+c^2+d^2\right)\\
+    &\le(a+3b+3c+3d)\left(a^2+b^2+c^2+d^2\right)\\
+    &\le(a+b+c+d)\left(a^2+b^2+c^2+d^2+2a(b+c+d)\right)\\
+    &<(a+b+c+d)^3=1.
+\end{align*}
+\begin{remark}
+    It is not hard to directly verify
+    \[(a+2b+3c+4d)\left(a^2+b^2+c^2+d^2\right)<1\]
+    via expansion.
+\end{remark}
+

@@ -1,0 +1,37 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For a finite set $A$ of positive integers, a partition of $A$ into two disjoint nonempty subsets $A_1$ and $A_2$ is \emph{cloudy} if the least common multiple of the elements in $A_1$ is equal to the greatest common divisor of the elements in $A_2$. Determine the minimum value of $n$ such that there exists a set of $n$ positive integers with exactly $2015$ cloudy partitions.
+
+---
+
+The answer is 3024, achieved by
+\begin{align*}
+    &&\{1{\color{red}\;\mid\;}p_1\mid q_1{\color{red}\;\mid\;}p_1q_1{\color{red}\;\mid\;}p_1q_1p_2\mid p_1q_1p_2{\color{red}\;\mid\;}p_1q_1p_2q_2{\color{red}\;\mid\;}p_1q_1p_2q_2p_3\mid p_1q_1p_2q_2q_3{\color{red}\;\mid\;}\ldots\\
+    &&{\color{red}\;\mid\;}p_1q_1\cdots p_{1007}q_{1007}p_{1008}\mid p_1q_1\cdots p_{1007}q_{1007}q_{1008}\}.
+\end{align*}
+Cloudy partitions above have been colored red.
+
+Let $A=\{s_1<\cdots<s_n\}$. We say $k$ is \emph{decisive} if a cloudy partition is $\{s_1,\ldots,s_k\}\sqcup\{s_{k+1},\ldots,s_n\}$. (Obviously all cloudy partitions are of this form.) The key is this estimate:
+\setcounter{claim}0
+\begin{claim}
+    $k-1$, $k$, $k+1$ may not all be decisive.
+\end{claim}
+\begin{proof}
+    Assume for contradiction all three are decisive. From $k-1$ and $k+1$ decisive,
+    we have
+    \[\lcm(s_1,\ldots,s_{k-1})\mid s_k\quad\text{and}\quad s_{k+1}\mid\gcd(s_{k+2},\ldots,s_n).\]
+    However, from $k$ decisive,
+    \[s_k=\lcm(s_1,\ldots,s_k)=\gcd(s_{k+1},\ldots,s_n)=s_{k+1},\]
+    contradiction.
+\end{proof}
+\begin{claim}
+    1 and 2 may not both be decisive. (Analogously, $n-2$ and $n-1$ may not both be decisive.)
+\end{claim}
+\begin{proof}
+    Assume for contradiction 1 and 2 are decisive. Then from 1 decisive, $s_1\mid s_2$, so from 2 decisive, $s_2=\lcm(s_1,s_2)=\gcd(s_3,\ldots,s_n)$, and then from 1 decisive, $s_1=\gcd(s_2,\ldots,s_n)=s_2$, contradiction.
+\end{proof}
+
+It is easy to check that for $n\le3023$, there are less than 2015 cloudy partitions, so the least possible $n$ is 3024.

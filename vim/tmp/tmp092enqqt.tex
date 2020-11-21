@@ -1,0 +1,25 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all positive integers $n$ for which the numbers in the set $S=\{1,2,\ldots,n\}$ can be colored red and blue, with the following condition being satisfied: the set $S\times S\times S$ contains exactly $2007$ ordered triples $(x,y,z)$ such that
+\begin{enumerate}[label=(\roman*),itemsep=0em]
+    \item the numbers $x$, $y$, $z$ are of the same color, and
+    \item the number $x+y+z$ is divisible by $n$.
+\end{enumerate}
+
+---
+
+The answer is $69$ and $84$. Assume there are $k$ red numbers and thus $n-k$ blue numbers. Say a triple $(x,y,z)$ is \emph{vanishing} if $x+y+z$ is divisible by $n$.
+\begin{iclaim*}
+    The number of vanishing $(x,y,z)$ containing both red and blue numbers is $3k(n-k)$.
+\end{iclaim*}
+\begin{proof}
+    The key is to count the number of vanishing triples with $x$ and $y$ different colors. Note that $x$ and $y$ uniquely determine $z$, so there are $2k(n-k)$ such triples. Similarly the number of vanishing triples with $y$ and $z$ different colors is $2k(n-k)$, and the number of vanishing triples with $z$ and $x$ different colors is $2k(n-k)$.
+
+    For each such vanishing triple, among $(x,y)$, $(y,z)$, $(z,x)$ exactly two pairs have numbers with different colors, so double counting gives $3k(n-k)$ such vanishing triples.
+\end{proof}
+
+Hence $2007=n^2-3k(n-k)$. Since $3\mid n$, let $n=3m$ for some $m$; then $669=3m^2-k(3m-k)$. Since $3\mid k$, let $k=3s$ for some $s$; then $223=m^2-3ms+3s^2$. The polynomial $3s^2-3m\cdot s+(m^2-223)$ in $s$ has perfect square discriminant $\Delta=2676-3m^2$. Since $3\mid\Delta$, let $\Delta=9t^2$. Then $892=m^2+3t^2$, and an exhaustive check gives $m\in\{23,28\}$, so $n\in\{69,84\}$, as desired.
+

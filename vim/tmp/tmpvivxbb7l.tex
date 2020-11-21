@@ -1,0 +1,48 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with $AB=30$, $BC=51$, $CA=63$. Points $P$ and $Q$ lie on $\overline{BC}$, $R$ lies on $\overline{CA}$, and $S$ lies on $\overline{AB}$ such that $PQRS$ is a parallelogram, and the center of $PQRS$ coincides with the centroid of $\triangle ABC$. What is the area of parallelogram $PQRS$?
+
+---
+
+Let $G$ be the centroid and $M$ the midpoint of $\overline{BC}$. In general, the area of $PQRS$ is $\tfrac49$ of the area of $\triangle ABC$.
+\begin{center}
+    \begin{asy}
+        size(4cm); defaultpen(fontsize(10pt));
+        pair A,B,C,P,Q,R,SS,G,M;
+        A=dir(110);
+        B=dir(200);
+        C=dir(340);
+        P=(2B+C)/3;
+        Q=(B+2C)/3;
+        R=(2A+C)/3;
+        SS=(2A+B)/3;
+        G=(A+B+C)/3;
+        M=(B+C)/2;
+
+        draw(A--B--C--A);
+        draw(Q--R--SS--P);
+        draw(A--M,dashed);
+
+        dot("$A$",A,N);
+        dot("$B$",B,SW);
+        dot("$C$",C,SE);
+        dot("$P$",P,S);
+        dot("$Q$",Q,S);
+        dot("$R$",R,NE);
+        dot("$S$",SS,NW);
+        dot("$G$",G,W);
+        dot("$M$",M,S);
+    \end{asy}
+\end{center}
+Let $d(X,\ell)$ be the distance from $X$ to $\ell$ and $d(\ell_1,\ell_2)$ be the distance between parallel lines $\ell_1$, $\ell_2$. Since $d(A,\overline{BC})=3d(G,\overline{BC})$ and $G$ is the center of $PQRS$, we have $d(\overline{RS},\overline{BC})=\tfrac23d(A,\overline{BC})$. This implies $AR=\tfrac13AC$ and $AS=\tfrac12AB$.
+
+Now $\overline{AG}$ bisects $\overline{RS}$ by homothety, so the midpoint of $\overline{PQ}$ is $M$. Then $PQ=RS=\tfrac13BC$, so $BP=PQ=QC$. Finally\[\frac{[ASR]}{[ABC]}=\frac19,\quad\frac{[BPS]}{[ABC]}=\frac29,\quad\frac{[CQR]}{[ABC]}=\frac29,\]and combining these results yields the desired conclusion. Alternatively the base of $PQRS$ is $\tfrac13$ that of $\triangle ABC$, and its height is $\tfrac23$ that of $\triangle ABC$, and the result readily follows as well.
+
+From the given numbers, $[ABC]=756$, so the answer is $336$.
+
+---
+
+336

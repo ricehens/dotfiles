@@ -1,0 +1,38 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all integer $n$ such that the following property holds: for any positive real numbers $a$, $b$, $c$, 
+$x$, $y$, $z$, with $\max(a,b,c,x,y,z)=a$, $a+b+c=x+y+z$, and $abc=xyz$, the inequality
+\[a^n+b^n+c^n \ge x^n+y^n+z^n\]
+holds.
+
+---
+
+The answer is $n\ge0$; to verify $n<0$ fail, take $(a,b,c)=(16,3,2)$, $(x,y,z)=(12,8,1)$, where
+\[\frac1{2^{-n}}+\frac1{3^{-n}}+\frac1{16^{-n}}<1<1+\frac1{8^{-n}}+\frac1{12^{-n}}.\]
+
+To prove $n\ge0$ work, we first prove this lemma:
+\begin{lemma*}
+    In $X^3-sX^2-tX-p=0$ with positive real roots $a$, $b$, $c$, if we express
+    $a^n+b^n+c^n$ as a polynomial in $P(s,t,p)$, then all terms have positive coefficient.
+\end{lemma*}
+\begin{proof}
+    Easy induction using Newton sums: if $U_n=a^n+b^n+c^n$, then
+    \[U_n=sU_{n-1}+tU_{n-2}+pU_{n-3}.\]
+\end{proof}
+
+Now let $a$, $b$, $c$ be the roots of $X^3-sX^2-t_1X-p=0$ and let $x$, $y$, $z$ be the roots of $X^3-sX^2-t_2X-p=0$. I contend:
+\begin{claim*}
+    $t_1\ge t_2$.
+\end{claim*}
+\begin{proof}
+    Suppose $t_1<t_2$. Then
+    \[a^3-sa^2-t_2a-p<a^3-sa^2-t_1a-p=0.\]
+    By the intermediate value theorem, one of the roots of
+    $X^3-sX^2-t_2X-p$ is greater than $a$, absurd.
+\end{proof}
+
+Now the desired conclusion follows by combining the claim and the lemma: we have
+\[a^n+b^n+c^n=P(s,t_1,p)\ge P(s,t_2,p)=x^n+y^n+z^n.\]

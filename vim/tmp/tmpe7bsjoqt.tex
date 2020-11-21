@@ -1,0 +1,53 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+For a given integer $n\ge 2$, let $\{a_1,a_2,\ldots,a_m\}$ be the set of positive integers less than $N$ that are relatively prime to $n$. Prove that if every prime that divides $m$ also divides $n$, then $a_1^k+a_2^k+\cdots+a_m^k$ is divisible by $m$ for every positive integer $k$.
+
+---
+
+The key is to look at each prime factor of $m=\varphi(n)$. In this solution, we denote \[A(n)=\{a:\gcd(a,n)=1\}.\]
+Now, we present four lemmas.
+\begin{boxlemma}
+    If $p$ is a prime and $e$ is a positive integer, then \[p^{e-1}\mid\sum_{a\in A(p^e)}a^k\]
+    for all positive integers $k$.
+\end{boxlemma}
+\begin{proof}
+    We use induction on $e$. The base case, $e=1$, is trivial. Now, notice that \[A\left(p^{e+1}\right)=\bigcup_{i=0}^{p-1}(ip^e+A\left(p^e\right)),\]
+    whence \[\sum_{a\in A\left(p^{e+1}\right)}a^k\equiv p\left(\sum_{a\in A(p^e)}a^k\right)+p^{ek}\left(\sum_{i=0}^{p-1}i^k\right)\equiv 0\pmod{p^e},\]
+    as desired.
+\end{proof}
+\begin{boxlemma}
+    If $p$ is a prime and $e$ is a positive integer such that $p^e\mid n$, then $p^{e-1}\mid 1^k+2^k+\cdots+n^k$ for all positive integers $k$.
+\end{boxlemma}
+\begin{proof}
+    Notice that \[\sum_{i=1}^n i^k\equiv\frac{n}{p^e}\sum_{i=1}^{p^e} i^k\pmod{p^{e-1}},\]
+    so it is sufficient to prove the problem for $n=p^e$. To do this, we use induction. The base case, $e=1$, is trivial. Then, \[\sum_{i=1}^{p^e}i^k=\left(\sum_{a\in A(p^e)}a^k\right)+p_k\left(\sum_{i=1}^{p^{e-1}}i^k\right)\equiv 0\pmod{p^{e-1}},\]
+    as desired.
+\end{proof}
+\begin{boxlemma}
+    Let $q$ be a prime that divides $n$. Then, if the problem statement holds for $n$, it holds for $nq$.
+\end{boxlemma}
+\begin{proof}
+    Consider all primes $p\ne q$ that divide $n$, and suppose that $e=\nu_p(m)$. Then, $e=\nu_p(\varphi(nq))$. Notice that \[\varphi(nq)=q\varphi(n)=mq.\]
+    Since \[A(nq)=\bigcup_{i=0}^{q-1}(ni+A(n)),\]
+    we have that \[\sum_{a\in A(nq)}a^k=\sum_{i=0}^{q-1}\left(\sum_{a\in A(n)}(ni+a)^k\right)=\sum_{j=0}^k\left(\binom kj n^{k-j}\left(\sum_{i=0}^{q-1}i^{k-j}\right)\left(\sum_{a\in A(n)}a^k\right)\right).\]
+    However, $p^e\mid\sum_{a\in A(n)}a^k$, so $p^e\mid\sum_{a\in A(nq)}a^k$, as desired.
+\end{proof}
+\begin{boxlemma}
+    Let $q$ be a prime that does not divide $n$. Then, if the problem statement holds for $n$, it holds for $nq$.
+\end{boxlemma}
+\begin{proof}
+    Consider all primes $p$ that divide $n$, and suppose that $e=\nu_p(m)$ and $f=\nu_p(q-1)$. Also notice that \[\varphi(nq)=(q-1)\varphi(n)=m(q-1),\]
+    so $e+f=\nu_p(\varphi(nq))$. Since \[A(nq)=\left(\bigcup_{i=0}^{q-1}(ni+A(n))\right)\setminus(qA(n)),\]
+    we have that
+    \begin{align*}
+        \sum_{a\in A(nq)}a^k&=\left(\sum_{i=0}^{q-1}\left(\sum_{a\in A(n)}(ni+a)^k\right)\right)-q^k\left(\sum_{a\in A(n)}a^k\right)\\
+        &=\left(\sum_{j=0}^{k-1}\left(\binom kj n^{k-j}\left(\sum_{i=0}^{q-1}i^{k-j}\right)\left(\sum_{a\in A(n)}a^k\right)\right)\right)-(q^k-q)\left(\sum_{a\in A(n)}a^k\right).
+    \end{align*}
+    However, it is given that $p\mid n^{k-j}$; by Lemma 2, $p^{f-1}\mid\sum_{i=0}^{q-1} i^{k-j}$; and $p^e\mid\sum_{a\in A(n)}a^k$. Furthermore, since $p^f\mid q-1\mid q^{k-1}-1\mid q^k-q$ and $p^e\mid\sum_{a\in A(n)}a^k$, we conclude that $p^{e+f}\mid\sum_{a\in A(nq)}a^k$, as desired.
+\end{proof}
+
+This is sufficient.

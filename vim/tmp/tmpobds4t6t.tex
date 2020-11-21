@@ -1,0 +1,54 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+We say that a function $f:\mathbb R^k\to\mathbb R$ is a \emph{metapolynomial} if, for some positive integers $m$ and $n$, it can be represented in the form
+\[f(x_1,\ldots,x_k)=\max_{i=1,\ldots,m}\min_{j=1,\ldots,n}P_{i,j}(x_1,\ldots,x_k),\]
+where $P_{i,j}$ are multivariate polynomials. Prove that the product of two metapolynomials is also a metapolynomial.
+
+---
+
+In what follows, we say
+\[
+    \opname{\textbf{meta}}P:=\max_{i=1,\ldots,m}\min_{j=1,\ldots,n}P_{ij}(x_1,\ldots,x_k),
+    \quad\text{where}\quad
+    P=\begin{bmatrix}
+        P_{11}&\cdots&P_{1n}\\
+        \vdots&\ddots&\vdots\\
+        P_{m1}&\cdots&P_{mn}
+    \end{bmatrix}
+\]
+\begin{remark}
+    The general shape of this proof is to repeat the proof of $f$, $g$ integrable implies $fg$ integrable, in which we prove that
+    \begin{itemize}[itemsep=0em]
+        \item $f+g$ integrable,
+        \item $cf$ integrable for any $c\in\mathbb R$,
+        \item $f^2$ integrable,
+    \end{itemize}
+    and conclude that $\frac12\left[(f+g)^2-f^2-g^2\right]=fg$ integrable.
+\end{remark}
+\setcounter{lemma}0
+\begin{lemma}
+    If $f$, $g$ are metapolynomials, then so is $f+g$.
+\end{lemma}
+\begin{proof}
+    Say $f=\opname{\textbf{meta}}P$, $g=\opname{\textbf{meta}}Q$, where $P$ has dimensions $a\times b$ and $Q$ has dimensions $c\times d$. Then $f+g=\opname{\textbf{meta}}R$, where $R$ is an $ac\times bd$ matrix where we put all possible circular permutations of $Q$ on top of $P$.
+\end{proof}
+\begin{lemma}
+    If $f$ is a metapolynomial, then so is $-f$. (Hence, $cf$ is a metapolynomial for any $c\in\mathbb R$.)
+\end{lemma}
+\begin{proof}
+    If $f=\opname{\textbf{meta}}P$, where $P$ has dimensions $m\times n$, then $-f=\opname{\textbf{meta}}Q$, where $Q$ is a $n^m\times m$ matrix constructed as follows: take all $m$-tuples where the $i$th term comes from the $i$th row of $-P$, and let that tuple be one row vector of $Q$.
+
+    For example, \[\opname{\textbf{meta}}\begin{bmatrix}-1&-4\\-3&-2\end{bmatrix}=-\opname{\textbf{meta}}\begin{bmatrix}1&3\\1&2\\4&3\\4&2\end{bmatrix}.\]
+\end{proof}
+\begin{lemma}
+    If $f$ is a metapolynomial, then so is $f^2$.
+\end{lemma}
+\begin{proof}
+    Observe that $(f+1)^3$ and $f^3+3f+1$ are metapolynomials, so take their difference.
+\end{proof}
+
+Finally $\frac12\left[(f+g)^2-f^2-g^2\right]=fg$ is a metapolynomial, so we are done.
+

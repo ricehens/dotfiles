@@ -1,0 +1,15 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$, $b$, $c$ be positive real numbers with $abc=1$. Show that \[\left(a-1+\frac1b\right)\left(b-1+\frac1c\right)\left(c-1+\frac1a\right)\le1.\]
+
+---
+
+The key is to consider
+\begin{align*}
+    \left(a-1+\frac1b\right)\left(b-1+\frac1c\right)&=\frac ac+\left(ab-\frac1c\right)+\left(\frac1{bc}-a\right)-\left(b+\frac1b\right)+2\\
+    &=\frac ac+2-\left(b+\frac1b\right)\le\frac ac.
+\end{align*}
+Multiplying this cyclically yields the desired conclusion.

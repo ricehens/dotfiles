@@ -1,0 +1,30 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$, $b$, $c$ be positive real numbers such that $\min(ab,bc,ca)\ge1$. Prove that
+\[\sqrt[3]{\left(a^2+1\right)\left(b^2+1\right)\left(c^2+1\right)}\le\left(\frac{a+b+c}3\right)^2+1.\]
+
+---
+
+We first prove the two-variable version:
+\begin{lemma*}
+    Whenever $xy\ge1$, we have
+    \[\sqrt{\left(x^2+1\right)\left(y^2+1\right)}\le\left(\frac{x+y}2\right)^2+1.\]
+\end{lemma*}
+\begin{proof}
+    Square both sides. The left-hand side becomes $\text{LHS}=x^2y^2+x^2+y^2+1$, and the right-hand side becomes
+    \[\text{RHS}=\left(\frac{x+y}4\right)^2+2\left(\frac{x+y}2\right)^2+1.\]
+    Subtracting,
+    \begin{align*}
+        \text{RHS}-\text{LHS}&=\left(\frac{x+y}2\right)^4-x^2y^2+2\left(\frac{x+y}2\right)^2-\left(x^2+y^2\right)\\
+        &=\left[\left(\frac{x+y}2\right)^2-xy\right]\cdot\left[\left(\frac{x+y}2\right)^2+xy\right]-2\left(\frac{x-y}2\right)^2\\
+        &=\left(\frac{x-y}2\right)^2\left[\left(\frac{x+y}2\right)^2+xy-2\right]\ge0,
+    \end{align*}
+    as needed.
+\end{proof}
+
+Observe that $f(x)=\ln(x^2+1)$ is concave for $x\ge1$, so if $a,b,c\ge1$, then the inequality follows by Jensen's inequality. Now assume (without loss of generality) $a<1$, but $ab,ac\ge1$. We have
+\[\frac{f(a)+f(b)+f(c)}3\le\frac{2f\left(\frac{a+b}2\right)+f(c)}3\le f\left(\frac{2\cdot\frac{a+b}2+c}3\right)=f\left(\frac{a+b+c}3\right).\]
+

@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Max is playing a video game with $99$ levels, labeled $1,2,\ldots,99$. Whenever Max completes a level, he begins the next one immediately. However, for all $1\le n\le 99$, Max fails the $n^\text{th}$ level with probability $(n+1)^{-2}$. Whenever he fails a level, he quits for the day and attempts the level again the next day. If Max first attempts the first level on Day $1$ and completes the $99^\text{th}$ level on Day $K$, then the expected value of $K$ can be expressed as $\tfrac pq$, where $p$ and $q$ are relatively prime positive integers. Find the remainder when $p+q$ is divided by $1000$.
+
+---
+
+Suppose that Max attempts only one free throw a day. Then, the expected number of days it takes Max to complete level $n$ is $$\left(1-\frac1{(n+1)^2}\right)^{-1}=\left(\frac{n(n+2)}{(n+1)^2}\right)^{-1}=1+\frac1{n(n+2)}=1+\frac12\left(\frac1n-\frac1{n+2}\right).$$
+Thus, the expected number of days it takes Max to complete all $99$ levels is
+\begin{align*}
+    \sum_{n=1}^{99}\left(1-\frac1{(n+1)^2}\right)^{-1}&=\sum_{n=1}^{99}\left(\frac{n(n+2)}{(n+1)^2}\right)^{-1}\\
+    &=99+\frac12\sum_{n=1}^{99}\left(\frac1n-\frac1{n+2}\right)\\
+    &=99+\frac12\left(\frac11+\frac12-\frac1{100}-\frac1{101}\right)\\
+    &=99+\frac{14949}{20200}.
+\end{align*}
+However, we overcount by $98$ days, so the expected value of $K$ is $1+\dfrac{14949}{20200}=\dfrac{35149}{20200}$, and the requested remainder is $35149+20200\equiv 349\pmod{1000}$.
+
+---
+
+349

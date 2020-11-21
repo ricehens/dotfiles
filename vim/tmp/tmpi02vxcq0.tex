@@ -1,0 +1,41 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Given a triangle $ABC$, let $P$ and $Q$ be points on segments $\seg{AB}$ and $\seg{AC}$, respectively, such that $AP=AQ$. Let $S$ and $R$ be distinct points on segment $\seg{BC}$ such that $S$ lies between B and R, $\angle BPS=\angle PRS$, and $\angle CQR=\angle QSR$. Prove that $P$, $Q$, $R$, $S$ are concyclic.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
+        pen pri=red+linewidth(0.5);
+        pen sec=orange+linewidth(0.5);
+        pen fil=red+opacity(0.05);
+        pen sfil=orange+opacity(0.05);
+        pair A, B, C, O, P, Q, R, SS;
+        A=dir(110);
+        B=dir(210);
+        C=dir(330);
+        O=(4*incenter(A, B, C)-A)/3;
+        P=foot(O, A, B);
+        Q=foot(O, A, C);
+        R=intersectionpoints(circle(O, length(P-O)), B -- C)[1];
+        SS=intersectionpoints(circle(O, length(P-O)), B -- C)[0];
+        draw(A -- B -- C -- A, pri);
+        fill(A -- B -- C -- cycle, fil);
+        draw(P -- SS -- Q -- R -- P, sec);
+        filldraw(circle(O, length(P-O)), sfil, sec);
+        dot("$A$", A, N);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$P$", P, unit(P-R));
+        dot("$Q$", Q, unit(Q-SS));
+        dot("$R$", R, SE);
+        dot("$S$", SS, SW);
+    \end{asy}
+\end{center}
+Assume for the sake of contradiction that $PQRS$ is not cyclic. Notice that $\angle BPS=\angle PRS$ is equivalent to $(PRS)$ being tangent to $\seg{AB}$ at $P$. Similarly, we have that $(QRS)$ is tangent to $\seg{AC}$ at $Q$. Clearly, $\seg{RS}$ is the radical axis of $(PRS)$ and $(QRS)$. However, \[\pow(A, (PRS))=AP^2=AQ^2=\pow(A, (QRS)),\]
+so $A\in\seg{RS}$, which is absurd.

@@ -1,0 +1,25 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For $a,b,c>0$, prove that \[\frac{a^3}{(b-c)^2+bc}+\frac{b^3}{(c-a)^2+ca}+\frac{c^3}{(a-b)^2+ab}\ge a+b+c.\]
+
+---
+
+The easiest solution is just Muirhead's. There is a less computational solution by Titu and Schur, however, but we choose not to present it. Rewrite the desired inequality as \[\cycsum\frac{a^3(b+c)}{b^3+c^3}\ge a+b+c\quad\text{since}\quad\frac{a^3}{(b-c)^2+bc}=\frac{a^3}{b^2-bc+c^2}=\frac{a^3(b+c)}{b^3+c^3}.\]
+After multiplying both sides by $\cycsum(a^3+b^3)$, we find that the left-hand expression reads
+\begin{align*}
+    \text{LHS}&=\cycsum a^3(b+c)\left(a^3+b^3\right)\left(a^3+c^3\right)\\
+    &=\cycsum a^3(b+c)\left(a^6+a^3b^3+a^3c^3+b^3c^3\right)\\
+    &=\cycsum\left(a^9b+a^9c+a^6b^4+a^6c^4+a^6b^3c+a^6bc^3+a^3b^4c^3+a^3b^3c^4\right)\\
+    &=\symsum a^9b+\symsum a^6b^4+\symsum a^6b^3c+\symsum a^4b^3c^3.
+\end{align*}
+Similarly the right-hand expression reads
+\begin{align*}
+    \text{RHS}&=\cycsum\left(b^3+c^3\right)\left(a^6+a^3b^3+a^3c^3+b^3c^3\right)\\
+    &=\cycsum\left(a^6b^3+a^6c^3+2a^3b^3c^3+a^3b^6+a^3c^6+b^6c^3+b^3c^6\right)\\
+    &=\symsum a^7b^3+\symsum a^6b^4+\symsum a^6b^3c+\symsum a^4b^3c^3.
+\end{align*}
+It is clear by Muirhead's inequality that $\text{LHS}\ge\text{RHS}$, completing the proof.
+

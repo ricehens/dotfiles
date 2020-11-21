@@ -1,0 +1,21 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Define the function $f:(0,1)\to(0,1)$ by
+\[f(x)=\begin{cases}x+\frac12&\text{if }x<\frac12\\ x^2&\text{if }x\ge\frac12.\end{cases}\]
+Let $a$ and $b$ be two real numbers such that $0<a<b<1$. We define the sequences $(a_n)$ and $(b_n)$ by $a_0=a$, $b_0=b$, and $a_n=f(a_{n-1})$, $b_n=f(b_{n-1})$ for $n>0$. Show that there exists a positive integer $n$ such that
+\[(a_n-a_{n-1})(b_n-b_{n-1})<0.\]
+
+---
+
+Assume for contradiction that for all $n$, $a_n>a_{n-1}$ if and only if $b_n>b_{n-1}$. Note that if $x<\frac12$, then $f(x)>\frac12>x$, and if $s\ge\frac12$, then $f(x)<x$; hence, $a_n<\frac12$ if and only if $b_n<\frac12$.
+
+Now let $c_n=b_n-a_n$. If $a_n,b_n<\frac12$, then $c_{n+1}=(b_n+\frac12)-(a_n+\frac12)=c_n$, and if $a_n,b_n\ge\frac12$, then
+\[c_{n+1}=(a_n+c_n)^2-a_n^2=c_n(2a_n+c_n)>c_n(1+c_n).\]
+
+Recall that $a_n,b_n<\frac12$ imply $a_{n+1},b_{n+1}\ge\frac12$, so for all values of $n$, independent of the values of $a_n$ and $b_n$, we have
+\[c_{n+2}>c_n(1+c_n)\ge c_n(1+c_1).\]
+It follows that for $n$ large, $c_n\ge\frac12$, which is absurd.
+

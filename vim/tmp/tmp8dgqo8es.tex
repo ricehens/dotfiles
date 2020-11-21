@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+An \emph{excircle} of a triangle is a circle tangent to one of the sides of the triangle and the extensions of the other two sides. Let $ABC$ be a triangle with $\angle ACB=90^\circ$ and let $r_A$, $r_B$, $r_C$ denote the radii of the excircles opposite to $A$, $B$, $C$, respectively. If $r_A=9$ and $r_B=11$, then $r_C$ can be expressed in the form $m+\sqrt{n}$, where $m$ and $n$ are positive integers and $n$ is not divisible by the square of any prime. Find $m+n$. 
+
+---
+
+Let $a=BC$, $b=CA$, $c=AB$, $s=\tfrac{a+b+c}2$, and $K$ be the area of $\triangle ABC$. Remark that since $\angle ACB=90^\circ$, if the $C$-excircle touches $\overline{AB},\overline{BC},\overline{CA}$ at $C',A',B'$, respectively, then $CA'I_CB'$ is a square, so $r_C=I_AA'=CA'=s$. It is known that \[K=r_A(s-a)=r_B(s-b)=r_C(s-c).\]
+Notice that
+\begin{align*}
+    s(s-c)&=\frac{(a+b+c)(a+b-c)}4=\frac{(a+b)^2-c^2}4\\ &=\frac{(a+b)^2-a^2-b^2}4=\frac{ab}2=K,
+\end{align*}
+and by Heron's $(s-a)(s-b)=K$ as well. Check that \[r_A+r_B=\frac K{s-a}+\frac K{s-b}=K\left(\frac c{(s-a)(s-b)}\right)=c.\]
+Furthermore, \[ab=2K=2\cdot\frac K{s-a}\cdot\frac K{s-b}=2r_Ar_B.\]
+Hence, $a^2+b^2=(r_A+r_B)^2$ and $2ab=4r_Ar_B$. Adding, $a+b=\sqrt{(r_A+r_B)^2+4r_Ar_B}$, and it readily follows that \[r_C=\frac{a+b+c}2=\frac{r_A+r_B+\sqrt{(r_A+r_B)^2+4r_Ar_B}}2,\]
+which evaluates to $10+\sqrt{199}$. The requested sum is $10+199=209$.
+
+---
+
+209

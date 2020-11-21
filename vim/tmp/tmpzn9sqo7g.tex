@@ -1,0 +1,71 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a scalene triangle with circumcircle $\Omega$, and suppose the incircle of $\triangle ABC$ touches $\seg{BC}$ at $D$. The angle bisector of $\angle A$ meets $\seg{BC}$ and $\Omega$ at $E$ and $F$. The circumcircle of $\triangle DEF$ intersects the $A$-excircle at $S_1$, $S_2$, and $\Omega$ at $T\ne F$. Prove that line $AT$ passes through either $S_1$ or $S_2$.
+
+---
+
+Let $T'$ be the $A$-mixtillinear touchpoint.
+
+Since $\da BAT=\da DCT$ and $\da ATB=\da CTD$, we have $\triangle ABT\sim\triangle CDT$. Then
+\[\da T'FE=\da T'FA=\da T'BA=\da T'DC=\da T'DE,\]
+so $T'\in(DEF)$. Therefore $T=T'$.
+\end{proof}
+\begin{center}
+\begin{asy}
+    size(6.5cm); defaultpen(fontsize(10pt));
+    pen pri=blue;
+    pen sec=lightred;
+    pen tri=deepcyan;
+    pen qua=purple;
+    pen fil=cyan+opacity(0.05);
+    pen sfil=lightred+opacity(0.05);
+    pen qfil=purple+opacity(0.05);
+
+    pair O,A,B,C,I,D,EE,F,U,T,IA,Dp,S1,S2,J,Sp;
+    O=(0,0);
+    A=dir(120);
+    B=dir(190);
+    C=dir(-10);
+    I=incenter(A,B,C);
+    D=foot(I,B,C);
+    EE=extension(A,I,B,C);
+    F=dir(270);
+    U=circumcenter(D,EE,F);
+    T=reflect(O,U)*F;
+    IA=2F-I;
+    Dp=foot(IA,B,C);
+    S2=intersectionpoint(circumcircle(D,EE,F),circle(IA,abs(Dp-IA)));
+    S1=reflect(IA,U)*S2;
+    J=2*circumcenter(A,extension(A,B,I,I+rotate(90)*(I-A)),extension(A,C,I,I+rotate(90)*(I-A)))-A;
+    Sp=reflect(A,I)*T;
+
+    draw(circle(IA,abs(Dp-IA)),tri+dashed);
+    real t=1.2; clip( (-t,-t)--(t+.1,-t)--(t+.1,100)--(-t,100)--cycle);
+    draw(A--F,tri);
+    draw(T--A--Sp,qua+dashed);
+    filldraw(circle(J,abs(T-J)),qfil,qua+Dotted);
+    filldraw(circumcircle(D,EE,F),sfil,sec);
+    filldraw(unitcircle,fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+
+    dot("$A$",A,A);
+    dot("$B$",B,B);
+    dot("$C$",C,C);
+    dot("$D$",D,NW);
+    dot("$E$",EE,NE);
+    dot("$F$",F,dir(300));
+    dot("$T$",T,dir(210));
+    dot("$S$",S1,dir(-30));
+    dot("$S'$",Sp,SE);
+\end{asy}
+\end{center}
+
+Now let $\seg{AT}$ intersect $(DEF)$ again at $S$. I will show $S$ lies on the $A$-excircle, and the conclusion will follow.
+
+Let $\Psi$ denote inversion at $A$ with radius $\sqrt{AB\cdot AC}$, followed by reflection over the angle bisector of $\angle A$. Since $AS\cdot AT=AE\cdot AF=AB\cdot AC$, the image $S'$ of $S$ under $\Psi$ is the reflection of $T$ over the angle bisector of $\angle A$; in particular, $S'$ lies on the mixtillinear incircle.
+
+But it is well-known that $\Psi$ swaps the $A$-excircle and the $A$-mixtillinear incircle, so $S$ lies on the excircle, the end.
+

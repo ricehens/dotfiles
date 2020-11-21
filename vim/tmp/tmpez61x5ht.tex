@@ -1,0 +1,52 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+See \url{https://arxiv.org/pdf/1402.5775v1.pdf}.
+
+Consider the first-quadrant lattice $P=A\times A$. Consider lines $\ell_1$, $\ldots$, $\ell_k$ passing through the origin and sorted in increasing order of slope, passing through the points of $P$. Let $n_i=|\ell_i\cap P|$.
+\begin{center}
+\begin{asy}
+    size(5cm); defaultpen(fontsize(10pt));
+
+    draw( (0,0)--(1,4),gray);
+    draw( (0,0)--(2,4),gray);
+    draw( (0,0)--(4,4),gray);
+    draw( (0,0)--(4,2),gray);
+    draw( (0,0)--(4,1),gray);
+
+    draw( (0,0)--(4,0)--(4,4)--(0,4)--cycle);
+    draw( (0,1)--(4,1));
+    draw( (1,0)--(1,4));
+    draw( (0,2)--(4,2));
+    draw( (2,0)--(2,4));
+
+    dot( (1,1),red);
+    dot( (1,2),red);
+    dot( (1,4),red);
+    dot( (2,1),red);
+    dot( (2,2),red);
+    dot( (2,4),red);
+    dot( (4,1),red);
+    dot( (4,2),red);
+    dot( (4,4),red);
+\end{asy}
+\end{center}
+We want to lower bound the number of distinct lines through the origin passing through some point of $P+P$. Note that if points $X$ and $Y$ lie on $\ell_i$ and $\ell_{i+1}$ respectively, then $X+Y$ is between $\ell_i$ and $\ell_{i+1}$. Thus we consider the number of distinct slopes between $\ell_i$ and $\ell_{i+1}$.
+\begin{iclaim*}
+    The number of distinct lines through the origin and a point of the form $X+Y$, where $X\in\ell_i\cap P$ and $\Y\in\ell_{i+1}\cap P$, is at least $n_i+n_{i+1}-1$.
+\end{iclaim*}
+\begin{proof}
+    Let $u=n_i$, $v=n_{i+1}$. Let the points on $\ell_i$ be $A_1$, $\ldots$, $A_u$, sorted in increasing order of magnitude, and let the points on $\ell_{i+1}$ be $B_1$, $\ldots$, $B_v$, sorted in increasing order of magnitude.
+
+    I claim that the pairs $(X,Y)$ of the form $(A_1,B_k)$ for $k\le v$ and $(A_k,B_1)$ for $k\le u$ all work. This is clear since for $X_1,X_2\in\ell_i$ and $Y_1,Y_2\in\ell_{i+1}$, the line through the origin and $X_1+Y_1$ and the line through the origin and $X_2+Y_2$ coincide if and only if $\seg{X_1Y_1}\parallel\seg{X_2Y_2}$. 
+\end{proof}
+
+Note that $n_1=n_k=1$. Furthermore each $\ell_i$ is also a possible line through the origin and $P+P$. Hence the number of lines through the origin and $P+P$ is
+\begin{align*}
+    \left\lvert\frac{A+A}{A+A}\right\rvert&\ge k+\sum_{i=1}^{k-1}\big(n_i+n_{i+1}-1\big)\\
+    &\ge k+2\left(\sum_{i=1}^kn_i\right)-n_1-n_k-(k-1)\\
+    &=2n^2-1,
+\end{align*}
+as desired.

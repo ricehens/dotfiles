@@ -1,0 +1,46 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For which positive integers $b>2$ do there exist infinitely many positive integers $n$ such that $n^2$ divides $b^n+1$?
+
+---
+
+The answer is all $b$ such that $b+1$ is not a power of $2$.
+\setcounter{iclaim}0
+\begin{iclaim}
+    All such $n$ are odd.
+\end{iclaim}
+\begin{proof}
+    Assume for contradiction $n=2k$ for some $k$. Since $b^2\equiv0,1\pmod4$, \[4\mid b^{2k}+1=\left(b^2\right)^k+1\equiv1,2\pmod4,\]
+    which is absurd.
+\end{proof}
+\begin{iclaim}
+    If $b+1$ is a power of $2$ and $n^2\mid b^n+1$, then $n=1$.
+\end{iclaim}
+\begin{proof}
+    Assume that $b+1$ is a power of $2$, and let $p$ be the least odd prime dividing some $n>1$. Then $b^{2n}\equiv1\pmod p$ and $b^{p-1}\equiv1\pmod p$. Since $\gcd(2n,p-1)=2$, we must have $b^2\equiv1\pmod p$, or $p\mid b^2-1$. Since $b+1$ is a power of $2$, $p$ divides $b-1$. It follows that \[p\mid b^n+1\equiv2\pmod p,\]
+    contradiction, thus no $b$ with $b+1$ a power of $2$ work.
+\end{proof}
+\begin{iclaim}
+    If $p$ is an odd prime dividing $b+1$, then $p^2\mid b^p+1$.
+\end{iclaim}
+\begin{proof}
+    Indeed, we take an odd prime $p$ dividing $b+1$, and note that \[\nu_p\left(b^p+1\right)=\nu_p(b+1)+1\ge2\]
+    by lifting the exponent, so $p^2\mid b^p+1$, as claimed.
+\end{proof}
+\begin{iclaim}
+    If $n>1$ and $n^2\mid b^n+1$, then there is an odd prime $p\nmid n$ with $(np)^2\mid b^{np}+1$.
+\end{iclaim}
+\begin{proof}
+    The pith of this claim is that by Zsigmondy theorem, we can choose a prime $p$ dividing $b^n+1$ but not $n$. Then $n^2\mid b^n+1\mid b^{np}+1$ and \[\nu_p\left(b^{np}+1\right)=\nu_p\left(b^n+1\right)+1\ge2,\]
+    so $p^2\mid b^{np}+1$, which proves the claim.
+\end{proof}
+
+Claim 2 ensures that no $b$ with $b+1$ a power of $2$ satisfy the problem condition. On the other hand, if $b+1$ is not a power of $2$, Claim 3 shows there are $n>1$ with $n^2\mid b^n+1$, and Claim 4 proves  there are infinitely many such $n$. This completes the proof.
+\begin{boxremark}
+    This problem is just a generalization of IMO 1990/3 and IMO 2000/5.
+\end{boxremark}
+
+

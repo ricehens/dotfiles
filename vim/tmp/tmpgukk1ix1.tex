@@ -1,0 +1,31 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find the number of integer sequences $a_1$, $a_2$, $\ldots$, $a_6$ such that
+\begin{itemize}
+    \item $0\le a_1<6$ and $12\le a_6<18$,
+    \item $1\le a_{k+1}-a_k<6$ for all $1\le k<6$, and
+    \item there do not exist $1\le i<j\le6$ such that $a_j-a_i$ is divisible by $6$.
+\end{itemize} 
+
+---
+
+Consider the sequence $(b_i)$ with $0\le b_i<6$ and $b_i\equiv a_i\pmod6$. The number of \emph{mismatches} of $(b_i)$ is the number of $i$ with $b_i>b_{i+1}$.
+
+Note that $\left\lfloor a_i/6\right\rfloor$ increases if and only if $(b_i)$ has a mismatch at index $i$, so we are counting the number of permutations of $(0,1,2,3,4,5)$ with exactly two mismatches.
+
+Let $f(n)$ be the number of permutations of $(0,1,2,3,4,5)$ with exactly $n$ mismatches. Note that $f(0)=f(5)$, $f(1)=f(4)$, $f(2)=f(3)$ since reversing add sequence with $n$ mismatches gives a sequence with $5-n$ mismatches. Hence $f(0)+f(1)+f(2)=360$.
+
+It is easy to determine $f(0)=1$, since the only permutation with no mismatches is $(0,1,2,3,4,5)$ itself. It suffices to evaluate $f(1)$. For a sequence $(b_i)$ with one mismatch, let $S$ be the set of elements before the mismatch and $T$ the elements after (hence $|S\cup T|=6$ and $|S\cap T|=0$). The elements of $S$ appear in $(b_i)$ in increasing order, and the elements of $T$ also appear in increasing order, so we need to count the number of $S$ determine a sequence with exactly $1$ mismatch.
+
+A sequence $(b_i)$ determined by $S$ and $T$ has one mismatch if and only if $\max S>\min T$, as $\max S$ and $\min T$ must be adjacent in $(b_i)$, and between them is where we divided $S$ and $T$. To count the number of such $S$, we use complementary counting.
+
+There are a total of $2^6=64$ subsets of $\{0,1,2,3,4,5\}$. For $\max S<\min T$, $S$ must consist of the first $k$ nonnegative integers for some $0\le k\le6$, so $7$ subsets are invalid, and the rest work. We conclude $f(1)=57$.
+
+Finally $f(2)=360-1-57=302$, and we are done.
+
+---
+
+302

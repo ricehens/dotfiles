@@ -1,0 +1,61 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be an acute triangle with circumcenter $O$, orthocenter $H$, and $\angle A=45^\circ$. Denote by $M$ the midpoint of $\overline{BC}$, and let $P$ be a point such that $\overline{AP}$ is parallel to $\overline{BC}$ and $\angle HMB=\angle PMC$. Show that if segment $OP$ intersects the circle with diameter $\overline{AH}$ at $Q$, then $\overline{OA}$ is tangent to the circumcircle of $\triangle APQ$.
+
+---
+
+Define $\omega$ as the circumcircle of $ABC$, and let $A'$ be its second intersection with $\overline{AP}$, $H'$ be its second intersection with $\overline{AH}$, and $X$ be its second intersection with $\overline{H'M}$. Furthermore, define $Q'$ as the second intersection of the circumcircles of $\triangle H'HO$ and $\triangle A'AO$.
+\setcounter{iclaim}0
+\begin{iclaim}
+    $Q'$ lies on the circle with diameter $\overline{AH}$.
+\end{iclaim}
+\begin{proof}
+    First observe that $H'$ is the antipode of $A'$, so
+    \[\angle HQO=\angle HH'O=90^\circ-\angle AA'O=90^\circ-\angle AQ'O\]and $\angle AQ'H=90^\circ$. This immediately proves the assertion.
+\end{proof}
+\begin{center}
+    \begin{asy}
+        size(9cm);
+        defaultpen(fontsize(10pt));
+
+        pair A=(-14.1,40), B=(-30,-30), C=(30,-30), M=(0,-30), H=(-14.1,-20), HH=(-14.1,-40), O=(0,0), P=(99,40), AA=(14.1,40), Q=(15.6,6.3), X=2*foot(O,HH,P)-HH;
+
+        draw(A--B--C--cycle, linewidth(0.5));
+        draw(circumcircle(A,B,C), linewidth(0.5));
+        draw(A--P--O, linewidth(0.5));
+        draw(P--M--H, linewidth(0.5));
+        draw(circumcircle(A,AA,O), linewidth(0.4)+grey);
+        draw(circumcircle(HH, H, O), linewidth(0.4)+grey);
+        draw(circumcircle(A,H,Q), linewidth(0.8)+dashed);
+        draw(A--HH, linewidth(0.4)+grey);
+        draw(AA--HH, linewidth(0.4)+grey);
+        draw(A--O--H--cycle, linewidth(1.0)+grey);
+        draw(O--M--HH--cycle, linewidth(1.0)+grey);
+
+        dot("$X$", X, (0.8,-0.4));
+        dot("$A$", A, (0,1));
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$H'$", HH, SW);
+        dot("$H$", H, SW);
+        dot("$M$", M, (0,-1));
+        dot("$O$", O, SE);
+        dot("$Q'$", Q, SE);
+        dot("$P$", P, NE);
+        dot("$A'$", AA, NE);
+    \end{asy}
+\end{center}
+\begin{iclaim}
+    $X$ lies on the circumcircle of $H'HO$.
+\end{iclaim}
+\begin{proof}
+    Reflect $O$ over $\overline{BC}$ to $O'$. Since $\angle BOC=2\angle BAC=90^\circ$, $O$ lies on the circle with diameter $\overline{BC}$. Note that $H$ and $H'$ are reflections across $\overline{BC}$, so the circumcenter of $\triangle H'HO$ lies on $\overline{BC}$. This immediately yields that $O'$ also lies on $(H'HO)$, and thus \[MH'\cdot MX=MB\cdot MC=MO\cdot MO',\]
+    and the desired conclusion follows readily.
+\end{proof}
+
+Finally, because $H'$ is the reflection of $H$ over $\overline{BC}$, $H'$ must lie on $\overline{PM}$ as well; hence, $P$ is the radical center of $(A'AO)$, $(ABC)$, and $(H'HO)$. It follows that $Q'$ lies on $\overline{OP}$, and therefore $Q'=Q$. Noting that
+$\angle OQA=\angle OA'A=\angle OAP$ solves the problem.
+

@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A house has an even number of lamps distributed among its rooms in such a way that there are at least three lamps in every room. Each lamp shares a switch with exactly one other lamp, not necessarily from the same room. Each change in the switch shared by two lamps changes their states simultaneously. Prove that for every initial state of the lamps there exists a sequence of changes in some of the switches at the end of which each room contains lamps which are on as well as lamps which are off.
+
+---
+
+Interpret the problem as follows: each room is a vertex of degree at least three in a (not necessarily simple) graph, and each pair of lamps represents an edge between two (not necessarily distinct rooms.) The goal is to color the edges with two colors such that each vertex has edges of both colors.
+
+Call a vertex \emph{monochromatic} if all its edges are the same color. Assume for contradiction the goal is not possible, and take a configuration with the smallest number of monochromatic vertices. Let $v_1$ be one such monochromatic vertex, and select an edge $v_1\sim v_2$. If we flip the color of this edge, then $v_2$ must become monochromatic by minimality.
+
+From here, select an edge $v_2\sim v_3$ in the same way, and construct such a sequence $v_1\to v_2\to\cdots$. But this sequence can not have any cycles: if for example, $v_k\to v_1$ appears in the sequence, then toggling the color of $v_k\sim v_1$ makes $v_1$ monochromatic again, which is absurd since $\deg v_1\ge3$ and all edges incident to $v_1$ besides $v_1\sim v_2$ are the same color. Thus the sequence continues forever, contradiction.

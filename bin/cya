@@ -14,4 +14,4 @@ scrot /tmp/screen_locked.png
 mogrify -blur 0x6 -brightness-contrast -20 /tmp/screen_locked.png
 
 # Lock screen
-i3lock -b -e -p win -i /tmp/screen_locked.png
+i3lock -p win -i /tmp/screen_locked.png

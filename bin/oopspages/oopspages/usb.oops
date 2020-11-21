@@ -1,6 +1,0 @@
-Install exfat-utils for exfat FUSE drivers. Find the drive using
-    $ lsblk
-Mount it using
-    $ mount ~/usb /dev/<USB>
-Unmount it using
-    $ umount ~/usb

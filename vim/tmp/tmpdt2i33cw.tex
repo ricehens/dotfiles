@@ -1,0 +1,68 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $H$ be the orthocenter of acute triangle $ABC$. The circle $\Gamma_A$ centered at the midpoint of $\seg{BC}$ and passing through $H$ intersects side $BC$ at points $A_1$, $A_2$. Similarly, define the points $B_1$, $B_2$, $C_1$, $C_2$.
+
+Prove that the six points $A_1$, $A_2$, $B_1$, $B_2$, $C_1$, $C_2$ are concyclic.
+
+---
+
+The radical axis of $\Gamma_B$, $\Gamma_C$ is the line through $H$ perpendicular to $\seg{M_BM_C}$, which passes through $A$. Hence $AB_1\cdot AB_2=AC_1\cdot AC_2$, so $B_1$, $B_2$, $C_1$, $C_2$ are concyclic
+
+Analogously $C_1$, $C_2$, $A_1$, $A_2$ are concyclic and $A_1$, $A_2$, $B_1$, $B_2$ are concyclic.
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+    pen pri=lightblue;
+    pen sec=purple+pink;
+    pen tri=lightred;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=tri+opacity(0.05);
+
+    pair A,B,C,H,MA,MB,MC,B1,B2,C1,C2,A1,A2;
+    A=dir(100);
+    B=dir(210);
+    C=dir(330);
+    H=A+B+C;
+    MA=(B+C)/2;
+    MB=(C+A)/2;
+    MC=(A+B)/2;
+    B1=MB+unit(C-A)*abs(MB-H);
+    B2=2MB-B1;
+    C1=MC+unit(A-B)*abs(MC-H);
+    C2=2MC-C1;
+    A1=MA+unit(B-C)*abs(MA-H);
+    A2=2MA-A1;
+
+    draw(arc(MA,A2,A1),tri);
+    draw(arc(MB,B2,B1),tri);
+    draw(arc(MC,C2,C1),tri);
+    fill(arc(MA,A2,A1)--cycle,tfil);
+    fill(arc(MB,B2,B1)--cycle,tfil);
+    fill(arc(MC,C2,C1)--cycle,tfil);
+    filldraw(circumcircle(B2,B1,C1),sfil,sec+dashed);
+    draw(A--H,pri+Dotted);
+    draw(B--H,pri+Dotted);
+    draw(C--H,pri+Dotted);
+    filldraw(A--B--C--cycle,fil,pri);
+
+    dot("$A$",A,N);
+    dot("$B$",B,SW);
+    dot("$C$",C,SE);
+    dot("$M_A$",MA,S);
+    dot("$M_B$",MB,unit(H-B));
+    dot("$M_C$",MC,unit(H-C));
+    dot("$A_1$",A1,SW);
+    dot("$A_2$",A2,SE);
+    dot("$B_1$",B1,dir(15));
+    dot("$B_2$",B2,dir(60));
+    dot("$C_1$",C1,dir(150));
+    dot("$C_2$",C2,dir(165));
+    dot("$H$",H,dir(165));
+\end{asy}
+\end{center}
+Finally, should the six points $A_1$, $A_2$, $B_1$, $B_2$, $C_1$, $C_2$ not be concyclic, then by radical axis theorem on the circumcircles of $B_1B_2C_1C_2$, $C_1C_2A_1A_2$, $A_1A_2B_1B_2$, lines $AB$, $BC$, $CA$ concur, which is absurd.
+

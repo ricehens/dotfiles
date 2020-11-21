@@ -1,0 +1,21 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $x$ be a positive real number. Define \[A=\sum_{k=0}^\infty\frac{x^{3k}}{(3k)!},\quad B=\sum_{k=0}^\infty\frac{x^{3k+1}}{(3k+1)!},\quad\text{and}\quad C=\sum_{k=0}^\infty\frac{x^{3k+2}}{(3k+2)!}.\]
+Given that $A^3+B^3+C^3+8ABC=2014$, compute $ABC$.
+
+---
+
+Let $\omega=\exp(2\pi i/3)$. It is well-known that
+\begin{align*}
+    A^3+B^3+C^3-3ABC&=(A+B+C)(A+\omega B+\omega^2 C)(A+\omega^2 B+\omega C)\\
+    &=\left(\sum_{n\ge0}\frac{x^n}{n!}\right)\left(\sum_{n\ge0}\frac{(\omega x)^n}{n!}\right)\left(\sum_{n\ge0}\frac{(\omega^2x)^n}{n!}\right)\\
+    &=\exp\left(x(1+\omega+\omega^2)\right)=1.
+\end{align*}
+From here it is easy to compute that $ABC=183$.
+
+---
+
+183

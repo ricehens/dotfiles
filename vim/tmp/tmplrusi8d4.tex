@@ -1,0 +1,87 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with incircle $\omega$, and let $\omega$ touch $\overline{BC}$, $\overline{CA}$, $\overline{AB}$ at $D$, $E$, $F$, respectively. Point $M$ is the midpoint of $\overline{EF}$, and $T$ is the point on $\omega$ such that $\overline{DT}$ is a diameter. Line $MT$ meets the line through $A$ parallel to $\overline{BC}$ at $P$ and $\omega$ again at $Q$. Lines $DF$ and $DE$ intersect line $AP$ at $X$ and $Y$ respectively. Prove that the circumcircles of $\triangle APQ$ and $\triangle DXY$ are tangent.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
+
+        pair A, B, C, I, D, EE, F, M, T, P, Q, L, SS, NN, R, X, Y, K, G;
+        A=dir(125);
+        B=dir(200);
+        C=dir(340);
+        I=incenter(A,B,C);
+        D=foot(I,B,C);
+        EE=foot(I,C,A);
+        F=foot(I,A,B);
+        M=(EE+F)/2;
+        T=2I-D;
+        P=extension(M,T,A,A+B-C);
+        Q=2*foot(I,M,T)-T;
+        L=2*foot(I,A,T)-T;
+        SS=extension(A,P,EE,F);
+        NN=(B+C)/2;
+        R=extension(D,T,A,P);
+        X=extension(D,F,A,P);
+        Y=extension(D,EE,A,P);
+        K=extension(D,T,EE,F);
+        G=circumcenter(L,T,2R-T);
+
+        draw(incircle(A,B,C));
+        draw(circumcircle(D,X,Y),gray);
+        draw(circumcircle(A,P,Q),gray);
+        draw(A--B--C--A--G--L);
+        draw(D--EE--F--D);
+        draw(F--X--A);
+        draw(Y--EE);
+        draw(P--Q,gray);
+        draw(D--T--R,gray);
+        draw(G--L--A,gray);
+
+        dot("$A$",A,N);
+        dot("$B$",B,SW);
+        dot("$C$",C,SE);
+        dot("$D$",D,S);
+        dot("$E$",EE,dir(10));
+        dot("$F$",F,W);
+        dot("$M$",M,NW);
+        dot("$T$",T,NW);
+        dot("$P$",P,N);
+        dot("$Q$",Q,SW);
+        dot("$L$",L,SE);
+        dot("$N$",NN,S);
+        dot("$R$",R,N);
+        dot("$X$",X,NW);
+        dot("$Y$",Y,NE);
+        dot("$G$",G,N);
+    \end{asy}
+\end{center}
+Let $\overline{DT}$ intersect $\overline{AP}$ at $R$, and let $\overline{AT}$ intersect $\omega$ again at $L$.
+\setcounter{iclaim}0
+\begin{iclaim}
+    $T$ lies on $\overline{EX}$ and $\overline{FY}$, $T$ is the orthocenter of $\triangle DXY$, and $A$ is the midpoint of $\overline{XY}$.
+\end{iclaim}
+\begin{proof}
+    Redefine $X=\overline{DF}\cap\overline{TE}$ and $Y=\overline{DE}\cap\overline{TF}$. Since $\angle DET=\angle DFT=90^\circ$, $T$ is the orthocenter of $\triangle DXY$. Thus, $\overline{DT}\perp\overline{XY}$, so $\overline{XY}\parallel\overline{BC}$.
+
+    By the Three Tangents lemma, the tangents to $\omega$ at $E$ and $F$ intersect at the midpoint of $\overline{XY}$; but this is $A$, done.
+\end{proof}
+\begin{iclaim}
+    $L$ lies on $(DXY)$ and $(APQ)$.
+\end{iclaim}
+\begin{proof}
+    Since $A$ is the midpoint of $\overline{XY}$ and $T$ is the orthocenter of $\triangle DXY$, $\overline{AT}$ passes through $D'$, the antipode of $D$ on $(DXY)$. Note that $\angle DLD'=\angle DLT=90^\circ$, so $L$ lies on $(DXY)$.
+
+    Since $\angle ARD=\angle ALD=90^\circ$, $ARLD$ is cyclic. Thus \[\measuredangle PAL=\measuredangle RAL=\measuredangle RDL=\measuredangle TDL=\measuredangle TQL=\measuredangle PQL,\]
+    so $L$ lies on $(APQ)$, as desired.
+\end{proof}
+
+Finally let the tangent to $(DXY)$ at $L$ intersect $\overline{AP}$ at $G$. Since $\overline{XY}$ and $\overline{EF}$ are antiparallel with respect to $\angle T$, $\overline{TM}$ is the $T$-symmedian of $\triangle TXY$. But since $L$ is the Miquel point of $XYEF$, \[\frac{PX}{PY}=\left(\frac{TX}{TY}\right)^2=\left(\frac{FX}{EY}\right)^2=\left(\frac{LX}{LY}\right)^2=\frac{GX}{GY},\]
+whence $-1=(XY;PG)$. Finally, by Midpoint of Harmonic Bundles, $GL^2=GX\cdot GY=GA\cdot GP$, and $\overline{GL}$ is tangent to $(APQ)$. This completes the proof.
+

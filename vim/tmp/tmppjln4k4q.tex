@@ -1,0 +1,62 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a fixed acute triangle inscribed in a circle $\omega$ with center $O$. A variable point $X$ is chosen on the minor arc $AB$ of $\omega$, and segments $CX$ and $AB$ meet at $D$. Denote by $O_1$ and $O_2$ the circumcenters of triangles $ADX$ and $BDX$, respectively. Determine all points $X$ for which the area of triangle $OO_1O_2$ is minimal.
+
+---
+
+The answer is $\seg{CX}\perp\seg{AB}$.
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+
+    pair O,C,A,B,X,D,O1,O2;
+    O=(0,0);
+    C=dir(110);
+    A=dir(210);
+    B=dir(330);
+    X=dir(260);
+    D=extension(C,X,A,B);
+    O1=circumcenter(A,D,X);
+    O2=circumcenter(B,D,X);
+
+    draw(circumcircle(A,D,X),gray);
+    draw(circumcircle(B,D,X),gray);
+    draw(O--O1--O2--cycle,dashed);
+    draw(unitcircle);
+    draw(C--A--B--cycle);
+    draw(C--X);
+
+    dot("$C$",C,C);
+    dot("$A$",A,W);
+    dot("$B$",B,E);
+    dot("$X$",X,S);
+    dot("$D$",D,SE);
+    dot("$O$",O,N);
+    dot("$O_1$",O1,NW);
+    dot("$O_2$",O2,SE);
+\end{asy}
+\end{center}
+\setcounter{claim}0
+\begin{claim}
+    $\triangle OO_1O_2\sim\triangle CBA$.
+\end{claim}
+\begin{proof}
+    By radical axes $\seg{OO_1}\perp\seg{AX}$, $\seg{OO_2}\perp\seg{BX}$, $\seg{O_1O_2}\perp\seg{CX}$, so
+    \begin{align*}
+        \da OO_1O_2&=\da AXD=\da ABC\\
+        \da O_1O_2O&=\da DXB=\da CAB.
+    \end{align*}
+\end{proof}
+\begin{claim}
+    $\triangle OAO_1\sim\triangle CAD$.
+\end{claim}
+\begin{proof}
+    From $\da COA=2\da CBA=2\da DXA=\da DO_1A$, we have $\triangle CAO$ and $\triangle DAO_1$ directly similar. Since spiral similarities come in pairs, the claim follows.
+\end{proof}
+
+It suffices to minimize $OO_1$, but \[OO_1=\frac{OA\cdot CD}{CA},\]
+so it suffices to minimize $CD$. This occurs if and only if $\seg{CD}$ is an altitude.
+

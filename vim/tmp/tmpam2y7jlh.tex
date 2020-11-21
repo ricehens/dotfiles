@@ -1,0 +1,54 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $x>1$ be a real number and $n$ a positive integer. Prove that \[\sum_{k=1}^n\frac{\{kx\}}{\lfloor kx\rfloor}<\sum_{k=1}^n\frac1{2k-1}.\]
+
+---
+
+For $x\ge2$, the bound is obvious. We restrict our attention to $x$ in the interval $(1,2)$.
+\setcounter{lemma}0
+\begin{lemma}[Weak form of lemma]
+    For all $x\in(1,2)$ and integers $k$, we have
+    \[\sum_{ix<k}\{ix\}<\frac k2.\]
+\end{lemma}
+\begin{proof}
+    Strong induct on $k$. First, observe that the left-hand expression, as a function of $x$, is increasing except at certain discontinuities --- specifically, $x$ where $ix$ is an integer less than $k$ for some $i$. These $x$ are of the form $p/q$, where $\gcd(p,q)=1$ and $p\le k$.
+
+    It will suffice to prove the bound for $x=p/q-\veps$, where $\veps>0$ is arbitrarily small. If $p<k$, then
+    \begin{align*}
+        \sum_{ix<k}\{ix\}&=\sum_{ix<p}\{ix\}+\sum_{p\le ix<k}\{ix\}\\
+        &=\sum_{ix<p}\{ix\}+\sum_{jx<k-p}\{jx+p\}\\
+        &=\sum_{ix<p}\{ix\}+\sum_{jx<k-p}\{jx\},
+    \end{align*}
+    and the bound follows by inductive hypothesis on $p$ and $k-p$.
+
+    For the case $p=k$, observe that
+    as $x$ approaches $p/q$, the $q$ numbers $\{x\}$, $\{2x\}$, \ldots, $\{qx\}$ form a permutation of $\frac1q$, $\frac2q$, \ldots, $\frac qq$, so \[\sum_{x<q}\{ix\}<\frac1q+\frac2q+\cdots+\frac qq=\frac{q+1}2\le\frac p2,\]
+    as claimed.
+\end{proof}
+\begin{lemma}[Strong form of lemma]
+    For all $x\in(1,2)$ and integers $k$, we have \[\sum_{ix<k-1}\{ix\}+\frac12\sum_{k-1\le ix<k}\{ix\}<\frac{k-1}2.\]
+\end{lemma}
+\begin{proof}
+    The proof is basically identical to that of the weak version. Set $x=p/q-\veps$ again; the case $p<k$ is handled analogously. For $p=k$, observe that the second term in the left-hand expression is always $\frac12$, and that $\{x\}$, $\{2x\}$, \ldots, $\{(q-1)x\}$ approaches a permutation of $\frac1q$, $\frac2q$, \ldots, $\frac{q-1}q$, so \[\sum_{x\le q-1}\{ix\}+\left[\frac{\{ix\}}2\right]_{x=q}<\left(\frac1q+\frac2q+\cdots+\frac{q-1}q\right)+\frac12=\frac q2\le\frac{p-1}2,\]
+    as claimed.
+\end{proof}
+
+We instead consider the sequence $(a_i)_{i>0}$ defined by
+\[a_n:=\begin{cases}\{kx\}&\text{if }n=\lfloor kx\rfloor\text{ for some }k,\\ 0&\text{if no such }k\text{ exists}.\end{cases}\]
+The key idea in this problem is to instead consider the partial sums $s_k:=a_1+\cdots+a_k$. By the two lemmas above, we know that for all $k$, \[s_k<\frac k2\quad\text{and}\quad\frac{s_{k-1}+s_k}2<\frac{k-1}2.\]
+
+Spamming the inequality $\frac2i<\frac1{i-1}+\frac1{i+1}$, we have
+\begin{align*}
+    \sum_{i=1}^{2n-1}\frac{a_i}i&\le\frac12\left(\frac{a_1}1+\frac{a_1}1+\frac{a_2}1+\frac{a_2}3+\frac{a_3}3+\frac{a_3}3+\frac{a_4}3+\frac{a_4}5+\cdots\right)\\
+    &=\frac12\left[\frac{a_1}1+\frac{a_2}1+\frac{a_3}3+\frac{a_4}3+\cdots\right]+\frac12\left[\frac{a_1}1+\frac{a_2}3+\frac{a_3}3+\frac{a_4}5+\cdots\right]\\
+    &=\frac12\left[\left(\frac11-\frac13\right)s_2+\left(\frac13-\frac15\right)s_4+\cdots+\left(\frac1{2n-3}-\frac1{2n-1}\right)s_{2n-2}+\frac{s_{2n-1}}{2n-1}\right]\\
+    &\qquad+\frac12\left[\left(\frac11-\frac13\right)s_1+\left(\frac13-\frac15\right)s_3+\cdots\left(\frac1{2n-3}-\frac1{2n-1}\right)s_{2n-3}+\frac{s_{2n-1}}{2n-1}\right]\\
+    &=\left(\frac11-\frac13\right)\frac{s_1+s_2}2+\left(\frac13-\frac15\right)\frac{s_3+s_4}2+\cdots+\frac{2s_{2n-1}}{2n-1}\\
+    &<\frac2{1\cdot3}\frac12+\frac2{3\cdot5}\frac32+\cdots+\frac2{(2n-3)(2n-1)}\frac{2n-3}2+1\\
+    &=1+\frac13+\frac15+\cdots+\frac1{2n-1},
+\end{align*}
+as desired.
+

@@ -1,0 +1,25 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For a finite graph $G$, let $f(G)$ be the number of triangles and $g(G)$ the number of tetrahedra formed by edges of $G$. Find the least constant $c$ such that\[g(G)^3\le c\cdot f(G)^4\]
+for every graph $G$.
+
+---
+
+The answer is $\tfrac3{32}$, attained by arbitrarily large cliques. Let the vertices of $G$ be $v_1$, $\ldots$, $v_n$, and let $e_i$ edges contain $v_i$, let $f_i$ triangles contain $v_i$, and let $g_i$ tetrahedrons contain $v_i$. Also let $G$ contain $E$ edges, $F$ triangles, and $G$ tetrahedrons, so that $2E_i=\sum e_i$, $3F_i=\sum f_i$, $4G_i=\sum g_i$.
+\begin{claim*}
+    $F^2\le\tfrac29E^3$.
+\end{claim*}
+\begin{proof}
+    Note that $f_i\le E$ and $f_i\le\tbinom{e_i}2$. Then \[3F=\sum_{i=1}^nf_i\le\sum_{i=1}^n\sqrt{E\binom{e_i}2}<\sqrt{\frac E2}\sum_{i=1}^ne_i=\sqrt2E^{3/2},\]
+    and the claim follows.
+\end{proof}
+
+Note the trivial bound $g_i\le F$. Consider the subgraph of $G$ comprised of the neighbors of $v_i$ (but not $v_i$). It contains $f_i$ edges and $g_i$ triangles, so $g_i^2\le\tfrac29f_i^3$. Hence \[4G=\sum_{i=1}^ng_i\le\sum_{i=1}^n\sqrt[3]{F\cdot\frac29f_i^3}=\sqrt[3]{\frac{2F}9}\sum_{i=1}^nf_i=3\sqrt[3]{\frac29}F^{4/3},\]
+and the desired bound follows.
+\begin{remark}
+    Repeating the argument presented above gives the following generalization: if $A_t$ is the number of $K_t$'s formed by edges of $G$, then \[\frac{A_{t+1}^t}{A_t^{t+1}}\le\frac{t!}{(t+1)^t}.\]
+\end{remark}
+

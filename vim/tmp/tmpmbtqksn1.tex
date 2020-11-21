@@ -1,0 +1,24 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Consider all positive integers $a,b$ such that $\lcm(a^2-1,b^2-1)=29^2-1$. Find the sum of all distinct values of $a+b$.
+
+---
+
+First assume that $a,b<29$. Clearly $a,b\ne 1$. Note that $29^2-1=28\cdot 30=2^3\cdot 3\cdot 5\cdot 7$. Hence, both $a$ and $b$ must be solutions to $(c-1)(c+1)\mid 2^3\cdot 3\cdot 5\cdot 7$. This implies that $c\neq 1,7\pmod8$.
+
+Now consider powers of $7$. One of $a^2-1$ and $b^2-1$ must contain a factor of $7$; WLOG let it be $a$. This implies that $a\in\{6,8,13,15,20,22,27\}$. However, we can eliminate $8,15,20,22,27$ by checking divisors. Hence, $a\in\{6,13\}$. We will take cases:
+\begin{itemize}
+    \item \textit{Case 1:} $a=6$. Then, $a^2-1=5\cdot 7$, so $b^2-1$ must be divisible by $2^3\cdot 3$. This implies that $b$ is odd but not $1$ nor $7$ mod $8$, and $3\nmid b$. Check that $b\in\{5,11,13,19,27\}$ satisfy these. It is now easy to check that only $5,11,13$ work.
+    \item \textit{Case 2:} $a=13$. Then, $a^2-1=2^3\cdot 3\cdot 7$, so we only require $b^2-1$ to be divisible by $5$. This implies $b\in\{4,6,9,11,14,16,19,21,24,26\}$. However, it is easy to check that only $4,6,11$ work.
+\end{itemize}
+Hence, if $a,b<29$, our solutions are $(4,13),(5,6),(6,11),(6,13),(11,13)$, leading to a (distinct) sum of $17+11+19+24=71$. Now, assume that $a=29$. We just need that $b^2-1\mid 2^3\cdot 3\cdot 5\cdot 7$. We can narrow down the set of all such $b$ to $\{2,3,4,5,6,11,13,29\}$. All such $a+b$ are greater than $29$, and thus have not been counted before. The sum of these $b$ is $73$. Since there are $7$ solutions, the $a$ components sum to $29\cdot 8=232$, so the sum here is $305$.
+
+It follows that the requested sum is $71+305=376$.
+
+---
+
+376
+

@@ -1,0 +1,21 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+There are positive integers $x$ and $y$ that satisfy the system of equations
+\begin{align*}
+    \log_{10}x+2\log_{10}\big(\text{gcd}(x,y)\big)&=60\\
+    \log_{10}y+2\log_{10}\big(\text{lcm}(x,y)\big)&=570.
+\end{align*}
+Let $m$ be the number of (not necessarily distinct) prime factors in the prime factorization fo $x$, and let $n$ be the number of (not necessarily distinct) prime factors in the prime factorization of $y$. Find $3m+2n$.
+
+---
+
+We have the system \[\begin{cases}x\cdot\big(\text{gcd}(x,y)\big)^2=10^{60},\\ y\cdot\big(\text{lcm}(x,y)\big)^2=10^{570}.\end{cases}\]
+Let $x=2^a3^b$ and $y=2^c3^d$. Then, looking at the powers of two, \[\begin{cases}a+2\min(a,c)=60,\\ c+2\max(a,c)=570.\end{cases}\]
+If $a>c$, then $a+2c=60$ and $c+2a=570$, which is impossible. Hence, $a<c$, and solving gives $(a,c)=(20,190)$. The powers of five yield an identical system, so $(b,d)=(20,190)$. Then, $m=20+20=40$ and $n=190+190=380$, so $3m+2n=120+760=880$.
+
+---
+
+880

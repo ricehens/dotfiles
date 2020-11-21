@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $m_1,m_2,\ldots,m_n$ be a collection of $n$ positive integers, not necessarily distinct. For any sequence of integers $A=(a_1,\ldots,a_n)$ and any permutation $w=w_1,\ldots,w_n$ of $m_1,\ldots,m_n$, define an \textit{$A$-inversion} to be a pair of entries $w_i,w_j$ with $i<j$ for which one of the following conditions holds:
+\begin{itemize}[itemsep=0em]
+    \item $a_i\ge w_i>w_j$,
+    \item $w_j>a_i\ge w_i$, or
+    \item $w_i>w_j>a_i$.
+\end{itemize}
+Show that, for any two sequences of integers $A=(a_1,\ldots,a_n)$ and $B=(b_1,\ldots,b_n)$, and for any positive integer $k$, the number of permutations of $m_1,\ldots,m_n$ having exactly $k$ $A$-inversion is equal to the number of permutations of $m_1,\ldots,m_n$ having exactly $k$ $B$-inversions.
+
+---
+
+Suppose that $m_1\le m_2\le m_3\le\cdots\le m_n$. Define $s_1,s_2,\ldots,s_n\in\{1,2,\ldots,n\}$ so that $s_i$ is the smallest positive integer $1\le s_i\le n$ such that $a_i\le m_{s_i}$, or $s_i=1$ if $a_i>m_n$. Call the $A$-inversion set $\pi_1,\pi_2,\ldots,\pi_n$ of $\{w_i\}$ the collection of positive integers such that for all $i$, $\pi_i$ is the number of $j>i$ such that the entries $w_i,w_j$ form an inversion. First define $\{\pi_i\}$ as the $(0,0,\ldots,0)$-inversion set, and call it the $0$-inversion set. We prove that for any $A$, each $0$-inversion set maps to a permutation. First assume $\{m_i\}$ are all pairwise distinct.
+
+We take indices of $m$ modulo $n$. We prove the desired claim by induction on $n$. The base case is trivial. Now, given some $\{\pi_i\}$, let \[w_1=m_{s_1+\pi_1}.\]
+It is not hard to check that the definition of $\pi_1$ is satisfied. We can now assign $(w_2,\ldots,w_n)$ by our inductive step.
+
+Now, we can easily extend this to potentially equal $\{m_i\}$. For each duplicate element, the $0$-inversion sets are also identical, and there are  also the same number of permutations with that number of inversions. Hence, we are done. 

@@ -1,0 +1,77 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+In triangle $ABC$, let $D$, $E$, and $F$ denote the feet of the altitudes from $A$, $B$, and $C$, respectively, and let $O$ denote the circumcenter of $\triangle ABC$. Points $X$ and $Y$ denote the projections of $E$ and $F$, respectively, onto $\overline{AD}$, and $Z=\overline{AO}\cap\overline{EF}$. There exists a point $T$ such that $\angle DTZ=90^\circ$ and $AZ=AT$. If $P=\overline{AD}\cap\overline{ZT}$ and $Q$ lies on $\overline{EF}$ such that $\overline{PQ}\parallel\overline{BC}$, prove that line $AQ$ bisects $\overline{BC}$.
+
+---
+
+Since $\overline{BC}$ and $\overline{EF}$ are antiparallel with respect to $\angle A$, and furthermore $O$ and $H$ are isogonal conjugates of $\triangle ABC$, $Z$ is the projection of $A$ onto $\overline{EF}$. Since $\triangle ABC$ is the excentral triangle of $\triangle DEF$, $Z$ is the $D$-extouch point of $\triangle DEF$. Denote by $E'$ and $F'$ the points where the $D$-excircle, $\omega_D$, touches $\overline{DF}$ and $\overline{DE}$, respectively.
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=red;
+        pen sec=orange;
+        pen tri=fuchsia;
+        pen qua=purple;
+        pen fil=red+opacity(0.05);
+        pen sfil=orange+opacity(0.05);
+        pen tfil=fuchsia+opacity(0.05);
+
+        pair A, B, C, M, D, EE, F, H, SS, X, Y, Z, T, P, Pp, K, Ep, Fp;
+        A=(0, 20sqrt(105));
+        B=(-41, 0);
+        C=(320, 0);
+        M=(B+C)/2;
+        D=foot(A, B, C); EE=foot(B, C, A); F=foot(C, A, B);
+        H=orthocenter(A, B, C);
+        SS=extension(B, C, EE, F);
+        X=foot(EE, A, D); Y=foot(F, A, D);
+        Z=foot(A, EE, F);
+        T=foot(Z, D, foot(H, EE, F));
+        P=extension(A, D, Z, T);
+        Pp=extension(A, M, EE, F);
+        K=extension(A, A+B-C, EE, F);
+        Ep=foot(A, D, F);
+        Fp=foot(A, D, EE);
+
+        filldraw(A -- B -- C -- cycle, fil, pri); draw(A -- D, pri);
+        draw(EE -- X, tri); draw(F -- Y, tri);
+        draw((2A-Z) -- Z, qua); filldraw(circumcircle(Z, Ep, Fp), sfil, sec);
+        draw(extension(D, foot(A, D, EE), A+(0, length(Z-A)), A+(1, length(Z-A))) -- D -- extension(D, foot(A, D, F), A+(0, length(Z-A)), A+(1, length(Z-A))), sec); filldraw(D -- EE -- F -- cycle, sfil, sec);
+        draw(A -- K -- SS -- B, pri); draw(EE -- F, sec); //draw(EE -- SS -- B);
+        draw(D -- T -- (2A-Z), sec); draw(Z -- T, qua);
+        filldraw(circumcircle(A, EE, F), fil, pri);
+        // draw(EE -- M -- F, dashed);
+        // draw(A -- M, dotted); draw(P -- Pp, dotted);
+        draw(Ep -- Z, qua); draw(Fp -- Y, qua);
+
+        dot("$A$", A, dir(67.5));
+        dot("$B$", B, S);
+        dot("$C$", C, SE);
+        //dot("$M$", M, S);
+        dot("$D$", D, S);
+        dot("$E$", EE, dir(5));
+        dot("$F$", F, dir(195));
+        dot("$H$", H, dir(-32));
+        dot("$S$", SS, SW);
+        dot("$X$", X, NE);
+        dot("$Y$", Y, dir(10));
+        dot("$Z$", Z, dir(260));
+        dot("$T$", T, dir(55));
+        dot("$P$", P, dir(50));
+        //dot("$P'$", Pp, S);
+        dot("$K$", K, NE);
+        dot("$E'$", Ep, W);
+        dot("$F'$", Fp, dir(120));
+        dot("$Z'$", 2A-Z, unit(A-Z));
+    \end{asy}
+\end{center}
+Let $Z'$ be the antipode of $Z$ on $\omega_D$. Then, since $\measuredangle DTZ=90^\circ=\measuredangle Z'TZ$, we have that $D,T,Z'$ are collinear. Since $AXZE$ is cyclic, \[\measuredangle AZX=\measuredangle AEX=\measuredangle ACB=\measuredangle EFA=90^\circ-\measuredangle FAZ=\measuredangle AZE',\]
+so $Z,X,E'$ are collinear. Similarly, $Z,Y,F'$ are collinear. If $P_\infty$ denotes the point at infinity along $\overline{BC}$, \[-1=(E'F';Z'T)\stackrel Z=(XY;AP)\stackrel{P_\infty}=(EF;KQ).\]
+Since $\overline{AK}$ is tangent to $(AEF)$, $\overline{AQ}$ is the $A$-symmedian of $\triangle AEF$. Since $\overline{BC}$ and $\overline{EF}$ are antiparallel with respect to $\angle A$, line $AQ$ bisects $\overline{BC}$, as required.
+

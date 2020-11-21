@@ -1,0 +1,90 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Circles $\mathcal{P}$ and $\mathcal{Q}$ have radii $1$ and $4$, respectively, and are externally tangent at point $A$. Point $B$ is on $\mathcal{P}$ and point $C$ is on $\mathcal{Q}$ so that line $BC$ is a common external tangent of the two circles. A line $\ell$ through $A$ intersects $\mathcal{P}$ again at $D$ and intersects $\mathcal{Q}$ again at $E$. Points $B$ and $C$ lie on the same side of $\ell$, and the areas of $\triangle DBA$ and $\triangle ACE$ are equal. This common area is $\tfrac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+---
+
+Note that the use of trig in the solution below is unnecessary and is simply used to better explain the solution. Defining a bunch of points and using similar triangles would yield an identical solution, and so the below solution is pretty much synthetic.
+\begin{center}
+    \begin{asy}
+        size(8cm); defaultpen(fontsize(10pt));
+        pair P, Q, A, B, C, D, EE, F, G, X;
+        P=(0, 1);
+        Q=(4, 4);
+        A=(4/5, 8/5);
+        B=(0, 0);
+        C=(4, 0);
+        G=(4, 8/17);
+        D=intersectionpoint((A+(A-G)*0.001) -- (A+(A-G)*1000), circle(P, 1));
+        EE=intersectionpoint(G -- (G+(G-A)*1000), circle(Q, 4));
+        F=(4, 8);
+        X=foot(A, B, C);
+        filldraw(D -- B -- A -- cycle, mediumgray, black);
+        filldraw(A -- C -- EE -- cycle, mediumgray, black);
+
+        draw(circle(P, 1));
+        draw(circle(Q, 4));
+        draw((-1, 0) -- (8, 0));
+        draw((D+(D-EE)*0.25) -- (EE+(EE-D)*0.5));
+        draw(A -- F -- EE); draw(C -- F, dashed); draw(A -- X, dashed);
+        draw(rightanglemark(B, A, C, 6));
+        draw(rightanglemark(A, X, C, 6));
+
+        dot("$A$", A, NE);
+        dot("$B$", B, S);
+        dot("$C$", C, S);
+        dot("$D$", D, N);
+        dot("$E$", EE, dir(67.5));
+        dot("$F$", F, N);
+        dot("$G$", G, NE);
+        dot("$X$", X, S);
+    \end{asy}
+\end{center}
+Let $\overline{AB}$ intersect $\mathcal{Q}$ again at $F$, $X$ be the projection of $A$ onto $\overline{BC}$, and $G=\overline{DE}\cap\overline{CF}$. If $M$ is the intersection of $\overline{BC}$ and the common internal tangent of $\mathcal{P}$ and $\mathcal{Q}$, then $MB=MA=MC$, so $\angle BAC=90^\circ$. Then, $F$ is the antipode of $C$ on $\mathcal{Q}$, and $\angle CAF=\angle CEF=90^\circ$. By AA, $\triangle ABC\sim\triangle CBF$. It is easy to compute that $$BC=4,AB=\frac4{\sqrt5},AC=\frac8{\sqrt5},\text{ and }AX=\frac85.$$ Now, consider the homothety $(A,-4)$ that sends $\mathcal{P}$ to $\mathcal{Q}$. As a result, we know that $$\frac{FG}{GC}=\frac{[AFE]}{[ACE]}=\frac{[AFE]}{[DBA]}=16.$$
+Hence, $CF=8$ implies that $CG=\tfrac8{17}$. Below is a simplified diagram.
+\begin{center}
+    \begin{asy}
+        size(8cm); defaultpen(fontsize(10pt));
+        pair A, X, C, G, Y, EE;
+        A=(0, 8/5);
+        X=(0, 0);
+        C=(16/5, 0);
+        G=(16/5, 8/17);
+        Y=foot(C, A, G);
+        EE=(5Y-A)/4;
+        fill(A -- C -- EE -- cycle, mediumgray);
+
+        draw(A -- X -- C -- EE -- A);
+        draw(A -- C -- Y); draw(G -- C);
+
+        dot("$A$", A, NW);
+        dot("$X$", X, SW);
+        dot("$C$", C, S);
+        dot("$G$", G, N);
+        dot("$Y$", Y, NE);
+        dot("$E$", EE, E);
+        label("$\frac85$", A -- X, W);
+        label("$\frac{16}5$", X -- C, S);
+        label("$\frac8{\sqrt5}$", A -- C, SW);
+        label("$\frac8{17}$", C -- G, W+0.2*N);
+        label("$\frac8{5\sqrt{13}}$", C -- Y, E/3);
+        label("$\frac8{\sqrt{65}}$", C -- EE, S);
+        label("$\frac{64}{5\sqrt{13}}$", A -- Y, N);
+        label("$\frac{16}{5\sqrt{13}}$", Y -- EE, N);
+
+        draw(rightanglemark(A, X, C, 3));
+        draw(rightanglemark(C, Y, EE, 3));
+    \end{asy}
+\end{center}
+Let $Y$ be the projection of $C$ onto $\overline{AE}$. First, we can easily compute $$\tan\angle XAG=\frac{\frac{16}5}{\frac85-\frac8{17}}=\frac{17}6.$$
+Then, $$CY=CG\sin\angle CGY=\frac8{17}\sin\angle XAG=\frac8{5\sqrt{13}}.$$
+Furthermore, by the Pythagorean Theorem on $\triangle CYA$, $AY=\frac{64}{5\sqrt{13}}$, so $\tan\angle CAE=\frac18$. It follows that $$CE=CF\sin\angle CFE=8\sin\angle CAE=\frac8{\sqrt{65}}.$$
+By the Pythagorean Theorem on $\triangle CYE$, $YE=\frac{16}{5\sqrt{13}}$. It then follows that $$[ACE]=\frac12AE\cdot CY=\frac12\cdot\frac{80}{5\sqrt{13}}\cdot\frac8{5\sqrt{13}}=\frac{64}{65},$$
+and the answer is $64+65=129$.
+
+---
+
+129

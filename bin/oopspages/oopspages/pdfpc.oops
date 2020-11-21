@@ -1,1 +1,0 @@
-Use -c to save memory and -g so each individual slide is considered its own frame. Use <C-q> to quit and <C-t> to restart timer.

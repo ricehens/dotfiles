@@ -1,0 +1,55 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABCDE$ be a convex pentagon such that
+\[\angle BAC=\angle CAD=\angle DAE\quad\text{and}\quad\angle ABC=\angle ACD=\angle ADE.\]
+Diagonals $BD$ and $CE$ meet at $P$. Prove that line $AP$ bisects side $CD$.
+
+---
+
+The given conditions mean $\triangle ABC\sim\triangle ACD\sim\triangle ADE$ are directly similar. We present two solutions below.
+
+\paragraph{First solution, by power of a point} Note that quadrilaterals $ABCD$, $ACDE$ are spirally similar; in particular, $A$ is the center of spiral similarity sending $\seg{BD}$ to $\seg{CE}$. If $P=\seg{BD}\cap\seg{CE}$, then by spiral similarity lemma, $ABCP$ and $APDE$ are cyclic.
+
+The condition $\angle ABC=\angle ACD$ implies $\seg{CD}$ is tangent to $(ABC)$, and $\angle ADC=\angle AED$ implies $\seg{CD}$ is tangent to $(ADE)$. Hence the radical axis $AP$ of $(ABC)$, $(ADE)$ bisects $\seg{CD}$, as needed.
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+    pen pri=lightblue;
+    pen sec=purple+pink;
+    pen tri=lightred;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+
+    pair A,C,D,B,EE,M,P;
+    A=dir(110);
+    C=dir(230);
+    D=dir(310);
+    B=A+(C-A)^2/(D-A);
+    EE=A+(D-A)^2/(C-A);
+    M=(C+D)/2;
+    P=extension(B,D,C,EE);
+
+    draw(A--M,tri);
+    draw(B--D,tri);
+    draw(C--EE,tri);
+    filldraw(circumcircle(A,B,C),sfil,sec);
+    filldraw(circumcircle(A,D,EE),sfil,sec);
+    filldraw(A--B--C--D--EE--cycle,fil,pri);
+    draw(C--A--D,pri);
+
+    dot("$A$",A,dir(120));
+    dot("$B$",B,W);
+    dot("$C$",C,S);
+    dot("$D$",D,S);
+    dot("$E$",EE,E);
+    dot("$M$",M,S);
+    dot("$P$",P,dir(75));
+\end{asy}
+\end{center}
+
+\paragraph{Second solution, by Ceva theorem} Let $Q=\seg{AC}\cap\seg{BD}$, $R=\seg{AD}\cap\seg{CE}$. As above, quadrilaterals $ABCD$, $ACDE$ are spirally similar. In particular, \[\frac{AQ}{QC}=\frac{AR}{RD}.\]
+If $M=\seg{AP}\cap\seg{CD}$, we have $CM/MD=1$ by Ceva theorem applied to $\triangle ACD$.
+

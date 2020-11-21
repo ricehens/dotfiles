@@ -1,0 +1,18 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all positive integers $n$ for which all positive divisors of $n$ can be put into the cells of a rectangular table under the following constraints:
+\begin{itemize}[itemsep=0em]
+    \item each cell contains a distinct divisor;
+    \item the sums of all rows are equal; and
+    \item the sums of all columns are equal.
+\end{itemize}
+
+---
+
+The answer is $n=1$. Let the grid have $a$ rows and $b$ columns, $a\le b$. Assume $a>1$, since the case $a=1$ is trivial. Note that the common sum is greater than $n$, since $n$ is already in the grid.
+
+Consider the column whose maximal element is minimal. This maximal element is at most $n/b$, so the sum of the entries in that column is at most $a\cdot n/b\le n$, absurd.
+

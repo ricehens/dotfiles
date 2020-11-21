@@ -1,0 +1,28 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Prove there exists a sequence of 2020 consecutive integers such that no two have the same number of divisors. (For example, 27, 28, 29, 30 satisfy the condition for 4 consecutive integers.)
+
+---
+
+\begin{remark}
+    Source: example 3 on \url{https://zhuanlan.zhihu.com/p/26101898}.
+\end{remark}
+
+Select very large primes $q_1$, $q_2$, \ldots, $q_{2020}$ with minimum $q$, and let $d(k)$ be the number of divisors of $k$. We will ensure that $d(n+i)$ is divisible by $q_i$ for each $i$ via CRT, then ensure no other $d(n+j)$ is divisible by $q_i$ via density bounding.
+
+\medskip
+
+\textbf{Step I: CRT.} Pick some more primes $p_1$, \ldots, $p_{2020}$ (each greater than 2020), and force $n\equiv p_i^{q_i-1}-i\pmod{p_i^{q_i}}$ for each $i$. By Chinese Remainder theorem, there are $A$ and $B$ such that all $n\equiv A\pmod B$ have this property.
+
+\medskip
+
+\textbf{Step II: Density bounding.} By ensuring $p_i>2020$, we have $p_i^{q_i-1}\nmid n+j$ for all other $j\ne i$. It suffices to ensure $p^{q-1}\nmid n+j$ for all choices of $j$ and prime $p\notin\{p_1,\ldots,p_{2020}\}$. We will show this does not happen with density less than 1.
+
+Fix $p$. The number of $n\le N$ with $n\equiv A\pmod B$ for which there is some $j$ with $n\equiv -j\pmod{p^{q-1}}$ is at most
+\[\frac{2020}{Bp^{q-1}}N+1.\]
+Hence, the number of $n\le N$ with $n\equiv A\pmod B$ for which some $p$ exists with the above property is at most
+\[\sum_p\left(\frac{2020}{Bp^{q-1}}N+1\right)\le\frac{2020N}B\sum_p\frac1{p^{q-1}}+\pi(N)\ll\frac NB\]
+by choosing $p$, $q$ large enough.

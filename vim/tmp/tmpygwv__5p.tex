@@ -1,0 +1,53 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all the functions $f:\mathbb Z_{\ge0}\to\mathbb Z_{\ge0}$ satisfying the relation \[f(f(f(n)))=f(n+1)+1\]
+for all nonnegative integers $n$.
+
+---
+
+First note that \[f^4(n)=f\left(f^3(n)\right)=f(f(n+1)+1)=f^3(f(n+1))-1=f^4(n+1)-1.\]
+Hence $f^4(n)=n+c$ for some $c$; as a corollary, $f$ is injective.
+
+By the same trick, we have $f(n+c)=f^5(n)=f(n)+c$. In what follows, we draw an arrow from $a$ to $b$ whenever $f(a)=b$.
+\setcounter{iclaim}0
+\begin{iclaim}
+    Each nonnegative integer is an element in some infinite chain of the form \[w\to x\to y\to z\to w+c\to x+c\to y+c\to z+c\to w+2c\to\cdots,\]
+    where $w$, $x$, $y$, $z$ are distinct nonnegative integers less than $c$.
+\end{iclaim}
+\begin{proof}
+    This follows from $f^4(n)=n+c$. All elements of the chain are distinct, since the chain grows arbitrarily large, and otherwise it would be periodic.
+
+    It remains to see that $w,x,y,z<c$. Assume, for example, that $z\ge c$; then $f(z-c)=w$ by injectivity, so we may instead start our chain at $z-c$. The same argument applies for $w$, $x$, $y$, so we may suitably choose $w$ so that $w,x,y,z<c$.
+\end{proof}
+
+It follows that $4\mid c$, since we can partition the elements of $\{0,1,\ldots,c-1\}$ into subsets $\{w,x,y,z\}$ of size $4$ such that $w\to x\to y\to z$.
+\begin{iclaim}
+    $c=4$.
+\end{iclaim}
+\begin{proof}
+    By Claim 1, for $c/4$ of the nonnegative integers $n<c$ is $f(n)<c$; analogously for $3c/4$ of the nonnegative integers $n<c$ is $f^3(n)<c$. Summing over the given functional equation, \[\frac{c(c-1)}2+\frac{3c^2}4=\sum_{n=0}^{c-1}f^3(n)=c+\sum_{n=1}^cf(n)=2c+\sum_{n=0}^{c-1}f(n)=\frac{c(c-1)}2+\frac{c^2}4+2c.\]
+    This solves to $c=4$.
+\end{proof}
+
+What remains is a finite case check: there is a single chain $w\to x\to y\to z\to\cdots$ (with $\{w,x,y,z\}=\{0,1,2,3\}$) that covers all nonnegative integers. We take cases:
+\begin{itemize}
+    \item If $w=0$, then $z=f(1)+1\ge3$, so $z=3$ and $f(1)=2$; the corresponding chain is $0\to1\to2\to3\to\cdots$.
+    \item If $w=1$, then $z=f(2)+1\ge1$. Clearly $z\ne1$; $z\ne2$ since $f(2)\ne1$; and $z\ne3$ since $f(2)\n2$.
+    \item If $w=2$, then $z=f(3)+1\ge1$. Clearly $z\ne2$; $z\ne3$ since $z\ne f(3)+1$; and $z=1$ implies $f(3)=0$, and the corresponding chain is $2\to3\to0\to1\to\cdots$.
+    \item If $w=3$, then $z=f(4)+1\ge5$.
+\end{itemize}
+In summary, the only valid chains are $0\to1\to2\to3\to\cdots$ and $2\to3\to0\to1\to\cdots$, so the answer is
+\[
+    \boxed{f(n)=n+1}\quad\text{or}\quad\boxed{f(n)=
+        \begin{cases}
+            n+1&\text{if $n$ even}\\
+            n+5&\text{if $n\equiv1\pmod4$}\\
+            n-3&\text{if $n\equiv3\pmod4$}
+    \end{cases} }.
+\]
+Both work, so we are done.
+
+

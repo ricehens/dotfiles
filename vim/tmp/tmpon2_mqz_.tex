@@ -1,0 +1,52 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Consider a function $f:\mathbb N\to\mathbb N$ with the following two properties:
+\begin{enumerate}[label=(\roman*),itemsep=0em]
+    \item if $m,n\in\mathbb N$, then $\frac{f^n(m)-m}n\in\mathbb N$; and
+    \item the set $\mathbb N\setminus\{f(n):n\in\mathbb N\}$ is finite.
+\end{enumerate}
+Prove that the sequence $f(1)-1$, $f(2)-2$, $f(3)-3$, $\ldots$ is periodic.
+
+---
+
+It turns out that $f$ can be decomposed into finitely many infinite arithmetic sequences.
+
+We begin by exercising condition (i).
+\setcounter{claim}0
+\begin{claim}
+    $f$ is increasing and injective.
+\end{claim}
+\begin{proof}
+    By (i), $f(m)-m\ge1$. If $f(a)=f(b)$, then $a\equiv f^n(a)=f^n(b)\equiv b\pmod n$ for all $n$, so $a=b$.
+\end{proof}
+
+Thus, we can decompose $f$ into chains of the form $m\to f(m)\to f^2(m)\to\cdots$. We will now interpret condition (ii).
+\begin{claim}
+    There are finitely many chains.
+\end{claim}
+\begin{proof}
+    Note that $\mathbb N\setminus\{f(n):n\in\mathbb N\}$ contains the heads of all the chains, so there are only finitely many of them.
+\end{proof}
+
+The key claim:
+\begin{claim}[USAMO 1995/4]
+    Each chain is an arithmetic sequence or has density zero.
+\end{claim}
+\begin{proof}
+    We know each chain is infinite and increasing. Let $q_0$, $q_1$, $\ldots$ be a chain, so by (i), $m-n$ divides $q_m-q_n$ for all $m$, $n$.
+
+    Let $Q$ be the linear polynomial with $Q(0)=q_0$, $Q(1)=q_1$. Scale everything up so that $Q$ has integer coefficients. Then $Q(n)\equiv Q(i)=q_i\equiv q_n\pmod{n-i}$ for $i=0,1$, so by Chinese Remainder theorem
+    \[Q(n)\equiv q_n\pmod{n(n-1)}.\]
+    Now,
+    \begin{itemize}
+        \item If $Q(n)=q_n$ for infinitely many $n$, then for all $m$ and $n$ with $Q(n)=q_n$, we have $Q(m)\equiv Q(n)=q_n\equiv q_m\pmod{n-m}$. By taking $n$ large, we have $Q(m)=q_m$ always, i.e.\ the chain is an arithmetic sequence.
+        \item Otherwise $Q(n)=q_n+kn(n-1)=O(n^2)$ for sufficiently large $n$, so the chain has density zero.
+    \end{itemize}
+\end{proof}
+
+Now by Chinese Remainder theorem, the chains that are arithmetic sequences cover all integers larger than $N$ for some $N$, so no chains of density 0 can exist. Therefore $f$ is comprised of arithmetic sequences, and the problem condition readily follows.
+
+

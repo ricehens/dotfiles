@@ -1,11 +1,29 @@
+# locale
+export LANG=zh_CN.UTF-8
+export LC_LANG=und
+
+# x terminal
 export TERMINAL='urxvt'
-xrandr --dpi 192
-# setxkbmap -option ctrl:swapcaps
-# setxkbmap -option caps:ctrl_modifier -option compose:lctrl
+
+# DPI scaling
+xrandr --dpi 120
+
+# decrease trackpoint acceleration
+# more settings in /etc/udev/rules.d/10-trackpoint.rules
+# xinput set-prop 13 "libinput Accel Speed" -0.40
+
+# caps = compose
+# (alr used udev to swap caps / ctrl)
 setxkbmap -option compose:caps
-/usr/local/bin/bright -set 400
-xinput set-prop 11 319 0.4
-xinput set-prop 11 309 0
+
+# brightness
+/usr/local/bin/bright -set 8000
+
+# do not auto suspend
 xset -dpms s off
+
+# connect to monitor if exists
 /home/ericshen/bin/fixm
+
+# start i3wm
 exec i3

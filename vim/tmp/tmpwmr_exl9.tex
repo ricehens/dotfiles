@@ -1,0 +1,54 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $f,g:\mathbb Z_{>0}\to\mathbb Z_{>0}$ be functions so that \[f(g(n))=f(n)+1\quad\text{and}\quad g(f(n))=g(n)+1\]
+for all positive integers $n$. Prove that $f(n)=g(n)$ for all positive integers $n$.
+
+---
+
+First note the following identities:
+\begin{itemize}[itemsep=0em]
+    \item For each $n$, we have $f(n)\ne n$; else $g(n)=g(f(n))=g(n)+1$. (Similarly $g(n)\ne n$.)
+    \item $f(a)=f(b)\iff g(f(a))=g(f(b))\iff g(a)=g(b)$.
+    \item $f(f(a))=f(f(b))\iff g(f(a))=g(f(b))\iff f(a)=f(b)$.
+\end{itemize}
+In particular, if $f(a)=f(b)$ and $a,b\in f_*(\mathbb N)$, then $a=b$. Henceforth we will refer to this property as \emph{pseudo-injectivity}.
+
+The key is to describe the ranges of $f$, $g$, which we will do in the following two claims.
+\setcounter{iclaim}0
+\begin{iclaim}
+    For some $j$, $k$, we have $f_*(\mathbb N)=\{j,j+1,\ldots\}$ and $g_*(\mathbb N)=\{k,k+1,\ldots\}$.
+\end{iclaim}
+\begin{proof}
+Note that if $f(n)\in f_*(\mathbb N)$, then $f(n)+1=f(g(n))\in f_*(\mathbb N)$, and similarly $g(n)\in g_*(\mathbb N)$ implies $g(n)+1\in g^*(\mathbb N)$.
+\end{proof}
+\begin{iclaim}
+    $f(j)=g(k)$.
+\end{iclaim}
+\begin{proof}
+    Assume without loss of generality $f(j)\le g(k)$.
+
+    Since $f(f(j))\ne f(j)$, for some $\ell$ we have $f(f(j))=f(\ell)+1=f(g(\ell))$. But $g(\ell)\ge g(k)\ge f(j)$, so $g(\ell)\in f_*(\mathbb N)$. By pseudo-injectivity $f(j)=g(\ell)$, contradiction.
+\end{proof}
+
+Henceforth we let $f(j)=g(k)=c$, so that $f_*(\mathbb N)=g_*(\mathbb N)=\{c,c+1,\ldots\}$. In the next two claims we prove $f(n)=g(n)$ for cofinitely many $n$:
+\begin{iclaim}
+    $f(c)=c+1$.
+\end{iclaim}
+\begin{proof}
+    Assume for contradiction $f(c)-2\ge c$. Then for some $\ell$, we have \[f(c)-2=f(\ell)=f(g(\ell))-1=f(g(g(\ell)))-2.\]
+    Note $g(\ell)=f(\ell')$ for some $\ell'$. By pseudo-injectivity \[c=g(g(\ell))=g(f(\ell'))=g(\ell')+1,\]
+    so $c-1\in g_*(\mathbb N)$, which is absurd.
+\end{proof}
+\begin{iclaim}
+    $f(n)=g(n)=n+1$ for $n\ge c$.
+\end{iclaim}
+\begin{proof}
+    The proof is by induction on $n$, where the base case $n=c$ is the above claim. If $f(n-1)=g(n-1)=n$, then \[f(n)=f(g(n-1))=f(n-1)+1=n+1,\]
+    and similarly $g(n)=n+1$, as claimed.
+\end{proof}
+
+To finish, note that for each $n$, we have $f(f(n))=f(n)+1=f(g(n))$ by the above claim. By pseudo-injectivity, $f(n)=g(n)$, and we are done.
+

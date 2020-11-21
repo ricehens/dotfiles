@@ -29,7 +29,7 @@
 
     \usepackage{fancyhdr}
     \newcommand{\logopath}{yea}
-    \newcommand{\thelogo}{\includegraphics[width=1.1in]{\logopath}}
+    \newcommand{\thelogo}{\includegraphics[width=1.2in]{\logopath}}
     \newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
     \pagestyle{fancy}
     \cfoot{}
@@ -39,7 +39,7 @@
     \newcommand{\makelogo}{\thelogo}
 
     \newcommand{\righthead}{%
-        \fontsize{12}{18}\selectfont
+        \fontsize{12}{20}\selectfont
         {\sffamily\bfseries\thetitle}\\
         {\sffamily\bfseries\thedate}\\
         {\sffamily\theauthor}
@@ -78,6 +78,10 @@
     \newcommand{\@vontestenv}[2]{\begin{#2} \voninclude{#1} \end{#2}}
     \newcommand{\@vontestenvstar}[2]{\begin{#2} $(*)$ \voninclude{#1} \end{#2}}
     \renewcommand{\@von}[1]{\vontestenv{#1}{prob}}
+
+% for enumerate-style exam
+    \newlist{problems}{enumerate}{3}
+    \setlist*[problems]{topsep=6ex,itemsep=4ex,label=\arabic*.}
 
     \newcommand{\resetformatting}{
         \pagestyle{plain}

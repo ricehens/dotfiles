@@ -1,0 +1,74 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle and let $M$, $N$, $P$ be the midpoints of $\seg{BC}$, $\seg{CA}$, $\seg{AB}$. Point $K$ lies on segment $NP$ such that $\seg{AK}$ bisects $\angle BKC$. Lines $MN$ and $BK$ intersect at $E$ and lines $MP$ and $CK$ intersect at $F$. Suppose that $H$ is the foot of the perpendicular from $A$ to $\seg{BC}$ and $L$ is the second intersection of the circumcircles of $\triangle AKH$ and $\triangle HEF$.
+
+Prove that lines $MK$, $EF$, $HL$ are concurrent.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(10cm); defaultpen(fontsize(10pt));
+        pen pri=red;
+        pen sec=orange;
+        pen tri=fuchsia;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair K,B,C,funny,A,M,NN,P,EE,F,T,H,D,SS;
+        K=dir(125);
+        B=dir(170);
+        C=dir(10);
+        funny=extension(B,C,K,incenter(K,B,C));
+        A=2K-funny;
+        M=(B+C)/2;
+        NN=(C+A)/2;
+        P=(A+B)/2;
+        EE=extension(B,K,M,NN);
+        F=extension(C,K,M,P);
+        T=extension(NN,P,EE,F);
+        H=foot(A,B,C);
+        D=reflect(T,circumcenter(K,EE,F))*K;
+        SS=extension(EE,F,M,K);
+
+        filldraw(circumcircle(A,K,H),tfil,tri);
+        draw(T--D--M,tri);
+        filldraw(circumcircle(K,EE,F),sfil,sec);
+        draw(EE--T,sec);
+        draw(A--K,sec+dashed);
+        draw(B--F,sec+dashed);
+        draw(C--EE,sec+dashed);
+        filldraw(circumcircle(B,C,F),fil,pri);
+        filldraw(A--B--C--cycle,fil,pri);
+        draw(F--M--NN--EE,pri);
+        draw(NN--T,pri);
+
+        dot("$A$",A,dir(80));
+        dot("$B$",B,SW);
+        dot("$C$",C,SE);
+        dot("$K$",K,NE);
+        dot("$M$",M,S);
+        dot("$N$",NN,dir(15));
+        dot("$P$",P,SW);
+        dot("$E$",EE,NE);
+        dot("$F$",F,W);
+        dot("$T$",T,W);
+        dot("$H$",H,SE);
+        dot("$D$",D,NW);
+        dot("$S$",SS,dir(75));
+    \end{asy}
+\end{center}
+First by Pappus' theorem on $BKCNMF$, we have $A\in\seg{EF}$, and by Pappus' theorem on $ABCENK$ and $ACBFMK$, we have $\seg{AP}\parallel\seg{BF}\parallel\seg{CE}$. Since $\seg{AK}$ bisects $\angle BKC$ and $\angle EKF$, we have \[\da FBE=\da FBK=\da AKB=\da CKA=\da KCE=\da FCE,\]
+whence $BCEF$ is cyclic.
+
+Let $T=\seg{EF}\cap\seg{NP}$ and $S=\seg{MK}\cap\seg{EF}$. Note that \[-1=(BC;M\infty_{BC})\stackrel K=(EF;ST)\stackrel M=(NP;KT).\]
+Since $\seg{BC}$ and $\seg{EF}$ are antiparallel wrt.\ $\angle K$, $\seg{KS}$ is the $K$-symmedian of $\triangle KEF$, so $\seg{KT}$ is tangent to $(KEF)$. But $\da TAK=\da FEC=\da ECB=\da AKT$, whence $TA=TK$. Since $A$ and $H$ are reflections across $\seg{NP}$, $T$ is the circumcenter of $\triangle AKH$.
+
+Let $(AKH)$ and $(KEF)$ intersect again at $D$. Since $(AKH)$ and $(KEF)$ are orthogonal, $\seg{TD}$ is tangent to $(KEF)$, so $T$ is the pole of $\seg{KD}$ and $D\in\seg{MKS}$.
+
+The concurrence follows from Radical Axis theorem on $(HEF)$, $(AKH)$, $(KEF)$.
+

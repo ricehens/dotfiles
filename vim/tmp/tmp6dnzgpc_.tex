@@ -1,0 +1,28 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $G$ be a graph with 9 vertices. Suppose given any five points of $G$, there exist at least 2 edges with both endpoints among the five points. What is the minimum possible number of edges in $G$?
+
+---
+
+The answer is 9, achieved by three triangles.
+
+Say a graph is \emph{good} if any five points induce at least two edges. Let $x_n$ be the minimum number of edges in a good graph with $n$ vertices; hence, $x_5=2$. The key claim is this:
+\begin{claim*}
+    For all $n\ge5$,
+    \[x_{n+1}\ge\frac{n+1}{n-1}\cdot x_n.\]
+\end{claim*}
+\begin{proof}
+    Consider a good graph $G_{n+1}$ with $n+1$ vertices. Upon removing any vertex $G_{n+1}$, the result is a good graph with $n$ vertices and thus at least $x_n$ edges.
+
+    But observe that the sum of the degrees of the vertices of $G_{n+1}$ is $2x_{n+1}$, so some vertex has degree at least $\frac2{n+1}x_{n+1}$; that is,
+    \[x_n\le x_{n+1}-\frac{2x_{n+1}}{n+1}=\frac{n-1}{n+1}\cdot x_{n+1}.\]
+    The claim follows.
+\end{proof}
+
+Since $x_n$ are all integers,
+\[x_6\ge\left\lceil\frac64\cdot2\right\rceil,\quad x_7\ge\left\lceil\frac75\cdot3\right\rceil=5,\quad x_8=\left\lceil\frac86\cdot7\right\rceil=7,\quad x_9\ge\left\lceil\frac97\cdot7\right\rceil=9.\]
+The end.
+

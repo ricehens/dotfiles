@@ -1,0 +1,68 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+The incircle $\Omega$ of the acute-angled triangle $ABC$ is tangent to its side $BC$ at a point $K$. Let $\seg{AD}$ be an altitude of triangle $ABC$, and let $M$ be the midpoint of $\seg{AD}$. If $N$ is the common point of the circle $\Omega$ and $\seg{KM}$ (distinct from $K$), then prove $\Omega$ and the circumcircle of triangle $BCN$ are tangent to each other.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(14cm);
+        defaultpen(fontsize(10pt));
+        pen pri=purple+linewidth(0.5);
+        pen sec=deepmagenta+linewidth(0.5);
+        pen tri=pink+linewidth(0.5);
+        pen fil=purple+opacity(0.05);
+        pen sfil=deepmagenta+opacity(0.05);
+        pen tfil=pink+opacity(0.1);
+
+        pair A, B, C, I, K, D, EE, F, M, NN, IA, L, X, TB, TC, Kp, T, SS;
+        A=dir(120);
+        B=dir(210);
+        C=dir(330);
+        I=incenter(A, B, C);
+        K=foot(I, B, C);
+        D=foot(A, B, C);
+        EE=foot(I, C, A);
+        F=foot(I, A, B);
+        M=(A+D)/2;
+        NN=intersectionpoint(incircle(A, B, C), M -- (M+(M-K)*1000));
+        IA=2*dir(270)-I;
+        L=intersectionpoint(K -- IA, circumcircle(B, C, NN));
+        X=foot(IA, B, C);
+        TB=IA+length(X-IA)*dir(0);
+        TC=IA+length(X-IA)*dir(180);
+        Kp=2I-K;
+        T=extension(B,C,EE,F);
+        SS=2*foot(I,A,K)-K;
+        filldraw(incircle(A, B, C), fil, pri);
+        filldraw(circumcircle(B, C, NN), sfil, sec);
+        filldraw(A -- B -- C -- cycle, tfil,pri);
+        draw(A -- D, pri+dashed);
+        draw(NN -- K, sec);
+        draw(M -- X, sec);
+        draw(Kp--T--EE,sec);
+        draw(B--T,pri);
+        draw(A--K--T,pri);
+
+        dot("$A$", A, N);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$I$", I, NE);
+        dot("$K$", K, S);
+        dot("$D$", D, S);
+        dot("$M$", M, W);
+        dot("$N$", NN, N);
+        dot("$X$", X, S);
+        dot("$T$",T,SW);
+        dot("$S$",SS,dir(75));
+        dot("$K'$",Kp,S);
+        dot("$E$",EE,NE);
+        dot("$F$",F,dir(300));
+    \end{asy}
+\end{center}
+Let $T=\seg{BC}\cap\seg{EF}$ and let lines $AK$, $IK$, $NB$, $NC$ intersect $\Omega$ again at $S$, $K'$, $B'$, $C'$ respectively. Notice that if $\infty_{\perp BC}$ denotes the point at infinity perpendicular to $\seg{BC}$, then \[-1=(AD;M\infty_{\perp BC})\stackrel K=(SK;NK'),\]
+but since $-1=(SK;EF)$, $T=\seg{SS}\cap\seg{KK}$, whence $T$, $N$, $K'$ are collinear. This immediately yields \[-1=(BC;DT)\stackrel N=(B'C';KK').\]
+But $\seg{KK'}$ is a diameter, so $\seg{B'C'}\perp\seg{KK'}$ and thus $\seg{B'C'}\parallel\seg{BC}$. Now a homothety at $N$ sends $\Omega$ to $(BCN)$, so they are tangent. This completes the proof.

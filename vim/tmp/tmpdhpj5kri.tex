@@ -1,0 +1,13 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all integer solutions to the equation \[\frac{x^7-1}{x-1}=y^5-1.\]
+
+--
+
+The left-hand expression is $\Psi_7(x)$, so if $p$ divides both expressions, then either $p=7$ or $\ord_p(x)=7$, which implies $p\equiv1\pmod7$. Thus $\frac{x^7-1}{x-1}$ has only $0\pmod7$ and $1\pmod7$ prime factors.
+
+We have $y^5-1$ is either $0\pmod7$ or $1\pmod7$. If $y^5-1\equiv1\pmod7$, we must have $y\equiv4\pmod7$. Thus $y^5-1$ is divisible by $y-1\equiv3\pmod7$, contradiction. On the other hand if $y^5-1\equiv0\pmod7$, then $y\equiv1\pmod7$, so $y^5-1$ is divisible by $1+y+y^2+y^3+y^4\equiv5\pmod7$, which is also absurd.
+

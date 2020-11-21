@@ -1,0 +1,13 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a_0$, $a_1$, $a_2$, $\ldots$ be a sequence of positive integers such that $\gcd(a_n,a_{n+1})>a_{n-1}$ for all positive integers $n$. Prove that $a_n\ge2^n$ for all $n\ge0$.
+
+---
+
+It is clear that the sequence is strictly increasing. Say that $k_n/d_n=a_{n+1}/a_n$ for all $n$, such that $k_n$ and $d_n$ are relatively prime. Then \[\frac{a_n}{d_n}=\gcd(a_n,a_{n+1})>a_{n-1}\implies d_n\le\frac{a_n}{a_{n-1}}-\frac1{d_{n-1}},\]
+whence \[a_n\ge a_0\prod_{i=1}^n\left(d_k+\frac1{d_{k-1}}\right)\ge a_0\prod_{i=1}^n2\sqrt{\frac{d_k}{d_{k-1}}}=2^na_0\sqrt{\frac{d_n}{d_0}}\ge2^n,\]
+as desired.
+

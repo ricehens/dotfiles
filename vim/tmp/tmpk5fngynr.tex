@@ -1,0 +1,19 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a scalene triangle with inradius $1$ and exradii $r_A$, $r_B$, $r_C$ such that \[20\left(r_B^2r_C^2+r_C^2r_A^2+r_A^2+r_B^2\right)=19(r_Ar_Br_C)^2.\]
+If the angles of $\triangle ABC$ satisfy \[\tan\frac A2+\tan\frac B2+\tan\frac Ca=2.019,\]
+then the area of $\triangle ABC$ is $\tfrac mn$ for relatively prime positive integers $m$ and $n$. Compute $100m+n$.
+
+---
+
+Let $K$ be the area, $s$ be the semiperimeter, and $x=s-a$, $y=s-b$, $z=s-c$, so that $s=x+y+z$. Then \[r_A^2=\left(\frac K{s-a}\right)^2=\frac{s(s-a)(s-b)(s-c)}{(s-a)^2}=\frac{yz(x+y+z)}x.\]
+Dividing a factor of $(x+y+z)^2$ from the first equation gives \[20(x^2+y^2+z^2)=19xyz(x+y+z).\]
+Since the inradius is $1$, the area is also $s=x+y+z$. Setting this equal to $K=\sqrt{xyz(x+y+z)}$ (which is Heron's) gives $xyz=x+y+z=K$. Furthermore $\tan(A/2)=1/x$, so we have $1/x+1/y+1/z=2.019$. In other words, $xy+yz+zx=2.019K$. Finally \[19K^2=20(x^2+y^2+z^2)=20(K^2-2\cdot 2.019K)\implies K=\frac{2019}{25},\]
+as desired.
+
+---
+
+201925

@@ -1,0 +1,18 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A circle is divided into congruent arcs by 432 points. The points are colored in four colors such that some 108 points are colored red, some 108 points are colored green, some 108 points are colored blue, and the remaining 108 points are colored yellow. Prove that one can chosoe three points of each color in such a way that the four triangles formed by the chosen points of the same color are congruent.
+
+---
+
+The key is this:
+\begin{iclaim*}
+    Given $n$ points of color $X$ and $108$ points of color $Y$, there is a rotation of the $n$ points of color $X$ such that the number of points whose image is of color $Y$ is greater than $n/4$.
+\end{iclaim*}
+\begin{proof}
+    Consider all rotations at once. The total number of coincidences (a point of color $X$ is rotated onto a point of color $Y$) is $108n$, but we consider a total of $431$ rotations; this is because none of the $n$ points are of color $Y$ in their initial position. Then there is a rotation with at least $108n/431>n/4$ coincidences.
+\end{proof}
+
+Now given an initial configuration of $108$ red points, there is a rotation such that at least $28$ points are sent to a green point. Of these $28$ points, some rotation sends at least $8$ of them to a blue point, and of these $8$ points, some rotation sends at least $3$ of them to a yellow point, the end.

@@ -1,0 +1,27 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb Z\to\mathbb Z$ such that for all integers $a$, $b$, $c$ that satisfy $a+b+c=0$, the following equality holds:
+\[f(a)^2+f(b)^2+f(c)^2=2f(a)f(b)+2f(b)f(c)+2f(c)f(a).\]
+
+---
+
+We will sketch the solution. The answers are, for arbitrary $a$,
+\begin{itemize}[itemsep=0em]
+    \item $f(n)\equiv an^2$;
+    \item $f(n)=0$ for even $n$ and $f(n)=a$ for odd $n$; and
+    \item $f(n)=0$ for $n\equiv0\pmod4$, $f(n)=a$ for odd $n$, and $f(n)=4a$ for $n\equiv2\pmod4$.
+\end{itemize}
+With enough effort, these can be verified to work.
+
+Now, if $P(a,b,c)$ denotes the assertion,
+\begin{itemize}[itemsep=0em]
+    \item $P(0,0,0)$ gives $f(0)=0$, and
+    \item $P(n,-n,0)$ gives $f(n)=f(-n)$, i.e.\ $f$ even.
+\end{itemize}
+The rest is an easy but annoying strong induction on $n$, by rewriting the condition as
+\[\big(f(a+b)-f(a)-f(b)\big)^2=4f(a)f(b),\]
+that we will omit.
+

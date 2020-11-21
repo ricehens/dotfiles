@@ -1,0 +1,30 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Determine all pairs $(f,g)$ of functions from the set of real numbers to itself that satisfy \[g(f(x+y))=f(x)+(2x+y)g(y)\]
+for all real numbers $x$ and $y$.
+
+---
+
+Set $y=-2x$ to obtain $g(f(-x))=f(x)$, so our functional equation can be written as \[f(-x-y)=f(x)+(2x+y)g(y).\]
+Let $Q(x,y)$ be the above assertion. Then $Q(x,0)$ and $Q(0,y)$, $y\ne0$ give \[g(0)=\frac{f(-x)-f(x)}{2x}\quad\text{and}\quad g(y)=\frac{f(-y)-f(0)}y.\]
+Combining these, \[g(y)+g(-y)=\frac{f(-y)-f(y)}2=2g(0).\]
+By $Q(x,y)$ and $Q(y,x)$, we have $f(x)+(2x+y)g(y)=f(y)+(x+2y)g(x)$.
+Substituting $f(x)=f(0)-xg(-x)$, we have
+\begin{align*}
+    -xg(-x)+(2x+y)g(y)&=-yg(-y)+(x+2y)g(x)\\
+    x(g(x)-2g(0))+(2x+y)g(y)&=y(g(y)-2g(0))+(x+2y)g(x)\\
+    2x(g(y)-g(0))&=2y(g(x)-g(0))\\
+    \frac{g(y)-g(0)}y&=\frac{g(x)-g(0)}x.
+\end{align*}
+Hence $g$ is linear.
+
+Let $g(x)\equiv ax+b$ for some $a$, $b$. Then $f(x)\equiv ax^2-bx+c$. All our steps are reversible, so all such pairs $(f,g)$ obey $Q(x,y)$. Thus it is necessary and sufficient to verify $g(f(-x))=f(x)$. The requirement is \[a\left(ax^2+bx+c\right)+b=ax^2-bx+c,\]
+so the answers are
+\begin{itemize}[itemsep=0em]
+    \item $f\equiv g\equiv0$; or
+    \item $f(x)\equiv x^2+c$ and $g(x)\equiv x$.
+\end{itemize}
+

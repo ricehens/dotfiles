@@ -1,0 +1,29 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb Z_{\ge0}^3\to\mathbb R$ satisfying
+\[
+    f(p,q,r)=
+    \begin{cases} 0 & \text{if} \; pqr=0, \\
+        1+\frac16(f(p+1,q-1,r)+f(p-1,q+1,r) & \\
+            \quad+f(p-1,q,r+1)+f(p+1,q,r-1) & \\
+        \quad+f(p,q+1,r-1)+f(p,q-1,r+1)) & \text{otherwise.}
+    \end{cases}
+\]
+
+---
+
+The only answer is \[g(x):=\frac{3xyz}{x+y+z}.\]
+Now let $f$ be a solution and consider $h:=f-g$, with $h:\mathbb Z_{\ge0}^3\to\mathbb R$. Then $h$ obeys
+\[
+    h(p,q,r)=
+    \begin{cases} 0 & \text{if} \; pqr=0, \\
+        \frac16(h(p+1,q-1,r)+h(p-1,q+1,r) & \\
+            \;+h(p-1,q,r+1)+h(p+1,q,r-1) & \\
+        \;+h(p,q+1,r-1)+h(p,q-1,r+1)) & \text{otherwise.}
+    \end{cases}
+\]
+Let $m$ be the minimum value $h$ attains. Then if $h(x,y,z)=m$, its six neighbors $(x',y',z')$ must all obey $h(x',y',z')=m$. Repeatedly applying this shows $h$ is constant, so $h\equiv0$.
+

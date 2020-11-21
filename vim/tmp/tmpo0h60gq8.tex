@@ -1,0 +1,19 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Given positive integers $m$ and $n$, prove that there is a positive integer $c$ such that the numbers $cm$ and $cn$ have the same number of occurrences of each non-zero digit when written in base ten.
+
+---
+
+A one-word hint is 142857.
+\begin{claim*}
+    There are infinitely many primes $p$ such that the repeating decimal representations of $m/p$ and $n/p$ are cyclic shifts of each other.
+\end{claim*}
+\begin{proof}
+    By Kobayashi theorem, infinitely many primes $p$ divide some element of the sequence $\{10^i\cdot n-m\}$. For such $p$, \[10^i\equiv\frac mn\pmod p\implies\frac mp=\left\{10^i\cdot\frac np\right\}.\]
+\end{proof}
+
+Then it suffices to take $p$ large enough and consider $c$ one period of the repeating decimal representation of $1/p$; rigorously, \[c=\frac{10^{\ord_p(10)}-1}p\in\mathbb Z.\]
+

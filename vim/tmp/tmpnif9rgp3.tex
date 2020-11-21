@@ -1,0 +1,15 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$, $b$, $c$ be positive real numbers such that $\frac1a+\frac1b+\frac1c=a+b+c$. Prove that
+\[\frac1{(2a+b+c)^2}+\frac1{(a+2b+c)^2}+\frac1{(a+b+2c)^2}\le\frac3{16}.\]
+
+---
+
+The trick is to dehomogenize and rehomogenize: removing the condition $\tfrac1a+\tfrac1b+\tfrac1c=a+b+c$, we want \[\cycsum\frac1{(2a+b+c)^2}\stackrel?\le\frac3{16}\cdot\frac{\frac1a+\frac1b+\frac1c}{a+b+c}.\]
+Now assume without loss of generality $a+b+c=3$, so the desired inequality is \[\cycsum\frac1{(3+a)^2}\le\frac1{16}\cycsum\frac1a.\]
+This can easily be shown via tangent line trick: \[\cycsum\left[\frac1{(3+a)^2}-\frac1{16a}\right]\le\cycsum\frac{a-1}{32}=0.\]
+
+

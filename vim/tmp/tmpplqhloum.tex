@@ -1,0 +1,34 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $p$ be a prime number. Let $\mathbb F_p$ denote the integers modulo $p$, and let $\mathbb F_p[x]$ be the set of polynomials with coefficients in $\mathbb F_p$. Define $\Psi:\mathbb F_p[x]\to\mathbb F_p[x]$ by \[\Psi\left(\sum_{i=0}^na_ix^i\right)=\sum_{i=0}^na_ix^{p^i}.\]
+Prove that for nonzero polynomials $F,G\in\mathbb F_p[x]$, \[\Psi(\gcd(F,G))=\gcd(\Psi(F),\Psi(G)).\]
+
+---
+
+Note that $\Psi(P+Q)=\Psi(P)+\Psi(Q)$ and $\Psi(kP)=k\Psi(P)$.
+\setcounter{boxlemma}0
+\begin{boxlemma}
+    For $P\in\mathbb F_p[x]$ and $k\in\mathbb Z$, we have $\Psi(Px^k)=\Psi(P)^{p^k}$.
+\end{boxlemma}
+\begin{proof}
+    Let $P(x)=\sum_{i=0}^na_ix^i$. Write \[\Psi(Px^k)=\Psi\left(\sum_{i=0}^na_ix^{i+k}\right)=\sum_{i=0}^na_i\left(x^{p^i}\right)^{p^k}=\left(\sum_{i=0}^na_ix^{p^i}\right)^{p^k}=\Psi(P)^{p^k},\]
+    where the third equality is by Frobenius.
+\end{proof}
+\begin{boxlemma}
+    For $P,Q\in\mathbb F_p[x]$, if $P\mid Q$, then $\Psi(P)\mid\Psi(Q)$.
+\end{boxlemma}
+\begin{proof}
+    Let $Q=PR$ and $R=\sum_{i=0}^na_ix^i$. Then \[\Psi(Q)=\Psi\left(P\sum_{i=0}^na_ix^i\right)=\sum_{i=0}^na_i\Psi(Px^i)=\sum_{i=0}^na_i\Psi(P)^{p^i},\]
+    which is divisible by $\Psi(P)$.
+\end{proof}
+
+Let $H=\gcd(F,G)$ and $I=\gcd(\Psi(F),\Psi(G))$, so it suffices to prove $\Psi(H)=I$. Note the following:
+\begin{itemize}
+    \item By the above lemma, we have $\Psi(H)\mid\Psi(F)$ and $\Psi(H)\mid\Psi(G)$, so $\Psi(H)\mid I$.
+    \item Let $H=AF+BG$ for $A,B\in\mathbb F_p[x]$ by B\'ezout's lemma. We have $I\mid\Psi(F)\mid\Psi(AF)$ and $I\mid\Psi(G)\mid\Psi(BG)$, so $I\mid\Psi(AF)+\Psi(BG)=\Psi(H)$.
+\end{itemize}
+The conclusion follows.
+

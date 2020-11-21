@@ -1,0 +1,18 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$ and $b$ be positive integers such that $ab+1$ divides $a^2+b^2$. Show that \[\frac{a^2+b^2}{ab+1}\]
+is the square of an integer.
+
+---
+
+Let $k$ be a positive integers, and consider solutions to $k=\frac{a^2+b^2}{ab+1}$. The first observation is that $ab\ge0$, so it is impossible for one of $a,b$ to be positive while the other is negative.
+
+Writing this equation as a quadratic in $a$, \[a^2-kb\cdot a+b^2-k=0,\]
+so for every solution $(a,b)$, with $a\ge b$, we have another solution $(a',b)$, where \[a'=kb-a=\frac{b^2-k}a\]
+is the other root of the quadratic. Note that $a'=\frac{b^2-k}a<a$, but $b$ is the same, so eventually there is a solution with $0\in\{a,b\}$.
+
+This implies $k$ is a perfect square, as desired.
+

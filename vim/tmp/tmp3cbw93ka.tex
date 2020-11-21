@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n\ge3$ be an integer, and let $a_2$, $a_3$, \ldots, $a_n$ be positive real numbers such that $a_2a_3\cdots a_n=1$. Prove that
+\[(1+a_2)^2(1+a_3)^3\cdots(1+a_n)^n>n^n.\]
+
+---
+
+Observe the inequality
+\[1+a_k=\frac1{k-1}+\cdots+\frac1{k-1}+a_k\ge k\sqrt[k]{\frac{a_k}{(k-1)^{k-1}}},\]
+from which
+\[\prod_{k=2}^n\big(1+a_k\big)^k\ge\prod_{k=2}^n\frac{k^k}{(k-1)^{k-1}}a_k=n^n.\]
+Evidently equality cannot hold.
+
+

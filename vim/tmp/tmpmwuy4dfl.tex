@@ -1,0 +1,160 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be an acute scalene triangle with circumcenter $O$ and altitudes $\seg{AD}$, $\seg{BE}$, $\seg{CF}$. Let $X$, $Y$, $Z$ be the midpoints of $\seg{AD}$, $\seg{BE}$, $\seg{CF}$. Lines $AD$ and $YZ$ intersect at $P$, lines $BE$ and $ZX$ intersect at $Q$, and lines $CF$ and $XY$ intersect at $R$.
+
+Suppose that lines $YZ$ and $BC$ intersect at $A'$, and lines $QR$ and $EF$ intersect at $D'$. Prove that the perpendiculars from $A$, $B$, $C$, $O$ to lines $QR$, $RP$, $PQ$, $A'D'$, respectively, are concurrent.
+
+---
+
+The pith of the entire problem lies in the following claim:
+\begin{claim*}
+    Line $A'D'$ is the radical axis of $(DEF)$, $(XYZ)$.
+\end{claim*}
+\begin{center}
+\begin{asy}
+    size(11cm); defaultpen(fontsize(10pt));
+    pen pri=blue;
+    pen sec=red;
+    pen tri=purple;
+    pen qua=heavygreen;
+    pen qui=orange;
+    pen fil=cyan+opacity(0.05);
+    pen sfil=red+opacity(0.05);
+    pen tfil=purple+opacity(0.05);
+    pen qfil=green+opacity(0.05);
+    pen qifil=yellow+opacity(0.05);
+
+    pair A,B,C,H,D,EE,F,MA,MB,MC,X,Y,Z,P,Q,R,Ap,Dp,U,V;
+    A=dir(100);
+    B=dir(215);
+    C=dir(325);
+    H=A+B+C;
+    D=foot(A,B,C);
+    EE=foot(B,C,A);
+    F=foot(C,A,B);
+    MA=(B+C)/2;
+    MB=(C+A)/2;
+    MC=(A+B)/2;
+    X=(A+D)/2;
+    Y=(B+EE)/2;
+    Z=(C+F)/2;
+    P=extension(A,D,Y,Z);
+    Q=extension(B,EE,Z,X);
+    R=extension(C,F,X,Y);
+    Ap=extension(B,C,Y,Z);
+    Dp=extension(EE,F,Q,R);
+    U=intersectionpoint(circumcircle(X,Y,Z),circumcircle(A,EE,F));
+    V=reflect(circumcenter(X,Y,Z),(A+H)/2)*U;
+
+    draw(Ap--Dp,olive+Dotted);
+    filldraw(circumcircle(A,EE,F),qfil,qua);
+    draw(F--Dp--V,qui);
+    filldraw(circumcircle(H,D,MA),tfil,tri+dashed);
+    filldraw(circumcircle(X,Y,Z),sfil,sec);
+    filldraw(X--Y--Z--cycle,sfil,sec);
+    draw(Z--Ap,sec);
+    draw(A--D,linewidth(0.4)+pri);
+    draw(B--EE,linewidth(0.4)+pri);
+    draw(C--F,linewidth(0.4)+pri);
+    filldraw(circumcircle(D,EE,F),fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+    draw(C--Ap,pri);
+
+    dot("$A$",A,N);
+    dot("$B$",B,SW);
+    dot("$C$",C,S);
+    dot("$H$",H,N);
+    dot("$D$",D,S);
+    dot("$E$",EE,dir(-30));
+    dot("$F$",F,dir(195));
+    dot("$M_A$",MA,S);
+    dot("$M_B$",MB,dir(195));
+    dot("$M_C$",MC,W);
+    dot("$X$",X,NW);
+    dot("$Y$",Y,S);
+    dot("$Z$",Z,dir(75));
+    dot("$Q$",Q,dir(75));
+    dot("$R$",R,dir(120));
+    dot("$A'$",Ap,SE);
+    dot("$D'$",Dp,NE);
+\end{asy}
+\end{center}
+\begin{proof}
+    Let $H$ be the orthocenter and $M_A$ the midpoint of $\seg{BC}$. Since $M_AB=M_AE$, $Y$ is the foot from $M_A$ to $\seg{BE}$, so $\angle HYM_A=90\dg$. Symmetrically $\angle MZM_A=90\dg$, so $D$, $Y$, $Z$ lie on the circle with diameter $HM_A$. By radical axis theorem on $(DEF)$, $(XYZ)$, $(HM_A)$, we deduce $A'$ lies on the desired radical axis.
+
+    As shown above, $XEZH$, $XFYH$ are cyclic, so $QX\cdot QZ=QH\cdot QE$ and $RX\cdot RY=RH\cdot RF$. Then line $QR$ is the radical axis of $(AH)$, $(XYZ)$, so by radical axis theorem on $(DEF)$, $(XYZ)$, $(AH)$, we know $D'$ lies on the desired radical axis.
+\end{proof}
+\begin{center}
+\begin{asy}
+    size(9cm); defaultpen(fontsize(10pt));
+    pen pri=blue;
+    pen sec=red;
+    pen tri=purple;
+    pen qua=heavygreen;
+    pen qui=orange;
+    pen fil=cyan+opacity(0.05);
+    pen sfil=red+opacity(0.05);
+    pen tfil=purple+opacity(0.05);
+    pen qfil=green+opacity(0.05);
+    pen qifil=yellow+opacity(0.05);
+
+    pair A,B,C,H,D,EE,F,MA,MB,MC,X,Y,Z,P,Q,R,Ap,Dp,U,V,I,T,K,SS;
+    A=dir(100);
+    B=dir(210);
+    C=dir(330);
+    H=A+B+C;
+    D=foot(A,B,C);
+    EE=foot(B,C,A);
+    F=foot(C,A,B);
+    X=(A+D)/2;
+    Y=(B+EE)/2;
+    Z=(C+F)/2;
+    P=extension(A,D,Y,Z);
+    Q=extension(B,EE,Z,X);
+    R=extension(C,F,X,Y);
+    U=intersectionpoint(circumcircle(X,Y,Z),circumcircle(A,EE,F));
+    V=reflect(circumcenter(X,Y,Z),(A+H)/2)*U;
+    I=circumcenter(X,Y,Z);
+    T=2I-H;
+    K=(A+H)/2;
+    SS=foot(A,Q,R);
+
+    draw(A--T,olive);
+    draw(K--I,olive+dashed);
+    draw(H--T,magenta);
+    draw(U--V,qui);
+    filldraw(circumcircle(A,EE,F),qfil,qua);
+    filldraw(circumcircle(X,Y,Z),sfil,sec);
+    filldraw(X--Y--Z--cycle,sfil,sec);
+    draw(A--D,linewidth(0.4)+pri);
+    draw(B--EE,linewidth(0.4)+pri);
+    draw(C--F,linewidth(0.4)+pri);
+    filldraw(A--B--C--cycle,fil,pri);
+
+    dot("$A$",A,N);
+    dot("$B$",B,SW);
+    dot("$C$",C,S);
+    dot("$H$",H,N);
+    dot("$D$",D,S);
+    dot("$E$",EE,dir(-30));
+    dot("$F$",F,dir(195));
+    dot("$X$",X,NW);
+    dot("$Y$",Y,S);
+    dot("$Z$",Z,dir(75));
+    dot("$P$",P,SE);
+    dot("$Q$",Q,N);
+    dot("$R$",R,dir(120));
+    dot("$I$",I,S);
+    dot("$T$",T,E);
+    dot("$K$",K,W);
+    dot(U); dot(V); dot(SS);
+\end{asy}
+\end{center}
+
+Let $I$ be the circumcenter of $\triangle XYZ$, and let $T$ be the reflection of $H$ over $I$. Also let $K$ be the midpoint of $\seg{AH}$. Recall that line $QR$ is the radical axis of $(AH)$, $(XYZ)$, so $\seg{KI}\perp\seg{QR}$. Since $\seg{KI}$ is the $H$-midsegment of $\triangle HAT$, we also have $\seg{AT}\perp\seg{QR}$.
+
+Similarly $\seg{BT}\perp\seg{RP}$, $\seg{CT}\perp\seg{PQ}$, so it suffices to show $\seg{OT}\perp\seg{A'D'}$. Let $N$ denote the circumcenter of $\triangle DEF$. Since $N$ is the midpoint of $\seg{HO}$, we also have $\seg{NI}\parallel\seg{OT}$. However $\seg{NI}\perp\seg{A'D'}$, so $\seg{OT}\perp\seg{A'D'}$, and we are done.
+

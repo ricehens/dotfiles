@@ -1,0 +1,99 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with $AB=13$, $BC=14$, $CA=15$ and circumcircle $\Gamma$. Select points $D$, $E$ in the interiors of sides $AB$, $AC$, and let $X$ be a point on segment $DE$ so that the circumcircle of $\triangle BXC$ is tangent to $\seg{DE}$. Let $Y$ be a point on $\Gamma$ so that the circumcircle of $\triangle DYE$ is tangent to $\Gamma$, and suppose that $A$, $X$, $Y$ are collinear.
+
+---
+
+Instead let $Y$ be the second intersection of $\seg{AX}$ with $\Gamma$. In what follows, we assume $AB<AC$.
+\setcounter{claim}0
+\begin{claim}
+    $(DYE)$ is tangent to $\Gamma$ if and only if $BDEC$ is cyclic.
+\end{claim}
+\begin{proof}
+    Note that if $BDEC$ is cyclic, then $(DYE)$ is tangent to $\Gamma$ follows from inversion at $A$ swapping $(B,D)$, $(C,E)$, $(X,Y)$.
+
+    Now assume $(DYE)$ is tangent to $\Gamma$. Let $\seg{BX}$, $\seg{CY}$ intersect $\Gamma$ again at $B'$, $C'$, and let $Y'=\seg{B'E}\cap\seg{C'F}$. By converse Pascal on $BACC'YB'$, we have $Y'\in\Gamma$.
+
+    Furthermore, $\seg{DE}$, $\seg{B'C'}$ are both antiparallel to $\seg{BC}$ wrt.\ $\angle BXC$, so $\seg{DE}\parallel\seg{B'C'}$, and $(DY'E)$ is tangent to $\Gamma$. It is clear $Y$, $Y'$ lie on minor arc $BC$, so $Y=Y'$.
+
+    Then $\da BYD=\da BYC'=\da BCC'=\da BCX=\da BXD$, so $BDXY$, $CEXY$ are cyclic. From $AB\cdot AD=AX\cdot AY=AC\cdot AE$, we have $BDEC$ cyclic as needed.
+\end{proof}
+\begin{claim}
+    $\seg{BC}$, $\seg{DE}$, $\seg{YY}$ concur.
+\end{claim}
+\begin{proof}
+    Let $Q$ be the Miquel point of $BDEC$, and let $T=\seg{BC}\cap\seg{DE}$, so that $A$, $Q$, $T$ collinear. By radical axis on $\Gamma$, $(DYE)$, $(ADE)$, lines $YY$, $DE$, $AQ$ concur, and the claim follows.
+\end{proof}
+\begin{center}
+\begin{asy}
+    size(8cm); defaultpen(fontsize(10pt));
+    pen pri=orange;
+    pen sec=heavygreen;
+    pen tri=lightblue;
+    pen qua=lightred;
+    pen fil=yellow+opacity(0.05);
+    pen sfil=green+opacity(0.05);
+    pen tfil=lightblue+opacity(0.05);
+    pen qfil=lightred+opacity(0.05);
+
+    pair A,B,C,D,EE,T,X,Y,Bp,Cp;
+    A=dir(120);
+    B=dir(210);
+    C=dir(330);
+    D=(A+2B)/3;
+    EE=A+abs(B-A)*abs(D-A)/abs(C-A)*unit(C-A);
+    T=extension(B,C,D,EE);
+    X=T+sqrt(abs(T-B)*abs(T-C))*unit(EE-D);
+    Y=2*foot(origin,A,X)-A;
+    Bp=extension(B,X,Y,EE);
+    Cp=extension(C,X,Y,D);
+
+    draw(B--Bp--Y,qua);
+    draw(C--Cp--Y,qua);
+    filldraw(circumcircle(B,X,Y),qfil,qua+dashed);
+    filldraw(circumcircle(C,X,Y),qfil,qua+dashed);
+    filldraw(circumcircle(D,Y,EE),tfil,tri);
+    filldraw(circumcircle(B,X,C),sfil,sec);
+    draw(T--EE,pri);
+    //draw(D--EE,pri);
+    draw(A--Y,pri);
+    filldraw(unitcircle,fil,pri+linewidth(0.7));
+    filldraw(A--B--C--cycle,fil,pri+linewidth(0.7));
+    draw(T--B,pri);
+
+    dot("$A$",A,A);
+    dot("$B$",B,SW);
+    dot("$C$",C,dir(-15));
+    dot("$D$",D,dir(160));
+    dot("$E$",EE,NE);
+    dot("$T$",T,W);
+    dot("$X$",X,N);
+    dot("$Y$",Y,Y);
+    dot("$B'$",Bp,Bp);
+    dot("$C'$",Cp,Cp);
+\end{asy}
+\end{center}
+
+From $\triangle ABY\sim\triangle AXD$ (say, via inversion at $A$), we have \[DX=\frac{AX}{AB}\cdot BY\quad\text{and}\quad EX=\frac{AX}{AC}\cdot CY.\]
+Let $r=BY/CY$. It follows that \[\frac{DX}{EX}=\frac{AC}{AB}\cdot\frac{BY}{CY}\implies\frac{DX}{EX}-\left(\frac{BY}{CY}\right)^2=\frac{AB}{AC}r-r^2.\]
+\begin{claim}
+    The set of possible values of $r$ is the interval $(0,AB/AC)$.
+\end{claim}
+\begin{proof}
+As in Claim 2, let $\seg{BC}$, $\seg{DE}$, $\seg{YY}$ concur at $T$. Also let $S=\seg{AA}\cap\seg{BC}$. Since $\seg{AA}\parallel\seg{DE}$, it is evident $S$ is closer to $B$ than $T$. (Here, $AB<AC$.)
+
+Finally, \[\frac{BY}{CY}=\sqrt{\frac{TB}{TC}}<\sqrt{\frac{SB}{SC}}=\frac{AB}{AC},\]
+The bound is sharp by taking $D\to A$.
+
+By taking $D\to B$, $r$ approaches $0$, so by continuity, $r$ hits all values in $(0,AB/AC)$.
+\end{proof}
+
+The goal is to maximize \[\frac{AB}{AC}r-r^2=r\left(\frac{AB}{AC}-r\right)\le\left(\frac{AB}{2AC}\right)^2=\frac{169}{900},\]
+with equality when $r=AB/(2AC)$.
+
+---
+
+$\frac{169}{900}$

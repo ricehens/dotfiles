@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Solve over $\mathbb R$ the functional equation \[f(x+y)=\max(f(x),y)+\min(f(y),x).\]
+
+---
+
+The answer is $f(x)=x$, which clearly works. Note that by symmetry we have
+\begin{align*}
+    f(x+y)&=\max(f(x),y)+\min(f(y),x)\\
+    &=\min(f(x),y)+\max(f(y),x).
+\end{align*}
+Hence $|y-f(x)|=|x-f(y)|$. Taking $y=f(x)$ yields $f(f(x))=x$, so $f$ is an involution and therefore bijective. Say that there are $x$ and $y$ for which $f(x)+x\ne f(y)+y$. Since either $f(x)+f(y)=x+y$ or $f(x)+x=f(y)+y$ by the given equation, the former must be true. However write
+\begin{align*}
+    f(x+f(y))&=\max(f(x),f(y))+\min(x,y)\\
+    &=\min(f(x),f(y))+\max(x,y).
+\end{align*}
+Consequently either $f(x)+x=f(y)+y$ or $f(x)+y=f(y)+x$; the latter must be true. Hence $f(x)+f(y)=x+y$ and $f(x)-f(y)=x-y$, so $f(x)=x$ and $f(y)=y$. Take some fixed point $a$. Then $f(x+a)=\min(f(x),a)+\max(x,a)=f(f(x)+a)$, so $f(x)=x$ for all $x$.
+
+Henceforth that $f(x)+x=f(y)+y$ for all $x$ and $y$. Then $f(x)=-x+b$ for some $b$, so take sufficiently big $Y$ such that $Y>f(x)$ but $x>f(Y)$. Then $f(x+Y)=Y+f(Y)$, but $f$ is bijective, contradiction.

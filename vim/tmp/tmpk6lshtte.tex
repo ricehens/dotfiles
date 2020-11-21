@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let functions $f:\mathbb Z\to\mathbb Z$ and $g:\mathbb Z\to\mathbb Z$ satisfy
+\[f(g(x)+y)=g(f(y)+x)\]
+for any integers $x$, $y$. Prove that if $f$ is bounded, then $g$ is periodic.
+
+---
+
+Evidently $f(\mathbb Z)=g(\mathbb Z)$; i.e.\ $f$ and $g$ have the same range. Let this range be the finite set $S$. Now fix $x$ and vary $y$ to obtain
+\[g(x+S)=f(\mathbb Z)=S,\]
+so $s\mapsto g(x+s)$ is a bijection $S\to S$.
+
+Let $S=\{s_1<\cdots<s_n\}$ and let $r=s_n-s_1$. Clearly $g(x-s_n+s_1)$, \ldots, $g(x-s_n+s_{n-1})$ uniquely determine $g(x)$, so $g(x-r)$, \ldots, $g(x-1)$ uniquely determine $g(x)$. There are finitely many possible tuples $(g(x-r),\ldots,g(x-1))$, so by Pigeonhole, $g$ is periodic.

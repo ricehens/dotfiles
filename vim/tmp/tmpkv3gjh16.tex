@@ -1,0 +1,30 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Adam, Bob, and Charlie each flip a coin every day, starting from Day $1$, until all three of them have flipped heads at least once. The last of them to flip heads for the first time does so on Day $X$. The probability that $X$ is even can be expressed in the form $\tfrac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+---
+
+If $k$ remains fixed, note that
+\begin{align*}
+    \mathbb P(X>k)&=1-\mathbb P(\text{All three have flipped heads in the first }k\text{ days})\\
+    &=1-\mathbb P(\text{Adam has flipped heads in the first }k\text{ days})^3\\
+    &=1-\big(1-\mathbb P(\text{Adam has not flipped heads in the first }k\text{ days})\big)^3\\
+    &=1-\left(1-\frac1{2^k}\right)^3.
+\end{align*}
+It follows that \[\mathbb P(X=k)=\mathbb P(X>k-1)-\mathbb P(X>k)=\left(1-\frac1{2^k}\right)^3-\left(1-\frac1{2^{k-1}}\right)^3.\]
+Hence,
+\begin{align*}
+    \mathbb P(2\mid X)&=\sum_{i=1}^\infty\mathbb P(X=2i)=\sum_{i=1}^\infty\left(\left(1-\frac1{2^{2i}}\right)^3-\left(1-\frac1{2^{2i-1}}\right)^3\right)\\
+    &=\sum_{i=1}^\infty\Bigg(-3\left(-\frac1{2^{2i-1}}+\frac1{2^{2i}}\right)+3\left(-\left(\frac1{2^{2i-1}}\right)^2+\left(\frac1{2^{2i}}\right)^2\right)\\
+    &\qquad\qquad\qquad\qquad\qquad-\left(-\left(\frac1{2^{2i-1}}\right)^3+\left(\frac1{2^{2i}}\right)^3\right)\Bigg)\\
+    &=-3\left(\sum_{k=1}^\infty\left(-\frac12\right)^k\right)+3\left(\sum_{k=1}^\infty\left(-\frac1{2^2}\right)^k\right)-\sum_{k=1}^\infty\left(-\frac1{2^3}\right)^k\\
+    &=-3\left(\frac{-1/2}{3/2}\right)+3\left(\frac{-1/4}{5/4}\right)-\frac{-1/8}{9/8}=1-\frac35+\frac19=\frac{23}{45},
+\end{align*}
+and the requested sum is $23+45=68$.
+
+---
+
+068

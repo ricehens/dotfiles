@@ -1,0 +1,18 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find the sum of the four smallest primes dividing $2016^{239}-1$.
+
+---
+
+First, $2015\mid 2016^{239}-1$, so $5$, $13$, $31$ work. Suppose that $2016^{239}\equiv1\pmod p$. Then $2016\equiv2016^{240}\pmod p$, so $2016$ is a quadratic residue mod $p$; that is, $2016^{\frac{p-1}2}\equiv 1\pmod p$.
+
+Since $239$ is prime, if $239\nmid\frac12(p-1)$, then $2016^1\equiv1\pmod p$, and $p$ is either $5$, $13$, $31$. Otherwise, the smallest $p$ for which $239\mid\frac12(p-1)$ is $479$.
+
+To verify that $479$ works, note that $2016\equiv100\pmod{479}$, so $2016$ is a quadratic residue. The result is clear from here, and the requested sum is $5+13+31+479=528$.
+
+---
+
+528

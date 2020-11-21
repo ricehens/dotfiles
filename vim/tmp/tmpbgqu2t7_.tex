@@ -1,0 +1,75 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+An empty $2020\times2020\times2020$ cube is given, and a $2020\times2020$ grid of square unit cells is drawn on each of its six faces. A \emph{beam} is a $1\times1\times2020$ rectangular prism. Several beams are placed inside the cube subject to the following conditions:
+\begin{itemize}
+    \item The two $1\times1$ faces of each beam coincide with unit cells lying on opposite faces of the cube. (Hence, there are $3\times2020^2$ possible positions for a beam.)
+    \item No two beams have intersecting interiors.
+    \item The interiors of each of the four $1\times2020$ faces of each beam touch either a face of the cube of the interior of the face of another beam.
+\end{itemize}
+What is the smallest positive number of beams that can be placed to satisfy these conditions?
+
+---
+
+Let $n=2020$. The answer is $3n/2=3030$.
+
+\bigskip
+
+\textbf{Lower bound:} The key observation here is this:
+\begin{claim*}
+    Either there are $2020^2$ beams in the same direction, or every face contains at least one beam in its entirety (i.e.\ all $n$ unit cells of the beam).
+\end{claim*}
+\begin{proof}
+    Check that if one face contains no beam in its entirety, then neither do the adjacent faces.
+\end{proof}
+
+Hence by double counting, the number of beams is at least $3n/2$.
+
+\bigskip
+
+\textbf{Construction:} Here is the construction explicitly for $n=4$:
+\[
+    \begin{bmatrix}
+        1&\bullet&\bullet&\bullet\\
+        3&3&3&3\\
+        \bullet&\bullet&2&\bullet\\
+        \bullet&\bullet&\bullet&\bullet
+    \end{bmatrix}
+    \quad
+    \begin{bmatrix}
+        1&4&\bullet&\bullet\\
+        \bullet&4&\bullet&\bullet\\
+        \bullet&4&2&\bullet\\
+        \bullet&4&\bullet&\bullet
+    \end{bmatrix}
+    \quad
+    \begin{bmatrix}
+        1&\bullet&\bullet&\bullet\\
+        \bullet&\bullet&\bullet&\bullet\\
+        \bullet&\bullet&2&\bullet\\
+        5&5&5&5
+    \end{bmatrix}
+    \quad
+    \begin{bmatrix}
+        1&\bullet&\bullet&6\\
+        \bullet&\bullet&\bullet&6\\
+        \bullet&\bullet&2&6\\
+        \bullet&\bullet&\bullet&6
+    \end{bmatrix}
+\]
+The above readily generalizes.
+
+To rigorously describe it, we use a few definitions: choose a face as the ``front,'' and henceforth look at the $n$ cross sections of the cube starting from the front.
+\begin{itemize}[itemsep=0em]
+    \item A \emph{point} is a beam that faces the front; i.e.\ appears in the same place in all cross sections.
+    \item A \emph{horizontal beam} and a \emph{vertical beam} are beams that appear horizontal and vertical from the front view.
+\end{itemize}
+Let points occupy every other spot on the main diagonal, i.e.\ the cell in the $(2k-1)$th row and $(2k-1)$th column for all $k$.
+\begin{itemize}[itemsep=0em]
+    \item In the $2k$th cross section, place a vertical beam in the $2k$th column, and
+    \item in the $(2k-1)$th cross section, place a horizontal beam in the $2k$th row.
+\end{itemize}
+It is clear this works.
+

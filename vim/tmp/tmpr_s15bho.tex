@@ -1,0 +1,62 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be an acute triangle with $AB>AC$. Let $\Gamma$ be its circumcircle, $H$ its orthocenter, and $F$ the foot of the altitude from $A$. Let $M$ be the midpoint of $\seg{BC}$. Let $Q$ be the point on $\Gamma$ such that $\angle HQA=90^\circ$ and let $K$ be the point on $\Gamma$ such that $\angle HKQ=90^\circ$. Assume that the points $A$, $B$, $C$, $K$, $Q$ are all different and lie on $\Gamma$ in this order.
+
+Prove that the circumcircles of triangles $KQH$ and $FKM$ are tangent to each other.
+
+---
+
+Let $\Psi$ denote the negative inversion at $H$ swapping $A$, $F$. Then $\Psi$ swaps $\Gamma$ with the nine-point circle and $Q$ with $M$. Let the image of $K$ be $K'$. Then $\Psi$ sends the circumcircles of $KQH$, $FQM$ to line $MK'$ and the circumcircle of $\triangle AQK'$, respectively.
+\begin{center}
+    \begin{asy}
+        size(7cm); defaultpen(fontsize(10pt));
+        pen pri=blue;
+        pen sec=purple+pink;
+        pen tri=lightred;
+        pen fil=cyan+opacity(0.05);
+        pen sfil=purple+pink+opacity(0.05);
+        pen tfil=lightred+opacity(0.05);
+
+        pair O,A,B,C,M,H,F,Ap,Q,Kp,K,EE;
+        O=(0,0);
+        A=dir(80);
+        B=dir(220);
+        C=dir(320);
+        M=(B+C)/2;
+        H=A+B+C;
+        F=foot(A,B,C);
+        Ap=-A;
+        Q=2*foot(O,H,M)-Ap;
+        Kp=2*foot(H/2,M,M+rotate(90)*(H-M))-M;
+        K=foot(Q,H,Kp);
+        EE=(A+H)/2;
+
+        draw(A--Kp--Q,linewidth(1)+tri);
+        draw(M--Kp,tri);
+        draw(A--Q--K,sec);
+        draw(K--Kp,sec);
+        draw(Q--M,sec);
+        draw(A--F,pri);
+        filldraw(circle(O,1),fil,linewidth(0.4)+pri);
+        filldraw(circumcircle(F,M,Kp),fil,linewidth(0.4)+pri);
+        filldraw(A--B--C--cycle,fil,pri);
+
+        dot("$A$",A,A);
+        dot("$B$",B,B);
+        dot("$C$",C,C);
+        dot("$H$",H,NW);
+        dot("$M$",M,S);
+        dot("$F$",F,S);
+        dot("$Q$",Q,Q);
+        dot("$K$",K,K);
+        dot("$K'$",Kp,SW);
+        dot("$E$",EE,NE);
+    \end{asy}
+\end{center}
+Under $\Psi$, the circle with diameter $HQ$ is swapped with the line through $M$ perpendicular to $\seg{HM}$, so $\seg{MK'}\parallel\seg{AQ}$, and it suffices to show $K'A=K'Q$.
+
+Let $E$ be the midpoint of $\seg{AH}$. Then $\angle EK'M=90\dg$, so $\seg{EK'}\perp\seg{AQ}$. Furthermore $EA=EQ$, so $\seg{EK'}$ is the perpendicular bisector of $\seg{AQ}$, end proof.
+

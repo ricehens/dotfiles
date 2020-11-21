@@ -1,38 +1,46 @@
 !! Appearance
 urxvt.termName:	rxvt-unicode
 urxvt.scrollBar:	false
-urxvt.background:	black
+! urxvt.background:	black
 urxvt.foreground:	gray
 
 !! Font preferences
-!urxvt.font:	xft:DejaVu Sans Mono:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
-!urxvt.boldFont:	xft:DejaVu Sans Mono:pixelsize=22:weight=bold
-!URxvt*font:                 xft:Hack:style=Regular:size=8,xft:DejaVu Sans Mono:regular:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
-URxvt*font:                 xft:DejaVu Sans Mono:regular:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
-URxvt*imFont:               xft:DejaVu Sans Mono:regular:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
-URxvt*boldFont:             xft:DejaVu Sans Mono:bold:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
-URxvt*italicFont:           xft:DejaVu Sans Mono:italic:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
-URxvt*boldItalicFont:       xft:DejaVu Sans Mono:bold:italic:pixelsize=22,xft:WenQuanYi Micro Hei Mono:antialias=true
+!urxvt.font:	xft:DejaVu Sans Mono:pixelsize=14,xft:WenQuanYi Micro Hei Mono:antialias=true
+!urxvt.boldFont:	xft:DejaVu Sans Mono:pixelsize=14:weight=bold
+!URxvt*font:                 xft:Hack:style=Regular:size=8,xft:DejaVu Sans Mono:regular:pixelsize=14,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*font:                 xft:DejaVu Sans Mono:regular:pixelsize=14,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*imFont:               xft:DejaVu Sans Mono:regular:pixelsize=14,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*boldFont:             xft:DejaVu Sans Mono:bold:pixelsize=14,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*italicFont:           xft:DejaVu Sans Mono:italic:pixelsize=14,xft:WenQuanYi Micro Hei Mono:antialias=true
+URxvt*boldItalicFont:       xft:DejaVu Sans Mono:bold:italic:pixelsize=14,xft:WenQuanYi Micro Hei Mono:antialias=true
 urxvt.letterSpace:	-1
 
 !! Larger history limit
 urxvt.saveLines:	10000
 
-!! Transparency
-urxvt.shading:	15
-urxvt.transparent:	true
+!! Transparency (only when picom is running)
+urxvt.depth: 32
+urxvt.background: rgba:0000/0000/0200/c800
+!urxvt.background: rgba:2000/2100/2700/c800
 
 !! Perl extensions; use Ctrl-Alt-c to copy and Ctrl-Alt-v to paste in urxvt
 urxvt.perl-lib:	/usr/bin/perl
-urxvt.perl-ext-common:	default,pasta,matcher,keyboard-select
+!urxvt.perl-ext-common:	default,pasta,matcher,keyboard-select
+urxvt.perl-ext-common:	default,eval,matcher,keyboard-select
 urxvt.keysym.M-u:	perl:url-select:select_next
 urxvt.url-launcher:	/usr/bin/google-chrome-stable
 urxvt.underlineURLs:	True
 urxvt.matcher.button:	1
 urxvt.keysym.M-Escape:	perl:keyboard-select:activate
 urxvt.keysym.C-0x56:	builtin-string:
-urxvt.keysym.C-M-v:	perl:pasta:paste
-urxvt.keysym.C-M-0x56:	perl:pasta:copy
+urxvt.keysym.Control-Meta-c: eval:selection_to_clipboard
+urxvt.keysym.Control-Meta-v: eval:paste_clipboard
+urxvt.keysym.Control-Insert: eval:selection_to_clipboard
+urxvt.keysym.Shift-Insert: eval:paste_clipboard
+!urxvt.keysym.C-M-v:	perl:pasta:paste
+!urxvt.keysym.C-M-0x56:	perl:pasta:copy
+!urxvt.keysym.Shift-Insert: perl:pasta:paste
+!urxvt.keysym.C-Insert: perl:pasta:copy
 ! Automatically copies when text is selected
 urxvt.pasta.autocopy:	false
 
@@ -61,7 +69,10 @@ URxvt.color15:	rgb:EE/EE/EC
 URxvt.colorBD:	rgb:ff/ff/ff
 
 !! X system
-Xft.dpi:	192
+Xft.dpi:	120
 Xft.hinting:	true
 Xft.hintstyle:	hintfull
 Xft.rgba:	rgb
+
+!! Disable printing the terminal contents when pressing SysRq/PrtSc
+URxvt.print-pipe: "cat > /dev/null"

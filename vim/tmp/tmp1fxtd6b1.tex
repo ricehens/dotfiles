@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Twelve points are chosen uniformly and at random on the circumference of a circle. The probability there exists a diameter $\overline{MN}$ such that all twelve points lie on the same side of $\overline{MN}$ is $\frac{p}{q}$ for relatively prime integers $p$ and $q$. Find $p+q$. 
+
+---
+
+Label the points $A_1,A_2,\ldots,A_{12}$. Assume $A_1$ is the leftmost point. Because $\overline{MN}$ is the diameter of the circle, we want on the other points to be in the same semicircle. This occurs with probability $\frac{1}{2^{11}}$, because there are $11$ other points. But, to select $A_1$, we have $12$ options, so the probability in question is $\frac{12}{2^{11}}=\frac{3\cdot 2^2}{2^{11}}=\frac{3}{2^9}=\frac{3}{512}$, and the answer is $3+512=515$.
+
+---
+
+515

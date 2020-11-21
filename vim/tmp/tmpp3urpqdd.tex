@@ -1,0 +1,54 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $P$ be a nonconstant polynomial with integer coefficients and $n$ a positive integer. Let $a_0=n$, and let $a_k=P(a_{k-1})$ for all positive integers $k$. Suppose that for every positive integer $b$ there is an element of the sequence $a_0$, $a_1$, $\ldots$ that is the $b$th power of some positive integer greater than 1. Prove that $P$ is a linear polynomial.
+
+---
+
+Observe that for each $b$, the sequence contains infinitely many powers of $b$. (We can find powers of $b$, $2b$, $3b$, and so on.)
+\setcounter{claim}0
+\begin{claim}
+    For all $i$,
+    \[a_{i+1}-a_i\quad\text{divides}\quad a_i(a_i-1).\]
+\end{claim}
+\begin{proof}
+    Observe that $a_{i+1}-a_i\mid a_{j+1}-a_j$ for all $j\ge i$, so
+    \[a_i\equiv a_{i+1}\equiv a_{i+2}\equiv\cdots\pmod{a_{i+1}-a_i}.\]
+    But there are infinitely many $b$th powers in the sequence, so for any choice of $b$ and $i$, $a_i$ is a $b$th power residue modulo $a_{i+1}-a_i$.
+
+    Now for each $p^e\parallel a_{i+1}-a_i$, let $b=\vphi(p^e)$, so $a_i\equiv 0,1\pmod{p^e}$. The claim follows from Chinese Remainder theorem.
+\end{proof}
+\begin{claim}
+    $\deg P\le2$.
+\end{claim}
+\begin{proof}
+    We have by Claim 1 that $|a_{i+1}-a_i|\le|a_i(a_i-1)|$. The degree of $a_{i+1}-a_i$ as a polynomial in $n$ is $(\deg P)^{i+1}$, and the degree of $a_i(a_i-1)$ is $2(\deg P)^i$. The claim follows from
+    \[(\deg P)^{i+1}\le2(\deg P)^i.\]
+\end{proof}
+
+It will suffice to show no quadratic $P$ work. Let $P(x)=cx^2+dx+e$.
+\begin{claim}
+    $P(x)$ is of the form $\pm x^2+dx$; that is, $e=0$ and $c=\pm1$.
+\end{claim}
+\begin{proof}
+    We use Claim 1 again:
+    \begin{itemize}
+        \item Check that $\gcd(a_i,a_{i+1}-a_i)=\gcd(a_i,P(a_i))=\gcd(a_i,e)\mid e$, so Claim 1 may be strengthened to
+            \[a_{i+1}-a_i\quad\text{divides}\quad e(a_i-1).\]
+            By degree counting, this is absurd unless $e=0$. Henceforth $P(x)=x(cx+d)$.
+        \item Now, $a_{i+1}-a_i=a_i(ca_i+d-1)$ divides $a_i(a_i-1)$, so
+            \[ca_i+d-1\quad\text{divides}\quad a_i-1.\]
+            It follows from $|ca_i+d-1|\le|a_i-1|$ that $c=\pm1$.
+    \end{itemize}
+\end{proof}
+
+The remaining cases may be verified by hand:
+\begin{itemize}
+    \item If $c=-1$, then the sequence $a_1$, $a_2$, $\ldots$ is eventually negative and therefore a square finitely often.
+    \item If $c=1$ and $d\ne0$, then $4P(x)=4\left(x^2+dx\right)=(2x+d)^2-d^2$ is a square finitely often, so the sequence $a_1$, $a_2$, $\ldots$ contains finitely many squares.
+    \item Finally, $P(x)=x^2$ obviously fails. For instance, take $b$ an odd integer such that $x$ is not a perfect $b$th power.
+\end{itemize}
+
+

@@ -1,0 +1,34 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all sequences $(x_1,x_2,\ldots,x_{2011})$ of positive integers with the following property: for every positive integer $n$ there exists a positive integer $a$ with \[x_1^n+2x_2^n+3x_3^n+\cdots+2011x_{2011}^n=a^{n+1}+1.\]
+
+---
+
+For each $n$, let $a_n$ be the corresponding value of $a$. Let $K=2+3+\cdots+2011$. The only answer is $(1,K,K,\ldots,K)$, which clearly works.
+
+Now we prove it is the only solution. I contend:
+\setcounter{claim}0
+\begin{claim}
+    The sequence $(a_n)$ is bounded.
+\end{claim}
+\begin{proof}
+    This is more-or-less obvious. For rigor, write \[a_n^{n+1}=-1+\left(x_1^n+\cdots+2011x_{2011}^n\right)\le\left(x_1+\cdots+2011x_{2011}\right)^{n+1},\]
+    and the claim follows.
+\end{proof}
+\begin{claim}
+    For sufficiently large primes $p$, we have $a_{p-1}=K$.
+\end{claim}
+\begin{proof}
+    Let $n=p-1$. Taking the given equation modulo $p$ gives \[1+2+\cdots+2011\equiv a_{p-1}+1\pmod p,\]
+    so by taking $p>\max(a_n)$, we have $a_{p-1}=K$.
+\end{proof}
+
+Finally, for sufficiently large $p$ we have \[\left(\frac{x_1}K\right)^{p-1}+\cdots+2011\left(\frac{x_{2011}}K\right)^{p-1}=K+\frac1{K^{p-1}}.\]
+From the above, $x_i\le K$ for each $i$. Taking $p\to\infty$, we have $(x_i/K)^{p-1}\in\{0,1\}$, with equality if and only if $x_i=K$. The right-hand expression approaches $K$, so we must have $x_1<K$ and $x_2=\cdots=x_{2011}=K$.
+
+By $n=1$ in the problem statement, $(x_1-1)+K^2$ is a perfect square, but $x_1-1<K$, so $x_1=1$.
+
+

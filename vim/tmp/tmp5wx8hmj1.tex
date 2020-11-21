@@ -1,0 +1,19 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a_0$, $a_1$, $a_2$, $\ldots$ be an arbitrary infinite sequence of positive numbers. Show that the inequality $1+a_n>a_{n-1}\sqrt[n]2$ holds for infinitely many positive integers $n$.
+
+---
+
+It is clear $2^{1/n}\le1+n^{-1}$ for all $n\ge1$. We will show $1+a_n>a_{n-1}\left(1+n^{-1}\right)$ holds for infinitely many $n$.
+
+Assume not --- that for all $n>N$, we have $1+a_n\le a_{n-1}\left(1+n^{-1}\right)$. Then we can show
+\begin{align*}
+    a_{N+1}&\le\left(\frac{N+2}{N+1}\right)a_N-1\\
+    a_{N+2}&\le\left(\frac{N+3}{N+1}\right)a_N-\frac{N+3}{N+2}-1\\
+    &\,\vdots\\
+    a_{N+M}&\le\left(\frac{N+M+1}{N+1}\right)a_N-\sum_{i=1}^M\frac{N+M+1}{N+i+1}.
+\end{align*}
+We finish by noting this is eventually negative.

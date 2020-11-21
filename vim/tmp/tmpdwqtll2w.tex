@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+How many quadratic polynomials with real coefficients are there such that the set of roots equals the set of coefficients? (For clarification: If the polynomial is $ax^2+bx+c$, $a\ne0$, and the roots are $r$ and $s$, then the requirement is that $\{a,b,c\}=\{r,s\}$.)
+
+---
+
+Note $a$ (which is nonzero) must be a root; let the other root be $r$, and say \[ax^2+bx+c=a(x-a)(x-r)=ax^2-a(a+r)x+a^2r.\]
+Remark that if $r=0$, then $\{a,0\}=\{a,-a^2,0\}$, from which $a=-1$.
+
+There are several cases to consider: first we assume $r=a^2r$. If $r=0$, then $a=-1$ as noted above. Otherwise $a^2=1$, so $a=\pm1$.
+\begin{itemize}
+    \item If $a=1$, then $\{1,r\}=\{1,-(r+1),r\}$, so either it is the case that $1=-(r+1)$, which gives $r=-2$, which works, or it is the case that $r=-(r+1)\implies r=-\tfrac12$, which works.
+    \item If $a=-1$, then $\{-1,r\}=\{-1,r-1,r\}$, so $-1=r-1$ and $r=0$, which works.
+\end{itemize}
+Else we have $a=a^2r$, so $r=\tfrac1a$. So that $r$ is a coefficient of the polynomial, we must have $r=-a(a+r)$, or $0=a^3+a+1$. This is strictly increasing, so it has exactly one root, which works. This totals up to $4$.
+
+---
+
+4

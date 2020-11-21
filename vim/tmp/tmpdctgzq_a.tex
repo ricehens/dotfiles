@@ -1,0 +1,12 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Does there exist an integer $n$ such that $n$ has exactly $2000$ distinct prime divisors and $n$ divides $2^n+1$?
+
+---
+
+The answer is yes. Clearly $n$ is odd, so consider $n=3^e\cdot k$, where $e\ge1$ and $3\nmid k$. Then  by lifting the exponent, \[\nu_3\left(2^n+1\right)=\nu_3\left(8^{3^{e-1}}+1\right)=e+1,\]
+so we only need to consider primes $p>3$. Since $2^{3^e}+1\mid2^{3^e\cdot k}+1$ for all odd $k$, it suffices to show there are integers $k$ and $e$, with $3\nmid k$ and $k\mid2^{3^e}+1$, such that $k$ has exactly $1999$ distinct prime divisors. However by Zsigmondy theorem $2^{3^e}+1$ can have arbitrarily many prime divisors, the end.
+

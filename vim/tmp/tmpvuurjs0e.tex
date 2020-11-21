@@ -1,0 +1,49 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a_n$ be the number of permutations $(x_1,x_2,\ldots,x_n)$ of the numbers $(1,2,\ldots,n)$ such that the $n$ ratios $\frac{x_k}k$ for $1\le k\le n$ are all distinct. Prove that $a_n$ is odd for all $n\ge1$.
+
+---
+
+Say a permutation is \emph{good} if $\tfrac{x^k}k$ are all distinct, and \emph{bad} otherwise. The \emph{inverse permutation} $(y_1,\ldots,y_n)$ of $(x_1,\ldots,x_n)$ is such that $y_{x_k}=k$ for all $k$.
+\setcounter{lemma}0
+\begin{lemma}[Reduction to involutions]
+    A permutation is good if and only if its inverse permutation is good.
+\end{lemma}
+\begin{proof}
+    The proof is direct: if $(x_1,\ldots,x_n)$ is good and has inverse $(y_1,\ldots,y_n)$, then for each $i$, $j$, \[\frac{y_i}i=\frac{y_i}{x_{y_i}}\ne\frac{y_j}{x_{y_j}}=\frac{y_j}j,\]
+    so $(y_1,\ldots,y_n)$ is good.
+\end{proof}
+
+It suffices to show there is an odd number of good permutations equal to its own inverse --- i.e.\ involutions.
+
+If an involution is good, then it has at most one fixed point. We consider these involutions as maximal matchings on a graph of $n$ vertices labeled $1$, $\ldots$, $n$. Label each edge $i\sim j$, where $i<j$, with the ratio $i/j$.
+\begin{lemma}[Total maximal matchings]
+    The number of maximal matchings of a graph with $n$ distinguishable vertices is always odd.
+\end{lemma}
+\begin{proof}
+    Let the number of maximal matchings be $f(n)$. I claim $f(n)=(2\lceil n/2\rceil-1)!$.
+
+    Indeed, $f(2k)=(2k-1)f(2k-2)$ by selecting an arbitrary vertex and its neighbor, and $f(2k+1)=(2k+1)f(2k)$ by selecting its fixed point.
+\end{proof}
+\begin{lemma}[Main step]
+    There is an even number of bad maximal matchings.
+\end{lemma}
+\begin{proof}
+    Consider an undirected, nonsimple graph $\mathcal G$ on all bad maximal matchings. The key is to consider the following adjacency:
+    \begin{quote}
+        For a matching $\mathbf x$ in $\mathcal G$, select some (possibly zero) number of disjoint pairs of edges $a\sim b$, $c\sim d$ in $\mathbf x$ with the same label, and swap $b$, $c$. The result is another bad maximal matching --- draw an edge between it and $\mathbf x$.
+    \end{quote}
+    It is easy to verify the operation above is symmetric. Thus each vertex has an edge to itself. I contend each vertex has even degree.
+
+    Let $\mathbf x$ be a vertex in $\mathcal G$. For each $\lambda$, let $n_\lambda$ denote the number of edges $a\sim b$ in $\mathbf x$ with $a/b=\lambda$, and let $s_\lambda$ be the number of ways to swap these $n_\lambda$ edges. By similar computation to Lemma 2, \[s_\lambda=\sum_{k\ge0}\binom{n_\lambda}{2k}(2k-1)!!\equiv\sum_{k\ge0}\binom{n_\lambda}{2k}=2^{n_\lambda-1}\pmod2,\]
+    which is even whenever $n_\lambda\ge2$.
+
+    Finally $\deg\mathbf x$ is the product of $s_\lambda$ over all $\lambda$. Since $\mathbf x$ is bad, $n_\lambda\ge1$ for some $\lambda$, so $\deg\mathbf x$ is even. Removing all self-loops, $\mathcal G$ is simple and each vertex of $\mathcal G$ now has odd degree, so $\mathcal G$ has an even number of vertices.
+\end{proof}
+
+In conclusion, the total number of maximal matchings is even, but the number of bad maximal matchings is even, so the number of good maximal matchings is odd, the end.
+
+

@@ -1,0 +1,31 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Is there a finite nonempty set $S$ of points in the plane which forms at least $|S|^2$ cyclic harmonic quadrilaterals?
+
+---
+
+Yes --- in fact we describe $S$ a subset of the unit circle. By perspectivity from $(0,1)$ to the $x$-axis, it suffices to find a set $T$ of points on the number line that forms at least $|T|^2$ harmonic bundles.
+
+I claim $T=\{0,1,2,\ldots,n\}$ works for sufficiently large $n$. It is not hard to check that if $\nu_p(r)=1$, where $p$ is prime, then \[\left(x,x+2rk;x+\left(r+p^2\right)k,x+\left(r+\frac{r^2}{p^2}\right)k\right)=-1.\]
+Each of these harmonic bundles is uniquely characterized by $(x,r,k)$, since $\gcd\left(r+p^2,r+r^2/p^2\right)=1$.
+
+For each $r$, as $x$ varies we have exhibited \[\sum_{k\ge1}\max\left(0,n-k\left(r+\frac{r^2}{p^2}\right)\right)\ge\frac n2\left(\frac n{r+\frac{r^2}{p^2}}-1\right)=\frac{n^2}{2\left(r+\frac{r^2}{p^2}\right)}-\frac n2\]
+harmonic bundles. Let \[X(p)=\frac{n^2}2\sum_{\nu_p(r)=1}\max\left(0,\frac1{r+\frac{r^2}{p^2}}-\frac1n\right).\]
+We have exhibited at least $X(p)$ harmonic bundles for each $p$.
+
+As $r=ps$ varies, with $s>p$ and $p\nmid s$, we have
+\begin{align*}
+    \lim_{n\to\infty}\frac{X(p)}{n^2}&=\lim_{n\to\infty}\frac12\sum_{p\nmid s}\max\left(0,\frac1{ps+s^2}-\frac1n\right)\\
+    &\ge\lim_{n\to\infty}\left[\frac1{2p}\sum_{\substack{p\nmid s\\ s^2\le n}}\left(\frac1s-\frac1{s+p}\right)-\frac{\sqrt n}n\right]\\
+    &=\frac1{2p}\left(\frac1{p+1}+\cdots+\frac1{2p}\right)\\
+    &\ge\frac1{2p}\cdot\frac p{2p}=\frac1{4p}.
+\end{align*}
+There are at least $X(2)+X(3)+X(5)+\cdots$ harmonic bundles in $T$, but \[\lim_{n\to\infty}\frac{X(2)+X(3)+X(5)+\cdots}{n^2}\ge\frac14\left(\frac12+\frac13+\frac15+\cdots\right),\]
+which diverges. Hence for sufficiently large $n$, we have $X(2)+X(3)+X(5)+\cdots>n^2$, and we are done.
+\begin{boxremark}
+    In fact the above solution proves for each $k>0$, there is an $S$ which forms at least $k|S|^2$ cyclic harmonic quadrilaterals.
+\end{boxremark}
+

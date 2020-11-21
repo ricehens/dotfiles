@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $\mathcal{S}$ be the set of all rectangles formed by the squares of a $19 \times 19$ checkerboard whose corners are black$.$ A rectangle's darkness is the number of black squares within its interior$.$ The average darkness of a rectangle in $\mathcal{S}$ can be written as $\tfrac mn,$ where  $m$ and $n$ are relatively prime integers$.$ Find the remainder when $m+n$ is divided by $1000$.
+
+---
+
+\begin{boxlemma*}
+    The sum of the areas of all the rectangles in an $n\times n$ grid is $\dbinom{n+2}3^2$.
+\end{boxlemma*}
+\begin{proof}
+    Consider each $1\times n$ grid. Construct a unit square directly to the left and one to the right of the $1\times n$ grid. Then, every $1\times k$ rectangle of this subgrid can be bounded by two ``boundary'' squares that are not in the rectangle, but everything in between is in the rectangle. Then, the sum of the areas of the $1\times k$ rectangles is the number of unit squares between two boundary squares. This can be done in $\tbinom{n+2}3$ ways. The desired result follows.
+\end{proof}
+
+Call a rectangle \textit{dark} is it has more black squares than white and \textit{bright} if it has more white squares than black. It is easy to check that a square is dark iff all its corners are black and a square is bright iff all its corners are white. Furthermore, a dark rectangle has one more black square than white, and vice versa. Now, note that translating a dark rectangle one unit right maps it to a light rectangle, so we only need to compute the average area of a rectangle in $\mathcal{S}$, which is $\tbinom{21}3^2$, the number of dark rectangles whose right side coincides with that of the $19\times 19$ square, which is $10\tbinom{11}2$ by Stars and Bars, and the number of light rectangles whose left side coincides with that of the $19\times 19$ square, which is $10\tbinom{10}2$ by Stars and Bars. The answer is $$\left(\frac12\binom{21}3^2+\frac{10}2\binom{11}2-\frac{10}2\binom{10}2\right)\div\binom{20}2^2=\frac{8845}{361},$$
+and the answer is $8845+361=9206$.
+
+---
+
+206

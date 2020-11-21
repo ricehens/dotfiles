@@ -1,0 +1,20 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $X_1,X_2,\ldots,X_{100}$ be a sequence of mutually distinct nonempty subsets of a set $S$. Any two sets $X_i$ and $X_{i+1}$ are disjoint and their union is not the whole set $S$; that is, $X_i\cap X_{i+1}=\emptyset$ and $X_i\cup X_{i+1}\ne S$ for all $i\in\{1,\ldots,99\}$. Find the smallest possible number of elements in $S$.
+
+---
+
+The answer is $8$. We first show that $8$ works. We inductively construct a sequence of size $2^{n-1}+1$ where $n=|S|$ and $n\ge 4$, and assume WLOG that $S=\{1,2,\ldots,n\}$. Start with this construction for $n=4$: \[34\quad1\quad23\quad4\quad12\quad3\quad14\quad2\quad13.\]
+At every step, delete the last element, append the resulting sequence to itself, and add an $n+1$ in the middle. Then append $n+1$ to every other element. For instance, $n=5$ gives
+\begin{center}
+    \begin{tabular}{c c c c c c c c c}
+        345&1&235&4&125&3&145&2&5\\
+        34&15&23&45&12&35&14&25.&
+    \end{tabular}
+\end{center}
+This obviously works. Now assume for the sake of contradiction $n=7$ works. It will be immediate that no $n$ less than $7$ work. First note that sets of size at least $4$ cannot be adjacent to sets of size at least $3$, so at most $\tbinom71+\tbinom72$ sets in the sequence have size $4$ or more. Hence the length of the sequence cannot exceed \[\binom71+\binom72+\binom73+\binom71+\binom72=91,\]
+a contradiction.

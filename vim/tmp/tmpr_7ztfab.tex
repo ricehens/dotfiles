@@ -1,0 +1,19 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+In triangle $ABC$, let $D$, $E$, $F$ denote the feet of the altitudes from $A$, $B$, $C$, respectively. If the distance from $A$ to $\overline{EF}$ is $2$, the distance from $B$ to $\overline{FD}$ is $3$ and the distance from $C$ to $\overline{DE}$ is $6$, what is the area of $\triangle DEF$?
+
+---
+
+Note that $A$, $B$, $C$ are the $D$-, $E$-, $F$-excenters of $\triangle DEF$. Henceforth let $a=EF$, $b=FD$, $c=DE$, $s=\frac12(a+b+c)$, and let $K$ be the area. Hence \[\frac K{s-a}=2,\quad\frac K{s-b}=3,\quad\frac K{s-c}=6.\]
+From this, \[1=\frac12+\frac13+\frac16=\frac{s-a}K+\frac{s-b}K+\frac{s-c}K=\frac sK,\]
+so $s=K$.
+
+By Heron's formula, $K^2=s(s-a)(s-b)(s-c)$, so $K=(s-a)(s-b)(s-c)$ and \[K^2=\frac K{s-a}\cdot\frac K{s-b}\cdot\frac K{s-c}=36,\]
+whence $K=6$.
+
+---
+
+6

@@ -1,0 +1,35 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Fix an integer $k>2$. Two players, Ana and Banana, play the following game of numbers. Initially, some integer $n\ge k$ gets written on the blackboard. Then they take moves in turn, with Ana beginning. A player making a move erases the number $m$ just written on the blackboard and replaces it with some number $m'$ with $k\le m'<m$ that is coprime to $m$. The first player who cannot move anymore loses.
+
+An integer $n\ge k$ is called \emph{good} if Banana has a winning strategy when the initial number is $n$, and bad otherwise.
+
+Consider two integers $n,n'\ge k$ with the property that each prime number $p\le k$ divides $n$ if and only if it divides $n'$. Prove that either both $n$ and $n'$ are good or both are bad.
+
+---
+
+For all $n$, let
+\[\opname{sad}(n)=\prod_{\substack{p\mid n\\ p\le k}}p,\]
+and let $\opname{mad}(n)$ be the least integer $m\ge k$ with $\opname{sad}(m)=\opname{sad}(n)$.
+\begin{claim*}
+    Let $m=\opname{mad}(n)$. Then $\opname{rad}(m)=\opname{sad}(m)$.
+\end{claim*}
+\begin{proof}
+    Observe that $m\le k\opname{sad}(n)$, since we can take $\opname{sad}(n)$ and keep on multiplying by primes that divide $\opname{sad}(n)$ until the product is at least $k$.
+
+    Then since $\opname{sad}(n)$ divides $m$ and $m/\opname{sad}(n)\le k$, its prime factors are all at most $k$, and therefore all its prime divisors also divide $\opname{sad}(n)$.
+\end{proof}
+
+Now, we will show that $n$ is bad if and only if $\opname{mad}(n)$ is bad by induction on $n$. Let $n'$ be Ana's choice when $\opname{mad}(n)$ is on the board, and let $n''$ be Ana's choice when $n$ is on the board.
+\begin{itemize}[itemsep=0em]
+    \item If $\opname{mad}(n)$ is bad by Ana choosing $n'$, then $n$ is also bad by Ana choosing $n''=\opname{mad}(n')$.
+    \item If $\opname{mad}(n)$ is good, i.e.\ all relatively prime numbers $n'<\opname{mad}(n)$ are bad, then $n$ is also good since:
+        \begin{itemize}
+            \item if Ana chooses $n''<\opname{sad}(n)$, then $n''$ must be bad; and
+            \item if Ana chooses $n''>\opname{mad}(n)$, then Banana can choose $\opname{mad}(n)$, which is good.
+        \end{itemize}
+\end{itemize}
+The problem follows.

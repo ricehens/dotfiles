@@ -1,0 +1,13 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$ and $b$ be positive integers such that $2^a-1$ divides $3^b-1$. Prove that either $a=1$ or $b$ is even.
+
+---
+
+Suppose that $a>1$ and $b$ is odd. Then \[3^{b+1}\equiv3\pmod{2^a-1}\]
+so $3$ is a quadratic residue mod $2^a-1$ and \[\left(\frac3{2^a-1}\right)=1\implies\left(\frac{2^a-1}3\right)=-1.\]
+Thus $2^a-1\equiv2\pmod3$ and $3\mid 2^a$, contradiction.
+

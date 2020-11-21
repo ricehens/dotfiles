@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Find the minimum possible value of \[\frac a{b^3+4}+\frac b{c^3+4}+\frac c{d^3+4}+\frac d{a^3+4},\]
+given that $a,b,c,d$ are nonnegative real numbers such that $a+b+c+d=4$.
+
+---
+
+The answer is $\tfrac23$. We first show that this is possible. Taking $(a,b,c,d)=(2,2,0,0)$, \[\sum_{\mathrm{cyc}}\frac a{b^3+4}=\frac2{12}+\frac24=\frac23.\]
+Now, we prove $\tfrac23$ is maximal. Notice that \[ab+bc+cd+da=\frac14((a+b+c+d)^2-(a-b+c-d)^2)\le 4\]
+and \[a^4-3a^3+4a=a(a+1)(a-2)^2\ge 0\implies\frac{a^3}{a^3+4}\le\frac a3.\]
+Then, \[\sum_{\mathrm{cyc}}\frac{ab^3}{4(b^3+4)}\le\sum_{\mathrm{cyc}}\frac{ab}{12}\le\frac13.\]
+It follows that \[\sum_{\mathrm{cyc}}\frac a{b^3+4}=\sum_{\mathrm{cyc}}\left(\frac a4-\frac{ab^3}{4(b^3+4)}\right)=1-\sum_{\mathrm{cyc}}\frac{ab^3}{4(b^3+4)}\ge\frac23,\]
+as required.

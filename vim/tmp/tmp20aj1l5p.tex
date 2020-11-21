@@ -1,0 +1,26 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all positive integers $n$ such that there exists a unique integer $a$ such that $0\le a<n!$ and
+$n!\mid a^n+1$.
+
+---
+
+The answer is $n=1$ and $n$ prime.
+
+\bigskip
+
+\textbf{Proof that composite numbers fail:} First if $n\ge4$ is even, then $a^n+1\equiv1,2\pmod4$ but $4\mid n!$, so no $a$ exists.
+
+Otherwise let $n$ be odd. Evidently $a=n!-1$ works. It is not hard to check that $n$ divides $(n-1)!$ for odd composite $n$, so by binomial theorem,
+\[\big( (n-1)!-1\big)^n\equiv(-1)^n\equiv-1\pmod n\]
+as well, so $a=n!-1$ and $a=(n-1)!-1$ both work, contradiction.
+
+\bigskip
+
+\textbf{Proof that primes work:} Obviously $n=1$ works. Let $n=p$ for $p$ prime. Evidently $a=n!-1$ works. Now let $a^p\equiv-1\pmod{p!}$; then $a^{2p}\equiv1\pmod{p!}$ and $a^{\vphi(p!)}\equiv1\pmod{p!}$. Since $p\nmid\vphi(p!)$, we have $\gcd(2p,\vphi(p!))=2$, so $a^2\equiv1\pmod{p!}$.
+
+It then follows that $-1\equiv a^p\equiv a\cdot a^{\text{even}}\equiv a\pmod{p!}$, so only $a=n!-1$ works.
+

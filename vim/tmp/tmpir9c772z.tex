@@ -1,0 +1,66 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Quadrilateral $APBQ$ is inscribed in circle $\omega$ with $\angle P=\angle Q=90^\circ$ and $AP=AQ<BP$. Let $X$ be a variable point on segment $PQ$. Line $AX$ meets $\omega$ again at $S$ (other than $A$). Point $T$ lies on arc $AQB$ of $\omega$ such that $\overline{XT}$ is perpendicular to $\overline{AX}$. Let $M$ denote the midpoint of chord $\overline{ST}$.
+
+As $X$ varies on segment $PQ$, show that $M$ moves along a circle.
+
+---
+
+Let $N$, $G$, $O$ denote the nine-point center, centroid, and circumcenter of $\triangle AST$, and let $Y$ be the midpoint of $\overline{AS}$. Note that $(MXY)$ is the nine-point circle of $\triangle AST$.
+\begin{center}
+    \begin{asy}
+        size(10cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=deepblue+linewidth(0.5);
+        pen sec=royalblue+linewidth(0.5);
+        pen tri=Cyan+linewidth(0.5);
+        pen qua=deepcyan+linewidth(0.5);
+        pen fil=blue+opacity(0.05);
+        pen sfil=royalblue+opacity(0.05);
+        pen tfil=Cyan+opacity(0.05);
+        pen qfil=deepcyan+opacity(0.05);
+        pen haha=royalblue+linewidth(2);
+        pen hehe=tri+dotted;
+
+        pair O, A, B, P, Q, X, SS, T, M, Y, G, NN;
+        O=(0, 0); A=(-1, 0); B=(1, 0);
+        P=dir(140); Q=dir(220); X=(4P+Q)/5;
+        SS=intersectionpoint(circle(O, 1), X -- (X+100*(X-A)));
+        T=intersectionpoint(circle(O, 1), X -- rotate(-90, X)*(X+100*(X-A)));
+        M=(SS+T)/2;
+        Y=(A+SS)/2;
+        G=centroid(A, SS, T);
+        NN=(O+orthocenter(A, SS, T))/2;
+
+        draw(SS -- A -- P -- B -- Q -- A -- B, pri);
+        draw(X -- T -- SS -- P -- Q, pri);
+        draw(A -- T, pri);
+        filldraw(circle(O, length(A-O)), fil, pri);
+        draw(A -- M, sec); draw(O -- NN, tri);
+        filldraw(circle(NN, length(X - NN)), sfil, sec);
+        filldraw(A--SS--T-- cycle,qfil,qua);
+
+        dot("$O$", O, N);
+        dot("$A$", A, (A-B)/length(A-B));
+        dot("$B$", B, (B-A)/length(B-A));
+        dot("$P$", P, (P-O)/length(P-O));
+        dot("$Q$", Q, (Q-O)/length(Q-O));
+        dot("$X$", X, dir(150)/2);
+        dot("$Y$", Y, N);
+        dot("$S$", SS, SS);
+        dot("$T$", T, (T-O)/length(T-O));
+        dot("$N$", NN, N);
+        dot("$G$", G, N);
+        dot("$M$", M, dir(30));
+    \end{asy}
+\end{center}
+Since \[\measuredangle APX=\measuredangle APQ=\measuredangle PQA=\measuredangle PSA,\]
+$\triangle APX\sim\triangle ASP$, so $AP^2=AX\cdot AS$. Then, \[AN^2-\left(\frac12AO\right)^2=\pow(A,(MXY))=AX\cdot AY=\frac12AX\cdot AS=\frac12AP^2.\]
+Since $AO$ and $AP$ are fixed, so is $AN$, whence $N$ moves along a circle centered at $A$.
+
+A homothety at $O$ with scale factor $\tfrac23$ sends the locus of $N$ to the locus of $G$, and a homothety at $A$ with scale factor $\tfrac32$ sends the locus of $G$ to the locus of $M$. Hence, $M$ lies on a circle.

@@ -1,0 +1,13 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n\ge2$ be a positive integer. A subset of positive integers $S$ is said to be \emph{comprehensive} if for every integer $0\le x\le n$, there is a subset of $S$ (possibly empty) whose sum has remainder $x$ when divided by $n$. Show that if a set $S$ is comprehensive, then there is some (not necessarily proper) subset of $S$ with at most $n-1$ elements which is also comprehensive.
+
+---
+
+Assume for the sake of contradiction we have a comprehensive set $S$ of size greater than $n-1$ such that if any element is removed, the set is no longer comprehensive. Then let $k=|S|$, and for all $0\le i\le k$, let $S_i$ be the set of all possible residues if only the first $i$ elements are used.
+
+Then by Pigeonhole there is some $i$ such that $S_i=S_{i-1}$. But notice then that the $i^\text{th}$ element is completely useless, as for all $i$, $S_i$ is determined completely by $S_{i-1}$ and the $i^\text{th}$ element. This is a contradiction, as we can remove this element.
+

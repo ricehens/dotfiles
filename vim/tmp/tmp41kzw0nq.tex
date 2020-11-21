@@ -1,0 +1,48 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Points $A$ and $B$ are randomly and uniformly chosen on the circumference of the circle $x^2+y^2=1$. Find the expected number of ordered pairs of real numbers $(p,q)$ such that the point $(p,q)$ lies on line $AB$ and there exists an integer $1\le k\le 45$ such that $p^2+q^2=\sin^2(k^\circ)$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(6cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=red;
+        pen sec=orange;
+        pen fil=red+opacity(0.05);
+        pen sfil=orange+opacity(0.05);
+
+        pair O=(0, 0);
+        pair A=(0, 1);
+        pair B1=dir(230);
+        pair B2=dir(310);
+
+        filldraw(circle(0, 1), fil, pri);
+        filldraw(circle(0, Sin(20)), sfil, sec);
+        draw(B1 -- A -- B2, pri);
+        draw(arc(0, B1, B2), pri+linewidth(2));
+        draw(A -- O, sec+dashed); draw(foot(O, A, B1) -- O -- foot(O, A, B2), sec+dashed);
+        draw(B1 -- O -- B2, pri);
+
+        dot("$A$", A, N);
+        dot("$B_1$", B1, B1);
+        dot("$B_2$", B2, B2);
+    \end{asy}
+\end{center}
+
+Let $O$ denote the origin. Suppose that $\omega_k$ denotes the circle centered at $O$ with radius $\sin k$. The problem is simply asking for the total number of times $AB$ intersects $\omega_k$ for all integers $1\le k\le 45$. We look at each $k$ independently. On the unit circle, fix point $A$ first.
+
+Consider the locus of all $B$ such that $\overline{AB}$ intersects $\omega_k$. It is easy to check that this is the arc $\widehat{B_1B_2}$ not containing $A$ such that $\overline{AB_1}$ and $\overline{AB_2}$ are tangent to $\omega_k$. This is because for every point $P$ on $\omega_k$, the ray $AP$ lies within $\angle B_1AB_2$, and every ray within $\angle B_1AB_2$ must intersect $\omega_k$.
+
+If $X$ denotes the point where $\overline{AB_1}$ touches $\omega_k$, it is easy to see that \[\widehat{B_1B_2}=2\angle B_1AB_2=4\angle XAO=4\arcsin\left(\frac{OX}{OA}\right)=4k.\]
+Hence, the probability a given line $AB$ intersects $\omega_k$ is $\tfrac{4k}{360}=\tfrac{k}{90}$. The probability that $\overline{AB}$ is tangent to $\omega_k$ is infinitesimal and negligible, and if $\overline{AB}$ intersects $\omega_k$ but is not tangent to $\omega_k$, then $AB$ intersects $\omega_k$ at two points. Hence, the expected number of times $\overline{AB}$ intersects $\omega_k$ is $\tfrac{2k}{90}=\tfrac{k}{45}$. Summing over all such $k$, the answer is \[\sum_{i=1}^{45}\frac{k}{45}=\frac{45\cdot 46}{2\cdot 45}=23,\]
+and we are done.
+
+---
+
+023

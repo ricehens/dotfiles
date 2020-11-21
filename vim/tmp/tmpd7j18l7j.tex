@@ -1,0 +1,89 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Triangle $ABC$ has circumcircle $\Omega$ and incircle $\omega$. Let $M$ be the midpoint of arc $BAC$ on $\Omega$ and let $\omega$ touch $\seg{BC}$ at $D$. Point $P$ lies on $\omega$ so that $\angle MPD=90\dg$. The circumcircle of $\triangle AMP$ intersects $\omega$ again at $X$ and $\seg{BC}$ at two points $Y$, $Z$. Prove that either $\seg{AX}\cap\seg{MY}$ or $\seg{AX}\cap\seg{MZ}$ lies on $\Omega$.
+
+---
+
+Let $DEF$ be the intouch triangle, $I$ the incenter, $O$ the circumcenter, $T$ the $A$-mixtillinear touch-point, $W$ the midpoint of the other arc $BC$. Also let $R$ lie on $\omega$ so that $\seg{DR}\cap\seg{EF}$, and consider the following redefinitions: let $\seg{AR}$ intersect $\omega$ again at $X$, and let $Y=\seg{BC}\cap\seg{MIT}$. Finally let $S$ be the insimililcenter of $\omega$, $\Omega$.
+\begin{center}
+\begin{asy}
+    size(8cm); defaultpen(fontsize(10pt));
+    pen pri=blue;
+    pen sec=purple;
+    pen tri=lightblue;
+    pen fil=cyan+opacity(0.05);
+    pen sfil=purple+pink+opacity(0.05);
+    pen tfil=lightblue+opacity(0.05);
+
+    pair O,A,B,C,I,D,EE,F,R,X,M,SS,P,Y,T,WW;
+    O=(0,0);
+    A=dir(120);
+    B=dir(200);
+    C=dir(340);
+    I=incenter(A,B,C);
+    D=foot(I,B,C);
+    EE=foot(I,C,A);
+    F=foot(I,A,B);
+    R=2*foot(I,D,D+A-I)-D;
+    X=2*foot(I,A,R)-R;
+    M=dir(90);
+    SS=extension(O,I,A,R);
+    P=2*foot(circumcenter(A,M,X),M,SS)-M;
+    Y=extension(B,C,M,I);
+    T=2*foot(O,M,I)-M;
+    WW=dir(270);
+
+    draw(A--T--M,sec);
+    draw(P--M,sec+dashed);
+    draw(SS--WW,sec+dashed);
+    draw(EE--F,pri);
+    filldraw(incircle(A,B,C),tfil,tri);
+    filldraw(circumcircle(A,M,P),sfil,sec);
+    filldraw(circle(O,1),fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+
+    dot("$A$",A,A);
+    dot("$B$",B,B);
+    dot("$C$",C,C);
+    dot("$I$",I,E);
+    dot("$D$",D,NE);
+    dot("$E$",EE,NE);
+    dot("$F$",F,dir(120));
+    dot("$R$",R,NW);
+    dot("$X$",X,dir(210));
+    dot("$M$",M,N);
+    dot("$S$",SS,dir(150));
+    dot("$P$",P,SW);
+    dot("$Y$",Y,dir(290));
+    dot("$T$",T,T);
+    dot("$W$",WW,S);
+\end{asy}
+\end{center}
+\setcounter{claim}0
+\begin{claim}[from IMO 2019/6]
+    $T\in\seg{ARX}$.
+\end{claim}
+\begin{proof}
+    Let $D'$ be the antipode of $D$ on $\omega$. Then $\seg{DR}$, $\seg{DD'}$ isogonal in $\angle EDF$, so $\seg{AR}$, $\seg{AD'}$ isogonal in $\angle BAC$. But $\seg{AD'}$ passes through the $A$-extouch point, since $\seg{AR}$ passes through $T$.
+\end{proof}
+
+Hence $\seg{AX}\cap\seg{MY}=T\in\Omega$, so we will prove $X$, $Y$ lie on the circumcircle of $\triangle MAP$. Since there is a positive homothety $\Psi^+$ at $S$ between $\omega$, $\Omega$, there is a negative inversion $\Psi^-$ at $S$ between $\omega$, $\Omega$. Let $\Psi^-$ send $M$ to $P'$.
+\begin{claim}[Well-known]
+    $S$ lies on $\seg{AXT}$.
+\end{claim}
+\begin{proof}
+    Evidently $\Psi^+$ sends $D$ to $W$. Then $\Psi^+$ also sends $R$ to $A$ since $\seg{DR}\parallel\seg{WA}$.
+\end{proof}
+\begin{claim}
+    $\Psi^-$ swaps $P$, $M$.
+\end{claim}
+\begin{proof}
+    Since $P'\in\omega$, showing $\angle MP'D$ will suffice to prove $P=P'$. But if $D^*$ is the image of $D$ under $\Psi^-$, then $\da SPD=\da MD^*S=\da MD^*W=90\dg$, as needed.
+\end{proof}
+
+It follows that $SM\cdot SP=SA\cdot SX$ by $\Psi^-$, so $X$ lies on $(MAP)$. Now since $\seg{MI}\perp\seg{TW}$ and $\Psi^+$ sends $\seg{XD}$ to $\seg{TW}$, we have $\seg{MIT}$ the perpendicular bisector of $\seg{XD}$. Then $YX=YD$, so \[\da YXP=\da XRP=\da SRP\stackrel{(\Psi^-)}=\da TMS=\da YMP,\]
+and we are done.
+

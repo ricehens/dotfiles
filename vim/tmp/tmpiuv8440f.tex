@@ -1,0 +1,12 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Prove that for any complex numbers $z_1$, $z_2$, $\ldots$, $z_n$ satisfying $|z_1|^2+|z_2|^2+\cdots+|z_n|^2=1$, one can select $\varepsilon_1$, $\varepsilon_2$, $\ldots$, $\varepsilon_n\in\{-1,1\}$ such that \[\left\lvert\sum_{k=1}^n\varepsilon_kz_k\right\rvert\le1.\]
+
+---
+
+We prove that for any complex numbers $z_i$, there exist $\varepsilon_i\in\{-1,1\}$ such that \[\left\lvert\sum_{k=1}^n\varepsilon_kz_k\right\rvert^2\le\sum_{k=1}^n\left\lvert z_k\right\rvert^2.\]
+To do this, we induct on $n$. For the base case, $n=0$, there is nothing to prove. Now assume the hypothesis is true for $n=t-1$. It is easy to see that \[\sum_{k=1}^t\left\lvert z_k\right\rvert^2=\left\lvert z_t\right\rvert^2+\sum_{k=1}^{t-1}\left\lvert z_k\right\rvert^2\ge\left\lvert z_t\right\rvert^2+\left\lvert\sum_{k=1}^{t-1}\varepsilon_kz_k\right\rvert^2\ge\left\lvert\sum_{k=1}^t\varepsilon_kz_k\right\rvert^2,\]
+where the last inequality is equivalent to saying that for any complex numbers $a$ and $b$, there is an $\varepsilon\in\{-1,1\}$ such that $\left\lvert a\right\rvert^2+\left\lvert b\right\rvert^2\ge\left\lvert a+\varepsilon b\right\rvert^2$. This is obvious by the Pythagorean Theorem, the end.

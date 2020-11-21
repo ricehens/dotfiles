@@ -1,0 +1,25 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For any pair of integers $(a,b)$, describe all pairs of functions $f:\mathbb Z\to\mathbb Z$ and $g:\mathbb Z\to\mathbb Z$ which obey \[f\big(g(x)\big)=x+a\quad\text{and}\quad g\big(f(x)\big)=x+b\]
+for all integers $x$.
+
+---
+
+By JMO 2019/2, $a=\pm b$. Freely set $f(0),f(1),\ldots,f(a-1)$ with the condition that no two of them are congruent modulo $a$. Then, for all $q$ and $0\le r<a$, set $f(r+qa)=f(r)\pm qa$, which is obviously invertible. Also let $g(x)=f^{-1}(x)\pm a$, where the sign is the same as in the previous assertion. We claim that all solutions are of the form $(f,g)$.
+
+First we check that these work: \[f\big(g(x)\big)=f\left(f^{-1}(x)\pm a\right)=f\left(f^{-1}(x)\right)+a=x+a\]
+and \[g\big(f(x)\big)=f^{-1}\left(f(x)\right)\pm a=x\pm a.\]
+Now we check that these are the only solutions. Plugging in $f(x)$ into the first condition, we obtain \[f(x+b)=f\Big(g\big(f(x)\big)\Big)=f(x)+a\]
+and analogously $g(x+a)=g(x)+b$. We take cases:
+\begin{itemize}
+    \item \textit{Case 1:} $a=b$. Let $g'(x)=g(x)-a$. We then have that \[f\big(g'(x)\big)=f\big(g(x)-a\big)=f\big(g(x)\big)-a=x\]
+        and \[g'\big(f(x)\big)=g\big(f(x)\big)-a=x,\]
+so $g=g'+a=f^{-1}+a$, as required.
+\item \textit{Case 2:} $a=-b$. Let $g'(x)=g(x)+a$. We then have that \[f\big(g'(x)\big)=f(g(x)-a)=f\big(g(x)\big)-a=x\]
+    and \[g'\big(f(x)\big)=g\big(f(x)\big)+a=x,\]
+so $g=g'-a=f^{-1}-a$, as required.
+\end{itemize}
+Hence, $(f,g)$ describes all solutions, and we are done.

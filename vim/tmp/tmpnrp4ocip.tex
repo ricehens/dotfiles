@@ -1,0 +1,69 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A circle $\Gamma$ through $A$ of triangle $ABC$ meets sides $AB$, $AC$ at $E$, $F$ respectively and the circumcircle of $ABC$ at $P$. Prove that the reflection of $P$ across $\seg{EF}$ is on $\seg{BC}$ if and only if $\Gamma$ passes through the circumcenter of $ABC$.
+
+---
+
+Note that $\triangle PEB\sim\triangle PFC$ by spiral similarity. The core idea:
+\begin{claim*}
+    $EP=EB$ and $FP=FC$ if and only if $O$ lies on $\Gamma$.
+\end{claim*}
+\begin{proof}
+    Let the spiral similarity at $P$ send $\seg{EF}\cup O$ to $\seg{BC}\cup O'$. Then both are equivalent to $OA=OO'$.
+\end{proof}
+\begin{center}
+    \begin{asy}
+        size(6cm); defaultpen(fontsize(10pt));
+        pen pri=heavygreen;
+        pen sec=lightblue;
+        pen tri=olive;
+        pen fil=green+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=yellow+opacity(0.05);
+
+        pair O,A,B,C,EE,F,Q,P;
+        O=origin;
+        A=dir(100);
+        B=dir(210);
+        C=dir(330);
+        EE=(3C+4A)/7;
+        F=2*foot(circumcenter(A,EE,O),A,B)-A;
+        Q=2*foot(F,B,C)-B;
+        P=reflect(EE,F)*Q;
+
+        filldraw(circumcircle(A,EE,F),sfil,sec);
+        draw(EE--Q--F,sec);
+        filldraw(A--B--C--cycle,fil,pri);
+        filldraw(unitcircle,fil,pri);
+        filldraw(P--EE--C--cycle,tfil,tri);
+        filldraw(P--F--B--cycle,tfil,tri);
+
+        dot("$A$",A,N);
+        dot("$B$",B,B);
+        dot("$C$",C,C);
+        dot("$Q$",Q,S);
+        dot("$P$",P,P);
+        dot("$F$",EE,dir(15));
+        dot("$E$",F,dir(195));
+        dot("$O$",O,NW);
+    \end{asy}
+\end{center}
+
+Let $Q$ be the reflection of $P$ over $\seg{EF}$, so $\angle EQF=\angle FPE=\angle CAB$. We prove the two directions:
+
+\paragraph{If direction} Suppose $O$ lies on $\Gamma$. Then $QE=PE=BE$ and $QF=PF=CF$. In what follows, $\angle BQC$ is interior to $ABQC$: we have
+\[\angle BQC=\angle BQE+\angle EQF+\angle FQC=\angle B+\angle A+\angle C=180\dg,\]
+so $Q$ lies on $\seg{BC}$.
+
+\paragraph{Only if direction} Suppose $Q$ lies on $\seg{BC}$, but (for contradiction) $O$ does not lie on $\Gamma$. Then 
+\[\frac{QE}{BE}=\frac{QF}{CF}\ne1.\]
+\begin{itemize}
+    \item If $QE>BE$ and $QF>CF$, then
+        \[\angle BQC=\angle BQE+\angle EQF+\angle FQC<\angle B+\angle A+\angle C=180\dg.\]
+    \item If $QE<BE$ and $QF<CF$, then
+        \[\angle BQC=\angle BQE+\angle EQF+\angle FQC>\angle B+\angle A+\angle C=180\dg.\]
+\end{itemize}
+Both cases yield contradiction.

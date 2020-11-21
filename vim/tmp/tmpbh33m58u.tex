@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+There are nonzero real numbers $x,y,z$ such that
+\begin{align*}
+    0&=x^2y+2x-y\\ &=y^2z+2y-z\\ &=z^2x+2z-x.
+\end{align*}
+Let $T$ denote the least possible value of $100|xyz|$. Find the greatest integer that does not exceed $T$.
+
+---
+
+Rewrite this as \[y=\frac{2x}{1-x^2},\quad z=\frac{2y}{1-y^2},\quad x=\frac{2z}{1-z^2}.\]
+Suppose that $x=\tan\alpha$. Then, by the Tangent Double Angle Formula, $y=\tan 2\alpha$, $z=\tan 4\alpha$, and $x=\tan 8\alpha$. Hence, $\tan\alpha=\tan 8\alpha$, so $\alpha=\tfrac{k\pi}7$ for some integer $0<k<7$. It then follows that \[\{x,y,z\}=\left\{\frac{\pi}7,\frac{2\pi}7,\frac{4\pi}7\right\}\text{ or }\left\{\frac{3\pi}7,\frac{6\pi}7,\frac{5\pi}7\right\}.\]
+Since $\tan\theta=-\tan(\pi-\theta)$, the values of $xyz$ for the two solutions are additive inverses, so \[x^2y^2z^2=-\prod_{k=1}^6\tan\left(\frac{k\pi}7\right).\]
+It is easy to see that for all $\theta\in\{\tfrac{\pi}7,\tfrac{2\pi}7,\ldots,\tfrac{6\pi}7\}$, if $t=\tan\theta$, \[\frac{3t-t^3}{1-3t^2}=\tan 3\theta=-\tan 4\theta=-\frac{4t-4t^3}{1-6t^2+t^4}.\]
+After removing a factor of $t$ and expanding, the polynomial will have degree $6$ and leading coefficient $1$. The roots of the resulting polynomial must be $\tan(\frac{\pi}7),\tan(\frac{2\pi}7),\ldots,\tan(\frac{6\pi}7)$, so we only need the constant term. Indeed, the constant term is $7$, so the product of the roots is $-7$, and so $x^2y^2z^2=7$. It follows that $|xyz|=\sqrt7$, and $\big\lfloor 100|xyz|\big\rfloor=\big\lfloor 100\sqrt7\big\rfloor=264$, the answer.
+
+---
+
+264

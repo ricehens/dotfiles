@@ -1,0 +1,27 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$ and $b$ be positive integers such that $a!+b!$ divides $a!b!$. Prove that $3a\ge2b+2$.
+
+---
+
+Without loss of generality $a\le b$, and assume for contradiction $3a\le2b+1$. Since $b!\equiv-a!\pmod{a!+b!}$, $a!+b!$ divides $(a!)^2$, so
+\[\mathbb Z\ni\frac{(a!)^2}{a!+b!}=\frac{a!}{1+(a+1)(a+2)\cdots b}.\]
+Let $p$ be any prime dividing the denominator; then $p\le a$ since the denominator divides $a!$, but also $p\ge b-a+1$ since
+\[1+(a+1)(a+2)\cdots b\equiv1\pmod{(b-a)!}.\]
+Observe that $2p\ge2(b-a+1)\ge a+1$, so $\nu_p(a!)=1$.
+
+This implies
+\[1+(a+1)(a+2)\cdots b\le\prod_{b-a<p\le a}p,\tag{$*$}\]
+where the product ranges over primes $p$.
+
+Now there are $a-(b-a)=2a-b\le b-a+1$ numbers in the interval $(b-a,p]$,
+If $b-a+1\ge a$, then $(*)$ clearly fails.
+Else, at least one of the numbers in the interval $(b-a,p]$ is even, so there are at most $b-a$ primes on the right-hand product of $(*)$.
+
+Hence,
+\[1+(a+1)(a+2)\cdots b>a^{b-a}\ge\prod_{b-a<p\le a}p,\]
+contradiction.
+

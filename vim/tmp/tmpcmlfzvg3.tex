@@ -1,0 +1,86 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $A_1A_2A_3A_4A_5$ be a convex pentagon satisfying $\overline{A_{i-1}A_{i+1}}\parallel\overline{A_{i-2}A_{i+2}}$ for all $i$, where all indices are considered modulo $5$. Prove that there exist points $B_1$, $B_2$, $B_3$, $B_4$, $B_5$ in the plane such that
+\begin{itemize}[itemsep=0em]
+    \item $B_i$, $A_{i-2}$, $A_{i+2}$ are collinear for all $i$,
+    \item the five lengths $A_iB_i$ are equal, and
+    \item the five lines $A_iB_i$ are concurrent.
+\end{itemize}
+
+---
+
+Let $A_1A_2A_3A_4A_5$ have circumellipse $\mathscr E$, and let $P$, $Q$ be the foci of $\mathscr E$. I claim both $P$, $Q$ are valid concurrence points. In what follows, $B_i=\seg{A_iP}\cap\seg{A_{i-2}A_{i+2}}$. We will show $A_2B_2=A_5B_5$, and the length condition will follow by symmetry.
+\begin{center}
+\begin{asy}
+    size(9cm); defaultpen(fontsize(10pt));
+    pair G,P,Q,A1,I,M,A3,A4,D,A2,A5,B1,B2,B3,B4,B5,SS,T,U,V;
+    G=(0,0);
+    P=(-1,0);
+    Q=-P;
+    real t=1.4;
+    path e=rotate(180/pi*atan2((Q-P).y,(Q-P).x),(P+Q)/2)*ellipse((P+Q)/2,t,sqrt(t^2-1));
+    A1=intersectionpoint(e,G--100*dir(320));
+    I=incenter(A1,P,Q);
+    real s=90-180/pi*atan2( (A1-I).y,(A1-I).x);
+    P=rotate(s)*P;
+    Q=rotate(s)*Q;
+    A1=rotate(s)*A1;
+    e=rotate(s)*e;
+    M=-1/(sqrt(5)-1)*A1;
+    A3=intersectionpoint(e,M--(M+(-100,0)));
+    A4=2M-A3;
+    D=-(3-sqrt(5))/2*A1;
+    A2=extension(A3,A3+A1-A4,A4,D);
+    A5=extension(A4,A4+A1-A3,A3,D);
+    B1=extension(P,A1,A3,A4);
+    B2=extension(P,A2,A4,A5);
+    B3=extension(P,A3,A5,A1);
+    B4=extension(P,A4,A1,A2);
+    B5=extension(P,A5,A2,A3);
+    SS=extension(A2,A3,A4,A5);
+    T=A2+A5-SS;
+    U=reflect(T,A2)*Q;
+    V=reflect(T,A5)*Q;
+    draw(A2--B2,gray);
+    draw(A5--B5,gray);
+    draw(U--P--V,gray);
+    draw(U--Q--V,gray+dashed);
+    draw(P--T,dashed);
+    draw(e);
+    draw(A2--T--A5);
+    draw(A1--A2--A3--A4--A5--cycle);
+    draw(A3--SS--A4);
+    dot(P);
+    dot("$A_1$",A1,N);
+    dot("$A_2$",A2,SW);
+    dot("$A_3$",A3,SW);
+    dot("$A_4$",A4,SE);
+    dot("$A_5$",A5,E);
+    dot("$P$",P,dir(210));
+    dot("$Q$",Q,S);
+    dot("$B_2$",B2,E);
+    dot("$B_5$",B5,SW);
+    dot("$S$",SS,S);
+    dot("$T$",T,N);
+    dot("$U$",U,W);
+    dot("$V$",V,N);
+\end{asy}
+\end{center}
+Let $S=\seg{A_2A_3}\cap\seg{A_4A_5}$ and let $T$ be the pole of $\seg{A_2A_5}$ with respect to $\mathscr E$. The affine homography taking $\mathscr E$ to a circle takes $A_1A_2A_3A_4A_5$ to a regular pentagon, so $\seg{TA_2}\parallel\seg{A_4A_5}$ and $\seg{TA_5}\parallel\seg{A_2A_3}$, and $TA_2SA_5$ is a parallelogram.
+\begin{claim*}
+    $\seg{PT}$ bisects $\angle A_2PA_5$.
+\end{claim*}
+\begin{proof}
+    Let $U$, $V$ be the reflections of $Q$ across $\seg{TA_2}$, $\seg{TA_5}$. We have \[PU=PA_2+A_2Q=PA_5+A_5Q=PV\]
+    by existence of $\mathscr E$, and furthermore $TU=TQ=TV$, so the claim follows.
+\end{proof}
+
+Finally, observe that
+\[\frac{\sin\angle TA_2P}{\sin\angle TA_5P}=\frac{TP}{\sin\angle TA_5P}\bigg/\frac{TP}{\sin\angle TA_2P}=\frac{TA_5}{\sin\angle TPA_5}\bigg/\frac{TA_2}{\sin\angle TPA_2}=\frac{TA_5}{TA_2}.\]
+From here, we finish by noting that
+\[\frac{A_2B_2}{\sin\angle A_2SB_2}=\frac{SA_2}{\sin\angle A_2B_2S}=\frac{TA_5}{\sin\angle TA_2P}=\frac{TA_2}{\sin\angle TA_5P}=\frac{SA_5}{\sin\angle A_5B_5S}=\frac{A_5B_5}{\sin\angle A_5SB_5},\]
+whence $A_2B_2=A_5B_5$, as claimed.
+

@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $S$ be a nonempty set of integers so that, for any (not necessarily distinct) integers $a$ and $b$ in $S$, $ab+1$ is also in $S$. Show that there are finitely many primes which do not divide any element of $S$.
+
+---
+
+Let $p$ be such a prime. I claim for $s\in S$, we have $p\mid s^2-s+1$. The required conclusion follows from here.
+
+Work in $\mathbb F_p$, so $0\notin S$ and $|S|<p$. Let $s\in S$, and consider the map $S\to S$ by $x\mapsto sx+1$. Since $s\ne0$, this map is bijective. Summing over $x\in S$, where $\sigma$ denotes the sum of the elements in $S$, we have \[\sigma=s\sigma+|S|\implies \sigma=\frac{|S|}{1-s}.\]
+This holds for all $s\in S$, so $|S|=1$.
+
+It follows that $s=s^2-1$, so $s^2-s+1=0$, as claimed.
+

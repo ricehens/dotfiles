@@ -1,0 +1,20 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For every positive integer $k>1$ prove that there exists a real number $x$
+so that for every positive integer $n<1398$,
+\[\left\{x^n\right\}<\left\{x^{n-1}\right\}\iff k\mid n.\]
+
+---
+
+Let $N$ be a very large (odd) prime, and vary an integer $m$: select
+\[x=m+\frac1N.\]
+I claim that for any sequence $a_2$, $a_3$, \ldots, $a_t$ of nonnegative integers less than $N$, it is possible to choose $m\pmod{N^{t-1}}$ so that $\{x^n\}\in\left(\frac{a_n}N,\frac{a_n+1}N\right]$ for $n\le t$. 
+
+We prove this by iterating through $t$, with initial condition $t=1$ trivial. Now observe that
+\[x^t\equiv\left[\frac1{N^t}\right]+\frac{\binom t1m}{N^{t-1}}+\left[\frac{\binom t2m^2}{N^{t-2}}+\cdots+\frac{\binom ttm^t}{N^0}\right]\pmod1.\]
+Since $m$ is fixed modulo $N^{t-2}$, the values of the boxed terms have all been determined already; the only variable term is $\frac{tm}{N^{t-1}}$. Every time we increase $m$ by $N^{t-2}$, we increase $\frac{tm}{N^{t-1}}$ by $\frac1N$, so we can select $\{x^t\}$ accurately to the nearest $\frac1N$. The claim readily follows.
+
+The conclusion follows from here by taking $a_n=(n-1)\bmod k$ for $n\le1398$.

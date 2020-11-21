@@ -1,0 +1,51 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with sides $AB=5$, $BC=7$, $CA=8$. Denote by $O$ and $I$ the circumcenter and incenter of $\triangle ABC$, respectively. The incircle of $\triangle ABC$ touches $\overline{BC}$ at $D$, and line $OD$ intersects the circumcircle of $\triangle AID$ again at $K$. Then the length of $DK$ can be expressed in the form $\tfrac{m\sqrt n}p$, where $m$, $n$, $p$ are positive integers, $m$ and $p$ are relatively prime, and $n$ is not divisible by the square of any prime. Find $m+n+p$. 
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm); defaultpen(fontsize(10pt));
+        pair A,B,C,I,O,D,EE,F,J;
+        A=dir(140);
+        B=dir(205);
+        C=dir(335);
+        I=incenter(A,B,C);
+        O=(0,0);
+        D=foot(I,B,C);
+        EE=2*foot(circumcenter(A,I,D),O,A)-A;
+        F=foot(A,B,C);
+        J=2*foot(circumcenter(A,I,D),O,D)-D;
+
+        draw(incircle(A,B,C),gray);
+        draw(A--I--D--EE,gray);
+        draw(circumcircle(A,I,D),dashed);
+        draw(EE--O--J,Dotted);
+        draw(A--F,dotted);
+        draw(A--B--C--A);
+
+        dot("$A$",A,NE);
+        dot("$B$",B,SW);
+        dot("$C$",C,SE);
+        dot("$D$",D,SE);
+        dot("$E$",EE,N);
+        dot("$F$",F,S);
+        dot("$I$",I,SE);
+        dot("$K$",J,S);
+        dot("$O$",O,SE);
+    \end{asy}
+\end{center}
+Let $\overline{AO}$ intersect $(AIO)$ again at $E$, and let $F$ be the foot from $A$ to $\overline{BC}$. Note that $\overline{AF}$ and $\overline{AO}$ are isogonal wrt.\ $\angle BAC$, but $\overline{AF}\parallel\overline{ID}$. Consequently, \[\measuredangle AID=\measuredangle IAF=\measuredangle OAI=\measuredangle EAI,\]
+whence $AIDE$ is an isosceles trapezoid. In particular, $AE=ID$.
+
+When $AB=5$, $BC=7$, $CA=8$, we have $\angle A=60^\circ$, so the area of $\triangle ABC$ is given by $K=10\sqrt3$, the semiperimeter is $s=10$, the inradius is $r=\sqrt3$, and the circumradius is $R=\tfrac7{\sqrt3}$. Plugging in the numbers, \[OD\cdot OK=OA\cdot OE=R(R+r)=\frac{70}3.\]
+If $M$ denotes the midpoint of $\overline{BC}$, we can compute $BD=s-b=2$, so $DM=\tfrac32$. Since $\angle BOM=\angle A=60^\circ$ and $BM=\tfrac72$, we have $OM=\tfrac7{2\sqrt3}$. Thus \[OD=\sqrt{\left(\frac32\right)^2+\left(\frac7{2\sqrt3}\right)^2}=\frac{\sqrt{57}}3.\]
+It follows that $OK=\tfrac{70}{\sqrt{57}}$ and $DK=\tfrac{17\sqrt{57}}{19}$. The requested sum is $17+57+19=93$.
+
+---
+
+093

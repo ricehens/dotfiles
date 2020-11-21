@@ -1,0 +1,60 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be an acute triangle with circumcircle $\omega$ and orthocenter $H$. Suppose the tangent to the circumcircle of $\triangle HBC$ at $H$ intersects $\omega$ at points $X$ and $Y$ with $HA=3$, $HX=2$, $HY=6$. The area of $\triangle ABC$ can be written as $m\sqrt n$, where $m$ and $n$ are positive integers, and $n$ is not divisible by the square of any prime. Find $m+n$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm); defaultpen(fontsize(10pt));
+        pen pri=orange;
+        pen sec=red;
+        pen tri=fuchsia;
+        pen fil=yellow+opacity(0.05);
+        pen sfil=lightred+opacity(0.05);
+        pen tfil=fuchsia+opacity(0.05);
+
+        pair A,B,C,T,H,Hp,X,Y,D,M;
+        A=(0,10);
+        B=(-6*sqrt(11/5)+14/sqrt(5),0);
+        C=(6*sqrt(11/5)+14/sqrt(5),0);
+        T=(-2sqrt(5),0);
+        H=orthocenter(A,B,C);
+        Hp=reflect(B,C)*H;
+        X=intersectionpoint(circumcircle(H,B,C),Hp--T);
+        Y=2*foot(circumcenter(H,B,C),X,T)-X;
+        D=(0,0);
+        M=(B+C)/2;
+
+        draw(T--Y,tri);
+        draw(A--Hp,pri+dashed);
+        draw(T--B,pri);
+        filldraw(circumcircle(H,B,C),sfil,sec);
+        filldraw(circumcircle(A,B,C),fil,pri);
+        filldraw(A--B--C--cycle,fil,pri);
+
+        dot("$A$",A,NW);
+        dot("$B$",B,dir(40));
+        dot("$C$",C,E);
+        dot("$H$",H,SE);
+        dot("$H'$",Hp,SW);
+        dot("$X'$",X,dir(195));
+        dot("$Y'$",Y,S);
+        dot("$T$",T,W);
+        dot("$D$",D,SE);
+        dot("$M$",M,S);
+    \end{asy}
+\end{center}
+Here's a solution by routine power of point.
+
+Let $D$ be the foot from $A$ to $\seg{BC}$, let $M$ be the midpoint of $\seg{BC}$, and let $H'$, $X'$, $Y'$ be the reflections of $H$, $X$, $Y$ across $\seg{BC}$. By Power of a point, $AH\cdot HH'=HX\cdot HY=12$, so $HH'=4$ and $H'D=2$.
+
+Erase the points $H$, $X$, $Y$. For convenience, we henceforth omit the prime symbol ($'$). Let $T=\seg{BC}\cap\seg{XY}$, and denote $x=TH$. Then \[TH^2=TB\cdot TC=TX\cdot TY\implies x^2=(x-2)(x+3),\]
+so $x=3$. Hence $TD=\sqrt5$ by Pythagorean theorem on $\triangle TDH'$. Now let $y=BD$, $z=CD$. By Power of a point, $yz=AD\cdot DH'=10$. Hence \[\textstyle9=TB\cdot TC=(\sqrt5-y)(\sqrt5+z)=\sqrt5(z-y)-5,\]
+so $z-y=14/\sqrt5$. Then \[z-y=CD-BD=(CM+DM)-(BM-DM)=2DM,\]
+so $DM=7/\sqrt5$ and $TM=12/\sqrt5$. Hence \[9=TB\cdot TC=\left(\frac{12}{\sqrt5}-\frac{BC}2\right)\left(\frac{12}{\sqrt5}+\frac{BC}2\right)\implies\frac{BC}2=3\sqrt{\frac{11}5}.\]
+The area is $3\sqrt{55}$, and the requested sum is $3+55=58$.
+

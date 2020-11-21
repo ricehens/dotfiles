@@ -1,0 +1,19 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb R^2\to\mathbb R$ such that $f(G)=f(A)+f(B)+f(C)$ whenever $A$, $B$, $C$ are distinct noncollinear points in the plane and $G$ is the centroid of $\triangle ABC$.
+
+---
+
+The answer is $f\equiv0$, which clearly works. Let $DEF$ be the medial triangle of $\triangle ABC$, so that \[f(G)=f(A)+f(B)+f(C)=f(D)+f(E)+f(F),\]
+and let $G_1$, $G_2$, $G_3$ denote the centroids of $\triangle AEF$, $\triangle BFD$, $\triangle CDE$. It can be seen, say by vectors, that $G$ is the centroid of $\triangle G_1G_2G_3$, so that
+\begin{align*}
+    f(G)&=f(G_1)+f(G_2)+f(G_3)\\
+    &=\sum_\mathrm{cyc}\big(f(A)+f(E)+f(F)\big)\\
+    &=f(A)+f(B)+f(C)+2\big(f(D)+f(E)+f(F)\big)\\
+    &=3f(G).
+\end{align*}
+Hence $f(G)=0$. Since every point is the centroid of some triangle in the plane, $f\equiv0$.
+

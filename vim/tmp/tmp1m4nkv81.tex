@@ -1,0 +1,20 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $P(x)$ be the unique polynomial of degree at most $2020$ satisfying $P(k^2)=k$ for $k=0,1,2,\ldots,2020$. Compute $P(2021^2)$.
+
+---
+
+Consider the polynomial $Q(x)=P(x^2)$ of degree at most $4040$. We have $Q(k)=|k|$ for integers $-2020\le k\le2020$, and we seek $Q(2021)$. To this end, we use glorified finite differences.
+
+Let $R(x)=Q(x+1)-2Q(x)+Q(x-1)$ have degree at most $4038$ (since $Q(x+1)-Q(x)$ and $Q(x)-Q(x-1)$ have degree at most $4039$ and the same leading coefficient). We know $R(k)=0$ for all integers $-2019\le k<0$ and integers $0<k\le2019$, so $R$ is of the form \[R(x)=a(x-1)(x-2)\cdots(x-2019)(x+1)(x+2)\cdots(x+2019).\]
+Furthermore $R(0)=2$, so $a=-2/2019!^2$. It follows that \[R(2020)=\frac{-2}{2019!^2}\cdot\frac{4039!}{2020}=-\binom{4040}{2020}.\]
+Finally \[Q(2021)=R(2020)+2Q(2020)-Q(2019)=2021-\binom{4040}{2020},\]
+the answer.
+
+---
+
+$2021-\binom{4040}{2020}$
+

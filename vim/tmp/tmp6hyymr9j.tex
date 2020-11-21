@@ -1,0 +1,62 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+In a triangle $ABC$, let $D$ and $E$ be the feet of the angle bisectors of angles $A$ and $B$, respectively. A rhombus is inscribed into the quadrilateral $AEDB$ (all vertices of the rhombus lie on different sides of $AEDB$). Let $\varphi$ be the non-obtuse angle of the rhombus. Prove that $\varphi\le\max\{\angle BAC,\angle ABC\}$.
+
+---
+
+Suppose $\angle A,\angle B<90\dg$, else we are already done. Let the rhombus be $WXYZ$, with $W$, $X$, $Y$, $Z$ on $\seg{AB}$, $\seg{BD}$, $\seg{DE}$, $\seg{EA}$ respectively. Without loss of generality $WX=XY=YZ=ZW=1$. For sake of notation, let $d(P,\ell)$ denote the distance from the point $P$ to the line $\ell$.
+\begin{claim*}
+    $d(Y,\seg{AB})=d(Y,\seg{CA})+d(Y,\seg{CB})$.
+\end{claim*}
+\begin{proof}
+    We can check this holds for all points $Y$ on the line $DE$ via linearity.
+\end{proof}
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+    pen pri=blue;
+    pen sec=heavygreen;
+    pen tri=lightblue;
+    pen fil=cyan+opacity(0.05);
+    pen sfil=green+opacity(0.1);
+
+    pair C = (2.48,4.86), A = (1.18,0.3), B = (5.44,0.34), D = (4.039163451791813,2.4791152695611505), EE = (1.753130310568481,2.310364781686365), I = (2.966749270371574,1.6617733590935135), Y = (2.9340461842372827,2.3975376779262008), WW = (3.191815237929462,0.31889028392422025), O = (3.0629307110833723,1.3582139809252105), Z = (1.4237329602498232,1.1549402297993807), X = (4.64474751887375,1.5543720319900853);
+
+    filldraw(C--A--B--cycle,fil,pri);
+    draw(D--EE,pri);
+    draw(A--D,tri+dashed);
+    draw(B--EE,tri+dashed);
+    filldraw(WW--X--Y--Z--cycle,sfil,sec);
+
+    dot("$C$",C,N);
+    dot("$A$",A,SW);
+    dot("$B$",B,SE);
+    dot("$D$",D,NE);
+    dot("$E$",EE,W);
+    dot("$W$",WW,S);
+    dot("$X$",X,NE);
+    dot("$Y$",Y,N);
+    dot("$Z$",Z,W);
+    dot("$O$",O,SE);
+
+    label("$\varphi$",Z,2*unit(O-Z));
+    label("$\varphi$",X,2*unit(O-X));
+\end{asy}
+\end{center}
+
+Observe that
+\[d(Y,\seg{CA})+d(Y,\seg{CB})=\sin\angle EZY+\sin\angle DXY.\]
+Furthermore, if $O$ denotes the center of $WXYZ$, then
+\[d(Y,\seg{AB})=2d(O,\seg{AB})=d(Z,\seg{AB})+d(X,\seg{AB})=\sin\angle AWZ+\sin\angle BWX.\]
+Hence, we have the identity
+\[\boxed{\sin\angle EZY+\sin\angle DXY=\sin\angle AWZ+\sin\angle BWX}.\tag{$\star$}\]
+
+But suppose $\vphi>\max\{\angle BAC,\angle ABC\}$. Then
+\[\angle EZY+\vphi=180\dg-\angle AZW=\angle AWZ+\angle BAC<\angle AWZ+\vphi,\]
+so $\angle EZY<\angle AWZ$. Similarly $\angle DXY<\angle BWX$.
+
+Observe that $\angle AWZ<\angle CBA<90\dg$ and similarly $\angle BWX<90\dg$, so all aforementioned angles are actue. It follows that $\sin\angle EZY<\sin\angle AWZ$ and $\sin\angle DXY<\sin\angle BWX$, which contradicts $(\star)$.
+

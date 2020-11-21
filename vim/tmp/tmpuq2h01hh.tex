@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+In Lineland there are $n\geq1$ towns, arranged along a road running from left to right. Each town has a \emph{left bulldozer} (put to the left of the town and facing left) and a \emph{right bulldozer} (put to the right of the town and facing right). The sizes of the $2n$ bulldozers are distinct. Every time when a left and right bulldozer confront each other, the larger bulldozer pushes the smaller one off the road. On the other hand, bulldozers are quite unprotected at their rears; so, if a bulldozer reaches the rear-end of another one, the first one pushes the second one off the road, regardless of their sizes.
+
+Let $A$ and $B$ be two towns, with $B$ to the right of $A$. We say that town $A$ can \emph{sweep} town $B$ \emph{away} if the right bulldozer of $A$ can move over to $B$ pushing off all bulldozers it meets. Similarly town $B$ can sweep town $A$ away if the left bulldozer of $B$ can move over to $A$ pushing off all bulldozers of all towns on its way.
+
+Prove that there is exactly one town that cannot be swept away by any other one.
+
+---
+
+We induct on $n$. For the base case $n=1$, there is nothing to prove. Now assume the hypothesis for $n$; we prove it for $n+1$.
+
+Let there be $n+1$ towns $T_1$, $\ldots$, $T_{n+1}$, and let $T_k$ be the unique town that cannot be swept away by $T_1$, $\ldots$, $T_n$. By design, the downs $T_1$, $\ldots$, $T_{k-1}$ just do not exist (i.e.\ they cannot sweep past $T_k$ and $T_k$ sweeps them). There are two cases:
+\begin{itemize}
+    \item If the right bulldozer of $T_k$ can push off the left bulldozer of $T_{n+1}$, then $T_k$ can sweep away $T_{n+1}$, so $T_k$ is the unique town that cannot be swept away.
+    \item Otherwise, the left bulldozer of $T_{n+1}$ can push off the right bulldozer of $T_k$ (hence it can sweep away all towns in between), so $T_{n+1}$ can sweep away $T_k$. Then $T_{n+1}$ is the unique town that cannot be swept away.
+\end{itemize}
+End proof.
+

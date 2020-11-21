@@ -1,0 +1,78 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be an acute triangle with circumcenter $O$. Points $X$ and $Y$ lie on the tangent to the circumcircle of $\triangle ABC$ at $A$ so that $\seg{BX}\perp\seg{AC}$ and $\seg{CY}\perp\seg{AB}$. Line $AO$ intersects $\seg{BC}$ at $D$. Suppose that $AO=9$, $BC=17$, and $\seg{BY}\parallel\seg{CX}$. Compute $AD$.
+
+---
+
+Let $H$ be the orthocenter of $\triangle ABC$, and let $E$, $F$ be the feet of the altitudes from $B$, $C$. Also let $A'$ be the antipode of $A$ on the circumcircle and let $S=\seg{AH}\cap\seg{EF}$.
+\begin{center}
+\begin{asy}
+    size(7cm); defaultpen(fontsize(10pt));
+    pen pri=blue;
+    pen sec=lightblue;
+    pen tri=heavycyan;
+    pen qua=paleblue;
+    pen fil=cyan+opacity(0.05);
+    pen sfil=lightblue+opacity(0.05);
+    pen tfil=heavycyan+opacity(0.05);
+
+    pair O,A,B,C,H,X,Y,EE,F,Ap,SS,D;
+    O=(0,0);
+    A=dir(147.55);
+    B=dir(195);
+    C=dir(345);
+    H=A+B+C;
+    X=extension(B,H,A,A+rotate(90)*A);
+    Y=extension(C,H,A,X);
+    EE=foot(B,C,A);
+    F=foot(C,A,B);
+    Ap=-A;
+    SS=extension(A,H,EE,F);
+    D=extension(A,O,B,C);
+
+    draw(A--Ap,qua+Dotted);
+    draw(B--Ap--C,qua);
+    draw(B--X,tri);
+    draw(C--Y,tri);
+    draw(EE--F,sec+Dotted);
+    draw(X--Y,sec);
+    draw(B--Y,sec);
+    draw(C--X,sec);
+    filldraw(circumcircle(B,C,X),sfil,sec);
+    filldraw(A--B--C--cycle,fil,pri);
+    filldraw(circle(O,1),fil,pri);
+
+    dot("$A$",A,A);
+    dot("$B$",B,dir(210));
+    dot("$C$",C,dir(-30));
+    dot("$H$",H,dir(300));
+    dot("$X$",X,N);
+    dot("$Y$",Y,W);
+    dot("$E$",EE,dir(30));
+    dot("$F$",F,dir(120));
+    dot("$S$",SS,N);
+    dot("$A'$",Ap,Ap);
+    dot("$D$",D,S);
+\end{asy}
+\end{center}
+Disregarding the condition $\seg{BY}\parallel\seg{CX}$, we contend:
+\begin{claim*}
+    In general, $BCXY$ is cyclic.
+\end{claim*}
+\begin{proof}
+    Recall that $\seg{AA}\parallel\seg{EF}$, so the claim follows from Reim's theorem on $BCEF$, $BCXY$.
+\end{proof}
+
+With $\seg{BY}\parallel\seg{CX}$, it follows that $BCXY$ is an isosceles trapezoid. In particular, $HB=HY$ and $HC=HX$. Since $\seg{SF}\parallel\seg{AY}$, we have \[\frac{HS}{HA}=\frac{HF}{HY}=\frac{HF}{HB}=\cos A.\]
+But note that $\triangle AEF\cup H\sim\triangle ABC\cup A'$, so \[\frac{AD}{2R}=1-\frac{A'D}{2R}=1-\frac{HS}{HA}=1-\cos A,\]
+i.e.\ $AD=2R(1-\cos A)$. We are given $R=9$, and by the law of sines, $\sin A=\frac{17}{18}$, so $\cos A=\frac{\sqrt{35}}{18}$, and the answer is $AD=18-\sqrt{35}$.
+\begin{remark}
+    For (acute) angles $\theta$, we can show that there is an acute triangle $ABC$ with $\angle A=\theta$ and $\seg{BY}\parallel\seg{CX}$ if and only if $\cos\theta<\frac13$.
+\end{remark}
+
+---
+
+$18-\sqrt{35}$

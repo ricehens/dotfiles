@@ -1,0 +1,65 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $m,n\ge2$ be integers. Carl is given $n$ marked points in the plane and wishes to mark their centroid\footnote{The \emph{centroid} of $n$ points with coordinates $(x_1,y_1)$, $\ldots$, $(x_n,y_n)$ is the point whose coordinates are $(\tfrac{x_1+\cdots+x_n}n,\tfrac{y_1+\cdots+y_n}n)$.}. He has no standard compass or straightedge. Instead, he has a device which, given marked points $A$ and $B$, marks the $m-1$ points that divide segment $AB$ into $m$ congruent parts (but doesn ot draw the segment).
+
+For which pairs $(m,n)$ can Carl necessarily accomplish his task, regardless of which $n$ points he is given?
+
+---
+
+The answer is $\rad(2n)\mid m$. Since Carl must accomplish his task for all sets of $n$ points, it is clear that the task is equivalent to this:
+\begin{quote}
+    Carl writes the $n$ vectors $\langle1,0,0,\ldots\rangle$, $\langle0,1,0,\ldots\rangle$, $\ldots$, $\langle0,0,0,\ldots,1\rangle$ on a board. For any two vectors $\mathbf a$, $\mathbf b$ on the board and nonnegative integers $k$, $\ell$ with $k+\ell=m$, Carl can also write the vector $\tfrac km\mathbf a+\tfrac\ell m\mathbf b$. For which $m$ can Carl write $\langle\tfrac1n,\tfrac1n,\tfrac1n,\ldots,\tfrac1n\rangle$?
+\end{quote}
+
+\bigskip
+
+\textbf{Proof of necessity:} First assume for contradiction $p\mid n$ but $p\nmid m$. It is easy to check that for any vector on the board $\mathbf v=\langle v_1,v_2,\ldots,v_n\rangle$, we have $\nu_p(v_i)\ge0$ for all $i$. Hence $\langle\tfrac1n,\tfrac1n,\ldots,\tfrac1n\rangle$ can never be written.
+
+Now suppose $n$, $m$ are both odd, and take all vectors modulo $2$. It is always true that all vectors have exactly one component $1\pmod2$, i.e.\ no new vectors modulo $2$ may be added to the board. Hence no vector congruent to $\langle1,1,\ldots,1\rangle$ may be written.
+
+\bigskip
+
+\textbf{Proof of sufficiency:} Note that we may construct the centroid of any $T=2^t$ points so long as $m$ is even: to prove this, induct on $t$, with the base case $t=0$ given. Then for points $P_1$, $\ldots$, $P_T$, the centroid of $P_1\cdots P_T$ is the midpoint of the segment connecting the centroids of $P_1\cdots P_{T/2}$ and $P_{T/2+1}\cdots P_T$.
+
+Let $\rad(2n)\mid m$. Then we may divide any segment into $m^k$ congruent parts for each $k$, so we may divide any segment into $n$ congruent parts.
+
+Let $T=2^t$ be the smallest power of $2$ greater than $m$ (so that $T<2m$). Consider the $T$ row vectors $\mathbf v_1$, $\mathbf v_2$, $\ldots$, $\mathbf v_T$ of the matrix
+\[
+    \frac1n\begin{bmatrix}
+        a_{11}&a_{12}&\cdots&a_{1n}\\
+        a_{21}&a_{22}&\cdots&a_{2n}\\
+        \vdots&\vdots&\ddots&\vdots\\
+        a_{T1}&a_{T2}&\cdots&a_{Tn}
+    \end{bmatrix},
+\]
+where:
+\begin{itemize}
+    \item $a_{11}:=n$ and $a_{1j}:=0$ for $j>1$.
+    \item For each $i$, let $j$ be the greatest index such that $a_{ij}\ne0$. Then define \[a_{i+1,j}:=\min(n,T-a_{1j}-a_{2j}-\cdots-a_{ij})\quad\text{and}\quad a_{i+1,j+1}:=n-a_{i+1,j}.\]
+\end{itemize}
+
+For instance, for $n=5$ we have
+\[
+    \begin{bmatrix}
+        \textrm{---}&\mathbf v_1&\textrm{---}\\
+        \textrm{---}&\mathbf v_2&\textrm{---}\\
+        \textrm{---}&\vdots&\textrm{---}\\
+        \textrm{---}&\mathbf v_T&\textrm{---}
+    \end{bmatrix}
+    =\frac15\begin{bmatrix}
+        5&0&0&0&0\\
+        3&2&0&0&0\\
+        0&5&0&0&0\\
+        0&1&4&0&0\\
+        0&0&4&1&0\\
+        0&0&0&5&0\\
+        0&0&0&2&3\\
+        0&0&0&0&5
+    \end{bmatrix}
+\]
+Then all $T$ vectors have at most $2$ nonzero components, all with denominators that divide $n$, so we may construct them. Furthermore the centroid of $\mathbf v_1$, $\mathbf v_2$, $\ldots$, $\mathbf v_T$ is $(\tfrac1n,\tfrac1n,\ldots,\tfrac1n)$, so we are done.
+
+

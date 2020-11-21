@@ -1,0 +1,61 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be an acute triangle with $AB\ne AC$. Let $H$ be the orthocenter of triangle $ABC$, and let $M$ be the midpoint of side $BC$. Let $D$ be a point on side $AB$ and $E$ a point on side $AC$ such that $AE=AD$, and the points $D$, $H$, $E$ are on the same line. Prove that line $HM$ is perpendicular to the common chord of the circumscribed circles of triangle $ABC$ and triangle $ADE$.
+
+---
+
+Let $Q$ be the point on the circumcircle of $\triangle ABC$ such that $\angle AQH=90\dg$; it follows that $Q$, $H$, $M$ are collinear with the antipode of $A$.
+
+I will show the common chord of the circumcmircles of $\triangle ABC$ and $\triangle ADE$ is $\seg{AQ}$.
+By the spiral similarity lemma, it is sufficient to show that $Q$ is the center of spiral similarity sending $\seg{BD}$ to $\seg{CE}$.
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+    pen pri=lightred;
+    pen sec=orange;
+    pen tri=purple+pink;
+    pen qua=lightblue;
+    pen qui=lightolive;
+    pen fil=lightred+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=tri+opacity(0.1);
+    pen qfil=qua+opacity(0.1);
+
+    pair A,B,C,H,M,I,D,EE,Q;
+    A=dir(110);
+    B=dir(210);
+    C=dir(330);
+    H=A+B+C;
+    M=(B+C)/2;
+    I=incenter(A,B,C);
+    D=extension(A,B,H,H+rotate(90)*(A-I));
+    EE=extension(A,C,H,H+rotate(90)*(A-I));
+    Q=reflect(origin,circumcenter(A,D,EE))*A;
+
+    draw(A--Q--M,qui);
+    filldraw(circumcircle(A,D,EE),sfil,sec);
+    filldraw(unitcircle,fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+    filldraw(Q--B--D--cycle,tfil,tri);
+    filldraw(Q--C--EE--cycle,tfil,tri);
+    filldraw(H--B--D--cycle,qfil,qua);
+    filldraw(H--C--EE--cycle,qfil,qua);
+
+    dot("$A$",A,A);
+    dot("$B$",B,B);
+    dot("$C$",C,C);
+    dot("$H$",H,dir(60));
+    dot("$M$",M,S);
+    dot("$D$",D,dir(210));
+    dot("$E$",EE,dir(15));
+    dot("$Q$",Q,Q);
+\end{asy}
+\end{center}
+
+By trivial angle chasing, $\triangle HBD\sim\triangle HCE$; furthermore, if $Y$, $Z$ are the feet from $B$, $C$ to $\seg{AC}$, $\seg{AB}$, it is clear $Q$ sends $\seg{BZ}$ to $\seg{CY}$ (since $Q$ lies on the circumcircle of $\triangle AYZ$), so
+\[\frac{BD}{CE}=\frac{HB}{HC}=\frac{BZ}{CY}=\frac{QB}{QC}.\]
+The conclusion follows.
+

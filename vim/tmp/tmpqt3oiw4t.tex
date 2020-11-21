@@ -1,0 +1,15 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A physicist encounters $2015$ atoms called usamons. Each usamon either has one electron or zero electrons, and the physicist can't tell the difference. The physicist's only tool is a diode. The physicist may connect the diode from any usamon $A$ to any other usamon $B$. (This connection is directed.) When she does so, if usamon $A$ has an electron and usamon $B$ does not, then the electron jumps from $A$ to $B$. In any other case, nothing happens. In addition, the physicist cannot tell whether an electron jumps during any given step. The physicist's goal is to isolate two usamons that she is $100\%$ sure are currently in the same state. Is there any sequence of diode usage that makes this possible?
+
+---
+
+The answer is no. Place the usamons in a single-file line. Let the \emph{signature} be the binary string $\{0,1\}^{2015}$ such that bit $i$ is $1$ if and only if the $i$th usamon from the left has an electron.
+
+Assume that whenever we connect the diode from usamon $A$ to usamon $B$, we also swap $A$ and $B$ in the line. Then the signature is invariant, so it suffices to find a set of signatures so that for no two $i$, $j$ are usamons $i$, $j$ in the same state for all signatures in the set.
+
+Then just consider the $2016$ signatures $(0,0,\ldots,0)$, $(1,0,\ldots,0)$, $(1,1,\ldots,0)$, $\ldots$, $(1,1,\ldots,1)$. End proof.
+

@@ -1,0 +1,53 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle. Distinct points $D$, $E$, $F$ lie on sides $BC$, $CA$, $AB$ respectively, such that quadrilaterals $ABDE$ and $ACDF$ are cyclic. Line $AD$ meets the circumcircle of $\triangle ABC$ again at $P$. Let $Q$ denote the reflection of $P$ across $\seg{BC}$. Show that $Q$ lies on the circumcircle of $\triangle AEF$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm); defaultpen(fontsize(10pt));
+        pen pri=orange+black;
+        pen sec=lightred;
+        pen tri=purple+pink;
+        pen fil=yellow+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=pink+opacity(0.05);
+
+        pair O,A,B,C,D,EE,F,P,Q;
+        O=(0,0);
+        A=dir(120);
+        B=dir(210);
+        C=dir(330);
+        D=(3B+2C)/5;
+        EE=2*foot(circumcenter(A,B,D),A,C)-A;
+        F=2*foot(circumcenter(A,C,D),A,B)-A;
+        P=2*foot(O,A,D)-A;
+        Q=reflect(B,C)*P;
+
+        filldraw(circumcircle(A,B,D),tfil,tri+dashed);
+        filldraw(circumcircle(A,C,D),tfil,tri+dashed);
+        draw(A--P,tri);
+        draw(P--Q,pri+dashed);
+        filldraw(circumcircle(A,EE,F),fil,pri);
+        filldraw(circumcircle(B,D,F),sfil,sec);
+        filldraw(circumcircle(C,D,EE),sfil,sec);
+        filldraw(circle(O,1),fil,pri);
+        filldraw(A--B--C--cycle,fil,pri);
+
+        dot("$A$",A,A);
+        dot("$B$",B,B);
+        dot("$C$",C,C);
+        dot("$D$",D,dir(250));
+        dot("$E$",EE,N);
+        dot("$F$",F,dir(165));
+        dot("$P$",P,S);
+        dot("$Q$",Q,dir(80));
+    \end{asy}
+\end{center}
+Just note that \[\da BQD=\da DPB=\da APB=\da ACB=\da ACD=\da AFD=\da BFD,\]
+so $BDQF$ is cyclic. Similarly $CDQE$ is cyclic, so by Miquel's theorem $AEQF$ is cyclic. End proof.
+

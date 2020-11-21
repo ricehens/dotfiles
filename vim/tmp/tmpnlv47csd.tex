@@ -1,0 +1,48 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A \emph{lattice point} in the Cartesian plane is a point whose coordinates are both integers. A \emph{lattice polygon} is a polygon all of whose vertices are lattice points.
+
+Let $\Gamma$ be a convex lattice polygon. Prove that $\Gamma$ is contained in a convex lattice polygon $\Omega$ such that the vertices of $\Gamma$ all lie on the boundary of $\Omega$, and exactly one vertex of $\Omega$ is not a vertex of $\Gamma$.
+
+---
+
+Select a point $P$ and a side $BC$ of $\Gamma$ such that the distance from $P$ to $\seg{BC}$ is minimal over all choices of $P$, $B$, $C$. Translating by the vector $\vec{BC}$, we may assume the projection of $P$ onto $\seg{BC}$ lies on segment $BC$, and by reflecting through the midpoint of $\seg{BC}$, we may assume $P$ lies outside of $\Gamma$.
+\begin{center}
+\begin{asy}
+    size(5cm); defaultpen(fontsize(10pt));
+    pair A,B,C,D,P,X,I,IX;
+    A=(-1,0);
+    B=(0,0);
+    C=(1,1);
+    D=(.3,2);
+    P=(.8,.5);
+    X=extension(A,B,C,D);
+    I=incenter(X,B,C);
+    IX=2*circumcenter(I,B,C)-I;
+    draw(A--B--C--D);
+    draw(B--X--C);
+    draw(B--P--C,dashed);
+    draw( (2B-I)--I--(2C-I),gray);
+    draw(extension(B,IX,2B-I,2B-I+(1,0))--IX--(1.5C-.5IX),gray);
+    fill(B--I--C--IX--cycle,cyan+opacity(0.05));
+
+    dot("$A$",A,W);
+    dot("$B$",B,dir(245));
+    dot("$C$",C,NE);
+    dot("$D$",D,N);
+    dot("$P$",P,W);
+    dot("$X$",X,SE);
+    dot("$I$",I,SE);
+    dot("$J$",IX,NW);
+\end{asy}
+\end{center}
+Let $A$ be the vertex on $\Gamma$ adjacent to $B$ and opposite $C$, and let $D$ be the vertex on $\Gamma$ adjacent to $C$ and opposite $B$. Without loss of generality $A$, $B$, $C$, $D$ are oriented counterclockwise on $\Gamma$.
+\begin{itemize}
+    \item If $X$ lies on the opposite side of line $BC$ as $P$, then there is a lattice point $Q$ in the infinite set of points in the interior of $\angle AXB$ and on the opposite side of $\seg{AB}$ as $X$. The polygon $\Gamma\cup Q$ is clearly valid.
+    \item Otherwise assume $P$, $X$ are on the same side of line $BC$. Let $I$, $J$ be the incenter and $X$-excenter of $\triangle XBC$. Since $P$ is closer to $\seg{BC}$ than $\seg{AB}$, we know $P$ is either in the interior of the angle $\angle IBJ$ or its vertical angle. Similarly $P$ is either in the interior of the angle $\angle ICJ$ or its vertical angle. Combining these two conditions along with the constraint that $P$ lies outside $\Gamma$, we know $P$ is in the interior of $\triangle IBC$. Then $\angle ABP$, $\angle PCD$ are oriented counterclockwise, so $\Gamma\cup P$ works.
+\end{itemize}
+This completes the proof.
+

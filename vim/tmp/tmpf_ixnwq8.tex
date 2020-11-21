@@ -1,0 +1,24 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n\ge 3$ be a fixed integer. An $n\times n$ table of nonzero real numbers is given with the property that for any cell, the sum of the $2n-2$ numbers in the other cells of the same row or column is exactly $k$ times the number in that cell. Determine all possible values of $k$, in terms of $n$.
+
+---
+
+The answer is $-2$, $n-2$, and $2n-2$. It is easy to check that these constructions work:
+\begin{itemize}
+    \item For $k=-2$, set a main diagonal all equal to $-(n-1)$, and set everything else equal to $1$.
+        \vspace{-0.5em}
+    \item For $k=n-2$, take the entire left column as $-(n-1)$, and set everything else equal to $1$.
+        \vspace{-0.5em}
+    \item For $k=2n-2$, set all cells equal to $1$.
+\end{itemize}
+We will now show these are the only possible values of $k$. Let $\ell=k+2$, and assume that $k\notin\{-2,n-2\}$; that is, $\ell\notin\{0,n\}$. Denote by $T$ the sum of all $n^2$ elements, and let $a_{i,j}$ denote the element in the $i^\text{th}$ row and $j^\text{th}$ column. This way, the given condition is equivalent to
+\begin{equation}\tag{$*$}
+    \ell a_{p,q}=\sum_{i=1}^n a_{i,q}+\sum_{j=1}^n a_{p,j}.
+\end{equation}
+Summing over all $p$, \[\ell\sum_{i=1}^na_{i,q}=n\sum_{i=1}^na_{i,q}+T\implies\sum_{i=1}^na_{i,q}=\frac T{\ell-n}.\]
+Hence, every row and column has a fixed sum $S$, so by $(*)$, $a_{p,q}=\tfrac{2S}\ell$. Each cell is the same, so \[\frac{2T}\ell=S=\frac T{\ell-n}\implies\ell=2n\implies k=2n-2,\]
+as requested.

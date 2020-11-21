@@ -1,0 +1,15 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Two rational numbers $\tfrac mn$ and $\tfrac nm$ are written on a blackboard, where $m$ and $n$ are relatively prime integers. At any point, Evan may pick two of the numbers $x$ and $y$ written on the board and write either their arithmetic mean $\tfrac{x+y}2$ or their harmonic mean $\tfrac{2xy}{x+y}$ on the board as well. Find all pairs $(m,n)$ such that Evan can write $1$ on the board in finitely many steps.
+
+---
+
+The answer is $m+n=2^t$ for some $t$. Take \[1=\frac n{m+n}\cdot\frac mn+\frac m{m+n}\cdot\frac nm,\]
+Since the denominators of the weights are powers of $2$, this is achievable by finitely many operations of taking the arithmetic mean.
+
+Now, we prove that this is necessary. Assume FSoC there is an odd prime $p$ such that $p\mid m+n$. Then, $\tfrac mn\equiv\tfrac nm\equiv -1\pmod p$, which means that every number written is equivalent to $-1\pmod p$. Then $1$ can never be written, so we are done. 
+

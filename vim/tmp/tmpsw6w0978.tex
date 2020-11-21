@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all positive integers $n$ for which $n^2$ divides $2^n+1$. 
+
+---
+
+The answer is $1$ and $3$. We use the condition $2^{2n}\equiv1\pmod{n^2}$. Clearly $n$ is odd. Let $p$ be the least prime divisor of $n$, so \[2^{2n}\equiv2^{p-1}\equiv1\pmod p.\]
+Since $\gcd(2n,p-1)\mid2$, we have $2^2\equiv1\pmod p$. This readily implies $p=3$. However \[\nu_3\left(2^{2n}-1\right)=\nu_3\left(4^n-1\right)=1+\nu_3(n)\]
+whereas $\nu_3(n^2)=2\nu_3(n)$, so $\nu_3(n)=1$. Let $n=3k$, where $3\nmid k$, and let $q$ be the least prime divisor of $k$. Hence \[2^{6k}\equiv2^{q-1}\equiv1\pmod q.\]
+Since $\gcd(6k,q-1)\mid6$, we have $2^6\equiv1\pmod q$, so $q\mid63$. It follows that $q=7$. However $2^{3k}+1\equiv2\pmod7$, contradiction.
+

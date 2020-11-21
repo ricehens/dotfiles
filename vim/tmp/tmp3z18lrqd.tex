@@ -1,0 +1,10 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ points be given inside a rectangle $R$ such that no two of them lie on a line parallel to one of the sides of $R$. The rectangle $R$ is to be dissected into smaller rectangles with sides parallel to the sides of $R$ in such a way that none of these rectangles contains any of the given points in its interior. Prove that we have to dissect $R$ into at least $n+1$ smaller rectangles.
+
+---
+
+There must be at least $n$ segments drawn in the interior of $R$. Note that each interior segment is bounded on both sides by perpendicular segments; each intersection produces two ``corners,'' so there are at least $4n$ corners. However we never count the four corners of $R$, so there are actually at least $4n+4$ corners. Each small rectangle contains four sides, so there are at least $n+1$ small rectangles.

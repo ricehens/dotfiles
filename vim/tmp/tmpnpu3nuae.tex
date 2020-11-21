@@ -1,0 +1,60 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Two circles $G_1$ and $G_2$ intersect at two points $M$ and $N$. Let $AB$ be the line tangent to these circles at $A$ and $B$, respectively, so that $M$ lies closer to $AB$ than $N$. Let $CD$ be the line parallel to $AB$ and passing through the point $M$, with $C$ on $G_1$ and $D$ on $G_2$. Lines $AC$ and $BD$ meet at $E$; lines $AN$ and $CD$ meet at $P$; lines $BN$ and $CD$ meet at $Q$. Show that $EP=EQ$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(10pt));
+        pen pri=red+linewidth(0.5);
+        pen sec=orange+linewidth(0.5);
+        pen tri=fuchsia+linewidth(0.5);
+        pen fil=red+opacity(0.05);
+        pen sfil=orange+opacity(0.05);
+
+        pair A, B, O1, O2, M, NN, C, D, L, P, Q, EE;
+        A=(-4, -6);
+        B=(3, -4.5);
+        O1=extension((-1, 0), (1, 0), A, rotate(90, A)*B);
+        O2=extension((-1, 0), (1, 0), B, rotate(-90, B)*A);
+        path g1=circle(O1, length(A-O1));
+        path g2=circle(O2, length(B-O2));
+        M=intersectionpoints(g1, g2)[1];
+        NN=intersectionpoints(g1, g2)[0];
+        C=intersectionpoint(g1, (M+0.001*(A-B)) -- (M+1000*(A-B)));
+        D=intersectionpoint(g2, (M+0.001*(B-A)) -- (M+1000*(B-A)));
+        L=extension(A, B, M, NN);
+        P=extension(A, NN, C, D);
+        Q=extension(B, NN, C, D);
+        EE=extension(A, C, B, D);
+
+        filldraw(g1, fil, pri); filldraw(g2, fil, pri);
+        fill(EE -- C -- D -- cycle, sfil);
+        draw(A -- B, pri);
+        draw(EE -- L -- NN, pri);
+        draw(C -- EE -- D -- C, pri);
+        draw(P -- EE -- Q,  sec);
+        draw(A -- NN -- B, sec);
+        draw(A -- O1 -- O2 -- B, tri);
+        draw(A -- M -- B, pri);
+
+        dot("$A$", A, S);
+        dot("$B$", B, S);
+        dot("$O_1$", O1, NW);
+        dot("$O_2$", O2, NE);
+        dot("$C$", C, SW);
+        dot("$D$", D, SE);
+        dot("$L$", L, S);
+        dot("$M$", M, NW);
+        dot("$N$", NN, N);
+        dot("$P$", P, NW);
+        dot("$Q$", Q, dir(150));
+        dot("$E$", EE, S);
+    \end{asy}
+\end{center}
+I claim that $E$ and $M$ are reflections across $\seg{AB}$. Indeed, $\da EAB=\da ACM=\da BAM$ and similarly $\da ABE=\da MBA$, so $\triangle EAB\cong\triangle MAB$. Now if $L=\seg{AB}\cap\seg{MN}$, $LA^2=LM\cdot LN=LB^2$, so $L$ is the midpoint of $\seg{AB}$. Since $\seg{PQ}\parallel\seg{AB}$, $M$ is the midpoint of $\seg{PQ}$. But $\seg{ME}\perp\seg{AB}$, so $\seg{ME}$ is the perpendicular bisector of $\seg{PQ}$, as desired.

@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find the number of functions $f(x):\{1,2,3,4,5\}\to\{1,2,3,4,5\}$ that satisfy $f(f(x))=f(f(f(x)))$ for all $x\in\{1,2,3,4,5\}$.
+
+---
+
+\paragraph{Sketch of intended solution (based on AIME II 2013/11)} By considering the number of elements in $f(f(f(\{1,2,3,4,5\})))$ and casework on which map to the identity element, the answer ends up being \[\sum_{j=1}^4\sum_{k=1}^j \binom{j}{k}(5-j)^k k^{j-k}=756.\]
+
+\paragraph{Arrows approach} Per usual, construct a graph on five vertices labeled $1$, $2$, $3$, $4$, $5$. Draw an edge $a\to b$ whenever $f(a)=b$, and remove self-loops. Evidently no cycles are allowed, so this graph is a forest. Add a vertex $r$ to the graph and draw an edge from each leaf (i.e.\ each $n$ with $f(n)=n$) to $r$. Then we are counting the number of trees on $\{1,2,3,4,5,r\}$ with each edge a distance at most $3$ from $r$.
+
+Ignoring the distance condition, Cayley's formula gives $6^4=1296$ trees. A description of the overcounted trees is as follows: there must be a ``backbone'' $v_4\to v_3\to v_2\to v_1\to r$, and the sixth vertex $v_5$ points to any one of these. If $v_5$ points to $r$, $v_1$, $v_2$, $v_4$, there are $5!$ trees each. If $v_5$ points to $v_3$, there are $5!/2$ trees since $v_4$, $v_5$ may be swapped.
+
+The answer is $1296-120\cdot4-60=756$.

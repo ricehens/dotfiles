@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Determine all positive integers $M$ such that the sequence $a_0$, $a_1$, $a_2$, $\ldots$ defined by
+\[a_0=M+\frac12\quad\text{and}\quad a_{k+1}=a_k\lfloor a_k\rfloor\text{ \;for\; }k=0,1,2,\ldots\]
+contains at least one integer term.
+
+---
+
+The answer is $M\ge2$. Evidently $M=1$ fails; we show all other $M$ work by induction on $\nu_2(M-1)$.
+
+For the base case, if $M$ is even then $a_1\in\mathbb Z$. Now assume $M$ odd; then \[a_1=M\left(M+\frac12\right)=M^2+\frac{M-1}2+\frac12=:N+\frac12.\]
+However, note that \[\nu_2(N-1)=\nu_2\left(\frac{(M-1)(2M+3)}2\right)\le\nu_2(M-1)-1,\]
+so the inductive hypothesis applys to $a_1$, $a_2$, $\ldots$.
+

@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For all subsets $S$ of the set $\{1, 2, 3, \ldots, 511\}$, let $p(S)$ be the product of all the elements of $S$, with $p\left(\emptyset\right)$ defined as $1$, and $v(S)$ be the largest integer such that $2^{v(S)}$ divides $p(S)$. Over all such $S$, find the expected value of $v(S)$. 
+
+---
+
+Since each number has a $\frac{1}{2}$ chance of being in $S$, the value of $v_2(p(S))$ is simply $\frac{1}{2}\left(v_2(1)+v_2(2)+\ldots+v_2(511)\right)$. Let $a_n=v_2(1)+v_2(2)+\ldots+v_2\left(2^n\right)$. We seek $\frac{1}{2}(a_9-v_2(512))=\frac{1}{2}(a_9-9)$. Notice that $a_0=0$, and $a_n=2a_{n-1}+1$. The former is obvious, but to show the latter, observe that the sequence $v_2(n)$ is $0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,4,\ldots$ like a ruler. Note that the sum of the last $8$ terms is one more that the sum of the first $8$, because the only difference is the final term. It is easy to see by induction that $a_n=2^n-1$. Therefore, the answer is $\frac{1}{2}(511-9)=\frac{502}{2}=251$.
+
+---
+
+251

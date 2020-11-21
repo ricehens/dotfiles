@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb Q_{>0}\to\mathbb Z_{>0}$ such that \[f(xy)\cdot \gcd\left(f(x)f(y),f\left(\frac1x\right)f\left(\frac1y\right)\right)=xyf\left(\frac1x\right)f\left(\frac1y\right),\]
+for all $x,y\in\mathbb Q_{>0}$, where $\gcd(a,b)$ denotes the greatest common divisor of $a$ and $b$.
+
+---
+
+The answer is $f(x)$ equals the numerator of $x$ when written in simplest form. It is easy to check that this works. We now prove this is the only solution.
+
+Let $P(x,y)$ denote the assertion. Then $P(1,1)$ readily gives $f(1)=1$, and $P(x,1)$ gives the statement \[f(x)\gcd\left(f(x),f\left(\frac1x\right)\right)=xf\left(\frac1x\right).\tag{\star}\]
+Considering $(\star)$ with $x$ replaced by $1/x$, we have \[\frac{xf(1/x)}{f(x)}=\gcd\left(f(x),f\left(\frac1x\right)\right)=\frac{f(x)}{xf(1/x)}\implies x=\frac{f(x)}{f(1/x)}.\]
+Substituting $f(x)=xf(1/x)$ into $(\star)$, we have \[\gcd\left(f(x),f\left(\frac1x\right)\right)=1.\]
+Each positive rational $x$ may be uniquely expressed as the quotient of two coprime positive integers, so $f(x)$ is the numerator and $f(1/x)$ is the denominator. This completes the proof.
+

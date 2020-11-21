@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find the minimum possible value of \[\frac a{b^3+4}+\frac b{c^3+4}+\frac c{d^3+4}+\frac d{a^3}4\]
+given that $a$, $b$, $c$, $d$ are nonnegative real numbers such that $a+b+c+d=4$.
+
+---
+
+The key observation is that \[\frac{x^3}{x^3+4}\le\frac x3\iff 0\le x(x+1)(x-2)^2.\]
+Since $ab+bc+cd+da=(a+c)(b+d)\le4$ by AM-GM, \[\cycsum\frac a{b^3+4}=\cycsum\frac a4\left(1-\frac{b^3}{b^3+4}\right)\ge1-\cycsum\frac{ab}{12}\ge\frac23,\]
+with equality achieved by $(a,b,c,d)=(2,2,0,0)$.
+

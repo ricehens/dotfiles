@@ -1,0 +1,131 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a non-equilateral triangle and let $M_a$, $M_b$, $M_c$ be the midpoints of sides $BC$, $CA$, $AB$, respectively. Let $S$ be a point lying on the Euler line. Denote by $X$, $Y$, $Z$ the second intersections of lines $M_aS$, $M_bS$, $M_cS$ with the nine-point circle. Prove that lines $AX$, $BY$, $CZ$ are concurrent.
+
+---
+
+We present three solutions.
+
+\paragraph{First (official) solution, by trig Ceva} Let $H_aH_bH_c$ be the orthic triangle. The key is the following intermediate step:
+\begin{claim*}
+    Lines $H_aX$, $H_bY$, $H_cZ$ concur at a point $T$ on the Euler line.
+\end{claim*}
+\begin{proof}
+    Verify the following:
+    \begin{itemize}[itemsep=0em]
+        \item By Pappus theorem on $BH_bM_cCH_cM_b$, the point $\seg{H_bM_c}\cap\seg{H_cM_b}$ lies on the Euler line.
+        \item By Pascal theorem on $H_bYM_bH_cZM_c$, the point $\seg{H_bY}\cap\seg{H_cZ}$ lies on the Euler line.
+    \end{itemize}
+\end{proof}
+\begin{center}
+\begin{asy}
+    size(8cm); defaultpen(fontsize(10pt));
+    pen pri=lightblue;
+    pen sec=red;
+    pen sec2=linewidth(0.4)+lightred;
+    pen tri=purple;
+    pen qua=heavycyan;
+    pen tri2=linewidth(0.4)+purple+pink;
+    pen fil=pri+opacity(0.05);
+    pen fil2=cyan+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=tri+opacity(0.05);
+
+    pair A,B,C,O,H,NN,G,MA,MB,MC,HA,HB,HC,SS,X,Y,Z,T;
+    A=dir(110);
+    B=dir(210);
+    C=dir(330);
+    O=(0,0);
+    H=A+B+C;
+    NN=H/2;
+    G=H/3;
+    MA=(B+C)/2;
+    MB=(C+A)/2;
+    MC=(A+B)/2;
+    HA=foot(A,B,C);
+    HB=foot(B,C,A);
+    HC=foot(C,A,B);
+    SS=H*0.4;
+    X=2*foot(NN,MA,SS)-MA;
+    Y=2*foot(NN,MB,SS)-MB;
+    Z=2*foot(NN,MC,SS)-MC;
+    T=extension(HB,Y,HC,Z);
+
+    draw(A--X,qua);
+    draw(B--Y,qua);
+    draw(C--Z,qua);
+    draw(HA--X,tri2);
+    draw(HB--Y,tri2);
+    draw(HC--Z,tri2);
+    filldraw(HA--HB--HC--cycle,tfil,tri);
+    draw(MA--X,sec2);
+    draw(MB--Y,sec2);
+    draw(MC--Z,sec2);
+    filldraw(MA--MB--MC--cycle,sfil,sec);
+    filldraw(circumcircle(MA,MB,MC),fil2,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+    draw(extension(O,H,B,B+(0,1))--extension(O,H,C,C+(0,1)),darkgreen);
+
+    dot("$A$",A,N);
+    dot("$B$",B,SW);
+    dot("$C$",C,SE);
+    dot("$M_A$",MA,S);
+    dot("$M_B$",MB,NE);
+    dot("$M_C$",MC,W);
+    dot("$H_A$",HA,S);
+    dot("$H_B$",HB,NE);
+    dot("$H_C$",HC,W);
+    dot("$S$",SS,dir(70));
+    dot("$T$",T,dir(120));
+    dot("$X$",X,NE);
+    dot("$Y$",Y,S);
+    dot("$Z$",Z,dir(25));
+\end{asy}
+\end{center}
+
+Finally, we use trig Ceva to ``carry over'' the concurrence. By law of sines, \[\frac{M_cX}{AX}=\frac{\sin\angle M_cAX}{\sin\angle AM_cX}=\frac{\sin\angle M_cAX}{\sin\angle H_cH_aX}.\]
+A similar relation for $M_b$ gives \[\frac{\sin\angle M_cAX}{\sin\angle M_bAX}=\frac{\sin\angle H_cH_aX}{\sin\angle H_bH_aX}\cdot\frac{M_cX}{M_bX}=\frac{\sin\angle H_cH_aX}{\sin\angle H_bH_aX}\cdot\frac{\sin\angle M_cM_aX}{\sin\angle M_bM_aX}.\]
+Multiplying cyclically, \[\cycprod\frac{\sin\angle M_cAX}{\sin\angle M_bAX}=\cycprod\frac{\sin\angle H_cH_aX}{\sin\angle H_bH_aX}\cdot\cycprod\frac{\sin\angle M_cM_aX}{\sin\angle M_bM_aX}=1,\]
+as needed.
+
+\paragraph{Second solution, by Jerabek theorem} We prove the problem in the following generality:
+\begin{quote}
+    Let $ABC$ be a triangle and $P$, $Q$ points with cevian triangles $P_aP_bP_c$, $Q_aQ_bQ_c$. Let $\Omega$ be the bicevian conic of $P$, $Q$ (so it passes through $P_a$, $P_b$, $P_c$, $Q_a$, $Q_b$, $Q_c$). Select a point $R$ on line $PQ$, and let $X=\seg{Q_aR}\cap\Omega$, $Y=\seg{Q_bR}\cap\Omega$, $Z=\seg{Q_cR}\cap\Omega$. Then $\triangle ABC$, $\triangle XYZ$ are perspective.
+\end{quote}
+Observe the following:
+\begin{itemize}
+    \item By Pappus theorem on $BP_bQ_cCP_cQ_b$, the point $\seg{P_bQ_c}\cap\seg{P_cQ_b}$ lies on $\seg{PQ}$.
+    \item By Pascal theorem on $P_bYQ_bP_cZQ_c$, the point $\seg{YP_b}\cap\seg{ZP_c}$ lies on $\seg{PQ}$. Hence lines $XP_a$, $YP_b$, $ZP_c$, $PQ$ concur at a point $T$.
+    \item By Jerabek theorem on $\triangle XYZ$ wrt.\ $\{P,Q\}$, we have $\triangle ABC$, $\triangle XYZ$ perspective.
+\end{itemize}
+\begin{remark}
+    For those who haven't seen Jerabek theorem before, it is the following
+    \begin{quote}
+        Le $ABC$ be a triangle and $P$, $Q$ points with circumcevian triangles $\triangle P_aP_bP_c$, $\triangle Q_aQ_bQ_c$. The triangle formed by lines $P_aQ_a$, $P_bQ_b$, $P_cQ_c$ is perspective with $\triangle ABC$.
+    \end{quote}
+    Here is a sketch of a proof: let $H$ be the orthocenter and denote $X=\seg{BC}\cap\seg{P_aQ_a}$, $Y=\seg{CA}\cap\seg{P_bQ_b}$, $Z=\seg{AB}\cap\seg{P_cQ_c}$.
+    \begin{itemize}[itemsep=0em]
+    \item Replace circumcircle of $\triangle ABC$ with a circumconic $\mathscr E$.
+    \item Take a homography sending $\mathscr E$ to a circle and $P$ to its center.
+    \item Prove that $(AX)$, $(BY)$, $(CZ)$ are coaxial with radical axis $HQ$.
+    \item Apply converse of Gauss line.
+    \end{itemize}
+\end{remark}
+\begin{remark}
+    Working in the generality is just to display the symmetry present in $H$, $G$. The proof above works perfectly well on the original problem. (Also note that the first two steps are identical to those of the first solution.)
+\end{remark}
+
+\paragraph{Third solution, by untethered moving points} As usual, let $N$, $G$ be the nine-point center and centroid of $\triangle ABC$. Move $S$ linearly along the Euler line. Then by perspectivity through $M_a$, $M_b$, $M_c$, points $X$, $Y$, $Z$ each move projectively along the nine-point circle.
+
+Then lines $AX$, $BY$, $CZ$ move with degree $2$, so their concurrence has degree $6$. It suffices to prove the problem for $7$ values of $S$:
+\begin{itemize}
+    \item For $S=N$, lines $AX$, $BY$, $CZ$ are the altitudes of $\triangle ABC$.
+    \item For $S=G$, lines $AX$, $BY$, $CZ$ are the medians of $\triangle ABC$.
+    \item For each of the two instances of $S$ on the nine-point circle, lines $AX$, $BY$, $CZ$ concur at $X=Y=Z=S$.
+    \item For $S$ on line $M_bM_c$, we have $Y=M_c$, $Z=M_b$, so lines $AX$, $BY$, $CZ$ concur at $A$. Similarly $S\in\seg{M_cM_a}$, $S\in\seg{M_aM_b}$ work.
+\end{itemize}
+This completes the proof.
+

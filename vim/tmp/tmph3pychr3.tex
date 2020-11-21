@@ -1,0 +1,25 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all polynomials $P(x)$ with real coefficients that satisfy \[P\left(x\sqrt2\right)=P\left(x+\sqrt{1-x^2}\right)\]
+for all real $x$ with $\lvert x\rvert\le1$.
+
+---
+
+The answer is $P(x)\equiv f(T_8(x/\sqrt2))$, where $T_8$ is the eighth Chebyshev polynomial and $f$ is any polynomial.
+
+The problem is better phrased in terms of $Q(x)\equiv P(x\sqrt2)$. The condition is then written as \[Q(\cos\theta)=Q(\cos(\theta-\pi/4))\]
+for all $\theta$.
+
+It is easy to check $f\circ T_8$ is a valid solution to this functional equation. Now we check these are the only solutions.
+\begin{claim*}
+    $\deg Q\ge8$ or $Q$ is constant.
+\end{claim*}
+\begin{proof}
+    Observe that $Q$ is equal at $\cos1$, $\cos(1+\pi/4)$, \ldots, $\cos(1+7\pi/4)$.
+\end{proof}
+
+Hence $T_8$ is the monic polynomial of minimal degree obeying the functional equation. For any solution $Q$, let its remainder upon division by $T_8$ be $R$. Then $\deg R\le7$ and $R$ also obeys the functional equation, so $R$ is constant, the end.
+

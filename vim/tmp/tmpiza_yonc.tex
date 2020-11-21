@@ -1,0 +1,21 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $\mathbb Z_{>0}$ be the set of positive integers. Find all functions $f:\mathbb Z _{>0}\to \mathbb Z_{>0}$ such that
+\[m^2+f(n)\mid mf(m)+n \]
+for all positive integers $m$ and $n$.
+
+---
+
+The answer is $f(n)\equiv n$, which works.
+
+Set $m=1$ and $n=p-f(1)$ for $p$ prime, to obtain
+\[f(p-f(1))+1\mid p\implies f(p-f(1))=p-1.\]
+Then set $n=p-f(1)$ to obtain
+\[m^2+p-1\mid mf(m)+p-f(1)\implies m^2+p-1\mid mf(m)-m^2+1-f(1).\]
+Take $p$ large, so $mf(m)-m^2=f(1)-1$ for all $m$.
+
+This implies $m\mid f(1)-1$ for all $m$, so $f(1)=1$. Then $f(m)\equiv m$ follows.
+

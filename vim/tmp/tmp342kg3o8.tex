@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Call a set $A$ of integers \emph{admissible} if for all (not necessarily distinct) elements $x$, $y$ of $A$, we have $x^2+kxy+y^2\in A$ for every integer $k$.
+Determine all nonzero integers $m$, $n$ such that the only admissible set containing both $m$ and $n$ is the set of all integers.
+
+---
+
+The answer is $m$, $n$ relatively prime. For necessity, the set of multiples of $\gcd(m,n)$ always works.
+
+If $m$, $n$ are relatively prime, we will show $1\in A$, and the result will follow. First we construct all multiples of $m^2$ by $x=y=m$; similarly we have all multiples of $n^2$. By B\'ezout for some $a$, $b$, we have $am^2-bn^2=1$, so taking $x=am^2$, $y=bn^2$, $k=-2$ gives $1\in A$.
+

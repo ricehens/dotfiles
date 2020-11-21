@@ -1,0 +1,11 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+In a tournament on $2k+1$ vertices, find the minimum and maximum possible number of directed triangles.
+
+---
+
+Let $n=2k+1$. The minimum is zero by sorting. Now we compute the maximum. Note that the number of triangles is just \[\binom n3-\sum_V\binom{\deg V}2&\le\binom n3-n\binom k2=\frac14\binom{2k+2}3\]
+by Jensen's Inequality. To achieve equality, for any two vertices $u$ to $v$ choose the counterclockwise direction such that the number of traversed points is minimal.

@@ -1,0 +1,73 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+In scalene triangle $ABC$ with incenter $I$, the incircle is tangent to sides $CA$ and $AB$ at points $E$ and $F$. The tangents to the circumcircle of $\triangle AEF$ at $E$ and $F$ meet at $S$. Lines $EF$ and $BC$ intersect at $T$. Prove that the circle with diameter $\overline{ST}$ is orthogonal to the nine-point circle of $\triangle BIC$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(12cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=red;
+        pen sec=orange;
+        pen tri=fuchsia;
+        pen fil=red+opacity(0.05);
+        pen sfil=orange+opacity(0.05);
+        pen tfil=fuchsia+opacity(0.05);
+
+        pair A, B, C, I, D, EE, F, M, T, K, P, Q, NN, SS, R;
+        A=dir(150);
+        B=dir(220);
+        C=dir(320);
+        I=incenter(A, B, C);
+        D=foot(I, B, C);
+        EE=foot(I, C, A);
+        F=foot(I, A, B);
+        M=(B+C)/2;
+        T=extension(B, C, EE, F);
+        K=extension(A, M, EE, F);
+        P=extension(B, I, EE, F);
+        Q=extension(C, I, EE, F);
+        NN=(EE+F)/2;
+        SS=2*circumcenter((A+I)/2, EE, F)-(A+I)/2;
+        R=extension(B, C, K, SS);
+
+        filldraw(A -- B -- C -- cycle, fil, pri);
+        filldraw(incircle(A, B, C), fil, pri);
+        filldraw(circumcircle(A, EE, F), fil, pri);
+        filldraw(circumcircle(D, P, Q), sfil, sec);
+        filldraw(circumcircle(SS, NN, T), tfil, tri);
+        draw(B -- T -- P, pri);
+        draw(A -- SS, sec);
+        draw(B -- P, sec);
+        draw(C -- Q, sec);
+        draw(K -- R, sec);
+        draw(D -- K, tri);
+        draw(A -- M, tri);
+        draw(EE -- SS -- F, tri);
+
+        dot("$A$", A, NW);
+        dot("$B$", B, S);
+        dot("$C$", C, SE);
+        dot("$D$", D, SW);
+        dot("$E$", EE, dir(60));
+        dot("$F$", F, dir(120));
+        dot("$M$", M, SE);
+        dot("$T$", T, SW);
+        dot("$K$", K, dir(80));
+        dot("$P$", P, NE);
+        dot("$Q$", Q, NW);
+        dot("$N$", NN, dir(75));
+        dot("$S$", SS, E);
+        dot("$R$", R, S);
+        dot("$I$", I, dir(245));
+    \end{asy}
+\end{center}
+Let $\triangle DPQ$ be the orthic triangle of $\triangle IBC$, $M$ be the midpoint of $\overline{BC}$, $N=\overline{AI}\cap\overline{EF}$ be the midpoint of $\overline{EF}$, $K=\overline{AM}\cap\overline{EF}$, and $R=\overline{BC}\cap\overline{KS}$. It is well-known that $K\in\overline{ID}$, and furthermore $P,Q\in\overline{EF}$ by the Iran Lemma. Notice that \[-1=(BC;DT)\stackrel I=(PQ;KT)\text{ and }-1=(AI;SN)\stackrel K=(MD;RT),\]
+where the former is from Ceva-Menelaus and the latter is since $S$ is the pole of $\overline{EF}$ with respect to $(AEIF)$. Hence, $\overline{KSR}$ is the polar of $T$ with respect to $(DPQ)$, the nine-point circle of $\triangle BIC$. By Self-Polar Orthogonality, $(ST)$ and $(DPQ)$ are orthogonal, and we win.
+

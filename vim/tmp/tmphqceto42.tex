@@ -1,0 +1,41 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb R\to\mathbb R$ such that for all real numbers $x$ and $y$, \[f(f(x)f(y))+f(x+y)=f(xy).\]
+
+---
+
+The answer is $f\equiv0$, $f(x)=x-1$, $f(x)=1-x$, which all clearly work. Let $P(x,y)$ denote the assertion. First, $P(0,0)$ gives $f(f(0)^2)=0$.
+\setcounter{iclaim}0
+\begin{iclaim}
+    We may discard the trivial solution $f\equiv0$ and assume $f(0)>0$ (so the task is to show that $f(x)=x-1$).
+\end{iclaim}
+\begin{proof}
+    In fact we show that if $f(0)=0$, then $f\equiv0$. If we assume $f(0)=0$, then $P(x,0)$ gives $f(x)=f(0)=0$ for all $x$, as claimed.
+
+    Henceforth we assume $f\not\equiv0$, and therefore $f(0)\ne0$. Note that if $f$ is a solution to the functional equation, then so is $-f$, so we may assume without loss of generality $f(0)>0$.
+\end{proof}
+\begin{iclaim}
+    $f(z)=0\iff z=1$, and $f(0)=1$, $f(1)=0$.
+\end{iclaim}
+\begin{proof}
+    For all $z$, \[P\left(z,\frac z{1-z}\right)\implies f\left(f(z)f\left(\frac z{z-1}\right)\right)=0.\]
+    If $z\ne1$ and $f(z)=0$, we find $f(0)=0$, contradiction, thus $f(z)=0\implies z=1$. But we know that $f(f(0)^2)=0$, so $f(z)=0$ for at least one value of $z$; thus $f(1)=0$.
+
+    Furthermore we have $f(0)^2=1$, but since we assume $f(0)>0$, it follows that $f(0)=1$.
+\end{proof}
+\begin{iclaim}
+    $f$ is injective.
+\end{iclaim}
+\begin{proof}
+    Note that $P(x,1)$ gives $1+f(x+1)=f(x)$. If $f(a)=f(b)$, then for all nonnegative integers $C$, $f(a+C)=f(b+C)$, so we may choose $C$ sufficiently large so that there exist $x$ and $y$ with \[x+y=a+C+1\quad\text{and}\quad xy=b+C,\]
+    and $f(x+y)=f(xy)-1$.
+
+    Now $P(x,y)$ gives $f(f(x)f(y))=1$, so $f(x)f(y)=0$, and $1\in\{x,y\}$. This implies $a=b$, as claimed.
+\end{proof}
+
+Finally, $P(x,0)$ gives $f(f(x))+f(x)=1$, so \[f(x)=1-f(f(x))=f(f(f(x)))=f(1-f(x)),\]
+and $f(x)=x-1$, as desired.
+

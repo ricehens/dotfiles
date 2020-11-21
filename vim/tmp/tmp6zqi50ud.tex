@@ -1,0 +1,51 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABCD$ be a cyclic quadrilateral. Let $P$, $Q$, $R$ be the feet of the perpendiculars from $D$ to lines $BC$, $CA$, $AB$, respectively. Show that $PQ=QR$ if and only if the bisectors of $\angle ABC$ and $\angle ADC$ intersect on $\seg{AC}$.
+
+---
+
+In fact, $ABCD$ need not be cyclic.
+
+Observe that $Q$, $R$ lie on the circle with diameter $AC$ and $Q$, $P$ lie on the circle with diameter $DC$. By the extended law of sines, $QR=AD\sin\angle RAQ=AD\sin\angle BAC$ and $QP=CD\sin\angle PCQ=CD\sin\angle BCA$. Hence \[\frac{QR}{QP}=\frac{AD}{CD}\cdot\frac{\sin\angle BAC}{\sin\angle BCA}=\frac{AD}{CD}\cdot\frac{BC}{BA}.\]
+\begin{center}
+\begin{asy}
+    size(5cm); defaultpen(fontsize(10pt));
+    pen pri=lightred;
+    pen sec=lightblue;
+    pen tri=purple+pink;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+
+    pair A,B,C,D,P,Q,R;
+    A=dir(210);
+    B=dir(110);
+    C=dir(330);
+    D=2*foot(origin,B,2*circumcenter(origin,A,C))-B;
+    P=foot(D,B,C);
+    Q=foot(D,C,A);
+    R=foot(D,A,B);
+
+    draw(P--D--R,tri+Dotted);
+    draw(Q--D,tri+Dotted);
+    draw(P--R,tri);
+    filldraw(circumcircle(D,P,Q),sfil,sec);
+    filldraw(circumcircle(D,R,Q),sfil,sec);
+    filldraw(unitcircle,fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+    draw(A--R,pri);
+
+    dot("$A$",A,W);
+    dot("$B$",B,B);
+    dot("$C$",C,E);
+    dot("$D$",D,S);
+    dot("$P$",P,NE);
+    dot("$Q$",Q,N);
+    dot("$R$",R,W);
+\end{asy}
+\end{center}
+
+Then $QR=QP$ if and only if $AD/CD=BA/BC$, which implies the desired concurrence by angle bisector theorem.
+

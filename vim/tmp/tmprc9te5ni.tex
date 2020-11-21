@@ -1,0 +1,108 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $ABC$ be an acute triangle and let $I_B$, $I_C$, and $O$ denote its $B$-excenter, $C$-excenter, and circumcenter, respectively. Points $E$ and $Y$ are selected on $\overline{AC}$ such that $\angle ABY=\angle CBY$ and $\overline{BE}\perp\overline{AC}$. SImilarly, points $F$ and $Z$ are selected on $\overline{AB}$ such that $\angle ACZ=\angle BCZ$ and $\overline{CF}\perp\overline{AB}$.
+
+Lines $I_BF$ and $I_CE$ meet at $P$. Prove that $\overline{PO}$ and $\overline{YZ}$ are perpendicular.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(13cm);
+        defaultpen(fontsize(9pt));
+
+        pen pri=deepcyan;
+        pen sec=blue;
+        pen tri=royalblue;
+        pen qua=deepgreen;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        pair O, A, B, C, I, L, M, NN, IA, IB, IC, D, EE, F, Y, Z, A1, A2, A3, Ap, Bp, Cp, P,SS;
+        O=(0,0);
+        A=dir(113);
+        B=dir(205);
+        C=dir(335);
+        I=incenter(A,B,C);
+        L=unit((B+C)/2);
+        M=unit((C+A)/2);
+        NN=unit((A+B)/2);
+        IA=2L-I;
+        IB=2M-I;
+        IC=2NN-I;
+        D=foot(A,B,C);
+        EE=foot(B,C,A);
+        F=foot(C,A,B);
+        Y=extension(B,I,A,C);
+        Z=extension(C,I,A,B);
+        A1=foot(IA,B,C);
+        A2=foot(IA,C,A);
+        A3=foot(IA,A,B);
+        Ap=2*A1-IA;
+        Bp=2*A2-IA;
+        Cp=2*A3-IA;
+        P=extension(IB,F,IC,EE);
+        SS=circumcenter(I,IB,IC);
+
+        filldraw(circle(O,1),fil,pri);
+        filldraw(circle(IA,length(A1-IA)),fil,pri);
+        filldraw(circumcircle(I,IB,IC),sfil,sec);
+        filldraw(A--B--C--cycle,fil,pri);
+        filldraw(I--IB--IC--cycle,sfil,sec);
+        filldraw(Ap--Bp--Cp--cycle,tfil,tri);
+        draw(extension(2*IA-A1,2*IA-A1+(1,0),A,B)--A--extension(2*IA-A1,2*IA-A1+(1,0),A,C),pri);
+        draw(Bp--IA--Cp,tri+dashed);
+        draw(A--IA,pri+dashed);
+        draw(Ap--IA,tri+dashed);
+        draw(P--IA,sec+dashed);
+        draw(IB--Cp,qua);
+        draw(IC--Bp,qua);
+        draw(IB--IA--IC,sec);
+
+        clip((SS+(100,-0.625))--(SS+(-100,-0.625))--(SS+(-100,-100))--(SS+(100,-100))--cycle);
+        clip(extension((IA+(0,-0.225)),IA+(1,-0.225),A,C)--(extension(IA,IA+(1,0),A,C)+(0,100))--(extension(IA,IA+(1,0),A,C)+(-100,100))--(extension(IA,IA+(1,0),A,C)+(-100,-0.2))--cycle);
+
+        dot("$A$",A,N);
+        dot("$B$",B,dir(170));
+        dot("$C$",C,E);
+        dot("$O$",O,dir(-10));
+        dot("$I$",I,SW);
+        dot("$L$",L,SW);
+        dot("$I_A$",IA,S);
+        dot("$I_B$",IB,E);
+        dot("$I_C$",IC,SW);
+        dot("$A_1$",A1,SE);
+        dot("$A_2$",A2,E);
+        dot("$A_3$",A3,dir(200));
+        dot("$A'$",Ap,N);
+        dot("$B'$",Bp,E);
+        dot("$C'$",Cp,W);
+        dot("$E$",EE,S);
+        dot("$F$",F,dir(170));
+        dot("$Y$",Y,E);
+        dot("$Z$",Z,dir(110));
+        dot("$P$",P,NW);
+    \end{asy}
+\end{center}
+Let $I$ be the incenter and $I_A$ the $A$-excenter of $\triangle ABC$. Denote by $A'$, $B'$, $C'$ the reflections of $I_A$ across $\overline{BC}$, $\overline{CA}$, $\overline{AB}$ respectively, and $A_1$, $B_2$, $C_3$ the projections. The key claim is this:
+\begin{iclaim*}
+    Points $D$, $I$, $A'$ are collinear, and so are $B'$, $E$, $I_C$ and $C'$, $F$, $I_B$.
+\end{iclaim*}
+\begin{proof}
+    It is well-known that $\overline{IA_1}$ bisects $\overline{AD}$. Since $A$, $I$, $I_A$ are collinear, so are $D$, $I$, $A'$. Now, we will show that $\overline{I_CA_2}$ bisects $\overline{BE}$, whence the desired collinearity ($B'$, $E$, $I_C$) follows from a similar argument to above.
+
+    Let $C_2$ be the projection of $I_C$ onto $\overline{AC}$, so that $\overline{I_AA_2}\parallel\overline{I_CC_2}$, and set $K=\overline{I_CA_2}\cap\overline{I_AC_2}$. By the homothety centered at $B$ sending the $A$- to $C$-excircle, \[\frac{BI_A}{BI_C}=\frac{I_AA_2}{I_CC_2}=\frac{KA_2}{KI_C},\]
+    from which $\overline{BK}\parallel\overline{I_AA_2}$, and thus $\overline{BK}\perp\overline{AA_2}$. Now, if $S=\overline{AC}\cap\overline{I_AI_C}$ we may conclude by properties of trapezoid $I_AA_2C_2I_C$ that $K$ is the midpoint of $\overline{BE}$.
+
+    By symmetry, our claim has been proven.\footnote{An alternate proof is to notice that $-1=(B,\overline{AC}\cap\overline{I_AI_C};I_C,I_A)\stackrel{B_0}=(B,E;\overline{BE}\cap\overline{A_2I_C},\infty_{\perp AC})$.}
+\end{proof}
+
+Since $I_AB'=2I_AB_0=2I_AA_0=I_AA'$ and $CB'=CI_A=CA'$, $\overline{A'B'}\perp\overline{I_AC}$, whence $\overline{A'B'}\parallel\overline{II_C}$. Similarly $\overline{A'C'}\parallel\overline{II_B}$ and $\overline{B'C'}\parallel\overline{I_BI_C}$, thus $\triangle A'B'C'$ and $\triangle II_BI_C$ are homothetic with center $P$. It follows that $P$ lies on line $OI_A$.
+
+However, $\overline{OI_A}$ is the Euler line and $\overline{YZ}$ the orthic axis of $\triangle II_BI_C$. It is well-known that they are perpendicular, whence $\overline{PO}\perp\overline{YZ}$. This completes the proof. 
+

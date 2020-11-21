@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb N\to\mathbb N$ such that \[f^{f^{f(x)}(y)}(z)=x+y+z+1\]
+for all positive integers $x$, $y$, $z$.
+
+---
+
+The answer is $f(x)=x+1$, which works since \[f^{f^{f(x)}(y)}(z)=f^{f^{x+1}(y)}(z)=f^{x+y+1}(z)=x+y+z+1.\]
+Notice that \[f^{x+y+z+1}(t)=f^{f^{f^{f(x)}(y)}(z)}(t)=f^{f(x)-1}(y)+z+t-1.\]
+Let this assertion by $Q(x,y,z,t)$. By $Q(x,y,z+1,t)$ and $Q(x,y,z,f(t))$ we have \[f^{f(x)-1}(y)+z+t=f^{x+y+z+2}(t)=f^{f(x)-1}(y)+z+f(t),\]
+and thus $f(t)=t+1$.

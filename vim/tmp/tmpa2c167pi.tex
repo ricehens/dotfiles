@@ -1,0 +1,14 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$, $b$, $c$ be positive integers. Show that if $a/b+b/c+c/a$ is an integer, then $\sqrt[3]{abc}$ is an integer as well.
+
+---
+
+Let $p$ be a prime, and let $x=\nu_p(a)$, $y=\nu_p(b)$, $z=\nu_p(c)$. Note that $\nu_p(a/b)=x-y$, $\nu_p(b/c)=y-z$, $\nu_p(c/a)=z-x$, which sum to zero. Assume without loss of generality that $\nu_p(a/b)\ge\nu_p(b/c)\ge\nu_p(c/a)$. I claim that $\nu_p(b/c)=\nu_p(c/a)$.
+
+Assume otherwise. Since the three valuations sum to zero and are not all equal, $\nu_p(c/a)<0$. Where $V=\nu_p(a/b)+\nu_p(b/c)\ge0>\nu_p(c/a)$, \[\nu_p\left(\frac ab\right)+\nu_p\left(\frac bc\right)+\nu_p\left(\frac ca\right)=V+\nu_p\left(\frac ca\right)=\nu_p\left(\frac ca\right)<0,\]
+contradiction. Now $y-z=z-x$, so $x+y=2z$ and $\nu_p(abc)=x+y+z=3z$, which is divisible by $3$.
+

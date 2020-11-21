@@ -1,0 +1,76 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ be a positive integer. Given a sequence $\veps_1$, $\ldots$, $\veps_{n-1}$ with $\veps_i\in\{0,1\}$ for each $i=1,\ldots,n-1$, the sequences $a_0$, $\ldots$, $a_n$ and $b_0$, $\ldots$, $b_n$ are constructed by the following rules: $a_0=b_0=1$, $a_1=b_1=7$, and
+\[
+    a_{i+1}=
+    \begin{cases}
+        2a_{i-1}+3a_i&\text{if }\veps_i=0,\\
+        3a_{i-1}+a_i&\text{if }\veps_i=1,
+    \end{cases}
+    \quad\text{and}\quad
+    b_{i+1}=
+    \begin{cases}
+        2b_{i-1}+3b_i&\text{if }\veps_{n-i}=0,\\
+        3b_{i-1}+b_i&\text{if }\veps_{n-i}=1,
+    \end{cases}
+\]
+for each $i=1,\ldots,n-1$. Prove that $a_n=b_n$.
+
+---
+
+Instead we use the sequences $A_i=2^ia_i$ and $B_i=2^ib_i$, so that
+\[
+    A_{i+1}=
+    \begin{cases}
+        8A_{i-1}+6A_i&\text{if }\veps_i=0,\\
+        12A_{i-1}+2A_i&\text{if }\veps_i=1,
+    \end{cases}
+    \quad\text{and}\quad
+    B_{i+1}=
+    \begin{cases}
+        8B_{i-1}+6B_i&\text{if }\veps_{n-i}=0,\\
+        12B_{i-1}+2B_i&\text{if }\veps_{n-i}=1,
+    \end{cases}
+\]
+for each $i=1,\ldots,n-1$. The task is still to prove $A_n=B_n$.
+
+We force a combinatorial interpretation. Consider a hotel with $n$ rooms, each colored one of $14$ colors, chosen from $\star$, $1$, $\ldots$, $13$. There are $n-1$ walls, which we label $\veps_1$, $\ldots$, $\veps_{n-1}$ from left-to-right. (Hence each wall borders two colors.)
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+    real n=7;
+    draw( (0,0)--(n,0)--(n,1)--(0,1)--cycle);
+    for (real i=1; i<n-1e-9; i+=1) draw( (i,0)--(i,1));
+    label("$\varepsilon_1$",(1,1),N);
+    label("$\varepsilon_2$",(2,1),N);
+    label("$\varepsilon_{n-1}$",(n-1,1),N);
+    label("$\varepsilon_{n-2}$",(n-2,1),N);
+    label("$\cdots$",(n/2,.5));
+\end{asy}
+\end{center}
+We impose the following constraints:
+\begin{itemize}
+    \item Any room may be colored $\star$.
+    \item For each $i$, if the rooms bordering the wall labeled $\veps_i$ are $a$, $b$, neither equal to $\star$, then:
+        \begin{itemize}
+            \item if $\veps_i=0$, we have $j\in\{i-2,i-1,i,i+1,i+2\}$;
+            \item if $\veps_i=1$, we have $i=j$.
+        \end{itemize}
+\end{itemize}
+\begin{claim*}
+    $A_i$ is the number of ways to paint the leftmost $i$ rooms. Symmetrically, $B_i$ is the number of ways to paint the rightmost $i$ rooms. Indeed,
+\end{claim*}
+\begin{proof}
+    Observe that:
+    \begin{itemize}
+        \item If $\veps_i=0$, then there should be $6A_i$ ways to color the room right of $\veps_i$, unless the room left of $\veps_i$ is $\star$, for which we have $8$ more choices---this happens in $A_{i-2}$ ways.
+        \item If $\veps_i=1$, then there should be $2A_i$ ways to color the room right of $\veps_i$, unless the room left of $\veps_i$ is $\star$, for which we have $12$ more choices---this happens in $A_{i-2}$ ways.
+    \end{itemize}
+    The proof for $B_i$ follows analogously.
+\end{proof}
+
+Evidently $A_n=B_n$ is the number of ways to paint all the rooms in the hotel. This completes the proof.
+

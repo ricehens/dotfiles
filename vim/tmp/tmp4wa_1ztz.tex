@@ -1,0 +1,27 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $N$ be a nonnegative integer. Determine the number of ways that one can choose $(n+1)^2$ sets $S_{i,j}\subseteq\{1,2,\ldots,2n\}$, for integers $i,j$ with $0\le i,j\le n$, such that:
+\begin{itemize}[itemsep=0em]
+    \item for all $0\le i,j\le n$, the set $S_{i,j}$ has $i+j$ elements; and
+    \item $S_{i,j}\subseteq S_{k,l}$ whenever $0\le i\le k\le n$ and $0\le j\le l\le n$.
+\end{itemize}
+
+---
+
+The answer is $(2n)!\cdot 2^{(n^2)}$.
+
+For all $n$, let $a_n$ denote the number of ways to choose the sets $S_{i,j}$ where $0\le i,j\le n$. We claim that for all $n\ge 1$, \[a_n=\binom{2n}2\cdot 2^{2n}\cdot a_{n-1}.\]
+Clearly, $S_{n,n}=\{1,2,\ldots,2n\}$. We can choose $S_{n-1,n-1}$ in $\binom{2n}{2n-2}=\binom{2n}2$ ways. Since we can choose the sets $S_{i,j}$ for all $0\le i,j\le n-1$ in $a_{n-1}$ ways, as $S_{i,j}\subseteq S_{n-1,n-1}$, we only need to determine $S_{i,n}$ for $0\le i\le n-1$ and $S_{n,j}$ for $0\le j\le n-1$.
+
+Note that the conditions that $S_{i,j}\subset S_{i+1,j}$ and $S_{i,j}\subset S_{i,j+1}$ are equivalent to the first condition, as $A\subset B$ and $B\subset C$ imply $A\subset C$, and by the second condition, $S_{i,j}\ne S_{i+1,j}$ and $S_{i,j}\ne S_{i,j+1}$.
+
+For all $i$ starting from $n-1$ down to $0$, assume that $S_{i+1,n}$ is fixed. Then, $S_{i,n-1}\subset S_{i,n}\subset S_{i+1,n}$. Because $|S_{i,n-1}|=|S_{i,n}|-1$, we only have to choose the element in $S_{i,n}$ that is not in $S_{i,n-1}$. Since $|S_{i+1,n}|=|S_{i,n-1}|+2$ and $|S_{i,n-1}|\subset|S_{i+1,n}|$, we have two options for the remaining element in $S_{i,n}$.
+
+Hence, for all $0\le i<n$, we have two choices for $S_{i,n}$. Similarly, for all $0\le j<n$, we have two choices for $S_{n,j}$, so we may determine all sets $S_{i,j}$ for which either $i=n$ or $j=n$ in $2^{2n}$ ways. Hence, \[a_n=\binom{2n}2\cdot 2^{2n}\cdot a_{n-1},\]
+and our claim has been proven. Since $a_0=1$, \[a_n=\prod_{i=1}^n\left(\binom{2i}i\cdot 2^{2i}\right)=\frac{(2n)!}{2^n}\cdot 2^{n(n+1)}=(2n)!\cdot 2^{(n^2)},\]
+and we are done. 
+

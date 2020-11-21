@@ -1,0 +1,151 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with incenter $I$, and suppose the incircle is tangent to $\seg{CA}$ and $\seg{AB}$ at $E$ and $F$. Denote by $G$ and $H$ the reflections of $E$ and $F$ over $I$. Lines $BC$ and $GH$ meet at $Q$, and $M$ is the midpoint of $BC$. Prove that $\angle QIM=90\dg$.
+
+---
+
+We present four solutions.
+
+\begin{center}
+\begin{asy}
+    size(7cm); defaultpen(fontsize(10pt));
+    pen pri=lightred;
+    pen sec=lightblue;
+    pen tri=purple+pink;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=tri+opacity(0.05);
+
+    pair A,B,C,I,D,EE,F,G,H,Q,Ap,Dp,T,M,SS;
+    A=dir(120);
+    B=dir(210);
+    C=dir(330);
+    I=incenter(A,B,C);
+    D=foot(I,B,C);
+    EE=foot(I,C,A);
+    F=foot(I,A,B);
+    G=2I-EE;
+    H=2I-F;
+    Q=extension(B,C,G,H);
+    Ap=2I-A;
+    Dp=2I-D;
+    T=B+C-D;
+    M=(B+C)/2;
+    SS=reflect(Q,I)*D;
+
+    draw(SS--Ap,sec);
+    draw(I--M,sec);
+    draw(A--T,sec);
+    draw(Q--I,sec);
+    draw(Q--H,tri+dashed);
+    draw(G--Ap--H,tri);
+    draw(Q--SS,pri+Dotted);
+    filldraw(incircle(A,B,C),fil,pri);
+    fill(A--B--C--cycle,fil);
+    draw(B--A--C--Q,pri);
+
+    dot("$A$",A,N);
+    dot("$B$",B,S);
+    dot("$C$",C,SE);
+    dot("$I$",I,N);
+    dot("$D$",D,dir(240));
+    dot("$E$",EE,NE);
+    dot("$F$",F,W);
+    dot("$G$",G,dir(75));
+    dot("$H$",H,E);
+    dot("$Q$",Q,W);
+    dot("$A'$",Ap,S);
+    dot("$D'$",Dp,NE);
+    dot("$T$",T,S);
+    dot("$M$",M,S);
+    dot(SS);
+\end{asy}
+\end{center}
+\paragraph{First solution, by polarity} Let $A'$, $D'$ be the reflection of $A$, $D$ across $I$, and let $T=\seg{BC}\cap\seg{AD'}$ be the $A$-extouch point.
+Note $Q$ lies on $\seg{BC}$, $\seg{GH}$, the polars of $D$, $A'$, so by La Hire, the polar of $Q$ is line $DA'$. But
+\begin{itemize}[itemsep=0em]
+    \item $\seg{DA'}\parallel\seg{AD'T}$ by reflecting through $I$; and
+    \item $\seg{AD'T}\parallel\seg{IM}$ since $\seg{IM}$ is the $D$-midsegment of $\triangle DD'T$.
+\end{itemize}
+The polar of $Q$ is parallel to $\seg{IM}$, so $\angle QIM=90\dg$, as needed.
+
+\paragraph{Second solution, by similar triangles} Let $N$ be the midpoint of $\seg{GH}$, so $INDQ$ is cyclic.
+\begin{claim*}
+    $\triangle IBC\sim\triangle DGH$.
+\end{claim*}
+\begin{proof}
+    If $D'$ is the reflection of $D$ over $I$, then $\seg{DH}\parallel\seg{D'F}\perp\seg{DF}\perp\seg{BI}$, and similarly $\seg{DG}\parallel\seg{CI}$, so $\da DGH=\da CDH=-\da IBC$ and $\da GHD=-\da BCI$.
+\end{proof}
+
+Finally, $\triangle IBC\cup M\sim\triangle DGH\sim N$ (inversely), so $\da IMB=-\da DNG=\da QND=\da QID$, and the result follows.
+
+\paragraph{Third solution, by Iran lemma} Let $\seg{BI}$, $\seg{CI}$, $\seg{QI}$ meet $\seg{EF}$ at $U$, $V$, $P$. By Iran lemma, $B$, $C$, $U$, $V$ lie on a circle $\omega$ with center $M$, and by symmetry through $I$, we have $IQ=IP$.
+\begin{center}
+\begin{asy}
+    size(7cm); defaultpen(fontsize(10pt));
+    pen pri=lightred;
+    pen sec=lightblue;
+    pen tri=purple+pink;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=tri+opacity(0.05);
+
+    pair A,B,C,I,D,EE,F,G,H,Q,M,U,V,P,SS,T;
+    A=dir(120);
+    B=dir(210);
+    C=dir(330);
+    I=incenter(A,B,C);
+    D=foot(I,B,C);
+    EE=foot(I,C,A);
+    F=foot(I,A,B);
+    G=2I-EE;
+    H=2I-F;
+    Q=extension(B,C,G,H);
+    M=(B+C)/2;
+    U=extension(EE,F,I,B);
+    V=extension(EE,F,I,C);
+    P=extension(EE,F,I,Q);
+    SS=intersectionpoint(I--P,circle(M,abs(B-C)/2));
+    T=2I-SS;
+
+    draw(I--M,sec);
+    draw(Q--P,sec);
+    draw(B--U,tri+dashed);
+    draw(C--V,tri+dashed);
+    draw(Q--H,tri);
+    fill(arc(M,C,B,CCW)--cycle,sfil);
+    draw(arc(M,C,B,CCW),sec+dashed);
+    draw(F--P,pri);
+    filldraw(incircle(A,B,C),fil,pri);
+    fill(A--B--C--cycle,fil);
+    draw(B--A--C--Q,pri);
+
+    dot("$A$",A,N);
+    dot("$B$",B,S);
+    dot("$C$",C,SE);
+    dot("$I$",I,N);
+    dot("$D$",D,dir(240));
+    dot("$E$",EE,N);
+    dot("$F$",F,W);
+    dot("$G$",G,S);
+    dot("$H$",H,E);
+    dot("$Q$",Q,W);
+    dot("$M$",M,S);
+    dot("$U$",U,N);
+    dot("$V$",V,dir(290));
+    dot("$P$",P,NE);
+    dot("$S$",SS,S);
+    dot("$T$",T,NW);
+\end{asy}
+\end{center}
+Let line $PQ$ intersect $\omega$ again at $S$, $T$. By converse Butterfly theorem, $IS=IT$, so $\seg{MI}\perp\seg{PSITQ}$, as needed.
+
+\paragraph{Fourth solution, by complex numbers} Let the incircle be the unit circle. To begin, \[g=-e,\quad h=-f,\quad b=\frac{2df}{d+f},\quad c=\frac{2de}{d+e}.\]
+To locate the midpoint of $\seg{BC}$, write \[m=\frac{b+c}2=\frac{d(de+df+2ef)}{(d+e)(d+f)}.\]
+With $Q=\seg{DD}\cap\seg{GH}$, the chord intersection formula gives \[q=\frac{2dgh-d^2(g+h)}{gh-d^2}=\frac{d(de+df+2ef)}{ef-d^2}.\]
+Thus, we have \[\frac mq=\frac{ef-d^2}{(d+e)(d+f)}\in\mathbb I\]
+by taking the conjugate.
+

@@ -1,0 +1,53 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Trapezoid $ABCD$ with $\overline{AB}\parallel\overline{CD}$ is inscribed in a circle $\omega$. The tangent to $\omega$ at $A$ intersects line $CD$ at $P$, and the tangent to $\omega$ at $C$ intersects line $AB$ at $Q$. Lines $AP$ and $CQ$ intersect at $T$. Suppose that $DA=AB=BC=5$ and $CD=10$. What is $TP\cdot TQ$?
+
+---
+
+\begin{center}
+\begin{asy}
+            size(5cm); defaultpen(fontsize(10pt));
+            real d = 2.2;
+            real s = 1.5;
+            real c = 0.58;
+
+            pair M=dir(120);
+            pair N=dir(60);
+            pair B=dir(0);
+            pair D=dir(180);
+            pair T=2*M*B/(M+B);
+            pair P=extension(T,M,B,D);
+            pair Q=extension(T,B,M,N);
+
+            draw(B -- D);
+
+            draw(M--B,gray); draw(N--D,gray);
+            dot("$A$", M, dir(120));
+            dot("$B$", N, dir(60));
+            dot("$C$", B, dir(-30));
+            dot("$D$", D, SW);
+            dot("$T$", T, dir(90));
+
+            //draw(B -- O -- D, dotted);
+
+            draw(M -- N);
+            draw(D--M, dashed);
+            draw(N--B,dashed);
+
+            pair P=extension(T,M,B,D);
+            pair Q=extension(T,B,M,N);
+
+            draw( (1.2P-0.2T) -- T -- (1.2extension(T,Q,B,D)-0.2T));
+            draw(unitcircle);
+
+            draw(P--D); draw(N--Q);
+            dot("$P$",P,NW);
+            dot("$Q$",Q,E);
+
+            //label( (string) aCos((abs(M-D)^2+abs(D-B)^2-abs(M-B)^2)/(2*abs(M-D)*abs(D-B))), (0,0));
+\end{asy}
+\end{center}
+Note that $\seg{CD}$ is a diameter and $\seg{DA}$, $\seg{AB}$, $\seg{BC}$ each cut out a $60\dg$ arc on $\omega$. Then $\triangle TAC$ is equilateral, and by $\triangle TAP\sim\triangle TPC$ we have $TP\cdot TQ=TA\cdot TC=75$.

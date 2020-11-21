@@ -1,0 +1,11 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ be a positive integer, and let $Z=\mathbb Z/n^2\mathbb Z$ denote the set of integers modulo $n^2$. Suppose $A\subseteq Z$ with $|A|=n$. Prove that there exists $B\subseteq Z$ with $|B|=n$ such that $|A+B|=\frac12n^2$.
+
+---
+
+It suffices to show that $n^2/2$ is at most \[\mathbb E\big[|A+B|\big]&=\sum_{k=0}^{n-1}\mathbb P(k\in A+B)=n^2\left[1-\left(1-\frac1n\right)^n\right]\ge n^2\left(1-\frac1e\right)>\frac{n^2}2,\]
+as desired. The second equality comes from the fact that $k\notin A+B$ is equivalent to $k-a\notin B$ for all $a\in A$.

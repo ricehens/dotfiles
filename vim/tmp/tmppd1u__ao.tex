@@ -1,0 +1,22 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Consider 2009 cards, each having one gold side and one black side, lying in parallel on a long
+table. Initially all cards show their gold sides. Two players, standing by the same long side of
+the table, play a game with alternating moves. Each move consists of choosing a block of 50
+consecutive cards, the leftmost of which is showing gold, and turning them all over, so those
+which showed gold now show black and vice versa. The last player who can make a legal move
+wins.
+\begin{enumerate}[label=(\alph*),itemsep=0em]
+    \item Does the game necessarily end?
+    \item Does there exist a winning strategy for the starting player?
+\end{enumerate}
+
+---
+
+\paragraph{Solution to part (a)} Consider a binary string whose $i$th bit from the left is $1$ if the $i$th card from the left is gold and $0$ if the $i$th card from the left is black. Then the corresponding number strictly decreases, so the process must terminate.
+
+\paragraph{Solution to part (b)} In fact the first player loses regardless of which moves are made. Label the cards $2008$, $2007$, $\ldots$, $0$, and consider the number of cards among $\{2000,1950,\ldots,0\}$ that are gold. This number is initially $40$ and its parity changes each move, so an even number of moves are made; i.e.\ the last player is the second player.
+

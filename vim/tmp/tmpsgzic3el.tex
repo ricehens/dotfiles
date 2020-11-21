@@ -1,0 +1,63 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Given a triangle $ABC$, with $I$ as its incenter and $\Gamma$ as its circumcircle, line $AI$ intersects $\Gamma$ again at $D$. Let $E$ be a point on the arc $BDC$, and $F$ a point on the segment $BC$, such that \[\angle BAF=\angle CAE<\tfrac12\angle BAC.\]
+If $G$ is the midpoint of $\seg{IF}$, prove that lines $EI$ and $DG$ intersect on $\Gamma$.
+
+---
+
+We present two solutions; one uses elementary tactics and the other uses a novel idea known as ``moving points.''
+
+\paragraph{First solution, by similarity} Let $I_A$ be the $A$-excenter. From $\triangle ABF\sim\triangle ACE$ and $\triangle ABI\sim\triangle AI_AC$, we have $AE\cdot AF=AB\cdot AC=AI\cdot AI_A$, so $\triangle AFI_A\sim\triangle AIE$. Finally, $\seg{DG}\parallel\seg{I_AF}$ implies \[\da ADG=\da AI_AF=\da AEI,\]
+so $\seg{DG}\cap\seg{EI}$ lies on $\Gamma$.
+\begin{remark}
+    The similarity $\angle AFI_A\sim\triangle AIE$ follows immediately from $\sqrt{bc}$-inversion.
+\end{remark}
+\begin{center}
+\begin{asy}
+    size(7cm); defaultpen(fontsize(10pt));
+    pen pri=lightred;
+    pen sec=lightblue;
+    pen tri=purple+pink;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+
+    pair A,B,C,I,D,IA,EE,F,G,X;
+    A=dir(110);
+    B=dir(210);
+    C=dir(330);
+    I=incenter(A,B,C);
+    D=dir(270);
+    IA=2D-I;
+    EE=dir(300);
+    F=extension(B,C,A,reflect(A,I)*EE);
+    G=(F+I)/2;
+    X=extension(D,G,I,EE);
+
+    draw(D--X,tri);
+    draw(F--I,tri);
+    draw(X--I,sec+Dotted);
+    filldraw(A--I--EE--cycle,sfil,sec);
+    filldraw(A--F--IA--cycle,sfil,sec);
+    filldraw(unitcircle,fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+
+    dot("$A$",A,A);
+    dot("$B$",B,B);
+    dot("$C$",C,C);
+    dot("$I$",I,dir(30));
+    dot("$D$",D,SE);
+    dot("$I_A$",IA,S);
+    dot("$E$",EE,EE);
+    dot("$F$",F,SW);
+    dot("$G$",G,E);
+    dot(X);
+\end{asy}
+\end{center}
+\paragraph{Second solution, by moving points} Animate $E$ on $\Gamma$ while relaxing the condition $\angle CAE<\frac12\angle BAC$. Let $E'$ be the reflection of $E$ in $\seg{AI}$. Observe that the map \[E\mapsto E'\mapsto F\mapsto G\]
+is projective. Then $X_1=\seg{EI}\cap\Gamma$ and $X_2=\seg{DG}\cap\Gamma$ are both projective, so it suffices to verify $X_1=X_2$ for three values of $E$.
+
+Evidently $E\in\{B,D,C\}$ work, so we are done.
+

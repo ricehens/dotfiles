@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $a$, $b$, $c$ be the lengths of the sides of a triangle with area $S$. Prove that \[a^2+b^2+c^2\ge4S\sqrt3.\]
+When does equality hold?
+
+---
+
+We have that
+\begin{align*}
+    a^2+b^2+c^2-4\sqrt3\cdot S&=a^2+b^2+\left(a^2+b^2-2ab\cos C\right)-2\sqrt3\cdot ab\sin C\\
+    &=2(a-b)^2+4ab(1-\cos(C-30\dg))\ge0.
+\end{align*}
+Equality holds when $a=b$ and $C=60\dg$, i.e.\ the triangle is equilateral.

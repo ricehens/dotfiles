@@ -1,0 +1,21 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $\mathcal P$ be a finite set of squares on an infinite chessboard. Kelvin the Frog notes that $\mathcal P$ may be tiled with only $1\times2$ dominoes, while Alex the Kat notes that $\mathcal P$ may be tiled with only $2\times1$ dominoes. The dominoes cannot be rotated in each tiling. Prove that the area of $\mathcal P$ is a multiple of $4$.
+
+---
+
+Color the infinite chessboard as follows:
+\[
+    \begin{bmatrix}
+        a&b&a&b&\cdots\\
+        c&d&c&d&\cdots\\
+        a&b&a&b&\cdots\\
+        c&d&c&d&\cdots\\
+        \vdots&\vdots&\vdots&\vdots&\ddots
+    \end{bmatrix}
+\]
+Let $\mathcal P$ contain $A$ cells colored $a$, and similarly define $B$, $C$, $D$. That $\mathcal P$ may be tiled with horizontal dominos gives $A=B$, $C=D$, and that $\mathcal P$ may be tiled with vertical dominos gives $A=C$, $B=D$. Hence $A=B=C=D$, and so $A+B+C+D$ is a multiple of four.
+

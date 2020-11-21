@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A quadrilateral has perimeter $4M$. Prove that its area is at most $M^2$.
+
+---
+
+Assume $ABCD$ convex; otherwise, if, say, $A$ lies on the interior of $\triangle BCD$, then reflect $A$ across $\overline{BD}$ to increase the area.
+
+Let $AB=a$, $BC=b$, $CD=c$, $DA=d$, and denote $E=\overline{AC}\cap\overline{BD}$. Then
+\begin{align*}
+\operatorname{Area}(ABCD)&=\sum_\mathrm{cyc}\operatorname{Area}(\triangle ABE)=\frac12\sum_\mathrm{cyc}\operatorname{Area}(\triangle ABC)\\
+&\le\frac{ab+bc+cd+da}4\le\frac{(a+c)(b+d)}4\le\frac{(a+b+c+d)^2}{16}.
+\end{align*}
+Equality holds for $ABCD$ square.

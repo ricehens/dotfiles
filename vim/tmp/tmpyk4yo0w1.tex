@@ -1,0 +1,11 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Does there exist an infinite sequence of integers $a_1$, $a_2$, $\ldots$ such that $\gcd(a_m,a_n)=1$ if and only if $|m-n|=1$.
+
+---
+
+The answer is yes. Label the primes $p_1$, $q_1$, $p_2$, $q_2$, $\ldots$, and take the sequence  \[a_n=p_nq_n\cdot\prod_{k=1}^{n-2}\begin{cases}p_k&\text{if }k\equiv n\pmod2\\ q_k&\text{if }k\not\equiv n\pmod 2.\end{cases}\]
+

@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ be a positive integer, and consider the set\[S=\{1,4,9,16,25,36,n\}\]where all seven of its elements are distinct. We replace every odd element $k$ of $S$ with $k+1$, and we replace every even element $k$ of $S$ with $k-1$. It is given that the median of the resulting set is equal to the median of $S$. How many possible values of $n$ are there?
+
+---
+
+The resulting set is $S'=\{2,3,10,15,26,35,n\pm1\}$. If the median of $S$ is not $n$, then $n\pm1$ must be the median of $S$, and also one of $\{1,4,9,16,25,36\}$. This two assertions contradict each other, so $n$ must be the median of $S$.
+
+This forces $9<n<16$. If the median of $S'$ is also $n\pm1$, then $n\ne n\pm1$, so the median of $S'$ is either $9$ or $16$. It follows that $n\in\{10,15\}$, both of which can be easily seen to work. The answer is $2$.
+
+---
+
+2

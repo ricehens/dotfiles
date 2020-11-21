@@ -1,0 +1,132 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle and $Q$ a point on its circumcircle. Let $E$ and $F$ be the reflections of $Q$ over $\seg{AB}$ and $\seg{AC}$, respectively. Select points $X$ and $Y$ on line $EF$ such that $\seg{AB}\parallel\seg{CX}$ and $\seg{AC}\parallel\seg{BY}$, and let $M$ and $N$ be the reflections of $X$ and $Y$ over $C$ and $B$ respectively. Prove that $M$, $Q$, $N$ are collinear.
+
+---
+
+\begin{customenv}{First solution, by spiral similarity}
+    Let $A'$ be the point such that $ABA'C$ is a parallelogram, so $X\in\seg{A'C}$ and $Y\in\seg{A'B}$. Define $H$ as the orthocenter of $\triangle ABC$, $H_1$ as the orthocenter of $\triangle A'YX$, $Q'$ as the reflection of $Q$ over $\overline{BC}$, and $P$ as the foot of $Q$ on $\overline{BC}$.
+
+    To begin, observe that $Q'$ must lie on $\overline{XY}$ by homothety on a Simson line. This, in conjunction with $\angle BQC=\angle BHC$ and the well-known fact that $H$ lies on $\overline{XY}$ implies that $Q'$ lies on $(A'BHC)$, so it must be the foot of $A'$ on $\overline{XY}$.
+    \begin{center}
+        \begin{asy}
+            size(8cm);
+            defaultpen(fontsize(9pt));
+
+            pair
+            A=(0,50),
+            Y=(-20,0),
+            X=(55,0),
+            R=(0,0),
+            H=(36.2,0),
+            N=(-4.5,38.8),
+            M=(34.4,18.7),
+            B=(-12.2,19.4),
+            C=(44.7,9.3),
+            D=B+C-A,
+            Q=(5.9,33.4),
+            P=(0,22);
+
+            draw(X--A--Y, linewidth(0.5));
+            draw(Q--R, linewidth(0.4)+grey);
+            draw(M--N, linewidth(0.4)+dashed);
+            draw(X--P--Y--cycle, linewidth(1.5));
+            draw(B--R--C--cycle, linewidth(1.5));
+            draw(A--R, linewidth(0.5));
+            draw(circumcircle(A,H,R), linewidth(0.8)+dashed);
+            draw(B--D--C, linewidth(0.5));
+            draw(circumcircle(D,C,B), linewidth(0.5));
+
+            dot("$A'$", A, NW);
+            dot("$B$", B, (-1,0));
+            dot("$C$", C, (1,0.2));
+            dot("$Y$", Y, SW);
+            dot("$X$", X, SE);
+            dot("$H$", H, SE);
+            dot("$Q'$", R, SW);
+            dot("$H_1$", P, (-1,0.5));
+            dot("$M$", M, NE);
+            dot("$N$", N, NW);
+            dot("$Q$", Q, (0.5,1));
+            dot("$P$", (Q+R)/2, (0.5,-1));
+            dot("$A$", D, SE);
+        \end{asy}
+    \end{center}
+    Next, we have \[\da H_1YX=90\dg-\da YXA=\da CA'Q'=-\da Q'BC,\]
+    and similarly $\da YXH_1=-\da BCQ'$; therefore, $\triangle Q'BC\sim\triangle H_1YX$ and, as a consequence, degenerate triangles $PBC$ and $Q'YX$ are also similar. Collinearity of $M$, $Q$, $N$ follows from the mean geometry theorem.
+\end{customenv}
+\begin{customenv}{Second solution, by angle chasing}
+    Let $A'$ be the point such that $ABA'C$ is a parallelogram, so $X\in\seg{A'C}$ and $Y\in\seg{A'B}$, and let $O$ and $H$ be the circumcenter and orthocenter of $\triangle ABC$. Since $\seg{XY}$ is the image of the Simson line from $Q$ under homothety $(Q,2)$\footnote{sometimes called the \emph{Steiner line}}, we know $H$ lies on $\seg{XY}$.
+
+    Let $I$ and $J$ be the projections of $M$ and $N$ onto $\seg{XY}$, so that $C$ is the center of $(MXI)$ and $B$ is the center of $(NYJ)$. Then $HICM$ and $HJBN$ are cyclic with diameters $\seg{HM}$ and $\seg{HN}$; say they intersect again at $G$.
+    \begin{center}
+        \begin{asy}
+            size(6cm); defaultpen(fontsize(10pt));
+
+            pair Ap,B,C,A,H,O,Q,G,M,NN,X,Y,I,J;
+            Ap=dir(120);
+            B=dir(200);
+            C=dir(340);
+            A=B+C-Ap;
+            H=-Ap;
+            O=circumcenter(A,B,C);
+            Q=O+dir(100);
+            G=2*foot(O,2O-Q,H)-2O+Q;
+            M=extension(G,Q,C,Ap);
+            NN=extension(G,Q,B,Ap);
+            X=2C-M;
+            Y=2B-NN;
+            I=foot(M,X,Y);
+            J=foot(NN,X,Y);
+
+            draw(circumcircle(Ap,B,C));
+            //draw(circumcircle(X,I,M),gray);
+            //draw(circumcircle(Y,J,NN),gray);
+            draw(circumcircle(G,C,M),gray);
+            draw(circumcircle(G,B,NN),gray);
+            draw(circumcircle(A,B,C));
+            draw(Y--Ap--C--A--B--C--X);
+            draw(G--NN,gray);
+            draw(X--Y,gray);
+
+            dot("$A'$",Ap,Ap);
+            dot("$B$",B,W);
+            dot("$C$",C,E);
+            dot("$A$",A,-Ap);
+            dot("$H$",H,S);
+            dot("$Q$",Q,N);
+            dot("$G$",G,E);
+            dot("$M$",M,N);
+            dot("$N$",NN,dir(120));
+            dot("$X$",X,SE);
+            dot("$Y$",Y,dir(240));
+            dot("$I$",I,S);
+            dot("$J$",J,S);
+        \end{asy}
+    \end{center}
+    Then $\angle MGH=\angle NGH=90\dg$, so $G\in\seg{MN}$. Furthermore \[\da BGN=\da JGB=\da JHB\quad\text{and}\quad\da MGC=\da CHI.\]
+    Adding these, $\da BGC=\da CHB=\da BAC$, so $G$ lies on $(ABC)$.
+
+    Say $\seg{MN}$ intersects $(ABC)$ again at $Q'$ and $\seg{XY}$ intersects $(A'BC)$ again at $D$. Then recalling that $\da BGN=\da JHB$, \[\da BCQ=\da BGQ=\da BGN=\da JHB=\da DHB=\da DCB,\]
+    and similarly $\da QBC=\da CBD$, so $Q$ and $D$ are reflections across $\seg{BC}$, and $\seg{XY}$ is the Steiner line of $Q$.
+\end{customenv}
+\begin{customenv}{Third solution, by length}
+    Let $H$ be the orthocenter of $\triangle ABC$ and $D$ the reflection of $Q$ over $\seg{BC}$. Since $\seg{XY}$ is the image of the Simson line from $Q$ under homothety $(Q,2)$, we know $H$ and $D$ lie on $\seg{XY}$.
+
+    Let $U$ and $V$ lie on $\seg{XY}$ such that $\seg{BU}$ and $\seg{CV}$ are perpendicular to $\seg{BC}$.
+    \begin{iclaim*}
+        $DU:DV=DY:DX$.
+    \end{iclaim*}
+    \begin{proof}
+        Let $D'$ be the foot from $Q$ to $\seg{BC}$ (i.e.\ the midpoint of $\seg{QD}$). Remark that $\seg{A'H}$ is a diameter of $(A'BC)$ by orthocenter reflections, so $D$ is the foot from $A'$ to $\seg{XY}$. Note that \[\frac{DU}{DV}=\frac{D'B}{D'C}=\frac{DB}{DC}\cdot\frac{\cos\angle DBC}{\cos\angle DCB}=\frac{DB}{DC}\cdot\frac{\cos\angle DA'C}{\cos\angle DA'B}=\frac{DB}{DC}\cdot\frac{\sin\angle A'XD}{\sin\angle A'YD},\]
+        but \[\frac{DY}{DX}=\frac{A'Y}{A'X}\cdot\frac{\sin\angle BA'D}{\sin\angle CA'D}=\frac{A'Y}{A'X}\cdot\frac{DB}{DC}=\frac{DB}{DC}\cdot\frac{\sin\angle A'XD}{\sin\angle A'YD},\]
+        as claimed.
+    \end{proof}
+
+    Let $X'$ and $Y'$ be the reflections of $X$ and $Y$ over $\seg{BC}$. We have \[\frac{MX'}{NY'}=\frac{VX}{UY}=\frac{DX}{DY}=\frac{QX'}{QY'},\]
+    so $\seg{X'Y'}\cap\seg{MN}$ is the reflection of $D$ across $\seg{BC}$, which is $Q$. This completes the proof.
+\end{customenv}
+

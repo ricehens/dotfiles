@@ -1,0 +1,11 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with incenter $I$. The circle through $B$ tangent to $\seg{AI}$ at $I$ meets side $AB$ again at $P$. The circle through $C$ tangent to $\seg{AI}$ at $I$ meets side $AC$ again at $Q$. Prove that $\seg{PQ}$ is tangent to the incircle of $ABC$.
+
+---
+
+Let $\angle ACB=\gamma$. Since $AB\cdot AP=AI^2=AC\cdot AQ$, we have $\triangle APQ\sim\triangle ACB$, and thus $\angle APQ=\gamma$. But \[\da BPI=180\dg-\angle AIB=90-\tfrac\gamma2,\]
+so $\seg{PI}$ externally bisects $\angle APQ$. Similarly $\seg{QI}$ externally bisects $\angle AQP$, so the $A$-excircle of $\triangle APQ$ and the incircle of $\triangle ABC$ coincide, as desired.

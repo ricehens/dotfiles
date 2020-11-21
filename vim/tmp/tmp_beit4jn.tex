@@ -1,0 +1,33 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+A \textit{site} is any point $(x, y)$ in the plane such that $x$ and $y$ are both positive integers less than or equal to 20.
+
+Initially, each of the 400 sites is unoccupied. Amy and Ben take turns placing stones with Amy going first. On her turn, Amy places a new red stone on an unoccupied site such that the distance between any two sites occupied by red stones is not equal to $\sqrt5$. On his turn, Ben places a new blue stone on any unoccupied site. (A site occupied by a blue stone is allowed to be at any distance from any other occupied site.) They stop as soon as a player cannot place a stone.
+
+Find the greatest $K$ such that Amy can ensure that she places at least $K$ red stones, no matter how Ben places his blue stones.
+
+---
+
+The answer is $100$. To achieve this, checkerboard-color the grid and let Amy take half of the black squares. Now we show that for each $4\times4$ grid, Amy can place at most four stones if Bob plays optimally. This is clearly sufficient. Consider the following dissection into $4$-cycles:
+
+\begin{center}
+    \begin{asy}
+        size(4cm); dotfactor *= 2;
+
+        draw((0,0)--(2,1)--(3,3)--(1,2)--cycle,purple);
+        draw((1,0)--(3,1)--(2,3)--(0,2)--cycle,green);
+        draw((2,0)--(3,2)--(1,3)--(0,1)--cycle,red);
+        draw((3,0)--(2,2)--(0,3)--(1,1)--cycle,blue);
+
+        for (real i = 0; i < 4 - 1e-9; i += 1) {
+            for (real j = 0; j < 4 - 1e-9; j += 1) {
+                dot((i, j));
+            }
+        }
+    \end{asy}
+\end{center}
+Whenever Amy plays in this $4\times4$ grid, Bob puts a stone in the opposite vertex in the $4$-cycle Amy's stone belongs to. Thus Amy can put at most one stone in each $4$-cycle Amy's stone belongs to. Thus Amy can put at most one stone in each $4$-cycle, so we are done.

@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n$ be a positive integer and let $a_1$, \ldots, $a_{n-1}$ be arbitrary real numbers. Define the sequences $u_0$, \ldots, $u_n$ and $v_0$, \ldots, $v_n$ inductively by $u_0=u_1 =v_0=v_1=1$, and $u_{k+1}=u_k+a_ku_{k-1}$, $v_{k+1}=v_k+a_{n-k}v_{k-1}$ for $k=1,\ldots,n-1$.
+
+Prove that $u_n=v_n$.
+
+---
+
+Same energy as ISL 2009 C3, but instead this one is really stupid.
+
+Say a set of positive integers $T$ is \emph{liberal} if no two elements of $T$ differ by 1. Then we can actually prove by induction that
+\[u_n=\sum_{\substack{T\subset\{1,\ldots,n-1\}\\\text{liberal}}}\left(\prod_{i\in T}a_i\right),\]
+which is symmetric.
+

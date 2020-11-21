@@ -1,0 +1,38 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $T=13$. Let $ABC$ be a triangle with incircle $\omega$. Points $E$, $F$ lie on $\seg{AB}$, $\seg{AC}$ such that $\seg{EF}\parallel\seg{BC}$ and $\seg{EF}$ is tangent to $\omega$. If $EF=T$ and $BC=T+1$, compute $AB+AC$.
+
+---
+
+\begin{center}
+\begin{asy}
+    size(4cm); defaultpen(fontsize(10pt));
+
+    pair A,B,C,I,D,T,EE,F;
+    A=dir(110);
+    B=dir(220);
+    C=dir(320);
+    I=incenter(A,B,C);
+    D=foot(I,B,C);
+    T=2I-D;
+    EE=extension(A,B,T,T+B-C);
+    F=extension(A,C,T,EE);
+
+    draw(A--B--C--A);
+    draw(incircle(A,B,C));
+    draw(EE--F);
+
+    dot("$A$",A,N);
+    dot("$B$",B,SW);
+    dot("$C$",C,SE);
+    dot("$E$",EE,W);
+    dot("$F$",F,E);
+\end{asy}
+\end{center}
+Since $\triangle AEF\sim\triangle ABC$, let $r:=EF/BC=AE/AB=AF/AC$. Then $BE=(1-r)AB$, $CF=(1-r)AC$. Applying Pitot theorem on $BEFC$ gives \[(1-r)(AB+AC)=(1+r)BC.\]
+Setting $BC=T$, $r=(T-1)/T$, we have \[AB+AC=(T+1)\cdot\frac{1+\frac T{T+1}}{1-\frac T{T+1}}=(T+1)(2T+1).\]
+With $T=13$, the answer is $378$.
+

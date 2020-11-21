@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Suppose that $64$ teams, labeled $T_1,T_2,T_3,\ldots,T_{64}$, are participating in a tournament. For all $1\le i\le 64$, team $i$ initially has $i$ players. The teams play a series of matches to determine a winner. A match involves two players from different teams, and will result in one player winning and the other losing; no ties occur. When a player loses, he is eliminated, and when all players of a team are eliminated, the team is eliminated. After exactly $2019$ games, $T_k$ is crowned the champion. Find the sum of all possible values of $k$.
+
+---
+
+First, there are \[1+2+3+\cdots+64=\frac{64\cdot 65}2=2080\]
+players in the tournament. For $T_k$ to win, at least $2080-k$ players must have been eliminated. Since each match eliminates exactly one player, \[2019\ge 2080-k\implies k\ge 61.\]
+Hence, the requested sum is $61+62+63+64=250$.
+
+---
+
+250

@@ -1,0 +1,27 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $b_1<b_2<b_3<\cdots$ be the sequence of all natural numbers which are sum of squares of two natural numbers.
+Prove that there are infinitely many natural numbers $m$ for which $b_{m+1}-b_m=2015$.
+
+---
+
+Say a number is \emph{fit} if it is the sum of two squares, and \emph{unfit} otherwise. Observe that if $n$ is divisible by a prime $p\equiv3\pmod4$ but not $p^2$, then $n$ is unfit. Note that for all integers $x$, the numbers $x^2+1007^2$ and $x^2+1008^2$ are fit and differ by 2015. It will suffice to show there are infinitely many $x$ such that the numbers $x^2+1007^2+1$, $x^2+1007^2+2$, \ldots, $x^2+1007^2+2014$ are unfit.
+\begin{lemma*}[Well-known QR]
+    For every $i$ that is not a perfect square, there is a prime $p\equiv3\pmod4$ with $p-i$ a quadratic residue modulo $p^2$.
+\end{lemma*}
+\begin{proof}
+    By Hensel's lemma, it is sufficient to show there is a $p\equiv3\pmod4$ prime with $-i$ a quadratic residue modulo $p$; that is, $i$ not a quadratic residue modulo $p$.
+
+    Let $i=q_1q_2\cdots q_k\cdot(\text{square})$, where $q_1$, \ldots, $q_k$ are distinct. Then
+    \[\left(\frac ip\right)=\prod_{i=1}^k\left(\frac{q_i}p\right)=\pm\prod_{i=1}^k\left(\frac p{q_i}\right),\]
+    It is obvious by Dirichlet theorem we can find $p$ with the above expression equal to $-1$.
+\end{proof}
+
+Now for each $i=1,\ldots,2014$, let $p_i$ be a prime with $p_i-(i+1007^2)$ a quadratic residue modulo $p_i^2$ by the lemma. Then take $P=p_1p_2\cdots p_{2014}$ and $c$ a constant with
+\[c^2\equiv p_i-(i+1007^2)\pmod{p_i^2}\quad\text{for all }i=1,\ldots,2014.\]
+It follows that for all $j$, the number $x=P^2j+c$ has the property that $x^2+1007^2+i\equiv p_i\pmod{p_i^2}$ for $i=1,\ldots,2014$; that is, $x^2+1007^2+i$ is divisible by a $3\pmod4$ prime but not its square, so it is unfit.
+
+This completes the proof.

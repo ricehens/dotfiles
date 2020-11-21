@@ -1,0 +1,31 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all integers $n\ge3$ such that among any $n$ positive real numbers $a_1$, $a_2$, \ldots, $a_n$ with
+\[\max(a_1,a_2,\ldots,a_n)\le n\cdot\min(a_1,a_2,\ldots,a_n),\]
+there exist three that are the side lengths of an acute triangle.
+
+---
+
+The answer is $n\ge13$. Define the Fibonacci sequence by $F_1=F_2=1$ and $F_n=F_{n-1}+F_{n-2}$ for $n\ge3$.
+\begin{claim*}
+    $F_n\le n^2$ if and only if $n\le12$.
+\end{claim*}
+\begin{proof}
+    Verify the hypothesis by hand for $n\le14$. Then if $F_{n-1}>(n-1)^2$ and $F_{n-2}>(n-2)^2$ for $n\ge15$, it follows that \[F_n>(n-1)^2+(n-2)^2>n^2,\]
+    so the claim follows inductively.
+\end{proof}
+
+Sort the numbers in increasing order $a_1\le a_2\le\cdots\le a_n$. For $n\le12$, any sequence with $a_n=\sqrt{F_n}\cdot a_1$ obeys the inequality, but no three form the sides of an acute triangle.
+
+On the other hand, for $n\ge13$, if no three elements of the sequence form an acute triangle, then we can write
+\begin{align*}
+    a_1^2+a_2^2&\le a_3^2\\
+    a_2^2+a_3^2&\le a_4^2\\
+    &\;\vdots\\
+    a_{n-1}^2+a_{n-2}^2&\le a_n^2.
+\end{align*}
+It is not hard to verify by induction on $k$ that $a_k^2\ge F_ka_1^2$, so the inequality $a_n\le na_1$ fails.
+

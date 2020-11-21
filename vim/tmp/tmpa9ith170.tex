@@ -1,0 +1,54 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Consider the convex quadrilateral $ABCD$. The point $P$ is in the interior of $ABCD$. The following ratio equalities hold:
+\[\angle PAD:\angle PBA:\angle DPA=1:2:3=\angle CBP:\angle BAP:\angle BPC.\]
+Prove that the following three lines meet in a point: the internal bisectors of $\angle ADP$ and $\angle PCB$ and the perpendicular bisector of segment $AB$.
+
+---
+
+Let $O$ be the circumcenter of $\triangle PAB$. We will show the three lines meet at $O$.
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+    pen sec=heavygreen;
+    pen pri=heavycyan;
+    pen tri=olive;
+    pen sfil=green+opacity(0.05);
+    pen fil=cyan+opacity(0.05);
+    pen tfil=yellow+opacity(0.05);
+
+    pair O,P,A,B,I,C,D;
+    O=(0,0);
+    P=dir(100);
+    A=dir(200);
+    B=dir(340);
+    I=incenter(P,A,B);
+    C=extension(B,B+(P-B)*(I-A)/(P-A),P,P+(B-P)*(P-A)/(B-A)*(P-A)/(I-A));
+    D=extension(A,A+(P-A)*(I-B)/(P-B),P,P+(A-P)*(P-B)/(A-B)*(P-B)/(I-B));
+
+    filldraw(circumcircle(B,C,P),tfil,tri+dashed);
+    filldraw(circumcircle(A,D,P),tfil,tri+dashed);
+    //draw(C--O--D,sec+dashed);
+    draw(B--C--P--D--A,sec);
+    fill(B--C--P--cycle,sfil);
+    fill(A--D--P--cycle,sfil);
+    filldraw(unitcircle,fil,pri);
+    filldraw(P--A--B--cycle,fil,pri);
+
+    dot("$P$",P,P);
+    dot("$A$",A,SW);
+    dot("$B$",B,SE);
+    dot("$C$",C,N);
+    dot("$D$",D,N);
+    dot("$O$",O,dir(15));
+\end{asy}
+\end{center}
+Evidently $O$ lies on the perpendicular bisector of $\seg{AB}$.
+
+Note that $\angle AOP=2\angle ABP=4\alpha$ and $\angle ADP=180\dg-4\alpha$, so $O$ lies on the circumcircle of $\triangle ADP$. Since $OP=OA$ and $O$ lies on the opposite side of $\seg{AP}$ to $D$, it follows that $O$ lies on the internal angle bisector of $\angle ADP$.
+
+Similarly $O$ lies on the internal angle bisector of $\angle BCP$, so the desired concurrence point is $O$.
+

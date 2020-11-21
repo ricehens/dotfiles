@@ -1,0 +1,10 @@
+#!/bin/bash
+vlc \
+    --no-video-deco \
+    --no-embedded-video \
+    --screen-fps=20 \
+    --screen-top=0 \
+    --screen-left=2880 \
+    --screen-width=3456 \
+    --screen-height=1944 \
+    screen:// &

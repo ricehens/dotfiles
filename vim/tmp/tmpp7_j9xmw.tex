@@ -1,0 +1,55 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle with $AB=AC$, and let $M$ be the midpoint of $\seg{BC}$. Let $P$ be a point such that $PB<PC$ and $\seg{PA}\parallel\seg{BC}$. Let $X$ and $Y$ be points on lines $PB$ and $PC$ such that $B$ lies inside segment $PX$, $C$ lies inside segment $PY$, and $\angle PXM=\angle PYM$. Prove that quadrilateral $APXY$ is cyclic.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(8cm);
+        defaultpen(fontsize(10pt));
+        pair A, B, C, M, P, O, X, Y, SS, T, NN,Bp,Cp;
+        A=(0,3);
+        B=(-1,0);
+        C=(1,0);
+        M=(0,0);
+        P=(-1.5,3);
+        O=(A+P)/2-(0,2.5);
+        X=intersectionpoint(B--(B+100*(B-P)),circle(O,length(A-O)));
+        Y=intersectionpoint(C--(C+100*(C-P)),circle(O,length(A-O)));
+        SS=extension(X,M,P,C);
+        T=extension(Y,M,P,B);
+        NN=extension(P,M,X,Y);
+        Bp=intersectionpoint(B--(B+100*(B-C)),circumcircle(X,Y,T));
+        Cp=2M-Bp;
+
+        draw(P--A--B--C--A);
+        draw(SS--X--P--Y--T);
+        draw(A--M--P,gray);
+        draw(M--NN,gray);
+        draw(X--Y,gray);
+        draw(SS--T,gray);
+        draw(Bp--Cp);
+        draw(circumcircle(A,X,Y),gray);
+        draw(circumcircle(X,Y,T),gray);
+
+        dot("$A$",A,NE);
+        dot("$B$",B,SW);
+        dot("$C$",C,dir(60));
+        dot("$M$",M,dir(220));
+        dot("$P$",P,NW);
+        dot("$X$",X,S);
+        dot("$Y$",Y,unit(Y-M));
+        dot("$S$",SS,unit(SS-X));
+        dot("$T$",T,unit(T-Y));
+        dot("$N$",NN,SE);
+        dot("$B'$",Bp,W);
+        dot("$C'$",Cp,E);
+    \end{asy}
+\end{center}
+Let $S=\seg{PC}\cap\seg{XM}$, $T=\seg{PB}\cap\seg{YM}$, and $N=\seg{PM}\cap\seg{XY}$. Note that $\da TXS=\da PXM=\da PYM=\da SYT$, so $XYST$ is cyclic. Denote by $O$ the circumcenter of $XYST$.
+
+Let line $BC$ intersect $(XYST)$ at $B'$ and $C'$. By the converse of the Butterfly Theorem, $M$ is the midpoint of $\seg{B'C'}$, so $\seg{OM}\perp\seg{BC}$. Thus $O,M,A$ are collinear and $\seg{OM}\perp\seg{PA}$, whence $A$ is the Miquel point of $XYST$, and the result follows.

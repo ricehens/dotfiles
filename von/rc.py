@@ -1,7 +1,7 @@
 import os
 
 # Pick a path to store the problems in
-VON_BASE_PATH  = os.path.join(os.environ.get("HOME", ""), "Documents/VON/")
+VON_BASE_PATH  = os.path.join(os.environ.get("HOME", ""), "Dropbox/VON/")
 
 VON_INDEX_NAME = "index"
 VON_INDEX_PATH = os.path.join(VON_BASE_PATH, VON_INDEX_NAME)

@@ -1,0 +1,16 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Do there exist positive integers $a$, $b$, $c$ such that $a^2+b^2+c^2$ is divisible by $2013(ab+bc+ca)$?
+
+---
+
+The answer is no. We will show that there are no integers $a$, $b$, $c$, $k$ such that \[3k=\frac{a^2+b^2+c^2}{ab+bc+ca}.\]
+Assume for contradiction this is possible, and suppose that $\gcd(a,b,c)=1$; otherwise we can divide out the common factor. Rewrite this as \[(a+b+c)^2=(3k+2)(ab+bc+ca).\]
+The greatest divisor of $(a+b+c)^2$ not divisible by $3$ must be $1\pmod3$, so there is a prime $p\equiv2\pmod3$ dividing $a+b+c$ and $ab+bc+ca$.
+
+Without loss of generality $b\not\equiv0\pmod p$ since at least one of $a$, $b$, $c$ is not divisible by $p$. Consequently \[0=ab+c(a+b)\equiv ab-(a+b)^2\equiv-\left(a^2+ab+b^2\right)\pmod p,\]
+so if $x\equiv a/b\pmod p$, then $x^2+x+1\equiv0\pmod p$. Hence $\ord_p(x)=3$ and $3\mid p-1$, contradiction.
+

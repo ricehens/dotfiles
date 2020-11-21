@@ -1,0 +1,17 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $n\ge2$ be a positive integer and let $a_1$, $a_2$, \ldots, $a_n$ be real numbers with sum zero. Prove that
+\[\sum_{\substack{1\le i<j\le n\\ |a_i-a_j|\ge1}}a_ia_j<0\]
+whenever the left-hand sum is nonempty.
+
+---
+
+I claim we can ignore $i$ with $|a_i|\ge1$: indeed, the desired inequality rewrites as
+\[\sum_{\substack{1\le i,j\le n\\ |a_i-a_j|<1}}a_ia_j>0.\]
+Each $|a_i|\ge1$ will only produce positive terms on the left.
+
+
+To this end, assume all $|a_i|<1$. (We drop the condition $a_1+\cdots+a_n=0$.) Return to the original inequality. Since $a_ia_j<0$ whenever $|a_i-a_j|\ge1$, we are done.

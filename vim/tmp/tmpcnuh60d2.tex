@@ -1,0 +1,69 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABCD$ be a convex cyclic quadrilateral which is not a kite, but whose diagonals are perpendicular and meet at $H$. Denote by $M$ and $N$ the midpoints of $\seg{BC}$ and $\seg{CD}$. Rays $MH$ and $NH$ meet $\seg{AD}$ and $\seg{AB}$ at $S$ and $T$, respectively. Prove that there exists a point $E$, lying outside quadrilateral $ABCD$, such that
+\begin{itemize}[itemsep=0em]
+    \item ray $EH$ bisects both angles $\angle BES$, $\angle TED$, and
+    \item $\angle BEN=\angle MED$.
+\end{itemize}
+
+---
+
+In fact $E$ is the second intersection of $(ABCD)$ and $(AH)$. Let $A'$ be the antipode of $A$ (thus $E$, $H$, $A'$ collinear). We begin by computing \[\da BEH=\da BAA'=90\dg-\da AA'B=90\dg-\da ADB=\da HAS,\]
+and similarly $\da TEH=\da HED$, so $\seg{EH}$ bisects both angles $\angle BES$ and $\angle TED$.
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+
+    pair O,A,B,D,H,C,M,NN,SS,T,Ap,EE,G;
+    O=(0,0);
+    A=dir(110);
+    B=dir(190);
+    D=dir(350);
+    H=foot(A,B,D);
+    C=2H-A-B-D;
+    M=(B+C)/2;
+    NN=(C+D)/2;
+    SS=foot(H,A,D);
+    T=foot(H,A,B);
+    Ap=-A;
+    EE=2*foot(O,H,Ap)-Ap;
+    G=(B+C+D)/3;
+
+    draw(circumcircle(A,SS,T),gray);
+    draw(T--NN--M--SS,gray);
+    //draw(B--NN,gray+dashed);
+    //draw(D--M,gray+dashed);
+    draw(EE--Ap,dashed);
+    draw(circle(O,1));
+    draw(A--B--C--D--A--C);
+    draw(B--D);
+
+    dot("$A$",A,N);
+    dot("$B$",B,B);
+    dot("$C$",C,C);
+    dot("$D$",D,D);
+    dot("$H$",H,NE);
+    dot("$M$",M,dir(260));
+    dot("$N$",NN,SE);
+    dot("$S$",SS,NE);
+    dot("$T$",T,W);
+    dot("$A'$",Ap,Ap);
+    dot("$E$",EE,dir(150));
+    dot("$G$",G,dir(210));
+\end{asy}
+\end{center}
+It is sufficient to show $\angle BEN=\angle TED$. We present two solutions.
+\begin{customenv}{First solution, by Desargue involution}
+    Let $G$ be the centroid of $\triangle BCD$. It is known that $H$, $G$, $A'$ are collinear. By dual of Desargues' involution theorem from $E$ to $BNDM$, we find $(\seg{EB},\seg{ED})$, $(\seg{EN},\seg{EM})$, $(\seg{EC},\seg{EG})$ form an involutive pair. But by the first and third pairs, this is a reflection over the angle bisector of $\angle BED$, thus $\seg{EM}$ and $\seg{EN}$ are isogonal, and $\angle BEN=\angle MED$, as desired.
+\end{customenv}
+\begin{customenv}{Second solution, by ISL 2011 G4}
+    As indicated by title of this solution, we cite a result from the 2011 shortlist.
+    \begin{boxlemma*}[ISL 2011 G4]
+        Let $ABC$ be an acute triangle with circumcircle $\Omega$. Let $B_0$ be the midpoint of $AC$ and let $C_0$ be the midpoint of $AB$. Let $D$ be the foot of the altitude from $A$ and let $G$ be the centroid of the triangle $ABC$. Let $\omega$ be a circle through $B_0$ and $C_0$ that is tangent to the circle $\Omega$ at a point $X\ne A$. Prove that the points $D$, $G$ and $X$ are collinear.
+    \end{boxlemma*}
+    With this, if $\seg{EM}$ and $\seg{EN}$ intersect $(ABCD)$ at $X$ and $Y$, then by homothety $\seg{XY}\parallel\seg{MN}\parallel\seg{BD}$, so $\seg{EM}$ and $\seg{EN}$ are isogonal wrt.\ $\angle BED$, and $\angle BEN=\angle MED$, as desired.
+\end{customenv}
+

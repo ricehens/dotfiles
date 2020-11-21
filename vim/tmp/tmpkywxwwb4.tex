@@ -1,0 +1,24 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb N\to\mathbb N$ such that $f(n!)=f(n)!$ for all positive integers $n$ and such that $m-n$ divides $f(m)-f(n)$ for all distinct positive integers $m$, $n$.
+
+---
+
+The only answers are $f\equiv1$, $f\equiv2$, $f(n)\equiv n$, which work. We now verify these are the only solutions.
+
+Let $a_0=3$ and $a_k=a_{k-1}!$ for $k\ge1$. By $f(1)=f(1)!$ and $f(2)=f(2)!$, we have $f(1),f(2)\in\{1,2\}$. We split into cases:
+\begin{itemize}
+    \item Let $f(1)=2$. Then $2\mid f(3)-2$, so $f(3)$ is even. But $4\mid f(3)!-f(2)$, which is absurd if $f(3)\ge4$, so $f(3)\le3$. This implies $f(3)=2$, and thus $f(a_k)=2$ for all $k$.
+
+        Then for each $n$, we have $a_k-n\mid2-f(n)$ for all $k$, so $f\equiv2$.
+
+    \item Let $f(1)=f(2)=1$. Then $4\mid f(3)!-1$, so $f(3)=1$; thus $f(a_k)=1$ for all $k$, and analogously for each choice of $n$, we have $a_k-n\mid1-f(n)$ for all $k$, so $f\equiv1$.
+
+    \item Let $f(1)=1$ and $f(2)=2$. Then $2\mid f(3)-1$, so $f(3)$ is odd. But $4\mid f(3)!-2$, so $f(3)\in\{2,3\}$. This implies $f(3)=3$, and thus $f(a_k)=a_k$ for all $k$.
+
+        Then for each $n$, we have $f(n)\equiv a_k\equiv n\pmod{a_k-n}$ for all $k$, so $f(n)\equiv n$.
+\end{itemize}
+

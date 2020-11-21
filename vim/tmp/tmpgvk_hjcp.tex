@@ -1,0 +1,15 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+An infinite number of buckets, labeled $1$, $2$, $3$, $\ldots$, lie in a line. A red ball, a green ball, and a blue ball are each tossed into a bucket, such that for each ball, the probability the ball lands in bucket $k$ is $2^{-k}$. Given that all three balls land in the same bucket $B$ and that $B$ is even, then the expected value of $B$ can be expressed as $\tfrac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$. 
+
+---
+
+It is obvious that the probability all three balls land in bucket $2k$ is $64^{-k}$. Then, the probability of the given condition occurring is\[\sum_{k=1}^\infty \frac1{64^k}=\frac{64^{-1}}{1-64^{-1}}=\frac1{63}.\]Hence, the expected value of $B$ is\[\left(\sum_{k=1}^\infty\frac{2k}{64^k}\right)\bigg/\frac1{63}=126\left(\sum_{j=1}^\infty\sum_{k=j}^\infty\frac k{64^k}\right)=126\left(\sum_{j=1}^\infty\frac{64^{-j}}{1-64^{-1}}\right)=126\left(\frac{63^{-1}}{63/64}\right)=\frac{128}{63},\]and the requested sum is $128+63=191$.
+
+
+---
+
+191

@@ -1,0 +1,42 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+The $2010$ positive real numbers $a_1$, $a_2$, $\ldots$, $a_{2010}$ satisfy the identity $a_ia_j\le i+j$ for all $1\le i<j\le2010$. Determine, with proof, the largest possible value of the product $a_1a_2\cdots a_{2010}$.
+
+---
+
+It is the obvious bound $3\cdot7\cdot11\cdots4019$, with upper bound obtained by \[a_1a_2\cdots a_{2010}=(a_1a_2)\cdots(a_{2019}a_{2020})\le3\cdots4019.\]
+I am aware of two constructions, shown below.
+\begin{boxremark}
+    Some preliminary remarks on motivation: for constructions, it turns out the most concerning bounds are those where $|i-j|=1$, and overall the bounds are more concerning when $i$, $j$ increase (hence why we fix $a_{2008}a_{2010}$ in the second construction), so we should push for equality in these cases.
+
+    This gives the desired upper bound, and to achieve this, heuristically we want $a_n\approx\sqrt{2n}$. Both the below solutions build upon this estimate.
+\end{boxremark}
+\begin{customenv}{First, explicit construction}
+    Let $a_{2n}=2\sqrt n$ and $a_{2n-1}=2\sqrt n-\frac1{2\sqrt n}$. We manually verify the required inequality:
+    \begin{itemize}
+        \item Let $i=2a$, $j=2b$, where $a<b$. Then \[a_ia_j=\left(2\sqrt a\right)\left(2\sqrt b\right)=4\sqrt{ab}<2(a+b).\]
+        \item Let $i=2a-1$, $j=2b-1$, where $a<b$. Note the estimate
+            \[\frac1{4\sqrt{ab}}\le\frac1{4\sqrt{a(a+1)}}<\frac2{\left(\sqrt{a+1}-\sqrt a\right)^2}=2\left(\sqrt{a+1}-\sqrt a\right)^2\le2\left(\sqrt b-\sqrt a\right)^2,\]
+            From this, we have \[a_ia_j=\left(2\sqrt a-\frac1{2\sqrt a}\right)\left(2\sqrt b-\frac1{2\sqrt b}\right)<4\sqrt{ab}+\frac1{4\sqrt{ab}}-2\le2(a+b)-2.\]
+        \item Let $i=2a-1$, $j=2b$, where $a\le b$. Then \[a_ia_j=\left(2\sqrt a-\frac1{2\sqrt a}\right)\left(2\sqrt b\right)=4\sqrt{ab}-\sqrt{\frac ba}\le2(a+b)-1.\]
+        \item Let $i=2a$, $j=2b-1$, where $a<b$. Note the estimate \[\sqrt{\frac1b}=\frac2{2\sqrt b}\le\frac{2(b-a)}{\sqrt b+\sqrt a}=2\left(\sqrt b-\sqrt a\right)\implies 1-\sqrt{\frac ab}=2\left(\sqrt b-\sqrt a\right)^2.\]
+            From this, we have \[a_ia_j=\left(2\sqrt a\right)\left(2\sqrt b-\frac1{2\sqrt b}\right)=4\sqrt{ab}-\sqrt{\frac ab}\le2(a+b)-1.\]
+    \end{itemize}
+    Hence $a_ia_j\le i+j$ for all $i$, $j$.
+\end{customenv}
+\begin{customenv}{Second, more motivated construction}
+    Take the sequence with $a_na_{n+1}=2n+1$ for each $n$ and $a_{2008}a_{2010}=4028$. When $i$, $j$ are of opposite parity, it is easy to verify the inequality: \[a_ia_j=\frac{(a_ia_{i+1})(a_{i+2}a_{i+3})\cdots(a_{j-1}a_j)}{(a_{i+1}a_{i+2})(a_{i+3}a_{i+4})\cdots(a_{j-2}a_{j-1})}=\frac{(2i+1)(2i+5)\cdots(2j-1)}{(2i+3)(2i+5)\cdots(2j-1)}\le i+j,\]
+    say by completing the square. For $i$, $j$ with the same parity, we need to be more careful, but nonetheless the bound still works. We first verify $|j-i|=2$. This is done by backwards induction on $i$, with $i=2008$ given and $i=2007$ clear by noting \[a_{2007}a_{2009}=\frac{4015}{a_{2018}}\cdot\frac{4017}{a_{2010}}=\frac{4015\cdot4017}{4018}\le4017.\]
+    If the inequality holds for integers greater than $i$, then \[a_ia_{i+2}=\frac{(a_ia_{i+1})(a_{i+2}a_{i+3})(a_{i+2}a_{i+4})}{(a_{i+1}a_{i+2})(a_{i+3}a_{i+4})}\le\frac{(2i+1)(2i+5)(2i+6)}{(2i+3)(2i+7)}\le2i+2..\]
+
+    Finally we verify the inequality for all $i$, $j$ of the same parity. This is from
+    \begin{align*}
+        a_ia_j&=\frac{(a_ia_{i+1})(a_{i+2}a_{i+3})\cdots(a_ja_{j+1})(a_{j-2}a_j)}{(a_{i+1}a_{i+2})\cdots(a_{j-3}a_{j-2})(a_{j-2}a_{j-1})(a_ja_{j+1})}\\
+        &\le\frac{(2i+1)(2i+5)\cdots(2j+1)(2j-2)}{(2i+3)\cdots(2j-5)(2j-3)(2j+1)}\le i+j,
+    \end{align*}
+    and we are done.
+\end{customenv}
+

@@ -1,0 +1,103 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A point $T$ is chosen inside a triangle $ABC$. Let $A_1$, $B_1$, $C_1$ be the reflections of $T$ in $\seg{BC}$, $\seg{CA}$, $\seg{AB}$, respectively. Let $\Omega$ be the circumcircle of the triangle $A_1B_1C_1$. Lines $A_1T$, $B_1T$, $C_1T$ meet $\Omega$ again at $A_2$, $B_2$, $C_2$, respectively. Prove that lines $AA_2$, $BB_2$, $CC_2$ are concurrent on $\Omega$.
+
+---
+
+With respect to triangle $A_1B_1C_1$, points $A$, $B$, $C$ are just the circumcenters of $\triangle TB_1C_1$, $\triangle TC_1A_1$, $\triangle TA_1B_1$.
+\begin{center}
+\begin{asy}
+    size(7cm); defaultpen(fontsize(10pt));
+    pen pri=lightblue;
+    pen sec=purple+pink;
+    pen tri=heavycyan;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=tri+opacity(0.05);
+
+    pair A,B,C,T,A2,B2,C2,AA,BB,CC,SS;
+    A=dir(110);
+    B=dir(210);
+    C=dir(330);
+    T=0.2*dir(30);
+    A2=2*foot(origin,A,T)-A;
+    B2=2*foot(origin,B,T)-B;
+    C2=2*foot(origin,C,T)-C;
+    AA=circumcenter(T,B,C);
+    BB=circumcenter(T,C,A);
+    CC=circumcenter(T,A,B);
+    SS=2*foot(origin,AA,A2)-A2;
+
+    filldraw(circumcircle(T,B,C),sfil,sec+dashed);
+    filldraw(circumcircle(T,C,A),sfil,sec+dashed+linewidth(0.2));
+    filldraw(circumcircle(T,A,B),sfil,sec+dashed+linewidth(0.2));
+    clip( (-1.2,-100)--(-1.2,1.1)--(1.2,1.1)--(1.2,-100)--cycle);
+    draw(A--A2--SS,tri);
+    draw(B--B2--SS,tri+linewidth(0.2));
+    draw(C--C2--SS,tri+linewidth(0.2));
+    filldraw(unitcircle,fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+
+    dot("$A_1$",A,A);
+    dot("$B_1$",B,dir(195));
+    dot("$C_1$",C,dir(-15));
+    dot("$T$",T,dir(220));
+    dot("$A_2$",A2,A2);
+    dot("$B_2$",B2,B2);
+    dot("$C_2$",C2,dir(150));
+    dot("$A$",AA,S);
+    dot("$C$",CC,E);
+    dot("$S$",SS,SS);
+\end{asy}
+\end{center}
+We invert about $T$ (and omit the symbols for convenience) to obtain the following problem:
+\begin{quote}
+    Let $A_1B_1C_1$ be a triangle with circumcircle $\Omega$ and $T$ a point in its interior. Lines $A_1T$, $B_1T$, $C_1T$ meet $\Omega$ again at $A_2$, $B_2$, $C_2$, and $A$, $B$, $C$ are the reflections of $T$ in $\seg{B_1C_1}$, $\seg{C_1A_1}$, $\seg{A_1B_1}$. Show that there is a common point $S$ to $\Omega$ and the circumcircles of $\triangle TAA_2$, $\triangle TBB_2$, $\triangle TCC_2$.
+\end{quote}
+I contend the point $S$ is the anti-Steiner point of $T$.
+\begin{center}
+\begin{asy}
+    size(6cm); defaultpen(fontsize(10pt));
+    pen pri=lightblue;
+    pen sec=purple+pink;
+    pen tri=heavycyan;
+    pen qua=fuchsia;
+    pen fil=pri+opacity(0.05);
+    pen sfil=sec+opacity(0.05);
+    pen tfil=tri+opacity(0.05);
+
+    pair A,B,C,T,AA,A2,HA,SS;
+    A=dir(110);
+    B=dir(210);
+    C=dir(330);
+    T=0.2*dir(50);
+    AA=reflect(B,C)*T;
+    A2=2*foot(origin,A,T)-A;
+    HA=reflect(B,C)*(A+B+C);
+    SS=2*foot(origin,AA,HA)-HA;
+
+    draw(A--A2,tri);
+    draw(T--AA,tri+dashed);
+    draw(A--HA,tri+dashed);
+    filldraw(circumcircle(AA,T,SS),sfil,sec+dashed);
+    filldraw(unitcircle,fil,pri);
+    filldraw(A--B--C--cycle,fil,pri);
+    draw(AA--SS,qua);
+
+    dot("$A_1$",A,A);
+    dot("$B_1$",B,B);
+    dot("$C_1$",C,C);
+    dot("$T$",T,dir(60));
+    dot("$H_A$",HA,NE);
+    dot("$A$",AA,S);
+    dot("$S$",SS,SW);
+    dot("$A_2$",A2,SE);
+\end{asy}
+\end{center}
+
+If $H_A$ is the reflection of the orthocenter over $\seg{BC}$ and $S$ the anti-Steiner point (so $S$, $H_A$, $A$ are collinear), it suffices to prove $S$ lies on the circumcircle of $\triangle AA_2T$. Indeed,
+\[\da TA_2S=\da AA_2S=\da AH_AS=\da TAS,\]
+as needed.

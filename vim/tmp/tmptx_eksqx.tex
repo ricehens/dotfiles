@@ -1,0 +1,19 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $f:\mathbb N\to\mathbb N$ be a nonconstant function such that $a-b$ divides $f(a)-f(b)$ for all distinct positive integers $a$, $b$. Prove that there exist infinitely many primes $p$ such that $p$ divides $f(c)$ for some integer $c$.
+
+---
+
+Assume not, and let $p_1$, $p_2$, $\ldots$, $p_k$ be the only primes dividing $f$. Let $P=f(1)\cdot p_1p_2\cdots p_k$.
+\begin{claim*}
+    $f(Pk+1)=f(1)$ for all $k$.
+\end{claim*}
+\begin{proof}
+    By the condition, $f(Pk+1)\equiv f(1)\pmod P$, so for each $i$, we have $\nu_p(f(Pk+1))=\nu_p(f(1))$. No other primes divide $f(Pk+1)$, so $f(Pk+1)=f(1)$.
+\end{proof}
+
+Now we have $m-Pk\mid f(m)-f(1)$ for all $k$; we can take $k$ sufficiently large, so $f(m)=f(1)$ for all $m$, contradiction.
+

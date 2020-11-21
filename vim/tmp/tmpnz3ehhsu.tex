@@ -1,0 +1,33 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Ana and Banana are playing a game. First Ana picks a word, which is defined to be a nonempty sequence of capital English letters. Then Banana picks a nonnegative integer $k$ and challenges Ana to supply a word with exactly $k$ subsequences which are equal to Ana's word. Ana wins if she is able to supply such a word, otherwise she loses. For example, if Ana picks the word ``TST,'' and Banana chooses $k=4$, then Ana can supply the word ``TSTST'' which has $4$ subsequences which are equal to Ana's word. Which words can Ana pick so that she can win no matter what value of $k$ Banana chooses?
+
+---
+
+We first define a few string operations:
+\begin{boxdef*}
+    Let $S$ and $S'$ be strings.
+    \begin{itemize}[itemsep=0em]
+        \item $|S|$ denotes the length of $S$.
+        \item $S+S'$ denotes concatenation.
+        \item $n\cdot S$ denotes $S$ repeated $n$ times.
+    \end{itemize}
+\end{boxdef*}
+Let $P$ denote the word Ana chooses, and $Q$ her response. Every string can be split into \textit{blocks}, defined as non-overlapping contiguous substrings such that all its letters are identical, but different from the surrounding characters. For instance, the string ``LEEK'' can be split into blocks as $\text{``LEEK''}=\text{``L''}+\text{``EE''}+\text{``K''}$.
+
+Suppose that $P$ can be split into the blocks $X_1,\,X_2,\,\ldots,\,X_n$, i.e. $P=X_1+X_2+\cdots+X_n$. I claim that Ana can win no matter what Banana chooses if and only if at least one of the blocks has size $1$. It is obvious this works: If $|X_t|=1$, for all $k$, Ana can choose \[Q=X_1+X_2+\cdots+X_{t-1}+k\cdot X_t+X_{t+1}+\cdots+X_n.\]
+Now we show that if $|X_i|\ge2$ for all $i\le n$, then Ana loses if Banana chooses $k=2$. To do this, we use induction on $n$, the number of blocks $x$ has.
+
+The base case, $n=1$, requires that $x=\ell\cdot S$, where $\ell\ge2$ and $|S|=1$ (that is, $S$ is a single character). Suppose $y$ contains $m$ instances of $S$. Then the number of valid subsequences is $\binom m\ell$, which cannot equal $2$ if $\ell\ge2$.
+
+Now assume FSoC that $P=X_1+X_2+\cdots+X_n$ works for $n\ge2$, and let $c$ be the character in the block $X_n$. We can delete the letters of $y$ after the $n^\text{th}$-to-last occurrence of $c$ not equal to  $c$ since all valid subsequences end in $|X_n|$ instances of $c$. Let $Z$ be the last block of $Y$; it is obvious $Z$ contains the character $c$.
+\begin{itemize}[itemsep=0em]
+    \item If $|X_n|>|Z|$, no subsequences work.
+    \item If $|X_n|=|Z|$, delete $X_n$ and $Z$; but then we've reduced the problem to $n-1$, a contradiction.
+    \item If $|X_n|<|Z|$, then there are already \[\binom{|Z|}{|X_n|}\ge\binom{|X_n|+1}{|X_n|}=|X_n|+1\ge 3\]
+        ways to choose the last block, a contradiction.
+\end{itemize}
+This completes the proof.

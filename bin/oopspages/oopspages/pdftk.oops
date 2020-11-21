@@ -1,3 +1,0 @@
-PDFTK provides tools to edit PDF's efficiently. Here are some commands:
-	pdftk A=<input> cat A10-101 output <output>
-    	To obtain the page range 10 through 101 from <input>.

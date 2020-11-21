@@ -1,0 +1,78 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $ABC$ be a triangle with incenter $I$. Points $K$ and $L$ are chosen on segment $BC$ such that the incircles of $\triangle ABK$ and $\triangle ABL$ are tangent at $P$, and the incircles of $\triangle ACK$ and $\triangle ACL$ are tangent at $Q$. Prove that $IP=IQ$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(15cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=royalblue;
+        pen sec=deepcyan;
+        pen tri=Cyan;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+
+        real r=1.7353;
+        pair A, B, C, I, IB, P,Q, IC, K, L, JB, JC, T;
+        A=dir(120);
+        B=dir(210);
+        C=dir(330);
+        I=incenter(A,B,C);
+        IB=(7B+r*I)/(7+r);
+        P=IB+unit(I-B)*length(IB-foot(IB,B,C));
+        Q=I+unit(C-I)*length(P-I);
+        IC=incenter(C,extension(A,C,Q,Q+A-foot(A,C,I)),extension(B,C,Q,Q+A-foot(A,C,I)));
+        K=extension(B,C,A,2*foot(B,A,IB)-B);
+        L=extension(B,C,A,2*foot(C,A,IC)-C);
+        JB=incenter(A,B,L);
+        JC=incenter(A,C,K);
+        T=extension(IB,IC,B,C);
+
+        draw(B--I--C,sec);
+        draw(Q--T,sec);
+        draw(JC--T--IC,sec);
+        fill(A--B--C-- cycle,fil);
+        draw(B--A--C--T,pri);
+        draw(K--A--L,pri);
+        filldraw(incircle(A,B,L),tfil,tri);
+        filldraw(incircle(A,B,K),tfil,tri);
+        filldraw(incircle(A,C,L),tfil,tri);
+        filldraw(incircle(A,C,K),tfil,tri);
+
+        dot("$A$",A,N);
+        dot("$B$",B,S);
+        dot("$C$",C,SE);
+        dot("$T$",T,SW);
+        dot("$I_B$",IB,dir(285));
+        dot("$I_C$",IC,dir(255));
+        dot("$J_B$",JB,NW);
+        dot("$J_C$",JC,NE);
+        dot("$P$",P,dir(85));
+        dot("$Q$",Q,dir(120));
+        dot("$K$",K,S);
+        dot("$L$",L,S);
+        dot("$I$",I,N);
+    \end{asy}
+\end{center}
+Let $I_B$, $J_B$, $I_C$, and $J_C$ denote the incenters of $\triangle ABK$, $\triangle ABL$, $\triangle ACL$, and $\triangle ACK$, respectively. Also let $r_{\triangle XYZ}$ denote the inradius of $\triangle XYZ$ for all $X,Y,Z$.
+\setcounter{boxlemma}0
+\begin{boxlemma}
+    For any points $K$ and $L$ on $\overline{BC}$ of $\triangle ABC$, if $I_B$, $J_B$, $I_C$, and $J_C$ denote the incenters of $\triangle ABK$, $\triangle ABL$, $\triangle ACL$, and $\triangle ACK$, respectively, then $\overline{I_BI_C}$, $\overline{J_BJ_C}$, and $\overline{BC}$ concur at a point $T$.
+\end{boxlemma}
+\begin{proof}
+    Rotation by $\tfrac12\angle A$ about $A$ gives \[A(BI_B;IJ_B)=A(IJ_C;CI_C)=A(CI_C;IJ_C),\]
+    and thus $(BI_B;IJ_B)=(CI_C;IJ_C)$ and the result follows.\footnote{Alternatively we can directly compute that $$A(BI_B;IJ_B)=\frac{\sin\tfrac12\angle BAC\cdot\sin\tfrac12\angle KAL}{\sin\tfrac12\angle KAC\cdot\sin\tfrac12\angle BAL}=A(CI_C;IJ_C).$$}
+\end{proof}
+
+Considering the homothety centered at $B$ sending $(I_B)$ to $(J_B)$, we can check that the scale factor is \[\frac{PJ_B}{PI_B}=\frac{r_{\triangle ABL}}{r_{\triangle ABK}}=\frac{BJ_B}{BI_B}\implies -1=(BP;I_BJ_B),\]
+and similarly $-1=(CP;I_CJ_C)$. It is immediate that $\overline{PQ}$ also passes through $T$. By Menelaus on $\triangle II_BI_C$, \[-1=\frac{IP}{PI_B}\cdot\frac{I_BT}{TI_C}\cdot\frac{I_CQ}{QI}=\frac{IP}{QI}\cdot\frac{I_BT}{TI_C}\cdot\frac{I_CQ}{PI_B}=\frac{IP}{QI}\cdot\frac{r_{\triangle ABK}}{r_{\triangle ACL}}\cdot\frac{r_{\triangle ACL}}{r_{\triangle ABK}}=\frac{IP}{QI},\]
+whence $IP=IQ$, as desired.
+

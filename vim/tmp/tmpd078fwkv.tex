@@ -1,0 +1,139 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+% vim: tw=72
+
+---
+
+Let $ABC$ be an acute triangle with circumcircle $\Omega$ and orthocenter $H$. Points $D$ and $E$ lie on segments $AB$ and $AC$ respectively, such that $AD=AE$. The lines through $B$ and $C$ parallel to $\overline{DE}$ intersect $\Omega$ again at $P$ and $Q$, respectively. Denote by $\omega$ the circumcircle of $\triangle ADE$.
+\begin{itemize}
+    \item[(a)] Show that lines $PE$ and $QD$ meet on $\omega$.
+        \vspace{-0.5em}
+    \item[(b)] Prove that if $\omega$ passes through $H$, then lines $PD$ and $QE$ meet on $\omega$ as well.
+\end{itemize}
+
+---
+
+\begin{customsol}{to part (a)}
+    $\measuredangle$ denotes a directed angle modulo $180^\circ$.
+    \begin{center}
+        \begin{asy}
+            size(10cm);
+            defaultpen(fontsize(10pt));
+
+            pair O, A, B, C, H, L, P, Q, Y, D, EE, X, SS, T;
+            O=(0,0);
+            A=dir(110);
+            B=dir(220);
+            C=dir(320);
+            H=A+B+C;
+            L=dir(270);
+            P=2*foot(O,B,foot(B,A,L))-B;
+            Q=2*foot(O,C,foot(C,A,L))-C;
+            Y=A+P+Q;
+            D=extension(A,B,P,Y);
+            EE=extension(A,C,Q,Y);
+            X=extension(P,EE,Q,D);
+            SS=foot(P,A,Q);
+            T=foot(Q,A,P);
+
+            draw(circle(O,1));
+            draw(A--B--C--A);
+            draw(A--L,gray);
+            draw(B--P);
+            draw(C--Q);
+            draw(circumcircle(A,D,EE),gray);
+            draw(D--EE);
+            draw(P--X--Q,gray);
+            draw(P--D,gray);
+            draw(Q--T,gray);
+            draw(A--P--Q--A);
+            draw(H--A--Y,dashed);
+
+            dot("$A$",A,N);
+            dot("$B$",B,B);
+            dot("$C$",C,C);
+            dot("$H$",H,S);
+            dot("$L$",L,S);
+            dot("$P$",P,P);
+            dot("$Q$",Q,Q);
+            dot("$Y$",Y,unit(Y-A));
+            dot("$D$",D,dir(210));
+            dot("$E$",EE,dir(18));
+            dot("$X$",X,NW);
+            dot("$S$",SS,unit(D-P)*dir(45));
+            dot("$T$",T,NE);
+        \end{asy}
+    \end{center}
+    Let $X=\overline{PE}\cap\overline{QD}$. It is easy to see that $\measuredangle APQ=\measuredangle ACQ=\measuredangle AED$ and $\measuredangle PQA=\measuredangle PBA=\measuredangle EDA$, whence $\triangle ADE\sim\triangle APQ$, and $A$ is the Miquel point of $DEPQ$.
+
+    Hence, $X$ lies on both $\Omega$ and $\omega$, as desired. 
+\end{customsol}
+\begin{customenv}{First solution to part (b), using reverse construction}
+    Let $Y$ be the orthocenter of $\triangle APQ$ and set $D=\overline{AB}\cap\overline{PY}$ and $E=\overline{AC}\cap\overline{QY}$. Also let $S=\overline{AQ}\cap\overline{PY}$ and $T=\overline{AP}\cap\overline{QY}$.
+    \setcounter{iclaim}0
+    \begin{iclaim}
+        $AD=AE$ and $Y$ lies on $\omega$.
+    \end{iclaim}
+    \begin{proof}
+        Since $\widehat{BQ}=\widehat{CP}$, $\triangle ADS\cong\triangle AET$. It is immediate that $AD=AE$, and furthermore $$\measuredangle DYE=\measuredangle SYT=\measuredangle SAT=\measuredangle QAP=\measuredangle DAE,$$
+        as desired.
+    \end{proof}
+    \begin{iclaim}
+        $H$ lies on $\omega$.
+    \end{iclaim}
+    \begin{proof}
+        Let $O$ be the center of $\Omega$. Clearly $AP=AQ$, $OP=OQ$, and $YP=YQ$, so $A,O,P$ lie on the perpendicular bisector of $\overline{PQ}$.
+
+        Now, if $R$ denotes the radius of $\Omega$, $AH=2R\cos\angle BAC=2R\cos\angle QAP=AY$, and furthermore $\overline{AH}$ and $\overline{AY}$ are isogonal, so $H$ lies on $\omega$, as desired.
+    \end{proof}
+
+    Since $D$ and $E$ are unique, we are done. 
+\end{customenv}
+\begin{customenv}{Second solution to part (b), using complex numbers}[Michael Ma]
+    Let $L$ be the midpoint of arc $\widehat{BC}$ not containing $A$. Toss on the complex plane, with lowercase letters denoting complex numbers; set $a=u^2$, $b=v^2$, $c=w^2$, and $l=-vw$. We first prove a crucial claim:
+    \setcounter{iclaim}0
+    \begin{iclaim}
+        $\overline{DH}\parallel\overline{BL}$ and $\overline{EH}\parallel\overline{CL}$.
+    \end{iclaim}
+    \begin{proof}
+        This is just angle chasing. $$\angle ADH=180^\circ-\angle DHA-\angle HAD=90^\circ-\angle DEA+\angle B=\tfrac12\angle A+\angle B=\angle ABL,$$
+        as desired.
+    \end{proof}
+
+    Now, everything is computable. Since $\overline{AM}\perp\overline{BP}$, we have that $$am+bp=0\implies p=-\frac{am}b=\frac{u^2w}v,$$
+    and similarly $q=\tfrac{u^2v}w$.
+
+    To compute $d$, note that we have $D\in\overline{AB}$, so $\overline d=\tfrac{u^2+v^2-d}{u^2v^2}$. Furthermore, $\overline{DH}\parallel\overline{BL}$, so $$\frac{d-h}{b-m}\in\mathbb R\implies\frac{d-u^2-v^2-w^2}{v^2+vw}\in\mathbb R.$$
+    Now, we have that
+    \begin{align*}
+        \frac{d-u^2-v^2-w^2}{v^2+vw}&=\frac{\frac{u^2+v^2-d}{u^2v^2}-\frac1{u^2}-\frac1{v^2}-\frac1{w^2}}{\frac1{v^2}+\frac1{vw}}\\
+        \implies d-u^2-v^2-w^2&=v^3w\left(-\frac d{u^2v^2}-\frac1{w^2}\right)\\
+        \implies d&=\frac{u^2\left(u^2w+v^2w+w^3-v^3\right)}{w\left(u^2+vw\right)}.
+    \end{align*}
+    Similaly, $$e=\frac{u^2\left(u^2v+vw^2+v^3-w^3\right)}{v\left(u^2+vw\right)}.$$
+    Notice that $$d-p=\frac{(w-v)\left(v^3-u^2w\right)u^2}{vw\left(u^2+vw\right)}\implies-\frac{d-p}{e-q}=\frac{v^2-u^2w}{w^2-u^2v}.$$
+    Finally, we want $$x=-\frac{b-a}{c-a}\bigg/\frac{d-p}{e-q}=\frac{\left(v^2-u^2\right)\left(w^3-u^2v\right)}{\left(w^2-u^2\right)\left(v^3-u^2w\right)}$$
+    to be real, but $$\overline x=\left(\frac{u^2-v^2}{u^2v^2}\cdot\frac{u^2v-w^3}{u^2vw^3}\right)\bigg/\left(\frac{u^2-w^2}{u^2w^2}\cdot\frac{u^2w-v^3}{u^2v^3w}\right)=x,$$
+    and we are done. 
+\end{customenv}
+\begin{customenv}{Third solution to part (b), using orthocenter reflections}
+    Let $H_B$ and $H_C$ denote the reflections of $H$ across $\seg{CA}$ and $\seg{AB}$ respectively.
+    \setcounter{iclaim}0
+    \begin{iclaim}
+        $H_C$ lies on $\seg{PD}$ and $H_B$ lies on $\seg{QE}$.
+    \end{iclaim}
+    \begin{proof}
+        Since $\triangle ADE\sim\triangle APQ$, $$\da AH_CD=\da DHA=\da DEA=\da AQP=\da AH_CP,$$
+        as requested.
+    \end{proof}
+    \begin{iclaim}
+        Let $Y$ denote the reflection of $H$ across the $A$-angle bisector. $Y$ lies on $\omega$ and also on $\seg{PD}$ and $\seg{QE}$.
+    \end{iclaim}
+    \begin{proof}
+        Clearly $Y$ lies on $\omega$, as $DEYH$ is an isosceles trapezoid. Check that $$\da YDE=\da YAE=\da DAH=\da H_CAB=\da H_CPB=\da PDE,$$
+        as desired.
+    \end{proof}
+
+    Hence, $Y=\seg{PD}\cap\seg{QE}$ lies on $\omega$, and we are done. 
+\end{customenv}
+

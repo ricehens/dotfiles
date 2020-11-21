@@ -1,0 +1,15 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+The leader of an IMO team chooses positive integers $n$ and $k$ with $n>k$, and announces them to the deputy leader and a contestant. The leader then secretly tells the deputy leader an $n$-digit binary string, and the deputy leader writes down all $n$-digit binary strings which differ from the leader’s in exactly $k$ positions. (For example, if $n=3$ and $k=1$, and if the leader chooses 101, the deputy leader would write down 001, 111 and 100.) The contestant is allowed to look at the strings written by the deputy leader and guess the leader’s string. What is the minimum number of guesses (in terms of $n$ and $k$) needed to guarantee the correct answer?
+
+---
+
+The answer is 1 for $n\ne2k$ and 2 for $n=2k$.
+\begin{itemize}
+    \item For $n\ne2k$, the $i$th bit is correct in $\binom{n-1}k$ of the strings and incorrect in $\binom{n-1}{k-1}$. Since $\binom{n-1}k\ne\binom{n-1}{k-1}$, we can uniquely determine the $i$th bit of the original string.
+    \item For $n=2k$, at least 2 guesses are needed, since if $s$ is a valid string, then $\seg s$ (where we flip all bits of $s$) is also valid. But upon determining the first bit of $s$, the rest of $s$ follows in the same manner as the $n\ne2k$ case.
+\end{itemize}
+

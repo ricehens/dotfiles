@@ -1,0 +1,62 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+For an integer $m\ge1$, we consider partitions of a $2^m\times2^m$ grid into rectangles consisting of cells of grid, in which each of the $2^m$ cells along one of the diagonals forms its own separate unit square. Determine the smallest possible sum of rectangle perimeters in such a partition.
+
+---
+
+The answer is $2^{m+2}(m+1)$. Say an $n$-staircase consists of the points $(i,j)$ with $i,j>0$ and $i+j\le n$. It suffices to show a $2^m$-staircase has minimum perimeter sum $2^{m+1}m$; then, the minimum perimeter sum of the grid is $2\cdot2^{m+1}m+2^m\cdot4=2^{m+2}(m+1)$.
+
+First the construction: for a $2^{m+1}$-staircase, draw a $2^m\times2^m$ rectangel in the bottom-left and draw two $2^m$-staircases in the top and right.
+\begin{center}
+    \begin{asy}
+        size(5cm); defaultpen(fontsize(10pt));
+        draw( (7,0)--(0,0)--(0,7));
+        for (real i=1; i<=8+1e-9; i+=1) {
+            draw( (i,0)--(i,8-i));
+            draw( (0,i)--(8-i,i));
+        }
+        filldraw( (0,0)--(4,0)--(4,4)--(0,4)--cycle,lightblue+opacity(0.5),lightblue+linewidth(1));
+        filldraw( (4,0)--(6,0)--(6,2)--(4,2)--cycle,lightred+opacity(0.5),lightred+linewidth(1));
+        filldraw( (0,4)--(0,6)--(2,6)--(2,4)--cycle,lightred+opacity(0.5),lightred+linewidth(1));
+        filldraw( (6,0)--(7,0)--(7,1)--(6,1)--cycle,lightgreen+opacity(0.5),heavygreen+linewidth(1));
+        filldraw( (4,2)--(5,2)--(5,3)--(4,3)--cycle,lightgreen+opacity(0.5),heavygreen+linewidth(1));
+        filldraw( (0,6)--(0,7)--(1,7)--(1,6)--cycle,lightgreen+opacity(0.5),heavygreen+linewidth(1));
+        filldraw( (2,4)--(2,5)--(3,5)--(3,4)--cycle,lightgreen+opacity(0.5),heavygreen+linewidth(1));
+    \end{asy}
+\end{center}
+It can be seen that the perimeter sum for a $2^m$-staircase is \[2^{m+1}+2\cdot2^m+2^2\cdot2^{m-1}+\cdots+2^{m-1}\cdot4=2^{m+1}m,\]
+as required.
+
+Now we prove the lower bound: let $g(n)$ be the minimum perimeter sum for an $n$-staircase. I claim $g(n)\ge2n\log_2n$, which will suffice.
+\begin{center}
+    \begin{asy}
+        size(5cm); defaultpen(fontsize(10pt));
+        draw( (7,0)--(0,0)--(0,7));
+        for (real i=1; i<=8+1e-9; i+=1) {
+            draw( (i,0)--(i,8-i));
+            draw( (0,i)--(8-i,i));
+        }
+        filldraw( (0,0)--(2,0)--(2,6)--(0,6)--cycle,lightblue+opacity(0.5),lightblue+linewidth(1));
+        filldraw( (0,0)--(1,0)--(1,5)--(0,5)--cycle,lightgreen+opacity(0.5),heavygreen+linewidth(1));
+    \end{asy}
+\end{center}
+\begin{iclaim*}
+    In some optimal configuration, the rectangle containing the bottom-left cell also contains a cell along the longest diagonal.
+\end{iclaim*}
+\begin{proof}
+    As shown above, let the green rectangle be the rectangle containing the bottom-left cell in an optimal configuration, and let the blue rectangle contain a point cell the longest diagonal and also contain the green rectangle.
+    \begin{itemize}
+        \item for each rectangle that is entirely contained in the blue rectangle, delete it;
+        \item for each rectangle that is partially covered by the blue rectangle, delete its intersection with the blue rectangle; and
+        \item for each rectangle that is not covered in the blue rectangle, keep it.
+    \end{itemize}
+    It is not hard to check this does not increase the perimeter sum; one such way is as follows: if the $i$th row intersects $r_i$ rectangles and the $i$th column intersects $c_i$ rectangles, then the perimeter sum is \[2\sum_{i=1}^{n-1}r_i+2\sum_{i=1}^{n-1}c_i.\]
+    It can be seen that no $r_i$ or $c_i$ increases.
+\end{proof}
+
+Hence we may assume the rectangle containing the bottom-left cell contains a cell along the longest diagonal. Let this rectangle have dimensions $a\times b$, so we split the $n$-staircase into an $a$-staircase, a $b$-staircase, and an $a\times b$ rectangle. Since $2n\log_2n$ is convex, \[g(n)\ge2n+\min_{a+b=n}(g(a)+g(b))\ge2n+2g(n/2)\ge2n+2n(\log_2n-1)=2n\log_2n\]
+by Jensen's inequality. This completes the proof.
+

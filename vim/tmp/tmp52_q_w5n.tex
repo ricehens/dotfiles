@@ -1,0 +1,27 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $\mathbb Z$ denote the set of all integers. Find all polynomials $P(x)$ with integer coefficients that satisfy the following property:
+
+For any infinite sequence $a_1$, $a_2$, $\ldots$ of integers in which each integer in $\mathbb Z$ appears exactly once, there exist indices $i<j$ and an integer $k$ such that $a_i+a_{i+1}+\cdots+a_j=P(k)$.
+
+---
+
+The answer is all linear polynomials.
+
+\bigskip
+
+\textbf{Proof of sufficiency:} For $P(x)=cx+b$, take $S$ the set of residues modulo $c$ that occur infinitely often in $(s_i)$. If, for contradiction, $P$ fails, then $S$ has no terms differing by $b\pmod c$. Eventually all terms of $(s_i)_{i\ge M}$ are in $S$ modulo $c$, so $a_i=s_i-s_{i-1}$ is never $b\pmod c$ for $i>M$, contradiction.
+
+\bigskip
+
+\textbf{Proof of necessity:} We just choose a suitable sequence $(a_i)$ that fails:
+\begin{itemize}
+    \item For $\deg P$ odd, take
+        $0$, $P(B_1)+1$, $1$, $P(B_2)$，$-1$, $P(B_3)$, $2$, \ldots, where $0\ll B_1\ll B_2\ll B_3\ll\cdots$.
+    \item For $\deg P$ even, without loss of generality $P$ has positive leading coefficient and is bounded below by $M$, and take
+        $0$, $C_1$, $1$, $C_2$, $-1$, $C_3$, \ldots, where $\min\{0,M\}\gg C_1\gg C_2\gg C_3\gg\cdots$.
+\end{itemize}
+

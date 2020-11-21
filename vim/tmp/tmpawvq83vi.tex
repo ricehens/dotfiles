@@ -1,0 +1,96 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+The points $C$, $D$ may be easily deleted: if $T$ is the insimilicenter of $\omega_1$, $\omega_2$, then $S$ is a variable point on major arc $ATB$ of the circumcircle of $\triangle TAB$.
+
+Let $\omega_1$, $\omega_2$ have centers $O_1$, $O_2$ and radii $r_1$, $r_2$. The condition $\seg{AC}\parallel\seg{BD}$ is basically this:
+\setcounter{claim}0
+\begin{claim}
+    $\triangle SU_1U_2$, $\triangle SV_2V_1$ are directly similar.
+\end{claim}
+\begin{proof}
+    Evidently $\da AO_1C=2\da ABC=2\da DAB=\da DO_2B$, so $\triangle AO_1C\sim\triangle DO_2B$. Then \[\left(\frac{SU_1}{SV_2}\right)^2=\frac{SA\cdot SE}{SB\cdot SD}=\left(\frac{AE}{BD}\right)=\left(\frac{r_1}{r_2}\right)^2,\]
+    so $\triangle SU_1U_2\sim\triangle SV_2V_1$. They are directly similar since $U_1U_2V_1V_2$ is convex.
+\end{proof}
+\begin{center}
+\begin{asy}
+    size(8cm); defaultpen(fontsize(10pt));
+    pen pri=blue;
+    pen sec=heavygreen;
+    pen tri=red;
+    pen qua=purple;
+    pen qui=lightblue;
+    pen fil=cyan+opacity(0.05);
+    pen sfil=green+opacity(0.05);
+    pen tfil=lightred+opacity(0.05);
+    pen qfil=purple+opacity(0.05);
+    pair A,B,O1,O2,T,SS,K,U,Up,Vp,V,L,W1,W2;
+    real r1, r2;
+    A=(0,1);
+    B=(0,-1);
+    O1=(-0.723,0);
+    O2=(2.106,0);
+    r1=abs(O1-A);
+    r2=abs(O2-A);
+    T=(r2*O1-r1*O2)/(r2-r1);
+    SS=circumcenter(T,A,B)+circumradius(T,A,B)*dir(231.1);
+    K=foot(SS,O1,O2);
+    U=intersectionpoint(circle(O1,r1),circumcircle(SS,K,O1));
+    Up=reflect(SS,O1)*U;
+    Vp=intersectionpoint(circle(O2,r2),circumcircle(SS,K,O2));
+    V=reflect(SS,O2)*Vp;
+    L=extension(U,Up,V,Vp);
+    W1=2*foot(O1,Up,V)-Up;
+    W2=2*foot(O2,U,Vp)-Vp;
+    draw(U--SS--Up,gray);
+    draw(V--SS--Vp,gray);
+    draw(V--K--W2,qua);
+    draw(U--L--Vp,qua);
+    filldraw(circumcircle(SS,K,O1),tfil,tri);
+    filldraw(circumcircle(SS,K,O2),tfil,tri);
+    filldraw(circumcircle(T,A,B),sfil,sec);
+    filldraw(circle(O1,r1),fil,pri);
+    filldraw(circle(O2,r2),fil,pri);
+    dot("$A$",A,dir(15));
+    dot("$B$",B,dir(-15));
+    dot("$O_1$",O1,dir(60));
+    dot("$O_2$",O2,E);
+    dot("$S$",SS,SW);
+    dot("$K$",K,W);
+    dot("$U_1$",U,NW);
+    dot("$U_2$",Up,SW);
+    dot("$V_1$",V,SE);
+    dot("$V_2$",Vp,N);
+    dot("$L$",L,S);
+    dot("$W_1$",W1,SW);
+    dot("$W_2$",W2,N);
+\end{asy}
+\end{center}
+\begin{claim}
+    Lines $U_1V_2$, $U_2V_1$ are reflections across $\seg{O_1O_2}$.
+\end{claim}
+\begin{proof}
+    From Claim 1, we have $S$ is the Miquel point of $U_1U_2V_1V_2$. Let $K$ be the foot from $S$ to $\seg{O_1O_2}$. Since $K$ lies on $(SO_1)$, $(SO_2)$, by spiral similarity lemma $K=\seg{U_1V_2}\cap\seg{U_2V_1}$.
+
+    Then $O_1U_1=O_1U_2$, so $\seg{O_1O_2}$ bisects $\angle U_1KU_2$, as needed.
+\end{proof}
+\begin{claim}
+    Line $AB$ bisects $\seg{U_1V_1}$. Analogously line $AB$ bisects $\seg{U_2V_1}$.
+\end{claim}
+\begin{proof}
+Since spiral similarities come in pairs, $\triangle SU_1V_2\sim\triangle SU_2V_1$. But $SU_1=SU_2$, so this spiral similarity is a rotation, and $U_1V_2=U_2V_1$. Let $\seg{U_2V_1}$ intersect $\omega_1$ again at $W_1$ and $\seg{U_1V_2}$ intersect $\omega_2$ again at $W_2$.
+
+Observe that \[\pow(U_1,\omega_2)=U_1V_2\cdot U_1W_2=U_2V_1\cdot W_1V_1=\pow(V_2,\omega_1).\]
+Consider the linear function $f:\mathbb R^2\to\mathbb R$ defined by \[f(\bullet):=\pow(\bullet,\omega_1)-\pow(\bullet,\omega_2).\]
+Since $f(U_1)=-f(V_2)$, the midpoint $M$ of $\seg{U_1V_2}$ obeys $f(M)=0$, so $M\in\seg{AB}$.
+\end{proof}
+
+From Claim 3, line $AB$ is the Gauss line of $U_1U_2V_1V_2$, so it bisects $\seg{KL}$. However $\seg{KS}\parallel\seg{AB}$, so line $AB$ bisects $\seg{SL}$ as well. End proof.
+\begin{remark}
+    The original proposal by Albert Wang is without the Gauss line argument. We may choose to use this instead:
+    \begin{quote}
+    Let $\omega_1$, $\omega_2$ be circles intersecting at $A$, and let $C$ be a point on $\omega_1$ in the exterior of $\omega_2$ and $D$ a point on $\omega_2$ in the exterior of $\omega_1$ so that $\seg{AD}\parallel\seg{BC}$. Lines $AC$, $BD$ intersect at $S$. Prove that there exist $U$, $V$ on $\omega_1$, $\omega_2$ such that line $SU$ is tangent to $\omega_1$, line $SV$ is tangent to $\omega_2$, and line $AB$ bisects $\seg{UV}$.
+    \end{quote}
+\end{remark}

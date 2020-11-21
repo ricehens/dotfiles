@@ -1,0 +1,54 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+In triangle $ABC$, $AB=26$, $BC=42$, and $CA=40$. Let $\omega$ be the incircle of $\triangle ABC$, and let $\omega_A$ be the circle tangent to segment $BC$ and the extensions of lines $AB$ and $AC$ past $B$ and $C$, respectively. Suppose that $\omega$ and $\omega_A$ are tangent to $\overline{BC}$ at $P$ and $Q$, respectively, and that $X$ and $Y$ lie on $\omega$ and $\omega_A$, respectively, such that $\angle AXP=\angle AYQ=90^\circ$. If $M$ is the midpoint of $\overline{BC}$ and $Z$ is the intersection of $\overline{PX}$ and $\overline{QY}$, find $MZ^2$.
+
+---
+
+\begin{center}
+    \begin{asy}
+        size(11cm);
+        defaultpen(fontsize(10pt));
+        pair A, B, C, M, I, L, IA, P, Q, X, Y, Z;
+        A=(0, 12); B=(-5, 0); C=(16, 0); M=(B+C)/2;
+        I=incenter(A, B, C); L=intersectionpoint(I -- (I+100*(I-A)), circumcircle(A, B, C)); IA=2L-I;
+        P=foot(I, B, C); Q=foot(IA, B, C);
+        X=intersectionpoint(A -- (Q+0.01*(A-Q)), circle(M, length(P-M))); Y=intersectionpoint(P -- (P+(P-A)*2), circle(IA, length(Q-IA)));
+        Z=extension(P, X, Q, Y);
+
+        pair T2=foot(IA, A, C);
+        pair T1=extension(A, B, T2, T2+(1,0));
+        draw(T1 -- A -- T2);  draw(B -- C);
+        draw(incircle(A, B, C)); draw(arc(IA, T2, intersectionpoint(((T1+T2)/2) -- T1, circle(IA, length(Q-IA)))));
+        draw(circle(M, length(P-M)));
+        draw(X -- Z -- Q -- A -- Y);
+        draw(A -- extension(A, Z, T1, T2));
+
+        dot("$A$", A, N);
+        dot("$B$", B, W);
+        dot("$C$", C, E);
+        dot("$M$", M, N);
+        dot("$P$", P, NW);
+        dot("$Q$", Q, NE);
+        dot("$X$", X, NE);
+        dot("$Y$", Y, dir(250));
+        dot("$Z$", Z, W);
+        dot("$D$", foot(A, B, C), SW);
+    \end{asy}
+\end{center}
+
+It is well known that $MP=MQ$, so $M$ is the center of $\Gamma$, the circle with diameter $\overline{PQ}$. It is well known that if $P'$ and $Q'$ denote the antipodes of $P$ and $Q$, respectively, on $\omega$ and $\omega_A$, respectively, then $P'\in\overline{AQ}$ and $Q'\in\overline{AP}$. Let $\Omega$ meet $\omega$ and $\omega_A$ again at $X'\ne P$ and $Y'\ne Q$, respectively. Since \[\da PX'Q=90^\circ=\da PX'P'=\da PX'A\text{ and }\da PY'Q=90^\circ=\da Q'Y'Q=\da AY'Q,\]
+we know that $X=X'$ and $Y=Y'$. Moreover, $X\in\overline{AQ}$ and $Y\in\overline{AZ}$.
+
+Since $\da AXZ=\da AYZ=90^\circ$, $Q$ is the orthocenter of $\triangle APZ$, so $\overline{AZ}\perp\overline{BC}$. Then, let $D$ be the foot from $A$ to $\overline{BC}$, so that $D\in\overline{AZ}$.
+
+Now, we compute some lengths. Scale down by a factor of $2$, so that $AB=13$, $BC=21$, and $CA=20$. It is not hard to check that $AD=12$, $BD=5$, and $CD=16$. It follows that $[ABC]=126$ and the semiperimeter is $s=27$. Furthermore, $BP=s-AC=7$, so $DP=2$. Since $BM=\frac{21}2$, $MP=MQ=\frac72$, $PQ=7$, $DQ=9$, and $AQ=15$. By Power of a Point from $Q$ on $(ADPX)$, \[QD\cdot QP=QA\cdot QX\implies 9\cdot 7=15\cdot QX\implies QX=\frac{21}5\implies AX=\frac{54}5.\]
+By Power of a Point from $A$ on $(DXQZ)$, \[AX\cdot AQ=AD\cdot AZ\implies \frac{54}5\cdot 15=12\cdot AZ\implies AZ=\frac{27}2\implies DZ=\frac32.\]
+Finally, by the Pythagorean Theorem on $\triangle DZM$, \[ZM=\sqrt{DM^2+DZ^2}=\sqrt{\left(\frac{11}2\right)^2+\left(\frac32\right)^2}=\frac{\sqrt{130}}2.\]
+Restoring the factor of $2$ yields $ZM^2=130$, the answer.
+
+---
+
+130

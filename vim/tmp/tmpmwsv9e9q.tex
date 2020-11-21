@@ -1,0 +1,54 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a triangle and let $\seg{BE}$ and $\seg{CF}$ be its altitudes. There are two circles passing through $A$ and $F$ tangent to line $BC$; let them touch line $BC$ at points $P$ and $Q$ so that $B$ lies between $C$ and $Q$. Prove that lines $PE$ and $QF$ intersect on the circumcircle of $\triangle AEF$.
+
+---
+
+Let $D$ be the foot from $A$ to $\seg{BC}$.
+\begin{claim*}
+    $AEPQ$ is cyclic.
+\end{claim*}
+\begin{proof}
+    We are given $BP^2=BQ^2=BA\cdot BF=BD\cdot BC$, so \[CP\cdot CQ=(CB+BP)(CB-BP)=CB^2-DB\cdot CB=CB\cdot CD,\]
+    as claimed.
+\end{proof}
+\begin{center}
+\begin{asy}
+    size(8cm); defaultpen(fontsize(10pt));
+    pair A,B,C,H,D,EE,F,P,Q,X;
+    A=dir(130);
+    B=dir(210);
+    C=dir(330);
+    H=A+B+C;
+    D=foot(A,B,C);
+    EE=foot(B,C,A);
+    F=foot(C,A,B);
+    P=B+unit(C-B)*sqrt(abs(A-B)*abs(F-B));
+    Q=2B-P;
+    X=extension(Q,F,P,EE);
+
+    draw(circumcircle(A,F,Q),gray+Dotted);
+    draw(B--EE,gray);
+    draw(C--F,gray);
+    draw(circumcircle(A,P,Q),dashed);
+    draw(circumcircle(A,EE,F),gray);
+    draw(B--C--A--B--Q--X);
+    draw(P--EE);
+
+    dot("$A$",A,N);
+    dot("$B$",B,S);
+    dot("$C$",C,SE);
+    dot("$H$",H,S);
+    dot("$D$",D,S);
+    dot("$E$",EE,dir(30));
+    dot("$F$",F,dir(110));
+    dot("$P$",P,SE);
+    dot("$Q$",Q,SW);
+    dot(X);
+\end{asy}
+\end{center}
+Finally $\da AEP=\da AQP=\da AFQ$, and we are done.
+

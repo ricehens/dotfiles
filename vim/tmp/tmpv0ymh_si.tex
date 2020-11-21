@@ -1,0 +1,25 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Each cell of an $m\times n$ board is filled with some nonnegative integer. Two numbers in the filling are said to be \emph{adjacent} if their cells share a common side. The filling is called a \emph{garden} if it satisfies the following two conditions:
+\begin{enumerate}[label=(\roman*),itemsep=0em]
+    \item The difference between any two adjacent numbers is either $0$ or $1$.
+    \item If a number is less than or equal to all of its adjacent numbers, then it is equal to $0$.
+\end{enumerate}
+Determine the number of distinct gardens in terms of $m$ and $n$.
+
+---
+
+The answer is $2^{mn-1}$. We will show cells with $0$ determine the entire filling; that is, the following claim. This will suffice, since there must be at least one $0$ (say, by looking at the minimum element).
+\begin{iclaim*}
+    A filling is a garden if and only if the number in each cell is the minimum taxicab distance to a cell labeled $0$.
+\end{iclaim*}
+Consider any cell of the board, and let its label be $k$. Let $d$ be the minimum taxicab distance to a cell labeled $0$. Note that
+\begin{itemize}
+    \item $d\le k$ by (i), since there is a sequence of adjacent cells from the closest cell labeled $0$.
+    \item $d\ge k$, since by (ii) there is a sequence of adjacent cells whose labels are strictly decreasing by $1$, and thus eventually $0$.
+\end{itemize}
+This completes the proof.
+

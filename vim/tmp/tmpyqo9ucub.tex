@@ -1,0 +1,23 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Find all functions $f:\mathbb Z^2\to[0,1]$ such that for any integers $x$ and $y$, \[f(x,y)=\frac{f(x-1,y)+f(x,y-1)}2.\]
+
+---
+
+Only constant functions work; that is, $f\equiv c$ for some $c\in[0,1]$.
+
+Here we let $\binom n{-1}=0$ for convenience. It is easy to see that \[f(x,y)=\frac1{2^n}\sum_{i=0}^n\binom nif(x-1,y-n+1).\]
+From this,
+\begin{align*}
+    \Big\lvert f(x,y)-f(x+1,y-1)\Big\rvert&=\frac1{2^n}\left\lvert\sum_{i=0}^n\binom nif(x-i,y-n+i)\\
+    &\qquad-\sum_{i=-1}^{n-1}\binom n{i+1}f(x-i,y-n+1)\Big\rvert\\
+    &=\frac1{2^n}\left\lvert\sum_{i=-1}^n\left[\binom ni-\binom n{i+1}\right]f(x-i,y+n-i)\right\rvert\\
+    &\le\frac1{2^{n-1}}\binom n{\lfloor n/2\rfloor},
+\end{align*}
+which approaches zero as $n$ approaches infinity.
+
+Thus $f(x,y)=f(x',y')$ for $x+y=x'+y'$, from which it is clear $f$ must be constant.
+

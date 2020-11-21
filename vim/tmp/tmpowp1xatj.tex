@@ -1,0 +1,23 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $x$, $y$, $z$ be real numbers such that 
+\begin{align*}
+    x&=\sqrt{y^2-\tfrac1{16}}+\sqrt{z^2-\tfrac1{16}}\\
+    y&=\sqrt{z^2-\tfrac1{25}}+\sqrt{x^2-\tfrac1{25}}\\
+    z&=\sqrt{x^2-\tfrac1{36}}+\sqrt{y^2-\tfrac1{36}}
+\end{align*}
+Given that $x+y+z=\tfrac m{\sqrt n}$ for positive integers $m$ and $n$ such that $n$ is squarefree, find $m+n$.
+
+---
+
+Consider triangle $ABC$ with $AB=x$, $BC=y$, $CA=z$, and let $h_A$, $h_B$, $h_C$ be the altitudes from $A$, $B$, $C$, respectively. The problem statement implies $h_A=\tfrac14$, $h_B=\tfrac15$, $h_C=\tfrac16$. If $K$ denotes the area of $\triangle ABC$, then $xh_A=yh_B=zh_C=2K$, so $x:y:z=4:5:6$.
+
+In what follows $x=4t$, $y=5t$, $z=6t$. The area of a triangle with sides of length $4$, $5$, $6$ is $\tfrac{15}4\sqrt7$, say by Heron's formula, and thus $K=\tfrac{15}4\sqrt7t^2$. Then \[\frac15=h_B=\frac{2K}y=\frac{3\sqrt7}2t\implies t=\frac2{15\sqrt7},\]
+so the perimeter of $\triangle ABC$ is $15t=\tfrac2{\sqrt7}$. The requested sum is $2+7=9$.
+
+---
+
+009

@@ -1,0 +1,21 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $O$ be the circumcenter and $H$ the orthocenter of an acute triangle $ABC$. Show that there exist points $D$, $E$, and $F$ on sides $BC$, $CA$, and $AB$ respectively such that\[OD+DH=OE+EH=OF+FH\]
+and the lines $AD$, $BE$, and $CF$ are concurrent.
+
+---
+
+\begin{customenv}{First solution, by Trig Ceva}
+    Let the reflections of $H$ over the sides be $H_A$, $H_B$, $H_C$, and let $D=\seg{BC}\cap\seg{OH_A}$, and similarly for $E$ and $F$. Clearly $OD+DH=OD+DH_A=OH_A$, which is constant. We now check that $\seg{AD}$, $\seg{BE}$, $\seg{CF}$ concur.
+
+    But this is not hard: \[\frac{BD}{DC}=\frac{BH_A\sin\angle BH_AO}{\sin\angle BDH_A}\bigg/\frac{CH_A\sin\angle CH_AO}{\sin\angle CDH_A}=\frac{BH_A\sin\angle BH_AO}{CH_A\sin CH_AO}=\frac{BO\sin\angle BOH_A}{CO\sin\angle COH_A}=\frac{\sin 2B}{\sin 2C},\]
+    which disappears upon cyclic summation.
+\end{customenv}
+\begin{customenv}{Second solution, by homography}
+    Since $O$ and $H$ are isogonal conjugates, there is an inellipse $\Epsilon$ with foci $O$ and $H$, tangent to $\seg{BC}$, $\seg{CA}$, $\seg{AB}$ at $D$, $E$, $F$, respectively. By definition, $OD+DH=OE+EH=OF+FH$, so it suffices to show that $\seg{AD}$, $\seg{BE}$, $\seg{CF}$ concur.
+
+    Take a projective transformation sending $\Epsilon$ to a circle. The conclusion follows by the existence of the Gergonne point.
+\end{customenv}

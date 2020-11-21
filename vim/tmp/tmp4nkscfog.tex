@@ -1,0 +1,58 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+Let $ABC$ be a scalene triangle. The incircle of $ABC$ touches $\overline{BC}$ at $D$. Let $P$ be a point on $\overline{BC}$ satisfying $\angle BAP=\angle CAP$, and let $M$ be the midpoint of $\overline{BC}$. Define $Q$ to be on $\overline{AM}$ such that $\overline{PQ}\perp\overline{AM}$. Prove that the circumcircle of $\triangle AQD$ is tangent to $\overline{BC}$.
+
+---
+
+Let $I$ be the incenter of $\triangle ABC$, $X$ the foot of the altitude from $A$, and $L$ the midpoint of the arc $BC$ not containing $A$ on the circumcircle of $\triangle ABC$.
+\begin{center}
+    \begin{asy}
+        size(6cm);
+        defaultpen(fontsize(10pt));
+
+        pen pri=deepgreen;
+        pen sec=Cyan;
+        pen tri=springgreen;
+        pen qua=chartreuse;
+        pen fil=pri+opacity(0.05);
+        pen sfil=sec+opacity(0.05);
+        pen tfil=tri+opacity(0.05);
+        pen qfil=qua+opacity(0.05);
+
+        pair A, B, C, X, I, D, L, P, M, Q;
+        A=dir(120);
+        B=dir(200);
+        C=dir(340);
+        X=foot(A, B, C);
+        I=incenter(A, B, C);
+        D=foot(I, B, C);
+        L=dir(270);
+        P=extension(A, L, B, C);
+        M=(B+C)/2;
+        Q=foot(P, A, M);
+
+        draw(A -- B -- C -- A, pri);
+        filldraw(circumcircle(A, B, C), tfil, pri);
+        filldraw(incircle(A, B, C), tfil, pri);
+        draw(A -- L, pri);
+        draw(P -- Q, pri);
+        draw(X -- A -- M, pri);
+        filldraw(circumcircle(A, P, Q), sfil, sec);
+        draw(A -- X, qua); draw(I -- D, qua); draw(L -- M, qua);
+
+        dot("$A$", A, N);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+        dot("$X$", X, S);
+        dot("$I$", I, W);
+        dot("$D$", D, S);
+        dot("$L$", L, S);
+        dot("$P$", P, SE);
+        dot("$M$", M, SE);
+        dot("$Q$", Q, dir(-10));
+    \end{asy}
+\end{center}
+Remark that$$\frac{MQ\cdot MA}{MD^2}=\frac{MP\cdot MX}{MD^2}=\frac{LP\cdot LA}{LI^2}=\frac{LP\cdot LA}{LB^2}=1,$$where the first step comes from Power of a Point from $M$ to the circle with diameter $\overline{AP}$ (which passes through $X$ and $Q$), the second step comes from an affine transformation taking $\overline{XDPM}$ to $\overline{AIPL}$, the third comes from the Incenter-Excenter Lemma, and the fourth comes from the Shooting Lemma. Hence, $MQ\cdot MA=MD^2$, and the result follows. $\square$

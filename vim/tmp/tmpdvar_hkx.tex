@@ -1,0 +1,18 @@
+% Input your problem and solution below.
+% Three dashes on a newline indicate the breaking points.
+
+---
+
+A tournament is a directed graph for which every (unordered) pair of vertices has a single directed edge from one vertex to the other. Let us define a proper directed-edge-coloring to be an assignment of a color to every (directed) edge, so that for every pair of directed edges $\overrightarrow{uv}$ and $\overrightarrow{vw}$, those two edges are in different colors. Note that it is permissible for $\overrightarrow{uv}$ and $\overrightarrow{uw}$ to be the same color. The directed-edge-chromatic-number of a tournament is defined to be the minimum total number of colors that can be used in order to create a proper directed-edge-coloring. For each $n$, determine the minimum directed-edge-chromatic-number over all tournaments on $n$ vertices.
+
+---
+
+The answer is $\lceil\log_2 n\rceil$. Assume such a tournament on $n$ vertices can be colored with $k$ colors. For each color $i\le k$, we may designate each vertex as either \emph{$i$-incoming} or \emph{$i$-outgoing}, meaning the vertex is incident to an incoming edge of color $i$ or an outgoing edge of color $i$, respectively. By hypothesis no vertex may be both $i$-incoming and $i$-outgoing, and if a vertex is not incident to any edge of color $i$, it does not matter whether we designate it as $i$-incoming or $i$-outgoing --- for convenience say it is $i$-incoming.
+
+We assign to each vertex a \emph{signature} --- a binary string of $k$ bits such that the $i$th bit equals $0$ if the vertex is $i$-incoming and $1$ if the vertex is $i$-outgoing. Note that:
+\begin{itemize}
+    \item no two vertices may have the same signature, since otherwise it is impossible to draw an edge between them;
+    \item if two vertices have different signatures, then it is possible to draw an edge between.
+\end{itemize}
+There are $2^k$ possible signatures, so we must have $n\le2^k$. Conversely if $n\le2^k$, then we can select a subset of the $2^k$ possible signatures and assign them to the vertices. Between any two vertices draw an edge, thereby forming a valid tournament. Thus the answer is $\lceil\log_2 n\rceil$.
+

@@ -242,9 +242,9 @@ mode "execute" {
     bindsym i exec ibus-daemon -drx, mode "default"
 
     # Google Chrome browser
-    # Also forcibly delete Lynbrook malware from Google Chrome
+    # Note: chown root ~/.config/google-chrome/Profile\ 4/Extensions/gcjpefhffmcgplgklffgbebganmhffje/
+    # and remove its contents to kill NetSupport malware
     bindsym j exec google-chrome-stable &, mode "default"
-    bindsym Shift+j exec rm -fr ~/.config/google-chrome/Profile\ 4/Extensions/gcjpefhffmcgplgklffgbebganmhffje/, mode "default"
     # Zoom meetings
     bindsym z exec zoom &, mode "default"
     # Dropbox
@@ -254,7 +254,7 @@ mode "execute" {
     bindsym v exec gvim &, mode "default"
     # Discord
     bindsym d exec discord &, mode "default"
-    bindsym Shift+d exec killall discord, mode "defualt"
+    bindsym Shift+d exec killall discord, mode "default"
     # Slack
     bindsym l exec slack &, mode "default"
     bindsym Shift+l exec killall slack, mode "default"

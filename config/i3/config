@@ -300,6 +300,16 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# use $ xmodmap -pke 
+bindsym XF86Display exec '/home/ericshen/bin/fixm'
+# Use one of these to detect keycode:
+# $ sudo showkey -k
+# $ sudo libinput debug-events --show-keycodes
+# Then add 8 to the number detected (e.g. KEY_SWITCHVIDEOMODE has keycode 227, so bind 235 below), e.g.
+#bindcode 235 exec '/home/ericshen/bin/fixm'
+# if keycode > 256,
+# see https://unix.stackexchange.com/questions/58559/how-to-change-a-keycode-using-setkeycodes
+
 # audio control mode (thanks Evan)
 mode "audio" {
     # mic volume

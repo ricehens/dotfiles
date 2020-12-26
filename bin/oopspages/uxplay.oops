@@ -1,6 +1,0 @@
-Run avahi-daemon as root. Do not pause this process (ctrl+z or &); simply place it in another terminal window.
-(I believe there is a systemd service for avahi-daemon but we only occasionally need it, so this suffices.)
-
-Navigate to ~/Workspaces/UxPlay/build
-Run ./uxplay
-

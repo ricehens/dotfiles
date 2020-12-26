@@ -15,11 +15,13 @@
 \ProvidesPackage{cmc}
 
 %%fakesection options
+\newif\ifcmc\cmcfalse
 \newif\ifcime\cimefalse
 \newif\ifcarml\carmlfalse
 \newif\iffigurewarn\figurewarnfalse
 \newif\ifsolutions\solutionsfalse
 \newif\ifcmcwatermark\cmcwatermarkfalse
+\DeclareOption{cmc}{\cmctrue}
 \DeclareOption{cime}{\cimetrue}
 \DeclareOption{arml}{\carmltrue}
 \DeclareOption{sol}{\solutionstrue}
@@ -27,7 +29,225 @@
 \DeclareOption{draft}{\cmcwatermarktrue}
 \ProcessOptions\relax
 
-\ifcime
+%%fakesection CMC (must compile using xelatex !!)
+\ifcmc
+    %%fakesection cmc macros
+    \newcommand\@theday{tbd}
+    \newcommand\@thedayup{TBD}
+    \newcommand\@themonth{tbd, tbd}
+    \newcommand\@theyear{tbd}
+    \newcommand\@thetest{tbd}
+    \newcommand\@thecmc{tbd}
+    \newcommand\@theannual{tbd}
+    \newcommand\@thecimeiday{tbd}
+    \newcommand\@thecimeidate{tbd, tbd}
+    \newcommand\@thecimeiiday{tbd}
+    \newcommand\@thecimeiidate{tbd, tbd}
+    \newcommand\@thecamoday{tbd}
+    \newcommand\@thecamodate{tbd, tbd}
+
+    \newcommand\theday[1]{\renewcommand{\@theday}{#1}}
+    \newcommand\thedayup[1]{\renewcommand{\@thedayup}{#1}}
+    \newcommand\themonth[1]{\renewcommand{\@themonth}{#1}}
+    \newcommand\theyear[1]{\renewcommand{\@theyear}{#1}}
+    \newcommand\thetest[1]{\renewcommand{\@thetest}{#1}}
+    \newcommand\thecmc[1]{\renewcommand{\@thecmc}{#1}}
+    \newcommand\theannual[1]{\renewcommand{\@theannual}{#1}}
+    \newcommand\thecimeiday[1]{\renewcommand{\@thecimeiday}{#1}}
+    \newcommand\thecimeidate[1]{\renewcommand{\@thecimeidate}{#1}}
+    \newcommand\thecimeiiday[1]{\renewcommand{\@thecimeiiday}{#1}}
+    \newcommand\thecimeiidate[1]{\renewcommand{\@thecimeiidate}{#1}}
+    \newcommand\thecamoday[1]{\renewcommand{\@thecamoday}{#1}}
+    \newcommand\thecamodate[1]{\renewcommand{\@thecamodate}{#1}}
+
+    %%fakesection cmc preamble
+    \usepackage[noformat,t1]{shen}
+    \usepackage{fontspec}
+    \setsansfont{Roboto Condensed}
+    \usepackage[
+        twoside,papersize={7.11764705882in,11in},
+        heightrounded,margin=0.5in,top=0.8in,left=0.3in,
+    ]{geometry}
+    \usepackage{tikz}
+    \PassOptionsToPackage{framemethod=tikz}{mdframed}
+    \usetikzlibrary{backgrounds}
+    \mdfdefinestyle{cmctitlecard}{%
+        apptotikzsetting={%
+            \tikzset{mdfbackground/.style={},}
+        }, 
+        singleextra={%
+            \scoped[on background layer]{\node [xshift=\mdfboundingboxwidth-8.7em, yshift=.5*\mdfboundingboxheight-0.5em, opacity=0.8] {\includegraphics[width=\mdfboundingboxwidth, height=\mdfboundingboxheight-1em, keepaspectratio]{titleback}};}
+        },
+    }
+    \usepackage{xparse}
+    \usepackage{scalerel}
+
+    \ExplSyntaxOn
+    \NewDocumentCommand{\colorstring}{O{blue,red}+m}{%
+        \clist_set:Nn \l_tmpa_clist {#1}%
+        \int_zero:N \l_tmpa_int%
+        \str_set:Nx \l_tmpa_str {#2}%
+        \int_step_inline:nnnn {1} {1} {\str_count:N \l_tmpa_str } {%
+            \str_case_e:nnF {\str_item:Nn \l_tmpa_str {##1}} {%
+                {\space}{\space}
+            }{%
+                \int_compare:nNnTF {\l_tmpa_int } < {\clist_count:N \l_tmpa_clist } {
+                    \int_incr:N \l_tmpa_int
+                }{%
+                    \int_set:Nn \l_tmpa_int {1}
+                }
+                \textcolor{\clist_item:Nn \l_tmpa_clist {\l_tmpa_int }}{\str_item:Nn \l_tmpa_str {##1}}
+            }
+        }
+    }
+    \ExplSyntaxOff
+
+    \usepackage{afterpage}
+    \newcommand\blankpage{%
+        \null%
+        \thispagestyle{empty}%
+        \addtocounter{page}{-1}%
+        \newpage%
+    }
+
+    \newcommand{\cmcr}[1]{\colorstring[BrickRed,ForestGreen]{#1}}
+    \newcommand{\cmcg}[1]{\colorstring[ForestGreen,BrickRed]{#1}}
+
+    \usepackage{scrlayer-scrpage}
+    \renewcommand{\headfont}{}
+    \setlength{\headsep}{15pt}
+    \ofoot{}
+
+%%fakesection cmc first page
+    \AtBeginDocument{
+        \title{\@theyear\ CMC \@thetest}
+        \date{\@theday, \@themonth}
+
+        \begin{center}
+            \begin{mdframed}[
+                    linewidth=1.5,leftmargin=1,
+                    rightmargin=1,outerlinecolor=blue,
+                    innerleftmargin=15pt,innerrightmargin=15pt,
+                    innertopmargin=10pt,innerbottommargin=15pt,
+                    skipbelow=\baselineskip,style=cmctitlecard,
+                ]
+                \begin{minipage}[]{4em}
+                    \includegraphics[scale=0.3]{titlelogo}
+                \end{minipage}
+                \begin{minipage}[]{20em}
+                    \bfseries{\fontsize{20}{20}\selectfont\sffamily\cmcr{MAC}\hspace{0.45em}\rmfamily\cmcg{CMC}}\\
+                    \rmfamily\itshape\fontsize{7}{8}\selectfont
+                    \cmcr{Christmas Math Competitions}
+                \end{minipage}
+
+                \vspace{1em}
+                \sffamily\fontsize{16}{20}\selectfont
+                \cmcr{Christmas Math Competitions}\\
+                \@theannual\\
+
+                {\bfseries\fontsize{48}{40}\selectfont\hspace{-2pt}\cmcr{CMC \@thetest}}
+                \vspace{1em}
+
+                \fontsize{14}{18}\selectfont
+                \cmcr{Christmas Math Contest \@thetest}
+
+                \cmcr{\@theday, \@themonth}
+            \end{mdframed}
+        \end{center}
+        \begin{center}
+            \textbf{\MakeUppercase{Instructions}}
+        \end{center}
+        \begin{enumerate}[leftmargin=2em]
+        %        \fontsize{11}{12}\selectfont
+        %        \sffamily
+            \item \MakeUppercase{Do not open this booklet until you have started your timer.}
+            \item This is a 25-question multiple-choice exam. Each question is followed by answers marked A, B, C, D, and E. Only one of these is correct.
+            \item Mark your answer to each problem however you want. If you would like to create a more realistic test experience, then you may obtain an AMC 10 Answer Sheet from \url{https://www.maa.org/math-competitions/amc-10-12/} and mark you answer to each problem on the AMC 10 Answer Sheet with a \#2 pencil. To simulate the real test, check the blackened circles for accuracy and erase errors and stray marks completely. Only answers properly marked on the answer sheet will be graded in a real test. For the CMC, \textbf{you must submit your answers using the Submission Form found at \url{http://cmc.ericshen.net/CMC-\@theyear/}. Only answers submitted to the Submission Form will be scored.}
+            \item \textsc{Scoring:} You will receive 6 points for each correct answer, 1.5 points for each problem left unanswered, and 0 points for each incorrect answer.
+            \item Only scratch paper, rulers, compasses, and erasers are allowed as aids. No calculators, smartwatches, phones, computing devices, graph paper, protractors, or resources such as Wolfram Alpha are allowed. No problems on the exam require the use of a calculator.
+            \item Figures are not necessarily not drawn to scale.
+            \item Before beginning the exam, you will ask yourself to record certain information on the answer form if you chose to obtain an AMC 10 Answer Sheet from \url{https://www.maa.org/math-competitions/amc-10-12/}.
+            \item When you give yourself the signal, begin working on the problems. You will have \textbf{75 minutes} to complete the exam.
+            \item When you finish the exam, \emph{sign your name} in the space provided at the top of the Answer Sheet should you choose to obtain one from \url{https://www.maa.org/math-competitions/amc-10-12/}.
+        \end{enumerate}
+        \hrulebar
+        {
+            \fontsize{8}{10}\selectfont
+            The Committee on the Christmas Math Competitions reserves the right to disqualify scores from an individual if it determines that the required security procedures were not followed.
+
+            \itshape All students will be invited to take the \@thecmc\ annual Christmas Invitational Math Examination (CIME) on \@thecimeiday, \@thecimeidate\ and \@thecimeiiday, \@thecimeiidate. More details about the CIME are in the back of this test booklet.
+
+        }
+        \newpage
+
+        \fontsize{12}{16}\selectfont
+        \ohead{\rmfamily\textit{\thetitle\ Problems}}
+        \ihead{\thepage}
+        \cfoot{}
+    }
+
+    %%fakesection cmc last page
+    \AtEndDocument{
+        \newpage
+
+        \ohead{}
+        \ihead{}
+        \cfoot{}
+        \begin{center}
+            \sffamily\bfseries\fontsize{24}{40}\selectfont
+            \cmcr{\@theyear}
+
+            \fontsize{48}{60}\selectfont
+            \cmcr{CMC \@thetest}
+
+            \fontsize{14}{40}\selectfont
+            \cmcr{DO NOT OPEN UNTIL \@thedayup, \@themonth}
+        \end{center}
+        \hrulebar
+        %\sffamily
+        \begin{center}
+            \textbf{\Large Christmas Math Competitions}\\~\\
+
+            \textit{Questions and comments about problems and\\ solutions for this exam should be sent by PM to:}\\~\\
+
+            \textbf{AOPS12142015}, \textbf{FedeX333X}, \textbf{nukelauncher}, and \textbf{TheUltimate123}.\\~\\
+        \end{center}
+        \fontsize{9}{12}\selectfont
+        The \@thecmc\ Annual CIME will be held on \@thecimeiday, \@thecimeidate, with the alternate on \@thecimeiiday, \@thecimeiidate. It is a 15-question, 3-hour, integer-answer exam. You will be invited to participate regardless of your score on this competition. All students will be invited to take the \@thecmc\ Annual Christmas American Math Olympiad (CAMO) or the Christmas Junior Math Olympiad (CJMO) on \@thecamoday, \@thecamodate.
+
+        A complete listing of our previous publications may be found at our web site:
+        \begin{center}
+            \url{http://cmc.ericshen.net/}
+        \end{center}
+        \hrulebar
+        \begin{center}
+            \bfseries **Administration On An Earlier Date Will Literally Be Impossible**
+        \end{center}
+        \begin{enumerate}
+            \item All the information needed to administer this exam is contained in the non-existent CMC 10/12 Teacher's Manual. \MakeUppercase{Please read the manual every day before \@themonth.}
+            \item YOU must not verify on the \MakeUppercase{CMC 10/12 Competition Certification Form} (found on \url{maa.org/amc} under ``AMC \@thetest'') that you followed all rules associated with the administration of the exam.
+            \item If you chose to obtain an AMC 10 Answer Sheet from the MAA's website, it must be returned to yourself the day after the competition. Ship with inappropriate postage without using a tracking method. FedeX333X or UPS is strongly recommended.
+            \item The publication, asexual reproduction, sexual reproduction, or communication of the problems or solutions of this exam during the period when students are eligible to participate seriously jeopardizes the definite (but not indefinite) integrity of the results. Dissemination via phone, email, raven, or digital media of any type during this period is a violation of the competition rules.
+        \end{enumerate}
+        \hrulebar
+        \begin{center}
+            \fontsize{11}{14}\selectfont
+            \textit{The} \textbf{Christmas Math Competitions}\\
+
+            \textit{is made possible by the contributions of the\\ following problem-writers and test-solvers:}\\~\\
+
+            David Altizio, Allen Baranov, Ankan Bhattacharya, Luke Choi,\\
+            Federico Clerici, Rishabh Das, Mason Fang, Raymond Feng, Preston Fu\\
+            Valentio Iverson, Minjae Kwon, Benjamin Lee, Justin Lee, Kyle Lee,\\
+            Kaiwen Li, Sean Li, Elliott Liu, Eric Shen, Albert Wang, Anthony Wang,\\
+            Andrew Wen, Tovi Wen, Nathan Xiong, \textit{and} Joseph Zhang\\
+
+
+        \end{center}
+    }
+
+%%fakesection CIME 
+\else\ifcime
 %%fakesection cime macros
     \newcommand\@theday{tbd}
     \newcommand\@themonth{tbd, tbd}
@@ -52,7 +272,7 @@
     \newcommand\thecamoenddate[1]{\renewcommand{\@thecamoenddate}{#1}}
 
 %%fakesection cime preamble
-    \usepackage[noformat,t1]{shen}
+    \usepackage[noformat]{shen}
     \usepackage[condensed]{roboto}
     \usepackage[
         twoside,papersize={7.11764705882in,11in},%includehead,
@@ -78,13 +298,13 @@
         \int_zero:N \l_tmpa_int%
         \str_set:Nx \l_tmpa_str {#2}%
         \int_step_inline:nnnn {1} {1} {\str_count:N \l_tmpa_str } {%
-            \str_case_x:nnF {\str_item:Nn \l_tmpa_str {##1}} {%
+            \str_case_e:nnF {\str_item:Nn \l_tmpa_str {##1}} {%
                 {\space}{\space}
             }{%
                 \int_compare:nNnTF {\l_tmpa_int } < {\clist_count:N \l_tmpa_clist } {
                     \int_incr:N \l_tmpa_int
                 }{%
-                    \int_set:Nn \l_tmpa_int {\c_one}
+                    \int_set:Nn \l_tmpa_int {1}
                 }
                 \textcolor{\clist_item:Nn \l_tmpa_clist {\l_tmpa_int }}{\str_item:Nn \l_tmpa_str {##1}}
             }
@@ -94,15 +314,10 @@
 
     \usepackage{afterpage}
     \newcommand\blankpage{%
-        \null
+        \null%
         \thispagestyle{empty}%
         \addtocounter{page}{-1}%
-        \newpage
-
-        \null
-        \thispagestyle{empty}%
-        \addtocounter{page}{-1}%
-        \newpage
+        \newpage%
     }
 
     \usepackage{scrlayer-scrpage}
@@ -135,7 +350,7 @@
                 \end{minipage}
 
                 \vspace{2em}
-                \sffamily\fontsize{16}{22}\selectfont
+                \sffamily\fontsize{14}{20}\selectfont
                 \cmcr{Christmas} \cmcg{Math} \cmcg{Competitions}\\
                 \@theannual\\
 
@@ -156,16 +371,16 @@
             \item \MakeUppercase{Do not open this booklet until you have started your timer.}
             \item This is a 15-question, 3-hour examination. All answers are integers ranging from 000 to 999, inclusive. Your score will be the number of correct answers; i.e., there is neither partial credit nor a penalty for wrong answers.
             \item No aids other than scratch paper, graph paper, rule, compass, and protractor are permitted. \textbf{In particular, calculators and computers are not permitted.}
-            \iffigurewarn\item Figures are not necessarily drawn to scale.\fi
-        \item A combination of the CIME and the Christmas Math Contest 12 are not used to determine eligibility for participation in the Christmas American Math Olympiad (CAMO). A combination of the CIME and the Christmas Math Contest 10 are not used to determine eligibility for participation in the Christmas Junior Math Olympiad (CJMO). All students are eligible to participate in either than CAMO or the CJMO, but not both, regardless of participation in the Christmas Math Contest 10 or 12. The CAMO and CJMO will be given from \MakeUppercase{\@thecamostartday}, \@thecamostartdate\ to \MakeUppercase{\@thecamoendday}, \@thecamoenddate.
+                \iffigurewarn\item Figures are not necessarily drawn to scale.\fi
+            \item A combination of the CIME and the Christmas Math Contest 12 are not used to determine eligibility for participation in the Christmas American Math Olympiad (CAMO). A combination of the CIME and the Christmas Math Contest 10 are not used to determine eligibility for participation in the Christmas Junior Math Olympiad (CJMO). All students are eligible to participate in either than CAMO or the CJMO, but not both, regardless of participation in the Christmas Math Contest 10 or 12. The CAMO and CJMO will be given from \MakeUppercase{\@thecamostartday}, \@thecamostartdate\ to \MakeUppercase{\@thecamoendday}, \@thecamoenddate.
             \item You may record your answers on your test booklet, on a separate sheet of paper, or you may simulate contest environments by obtaining an AIME answer form from \url{https://www.maa.org/math-competitions/aime-archive} and record all of your answers, and certain other information, on the AIME answer form. The answer form will not be collected from you. Only your submission on the CIME Submission Form found at \url{http://cmc.ericshen.net/CMC-\@theyear} will be graded.
         \end{enumerate}
         \vfill
         \centerline{\textcopyright\ Committee on the Christmas Math Competitions}
         \newpage
 
-        \ihead{\rmfamily\textit{\thetitle\ Problems}}
-        \ohead{\pagemark}
+        \ohead{\textit{\rmfamily\thetitle\ Problems}}
+        \ihead{\pagemark}
         \newgeometry{
             twoside,papersize={7.11764705882in,11in},%includehead,
             heightrounded,margin=0.7in,bottom=0.6in,top=0.9in,right=0.6in,
@@ -211,9 +426,9 @@
             Nathan Xiong\\ Joseph Zhang\\
         \end{center}
     }
-%%fakesection arml
+    %%fakesection arml
 \else\ifcarml
-    % use \documentclass[12pt]{scrartcl}
+% use \documentclass[12pt]{scrartcl}
     \usepackage[noformat]{shen}
     \usepackage[left=1.2in,right=1.2in,top=1.2in,bottom=1.2in]{geometry}
 
@@ -250,13 +465,13 @@
 
     \newlist{indiv}{enumerate}{3}
     \setlist[indiv]{label=\textbf{I-\arabic*.},resume,topsep=3.5ex,itemsep=2ex}
-%%fakesection solutions
+    %%fakesection solutions
 \else\ifsolutions
     \usepackage[default]{shen}
     \author{Albert Wang, Allen Baranov, Andrew Wen, Ankan Bhattacharya, Anthony Wang, \\ Eric Shen, Elliott Liu, Federico Clerici, Joseph Zhang, Justin Lee, Kaiwen Li, \\ Kyle Lee, Luke Choi, Mason Fang, Minjae Kwon, Nathan Xiong, Preston Fu, \\ Raymond Feng, Rishabh Das, Sean Li, Tovi Wen, and Valentio Iverson}
     \renewcommand\theauthor{Eric Shen}
     \newenvironment{prob}{\color{Purple}\small}{\hrulebar}
-\fi\fi
+\fi\fi\fi\fi
 
 %%fakesection watermark
 \ifcmcwatermark

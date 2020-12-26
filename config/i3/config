@@ -227,14 +227,10 @@ bindsym $mod+Control+m exec '/home/ericshen/bin/fixm'
 bindsym $mod+Control+t exec '/home/ericshen/bin/texyou'
 
 mode "execute" {
-    # see above
-    bindsym m exec '/home/ericshen/bin/fixm', mode "default"
-    bindsym t exec '/home/ericshen/bin/texyou', mode "default"
-
     # Invert colors / night shift
-    bindsym y exec xcalib -invert -alter, mode "default"
+    bindsym Control+r exec xcalib -invert -alter, mode "default"
     bindsym r exec redshift -P -O 5000, mode "default"
-    bindsym e exec redshift -x, mode "default"
+    bindsym Shift+r exec redshift -x, mode "default"
     # compositor
     bindsym p exec picom -b --experimental-backends, mode "default"
     bindsym Shift+p exec killall picom, mode "default"
@@ -244,17 +240,20 @@ mode "execute" {
     # Google Chrome browser
     # Note: chown root ~/.config/google-chrome/Profile\ 4/Extensions/gcjpefhffmcgplgklffgbebganmhffje/
     # and remove its contents to kill NetSupport malware
-    bindsym j exec google-chrome-stable &, mode "default"
+    bindsym j exec google-chrome-stable --force-device-scale-factor=1.1 &, mode "default"
     # Zoom meetings
     bindsym z exec zoom &, mode "default"
     # Dropbox
     bindsym b exec dropbox &, mode "default"
-    bindsym Shift+b exec killall dropbox, mode "default"
+    bindsym Shift+b exec killall dropbox, \
+            exec rm -f /home/ericshen/Dropbox/.dropbox.cache/old_files/*, \
+            exec rm -f /home/ericshen/Dropbox/.dropbox.cache/new_files/*, \
+            mode "default"
     # Graphical vim
     bindsym v exec gvim &, mode "default"
     # Discord
     bindsym d exec discord &, mode "default"
-    bindsym Shift+d exec killall discord, mode "default"
+    bindsym Shift+d exec killall Discord, mode "default"
     # Slack
     bindsym l exec slack &, mode "default"
     bindsym Shift+l exec killall slack, mode "default"
@@ -263,8 +262,10 @@ mode "execute" {
     # Wolfram mathematica
     bindsym w exec LANG=en_US.utf8 mathematica &, mode "default"
     # Libreoffice (which is honestly much worse than word; hence the dualboot)
-    bindsym f exec LANG=en_US.utf8 GTK_THEME=Adwaita:light libreoffice &, mode "default"
+    bindsym f exec LANG=en_US.utf8 GTK_THEME=Adwaita:light GDK_DPI_SCALE=0.8 libreoffice &, mode "default"
 
+    # Easytag
+    bindsym g exec LANG=en_US.utf8 GTK_THEME=Adwaita:light easytag ~/Music/ &, mode "default"
     # Apple music to access library
     bindsym a exec LANG=en_US.utf8 apple-music-for-linux &, mode "default"
     # cmus for local music
@@ -274,7 +275,22 @@ mode "execute" {
     # Summon an airplay server to mirror ipad screen
     bindsym x exec "urxvt -e sh -c \\"cd ~/Workspaces/UxPlay/build; ./uxplay; bash\\" &", \
         mode "default"
-    # GPU benchmarking
+    # Darktable (lightroom)
+    bindsym h exec darktable &, mode "default"
+    # OBS
+    bindsym o exec LANG=en_US.utf8 "obs" &, mode "default"
+    # Audacity
+    # bindsym y exec audacity &, mode "default"
+    # Blender
+    # bindsym e exec blender &, mode "default"
+
+    # JDownloader
+    bindsym y exec LANG=en_US.utf8 jdownloader &, mode "default"
+
+    # Screwing around / GPU benchmarking
+    bindsym t exec steam-runtime &, mode "default"
+    bindsym m exec discover-overlay &, mode "default"
+    bindsym Shift+m exec killall discover-overlay, mode "default"
     bindsym n exec XMODIFIERS="@im=null" minecraft-launcher &, mode "default"
 
     bindsym Return mode "default"
@@ -345,6 +361,9 @@ mode "audio" {
     bindsym p exec --no-startup-id playerctl previous
     bindsym n exec --no-startup-id playerctl next
 
+    # lyrics
+    bindsym l exec "/home/ericshen/bin/lyrics -g &", mode "default"
+
     # control Spotify volume
     bindsym Shift+k exec --no-startup-id notify-send -i audio-headphones \
         "Spotify volume up" "Spotify volume $(ponymix increase 10 -d Spotify --sink-input)%" -t 500
@@ -359,6 +378,9 @@ mode "audio" {
 }
 bindsym $mod+o mode "audio"
 
+# Compositor
+exec_always --no-startup-id picom
+
 # Night shift
 exec --no-startup-id redshift -P -O 5000
 
@@ -370,5 +392,6 @@ exec ibus-daemon -drx
 
 # Wallpaper
 #exec_always feh --bg-fill ~/Photos/Wallpapers/Fuji.jpg
-exec_always feh --bg-fill ~/Photos/Wallpapers/Nature-4K/Nature-4k-Wallpaper-11.jpg
+#exec_always feh --bg-fill ~/Photos/Wallpapers/Nature-4K/Nature-4k-Wallpaper-11.jpg
+exec_always feh --bg-fill '~/Photos/Photography/20201210 Seven Springs/20201209-DSC_0106.jpg'
 

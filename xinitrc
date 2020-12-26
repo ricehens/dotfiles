@@ -1,12 +1,8 @@
 # locale
 export LANG=zh_CN.UTF-8
-export LC_LANG=und
 
 # x terminal
 export TERMINAL='urxvt'
-
-# DPI scaling
-xrandr --dpi 120
 
 # decrease trackpoint acceleration
 # more settings in /etc/udev/rules.d/10-trackpoint.rules

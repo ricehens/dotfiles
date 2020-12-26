@@ -1,6 +1,0 @@
-We can use Git to edit Overleaf documents offline. First obtain the Git link by clicking Menu (top left) and Git (Sync). You can now clone the repository with
-	$ git clone <url> <destination>
-as usual. CD into the directory and make any desired changes. Finally, you can commit the changes with
-	$ git commit -am "changed title"
-	$ git push
-The end.

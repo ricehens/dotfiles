@@ -7,6 +7,10 @@ set encoding=utf-8
 set clipboard=unnamed " PRIMARY
 set belloff=all
 
+" Autocomplete like bash
+set wildmenu
+set wildmode=longest,list
+
 """"" ===== VUNDLE
 
 set nocompatible              " be iMproved, required
@@ -21,7 +25,8 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-latex/vim-latex'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
+" Plugin 'artur-shaik/vim-javacomplete2'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -134,5 +139,9 @@ let g:ycm_key_list_stop_completion = ['<up>', '<C-p>']
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 let g:ycm_filetype_whitelist = {
             \ 'java': 1,
-            \ 'cpp': 1
+            \ 'cpp': 1,
+            \ 'yaml' : 1,
             \ }
+
+" In ~/.vim/bundle/YouCompleteMe/:
+" $ ./install.py --clangd-completer --java-completer

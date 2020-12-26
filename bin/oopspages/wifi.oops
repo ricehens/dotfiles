@@ -1,6 +1,0 @@
-HELP:			nmcli device wifi --help
-LIST ALL WIFI:		nmcli device wifi list
-CONNECT TO WIFI:	nmcli device wifi connect <(B)SSID> password <key>
-LIST CONNECTIONS:	nmcli connection show
-GET PRIORITY:		nmcli c s <SSID> | grep autoconnect
-SET PRIORITY:		nmcli c mod <SSID> connection.autoconnect-priority <PRIORITY>

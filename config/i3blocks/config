@@ -44,7 +44,8 @@ separator=false
 
 [cmus]
 command=~/.config/i3blocks/scroll/scroll ~/.config/i3blocks/$BLOCK_NAME/$BLOCK_NAME
-interval=1
+markup=pango
+interval=repeat
 
 # Memory usage
 #

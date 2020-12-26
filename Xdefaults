@@ -1,3 +1,4 @@
+! Update with $ xrdb -merge ~/.Xdefaults
 !! Appearance
 urxvt.termName:	rxvt-unicode
 urxvt.scrollBar:	false

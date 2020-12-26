@@ -2,6 +2,7 @@
 colorscheme molokai
 set encoding=utf-8
 set guioptions-=T
+set number
 
 " Copy to clipboard
 set clipboard=unnamedplus " CLIPBOARD

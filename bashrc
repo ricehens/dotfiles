@@ -13,11 +13,11 @@ export TERM=xterm-256color
 export VISUAL='vim'
 export EDITOR='vim'
 # Custom scripts
-export PATH="/home/ericshen/bin:$PATH"
+export PATH="/home/ericshen/bin:/home/ericshen/.local/bin:$PATH"
 export PYTHONPATH="/home/ericshen/.von:$PATH"
 
 # Java PATH
-export PATH="/usr/lib/jvm/java-15-jdk/bin:$PATH"
+export PATH="/usr/lib/jvm/java-14-openjdk/bin:$PATH"
 
 # Useful constants
 export SITE='eh2z5z1c0mo2@ericshen.net'
@@ -34,8 +34,10 @@ alias pdf='zathura &>/dev/null' # zathura shortcut
 alias img='feh --scale-down --auto-zoom' # feh auto-scale
 alias ytdl="youtube-dl -f bestaudio[ext=m4a] --embed-thumbnail --add-metadata -o '%(title)s.%(ext)s'" # download music
 alias gvim='gvim &>/dev/null' # don't print warnings
+alias wpm='python -m wpm'
 alias von='python -m von' # von
 alias g='git' # git (e.g. g s, g a)
+alias skin='find . -type f -print0 | xargs -0 chmod 644' # chmod files to 644 after importing from exfat drive
 
 # ls preferences
 alias ls='ls --color=tty --group-directories-first --quoting-style=literal -CF --time-style=long-iso'
@@ -74,6 +76,7 @@ export SCRIPT_DIR='/home/ericshen/.config/i3blocks'
 
 # I'm lazy so http://bashrcgenerator.com/
 export PS1="\[$(tput bold)\]\[\033[38;5;43m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;38m\]@\[$(tput sgr0)\]\[\033[38;5;80m\]\h\[$(tput sgr0)\]\[\033[38;5;38m\]:\[$(tput bold)\]\[\033[38;5;45m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;38m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+alias short='PS1="\[\033[38;5;38m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"'
 
 # Auto-complete
 # source /home/ericshen/bin/auto-complete-alias &>/dev/null

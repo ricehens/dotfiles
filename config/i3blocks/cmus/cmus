@@ -21,4 +21,4 @@ else
 fi
 
 echo "$artist: $title"
-echo "$artist: $title"
+#echo "$artist: $title"

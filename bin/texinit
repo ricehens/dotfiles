@@ -1,5 +1,5 @@
 #!/bin/bash
-TEMPLATEHOME='/home/ericshen/bin/tex-templates'
+TEMPLATEHOME='/home/ericshen/bin/templates'
 WHICHONE='standard'
 if [ -z "$2" ]
 then

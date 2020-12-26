@@ -1,0 +1,24 @@
+#!/bin/bash
+TEMPLATEHOME='/home/ericshen/bin/templates'
+LANG="cpp"
+if [ -z "$2" ]
+then
+    echo "Copying USACO template to $1.cpp."
+else
+    LANG="$2"
+    echo "Copying USACO template to $1.$LANG."
+fi
+if cp $TEMPLATEHOME/usaco.$LANG $PWD/$1.$LANG ; then
+    echo 'Copy success.'
+    
+    if sed -i "s/\${NAME}/$1/g" $PWD/$1.$LANG ; then
+        echo 'Regex preparations complete.'
+        echo 'Starting graphical vim.'
+        gvim $1.$LANG
+    else
+        echo 'Regex preparations failed.'
+    fi
+else
+    echo 'Template not found.'
+fi
+

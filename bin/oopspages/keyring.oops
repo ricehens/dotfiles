@@ -1,3 +1,0 @@
-Use the following to import the key manually:
-gpg --keyserver pool.sks-keyservers.net --recv-keys <key>
-

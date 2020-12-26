@@ -1,0 +1,15 @@
+#!/bin/bash
+file="$(cmus-remote -Q 2> /dev/null | grep '^file ' | cut -c 6- | rev | cut -c 5- | rev).lrc"
+
+if [ ! -f "$file" ]; then
+    echo "'$file' not found"
+    if [ "$1" = "-g" ]; then
+        gvim "$file"
+    fi
+else
+    if [ "$1" = "-g" ]; then
+        gvim "$file"
+    else
+        cat "$file"
+    fi
+fi

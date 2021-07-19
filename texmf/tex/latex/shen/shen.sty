@@ -39,6 +39,8 @@
 \newif\ifdocisbeamer\docisbeamerfalse
 \newif\ifdiagramsenabled\diagramsenabledfalse
 \newif\ifchineseenabled\chineseenabledfalse
+\newif\ifchessdiagenabled\chessdiagenabledfalse
+\newif\ifcreateprob\createprobfalse
 
 \newif\ifvonstyexists
 \IfFileExists{von.sty}{\vonstyexiststrue}{\vonstyexistsfalse}
@@ -137,6 +139,9 @@
     \PackageWarning{shen}{Option rollprob is obsolete, please use rollthm instead}%
     \rollingboxprobtrue
 }
+\DeclareOption{prob}{
+    \createprobtrue
+}
 
 % TikZ commutative diagrams
 \DeclareOption{diagrams}{\diagramsenabledtrue}
@@ -147,6 +152,9 @@
 
 % Chinese, Japanese, Korean font family
 \DeclareOption{chinese}{\chineseenabledtrue\setlinespacingfalse}
+
+% Import skak
+\DeclareOption{chess}{\chessdiagenabledtrue}
 
 \ProcessOptions\relax
 
@@ -181,6 +189,9 @@
 \ifdiagramsenabled
     \usepackage{tikz-cd}
 \fi
+\ifchessdiagenabled
+    \usepackage{skak}
+\fi
 
 %%fakesection BASIC FORMATTING
 % Colorful text
@@ -212,14 +223,14 @@
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\vphi}{\varphi}
 \newcommand{\veps}{\varepsilon}
-\newcommand{\CC}{\mathbb C}
-\newcommand{\FF}{\mathbb F}
-\newcommand{\NN}{\mathbb N}
-\newcommand{\QQ}{\mathbb Q}
-\newcommand{\RR}{\mathbb R}
-\newcommand{\ZZ}{\mathbb Z}
-\newcommand{\PP}{\mathbb P}
-\newcommand{\EE}{\mathbb E}
+%\newcommand{\CC}{\mathbb C}
+%\newcommand{\FF}{\mathbb F}
+%\newcommand{\NN}{\mathbb N}
+%\newcommand{\QQ}{\mathbb Q}
+%\newcommand{\RR}{\mathbb R}
+%\newcommand{\ZZ}{\mathbb Z}
+%\newcommand{\PP}{\mathbb P}
+%\newcommand{\EE}{\mathbb E}
 \ifcolorsecstyle
     \newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
 \else
@@ -831,8 +842,8 @@
 
     \newcommand{\goals}[2]{\bgroup
         \sffamily\emph{Instructions}: Solve \clubg{#1}.
-        If you have time, solve \clubg{#2}.
-        Problems with {\color{red} red} weights are mandatory.
+        If you have more time, solve \clubg{#2}.
+        The problems with {\color{red} red} weights are mandatory.
         \egroup
     }
 
@@ -922,8 +933,12 @@
 
 % Show everything
     \def\vonall{\@ifstar\@vonallstar\@vonall}
-    \newcommand{\@vonall}[2][]{\vonbox[#1]{#2}\vonsol{#2}}
-    \newcommand{\@vonallstar}[1]{\vonbox*{#1}\vonsol{#1}}
+    \newcommand{\@vonall}[2][]{\vonbox[#1]{#2}
+
+    \vonsol{#2}}
+    \newcommand{\@vonallstar}[1]{\vonbox*{#1}
+
+    \vonsol{#1}}
 
 % vonall with \newpage
     \def\vonfull{\@ifstar\@vonfullstar\@vonfull}
@@ -992,6 +1007,13 @@
         \vonall{#3}
     }
 \fi\fi
+
+\ifcreateprob
+    \newenvironment{prob}{\color{Purple}\small}{\hrulebar}
+    \ifvonenabled\ifvonstyexists
+        \renewcommand{\@vonbox}[2][]{\vonenv*{#2}{prob}}
+    \fi\fi
+\fi
 
 %%fakesection BEAMER
 \ifdocisbeamer\AtBeginDocument{

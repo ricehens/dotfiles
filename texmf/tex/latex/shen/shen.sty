@@ -214,7 +214,6 @@
 \newcommand{\ray}[1]{\overrightarrow{#1}} 
 \newcommand{\seg}[1]{\overline{#1}}
 \newcommand{\arc}[1]{\widehat{#1}}
-\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
 \newcommand{\dg}{^\circ}
 \newcommand{\ii}{\item}
 \newcommand{\opname}{\operatorname}
@@ -223,14 +222,14 @@
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\vphi}{\varphi}
 \newcommand{\veps}{\varepsilon}
-%\newcommand{\CC}{\mathbb C}
-%\newcommand{\FF}{\mathbb F}
-%\newcommand{\NN}{\mathbb N}
-%\newcommand{\QQ}{\mathbb Q}
-%\newcommand{\RR}{\mathbb R}
-%\newcommand{\ZZ}{\mathbb Z}
-%\newcommand{\PP}{\mathbb P}
-%\newcommand{\EE}{\mathbb E}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\EE}{\mathbb E}
 \ifcolorsecstyle
     \newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
 \else
@@ -248,7 +247,7 @@
     \begin{mdframed}[linecolor=green!70!black]%
     \bfseries\color{green!70!black}}%
 {\end{mdframed}}
-\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator*{\lcm}{lcm}
 \DeclareMathOperator{\cis}{cis}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\pow}{Pow}
@@ -831,6 +830,7 @@
     \newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
 
     \newtheorem{problem}[theorem]{Problem}
+    \newtheorem*{problem*}{Problem}
     \newtheorem{probE}[problem]{\clubs{2} Problem}
     \newtheorem{probM}[problem]{\clubs{3} Problem}
     \newtheorem{probH}[problem]{\clubs{5} Problem}
@@ -1031,6 +1031,10 @@
         }
         \renewenvironment{problem}[1][]{
             \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
+        }
+        \newenvironment{exercise}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Exercise}}{\begin{exampleblock}{Exercise (#1)}}
             }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
         }
         \renewenvironment{lemma}[1][]{

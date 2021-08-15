@@ -208,9 +208,8 @@
         \begin{center}
             \textbf{\Large Christmas Math Competitions}\\~\\
 
-            \textit{Questions and comments about problems and\\ solutions for this exam should be sent by PM to:}\\~\\
-
-            \textbf{AOPS12142015}, \textbf{FedeX333X}, \textbf{nukelauncher}, and \textbf{TheUltimate123}.\\~\\
+            \textit{Questions and comments about problems and\\ solutions for this exam should be emailed to:}\\[1.5ex]
+            \href{mailto:christmas.math.team@gmail.com}{\texttt{christmas.math.team@gmail.com}}\\
         \end{center}
         \fontsize{9}{12}\selectfont
         The \@thecmc\ Annual CIME will be held on \@thecimeiday, \@thecimeidate, with the alternate on \@thecimeiiday, \@thecimeiidate. It is a 15-question, 3-hour, integer-answer exam. You will be invited to participate regardless of your score on this competition. All students will be invited to take the \@thecmc\ Annual Christmas American Math Olympiad (CAMO) or the Christmas Junior Math Olympiad (CJMO) on \@thecamoday, \@thecamodate.
@@ -273,10 +272,11 @@
 
 %%fakesection cime preamble
     \usepackage[noformat]{shen}
-    \usepackage[condensed]{roboto}
+    \usepackage{fontspec}
+    \setsansfont{Roboto Condensed}
     \usepackage[
         twoside,papersize={7.11764705882in,11in},%includehead,
-        heightrounded,margin=0.7in,bottom=0.5in,top=0.7in,right=0.6in,
+        heightrounded,margin=0.6in,bottom=0.5in,top=0.7in,right=0.5in,
     ]{geometry}
     \usepackage{tikz}
     \PassOptionsToPackage{framemethod=tikz}{mdframed}
@@ -373,7 +373,7 @@
             \item No aids other than scratch paper, graph paper, rule, compass, and protractor are permitted. \textbf{In particular, calculators and computers are not permitted.}
                 \iffigurewarn\item Figures are not necessarily drawn to scale.\fi
             \item A combination of the CIME and the Christmas Math Contest 12 are not used to determine eligibility for participation in the Christmas American Math Olympiad (CAMO). A combination of the CIME and the Christmas Math Contest 10 are not used to determine eligibility for participation in the Christmas Junior Math Olympiad (CJMO). All students are eligible to participate in either than CAMO or the CJMO, but not both, regardless of participation in the Christmas Math Contest 10 or 12. The CAMO and CJMO will be given from \MakeUppercase{\@thecamostartday}, \@thecamostartdate\ to \MakeUppercase{\@thecamoendday}, \@thecamoenddate.
-            \item You may record your answers on your test booklet, on a separate sheet of paper, or you may simulate contest environments by obtaining an AIME answer form from \url{https://www.maa.org/math-competitions/aime-archive} and record all of your answers, and certain other information, on the AIME answer form. The answer form will not be collected from you. Only your submission on the CIME Submission Form found at \url{http://cmc.ericshen.net/CMC-\@theyear} will be graded.
+            \item You may record your answers on your test booklet or on a separate sheet of paper; alternatively you may simulate contest environments by obtaining an AIME answer form from \url{https://www.maa.org/math-competitions/aime-archive} and record all of your answers, and certain other information, on the AIME answer form. The answer form will not be collected from you. Only your submission on the CIME Submission Form found at \url{http://cmc.ericshen.net/CMC-\@theyear} will be graded.
         \end{enumerate}
         \vfill
         \centerline{\textcopyright\ Committee on the Christmas Math Competitions}
@@ -383,7 +383,7 @@
         \ihead{\pagemark}
         \newgeometry{
             twoside,papersize={7.11764705882in,11in},%includehead,
-            heightrounded,margin=0.7in,bottom=0.6in,top=0.9in,right=0.6in,
+            heightrounded,margin=0.6in,bottom=0.6in,top=0.9in,right=0.5in,
         }
     }
 
@@ -394,16 +394,16 @@
         \pagestyle{plain}
         \newgeometry{
             twoside,papersize={7.11764705882in,11in},%includehead,
-            heightrounded,margin=0.7in,bottom=0.5in,top=0.6in,right=0.6in,
+            heightrounded,margin=0.6in,bottom=0.5in,top=0.6in,right=0.5in,
         }
 
         \begin{center}
             The \@thecmc\ CIME \@thetest\ Solutions Pamphlet will be released after the contest.
         \end{center}
         {
-            \textbf{CONTACT US ---} \itshape Correspondence about the problems and solutions for this CIME should be sent by PM to:
+            \textbf{CONTACT US ---} \itshape Correspondence about the problems and solutions for this CIME should be emailed to:
             \begin{center}
-                \emph{AOPS12142015}, \emph{FedeX333X}, \emph{TheUltimate123}, and \emph{WannabeCharmander}.
+                \normalfont\href{mailto:christmas.math.team@gmail.com}{\texttt{christmas.math.team@gmail.com}}
             \end{center}
             The problems for this CIME were prepared by the CMC's Committee on the CIME.\\
         }
@@ -419,11 +419,30 @@
             \textit{are made possible by the contributions of\\
             following problem-writers and test-solvers:}\\~\\
 
-            David Altizio\\ Allen Baranov\\ Luke Choi\\
-            Federico Clerici\\ Mason Fang\\ Raymond Feng\\
-            Preston Fu\\ Justin Lee\\ Kyle Lee\\ Kaiwen Li\\
-            Sean Li\\ Eric Shen\\ Anthony Wang\\ Andrew Wen\\
-            Nathan Xiong\\ Joseph Zhang\\
+            Albert Wang\\
+            Allen Baranov\\
+            Andrew Wen\\
+            Ankan Bhattacharya\\
+            Anthony Wang\\
+            Benjamin Lee\\
+            David Altizio\\
+            Eric Shen\\
+            Elliott Liu\\
+            Federico Clerici\\
+            Joseph Zhang\\
+            Justin Lee\\
+            Kaiwen Li\\
+            Kyle Lee\\
+            Luke Choi\\
+            Mason Fang\\
+            Minjae Kwon\\
+            Nathan Xiong\\
+            Preston Fu\\
+            Raymond Feng\\
+            Rishabh Das\\
+            Sean Li\\
+            Tovi Wen\\
+            Valentio Iverson\\
         \end{center}
     }
     %%fakesection arml
@@ -468,7 +487,7 @@
     %%fakesection solutions
 \else\ifsolutions
     \usepackage[default]{shen}
-    \author{Albert Wang, Allen Baranov, Andrew Wen, Ankan Bhattacharya, Anthony Wang, \\ Eric Shen, Elliott Liu, Federico Clerici, Joseph Zhang, Justin Lee, Kaiwen Li, \\ Kyle Lee, Luke Choi, Mason Fang, Minjae Kwon, Nathan Xiong, Preston Fu, \\ Raymond Feng, Rishabh Das, Sean Li, Tovi Wen, and Valentio Iverson}
+    \author{Albert Wang, Allen Baranov, Andrew Wen, Ankan Bhattacharya, Anthony Wang, \\ Benjamin Lee, Eric Shen, Elliott Liu, Federico Clerici, Joseph Zhang, Justin Lee, \\ Kaiwen Li, Kyle Lee, Luke Choi, Mason Fang, Minjae Kwon, Nathan Xiong, \\ Preston Fu, Raymond Feng, Rishabh Das, Sean Li, Tovi Wen, and Valentio Iverson}
     \renewcommand\theauthor{Eric Shen}
     \newenvironment{prob}{\color{Purple}\small}{\hrulebar}
 \fi\fi\fi\fi
@@ -482,3 +501,4 @@
     \SetWatermarkScale{2.718}
     \SetWatermarkText{\shortstack{CONFIDENTIAL\\ Internal Use}}
 \fi
+

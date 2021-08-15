@@ -193,13 +193,13 @@
     \usepackage{skak}
 \fi
 
-%%fakesection BASIC FORMATTING
+%%fakesection BASIC MACROS
 % Colorful text
 \definecolor{astral}{RGB}{46,116,181}
 \definecolor{denimblue}{RGB}{0,35,102}
 \definecolor{turtle}{RGB}{0,64,64}
 
-% Useful commands
+% Olympiad
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\da}[0]{\measuredangle}
 \newcommand{\ans}[5]{\textbf{(A) }#1\qquad\textbf{(B) }#2\qquad\textbf{(C) }#3\qquad\textbf{(D) }#4\qquad\textbf{(E) }#5}
@@ -259,12 +259,26 @@
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\img}{im}
 
+% PROMYS Rational Points on Hyperelliptic Curves
+% taught by Jennifer Balakrishnan
+\newcommand{\tors}{_{\mathrm{tors}}}
+\newcommand{\sep}{^{\mathrm{sep}}}
+\newcommand{\aff}{_{\mathrm{aff}}}
+\newcommand{\reg}{^{\mathrm{reg}}}
+\newcommand{\Princ}{\mathrm{Princ}}
+\newcommand{\Div}{\mathrm{Div}}
+\newcommand{\Pic}{\mathrm{Pic}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\dv}{div}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\supp}{supp}
+
 % \wideparen for good-looking arc symbols
 \DeclareFontFamily{OMX}{yhex}{}
 \DeclareFontShape{OMX}{yhex}{m}{n}{<->yhcmex10}{}
 \DeclareSymbolFont{yhlargesymbols}{OMX}{yhex}{m}{n}
 \DeclareMathAccent{\wideparen}{\mathord}{yhlargesymbols}{"F3}
-
 
 % varying sizes in \pmod
 \DeclarePairedDelimiterX{\pmodx}[1]{(}{)}{{\operator@font mod}\mkern6mu#1}
@@ -473,6 +487,22 @@
                 postheadspace={8pt}
             ]{thminlinebluebox}
 
+            \mdfdefinestyle{mdbluebreakbox}{%
+            %                roundcorner = 10pt,
+                linewidth=0pt, %1pt,
+                skipabove=12pt,
+                innerbottommargin=9pt,
+                skipbelow=2pt,
+                linecolor=blue,
+                backgroundcolor=TealBlue!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{MidnightBlue},
+                mdframed={style=mdbluebreakbox},
+                headpunct={\\[3pt]},
+                postheadspace={0pt}
+            ]{thmbluebreakbox}
+
             \mdfdefinestyle{mdpurplebox}{%
             %                roundcorner = 10pt,
                 linewidth=0pt, %1pt,
@@ -671,9 +701,9 @@
             \declaretheorem[style=thmbluebox,sibling=theorem,name=Conjecture]{conjecture}
             \declaretheorem[style=thmbluebox,numbered=no,name=Conjecture]{conjecture*}
             \declaretheorem[style=thminlinebluebox,numbered=no,name=\$]{shell}
-            \declaretheorem[style=thmbluebox,sibling=theorem,name=Algorithm]{algorithm}
-            \declaretheorem[style=thmbluebox,numbered=no,name=Algorithm]{algorithm*}
-            \declaretheorem[style=thmbluebox,parent=section,name=Algorithm]{secalgo}
+            \declaretheorem[style=thmbluebreakbox,sibling=theorem,name=Algorithm]{algorithm}
+            \declaretheorem[style=thmbluebreakbox,numbered=no,name=Algorithm]{algorithm*}
+            \declaretheorem[style=thmbluebreakbox,parent=section,name=Algorithm]{secalgo}
             \ifrollingboxprob
                 \declaretheorem[style=thmgreenbox,sibling=theorem,name=Problem]{boxprob}
                 \declaretheorem[style=thmredbox,sibling=theorem,name=Lemma]{lemma}

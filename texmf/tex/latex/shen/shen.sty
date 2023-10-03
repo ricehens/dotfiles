@@ -179,7 +179,7 @@
 \usepackage[framemethod=TikZ]{mdframed} % MDFramed
 \ifdocisbeamer\else
 % enum customization; breaks beamer
-    \usepackage{enumitem} 
+    \usepackage[shortlabels]{enumitem} % \begin{enumerate}[(a)]
 \fi
 \usepackage{mathtools} % Math tools
 \usepackage{epigraph} % Quotes!
@@ -223,7 +223,10 @@
 \newcommand{\vphi}{\varphi}
 \newcommand{\veps}{\varepsilon}
 \newcommand{\CC}{\mathbb C}
-\newcommand{\FF}{\mathbb F}
+\ifchessdiagenabled
+\else
+    \newcommand{\FF}{\mathbb F}
+\fi
 \newcommand{\NN}{\mathbb N}
 \newcommand{\QQ}{\mathbb Q}
 \newcommand{\RR}{\mathbb R}
@@ -243,10 +246,15 @@
         \rule{0.95\linewidth}{.7pt}\hspace{\fill}
     \end{center}
 }
-\newenvironment{moral}{%
-    \begin{mdframed}[linecolor=green!70!black]%
-    \bfseries\color{green!70!black}}%
-{\end{mdframed}}
+\ifboxthmon
+    \ifcolorthmon
+    \else
+        \newenvironment{moral}{%
+            \begin{mdframed}[linecolor=green!70!black]%
+            \bfseries\color{green!70!black}}%
+        {\end{mdframed}}
+    \fi
+\fi
 \DeclareMathOperator*{\lcm}{lcm}
 \DeclareMathOperator{\cis}{cis}
 \DeclareMathOperator{\ord}{ord}
@@ -258,6 +266,8 @@
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\img}{im}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
 
 % PROMYS Rational Points on Hyperelliptic Curves
 % taught by Jennifer Balakrishnan
@@ -273,6 +283,25 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\supp}{supp}
+
+% WVM Linalg
+\newenvironment{amatrix}[1]{%
+    \left[\begin{array}{@{}*{#1}{c}|c@{}}
+        }{%
+    \end{array}\right]
+}
+
+% 18.06 ASE HW
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+    \hskip -\arraycolsep
+    \let\@ifnextchar\new@ifnextchar
+\array{#1}}
+
+% 18.225
+\DeclareMathOperator{\ex}{ex}
+
+% 6.046
+\DeclareMathOperator{\Prob}{Pr}
 
 % \wideparen for good-looking arc symbols
 \DeclareFontFamily{OMX}{yhex}{}
@@ -336,10 +365,13 @@
 \ifcolorsecstyle
     \hypersetup{
         colorlinks,
-        citecolor=ForestGreen,
-        filecolor=RubineRed,
+        %citecolor=ForestGreen,
+        %filecolor=RubineRed,
+        citecolor=RoyalBlue,
+        filecolor=RoyalBlue,
         linkcolor=RoyalBlue,
-        urlcolor=RubineRed
+        %urlcolor=RubineRed
+        urlcolor=RoyalBlue
     }
 
     \newcommand{\announcefont}{\bfseries
@@ -584,6 +616,29 @@
                 headpunct={.\;},
             ]{thminlineorangebox}
 
+            % lol oops this is not yellow
+            \mdfdefinestyle{mdinlineyellowbox}{%
+                skipabove=8pt,
+                linewidth=3pt,
+                rightline=false,
+                leftline=false,
+                %leftline=true,
+                topline=false,
+                bottomline=false,
+                linecolor=black,
+                linecolor=RubineRed!70!black,
+                nobreak=true,
+                backgroundcolor=RubineRed!5,
+            }
+            \declaretheoremstyle[
+                headfont=\sffamily\bfseries\color{Dandelion},
+                spaceabove=0pt,
+                spacebelow=0pt,
+                mdframed={style=mdinlineyellowbox},
+                %headpunct={.\;},
+                headpunct={},
+            ]{thminlineyellowbox}
+
             \mdfdefinestyle{mdgreenbox}{%
                 skipabove=8pt,
                 linewidth=2pt,
@@ -727,6 +782,14 @@
             \declaretheorem[style=thmblackbox,sibling=theorem,name=Fact]{fact}
             \declaretheorem[style=thmpurplebox,sibling=theorem,name=Definition]{definition}
             \declaretheorem[style=thmpurplebox,numbered=no,name=Definition]{definition*}
+            \newenvironment{moral}{%
+                \begin{mdframed}[style=mdinlineyellowbox]%
+                    \bfseries
+                    \sffamily
+                    \color{RubineRed}
+                }%
+            {\end{mdframed}}
+
 
             \declaretheorem[style=thmbluebox,name=Theorem]{innercustomthm}
             \newenvironment{customthm}[1]{
@@ -778,7 +841,7 @@
                 \declaretheorem[style=thmbox,name=Problem]{boxprob}
                 \declaretheorem[style=thmbox,name=Lemma]{lemma}
             \fi
-            \declaretheorem[style=thmbox,numbered=no,name=Problem]{problem*}
+            \declaretheorem[style=thmbox,numbered=no,name=Problem]{boxprob*}
             \declaretheorem[style=thmbox,numbered=no,name=Lemma]{lemma*}
             \declaretheorem[style=thmbox,parent=section,name=Problem]{secprob}
             \declaretheorem[style=thmbox,sibling=theorem,name=Example]{example}
@@ -793,6 +856,11 @@
             \declaretheorem[style=thmbox,numbered=no,name=Note]{note}
             \declaretheorem[style=thmbox,sibling=theorem,name=Definition]{definition}
             \declaretheorem[style=thmbox,numbered=no,name=Definition]{definition*}
+            \newenvironment{moral}{%
+                \begin{mdframed}%
+                \bfseries}%
+            {\end{mdframed}}
+
         \fi
     %%fakesection STANDARD THEOREMS
     \else

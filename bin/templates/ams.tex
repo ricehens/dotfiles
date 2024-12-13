@@ -1,0 +1,287 @@
+%%
+%% This is LaTeX2e input.
+%%
+
+%% The following tells LaTeX that we are using the 
+%% style file amsart.cls (That is the AMS article style
+%%
+\documentclass{amsart}
+
+%% This has a default type size 10pt.  Other options are 11pt and 12pt
+%% This are set by replacing the command above by
+%% \documentclass[11pt]{amsart}
+%%
+%% or
+%%
+%% \documentclass[12pt]{amsart}
+%%
+
+%%
+%% Some mathematical symbols are not included in the basic LaTeX
+%% package.  Uncommenting the following makes more commands
+%% available. 
+%%
+
+%\usepackage{amssymb}
+
+%%
+%% The following is commands are used for importing various types of
+%% grapics.
+%% 
+
+%\usepackage{epsfig}  		% For postscript
+%\usepackage{epic,eepic}       % For epic and eepic output from xfig
+
+%%
+%% The following is very useful in keeping track of labels while
+%% writing.  The variant   \usepackage[notcite]{showkeys}
+%% does not show the labels on the \cite commands.
+%% 
+
+%\usepackageshowkeys}
+
+
+%%%%
+%%%% The next few commands set up the theorem type environments.
+%%%% Here they are set up to be numbered section.number, but this can
+%%%% be changed.
+%%%%
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+
+
+%%
+%% If some other type is need, say conjectures, then it is constructed
+%% by editing and uncommenting the following.
+%%
+
+%\newtheorem{conj}[thm]{Conjecture} 
+
+
+%%% 
+%%% The following gives definition type environments (which only differ
+%%% from theorem type invironmants in the choices of fonts).  The
+%%% numbering is still tied to the theorem counter.
+%%% 
+
+\theoremstyle{definition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{example}[thm]{Example}
+
+%%
+%% Again more of these can be added by uncommenting and editing the
+%% following. 
+%%
+
+%\newtheorem{note}[thm]{Note}
+
+
+%%% 
+%%% The following gives remark type environments (which only differ
+%%% from theorem type invironmants in the choices of fonts).  The
+%%% numbering is still tied to the theorem counter.
+%%% 
+
+
+\theoremstyle{remark}
+
+\newtheorem{remark}[thm]{Remark}
+
+
+%%%
+%%% The following, if uncommented, numbers equations within sections.
+%%% 
+
+\numberwithin{equation}{section}
+
+
+%%%
+%%% The following show how to make definition (also called macros or
+%%% abbreviations).  For example to use get a bold face R for use to
+%%% name the real numbers the command is \mathbf{R}.  To save typing we
+%%% can abbreviate as
+
+\newcommand{\R}{\mathbf{R}}  % The real numbers.
+
+%%
+%% The comment after the defintion is not required, but if you are
+%% working with someone they will likely thank you for explaining your
+%% definition.  
+%%
+%% Now add you own definitions:
+%%
+
+%%%
+%%% Mathematical operators (things like sin and cos which are used as
+%%% functions and have slightly different spacing when typeset than
+%%% variables are defined as follows:
+%%%
+
+\DeclareMathOperator{\dist}{dist} % The distance.
+
+
+
+%%
+%% This is the end of the preamble.
+%% 
+
+
+\begin{document}
+
+%%
+%% The title of the paper goes here.  Edit to your title.
+%%
+
+\title{Mathematical Theorems}
+
+%%
+%% Now edit the following to give your name and address:
+%% 
+
+\author{Ralph Howard}
+\address{Department of Mathematics, University of South Carolina, 
+Columbia, SC 29208}
+\email{howard@math.sc.edu}
+\urladdr{www.math.sc.edu/$\sim$howard} % Delete if not wanted.
+
+%%
+%% If there is another author uncomment and edit the following.
+%%
+
+%\author{Second Author}
+%\address{Department of Mathematics, University of South Carolina,
+%Columbia, SC 29208}
+%\email{second@math.sc.edu}
+%\urladdr{www.math.sc.edu/$\sim$second}
+
+%%
+%% If there are three of more authors they are added in the obvious
+%% way. 
+%%
+
+%%%
+%%% The following is for the abstract.  The abstract is optional and
+%%% if not used just delete, or comment out, the following.
+%%%
+
+\begin{abstract}
+Great stuff.
+\end{abstract}
+
+%%
+%%  LaTeX will not make the title for the paper unless told to do so.
+%%  This is done by uncommenting the following.
+%%
+
+% \maketitle
+
+%%
+%% LaTeX can automatically make a table of contents.  This is done by
+%% uncommenting the following:
+%%
+
+%\tableofcontents
+
+%%
+%%  To enter text is easy.  Just type it.  A blank line starts a new
+%%  paragraph. 
+%%
+
+
+Call me Ishmael. Some years ago --- never mind how long precisely ---
+having little or no money in my purse, and nothing particular to
+interest me on shore, I thought I would sail about a little and see
+the watery part of the world. It is a way I have of driving off the
+spleen, and regulating the circulation.  Whenever I find myself
+growing grim about the mouth; whenever it is a damp, drizzly November
+in my soul; whenever I find myself involuntarily pausing before coffin
+warehouses, and bringing up the rear of every funeral I meet; and
+especially whenever my hypos get such an upper hand of me, that it
+requires a strong moral principle to prevent me from deliberately
+stepping into the street, and methodically knocking people's hats off
+--- then, I account it high time to get to sea as soon as I can. This
+is my substitute for pistol and ball. With a philosophical flourish
+Cato throws himself upon his sword; I quietly take to the ship. There
+is nothing surprising in this. If they but knew it, almost all men in
+their degree, some time or other, cherish very nearly the same
+feelings towards the ocean with me.
+
+
+There now is your insular city of the Manhattoes, belted round by
+wharves as Indian isles by coral reefs - commerce surrounds it with
+her surf. Right and left, the streets take you waterward. Its extreme
+down-town is the battery, where that noble mole is washed by waves,
+and cooled by breezes, which a few hours previous were out of sight of
+land. Look at the crowds of water-gazers there.
+
+
+%%
+%%  To put mathematics in a line it is put between dollor signs.  That
+%%  is $(x+y)^2=x^2+2xy+y^2$
+%%
+
+Anyone caught using formulas such as $\sqrt{x+y}=\sqrt{x}+\sqrt{y}$ 
+or $\frac{1}{x+y}=\frac{1}{x}+\frac{1}{y}$ will fail.
+
+%%
+%%% Displayed mathematics is put between double dollar signs.  
+%%
+
+The binomial theorem is
+$$
+(x+y)^n=\sum_{k=0}^n\binom{n}{k}x^ky^{n-k}.
+$$
+A favorite sum of most mathematicians is
+$$
+\sum_{n=1}^\infty \frac{1}{n^2}=\frac{\pi^2}{6}.
+$$
+Likewise a popular integral is
+$$
+\int_{-\infty}^\infty e^{-x^2}\,dx=\sqrt{\pi}
+$$
+
+
+%%
+%% A Theorem is stated by
+%%
+
+\begin{thm} The square of any real number is non-negative.
+\end{thm}
+
+%%
+%% Its proof is set off by
+%% 
+
+\begin{proof}
+Any real number $x$ satisfies $x>0$, $x=0$, or $x<0$.
+If $x=0$, then $x^2=0\ge 0$.  If $x>0$ then as a positive time a
+positive is positive we have $x^2=xx>0$.  If $x<0$ then $-x>0$ and so
+by what we have just done $x^2=(-x)^2>0$.  So in all cases $x^2\ge0$.
+\end{proof}
+
+
+%%
+%% A new section is started as follows:
+%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This is a new section.
+
+%%
+%% A subsection is started by
+%%
+
+\subsection{Things that need to be done.}
+Prove theorems.
+
+
+
+
+\end{document}

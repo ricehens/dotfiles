@@ -1,0 +1,3 @@
+#! /bin/bash
+mkdir out &>/dev/null
+latexmk --outdir=out *.tex

@@ -63,7 +63,17 @@
     %%fakesection cmc preamble
     \usepackage[noformat,t1]{shen}
     \usepackage{fontspec}
+    %\usepackage{newtxtext,newtxmath}
+
+   %Roboto
     \setsansfont{Roboto Condensed}
+
+    %Times New Roman
+    \usepackage{unicode-math}
+    \defaultfontfeatures{ Scale=MatchLowercase, Ligatures=TeX }
+    \setmainfont{TeX Gyre Termes}[Scale=1.0]
+    \setmathfont{TeX Gyre Termes Math}
+
     \usepackage[
         twoside,papersize={7.11764705882in,11in},
         heightrounded,margin=0.5in,top=0.8in,left=0.3in,

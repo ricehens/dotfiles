@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+# 6.101 Lab Submission Script
+
+author="6.101 Course Staff"
+version="F24-000"
+default_semester="fall24"
+
+semester="${SEMESTER:-$default_semester}"
+user="labs"
+host="py.mit.edu"
+impersonate=""
+assignment=""
+
+function help {
+    echo "Usage: $0 [-h] [-t] [-a LAB] [-s SEMESTER] [-c URL] [-i USERNAME] file";
+    echo "  -h            : show this help message";
+    echo "  -t            : run a connection/authentication test, but do not ";
+    echo "                  submit anything";
+    echo "  -s SEMESTER   : a semester, default $default_semester";
+    echo "  -H HOST       : the location of the server to connect to. ";
+    echo "                  default: $host";
+    echo "  -a ASSIGNMENT : the assignment to submit to.  if not specified, we ";
+    echo "                  will try to guess based on the working directory";
+    echo "  -y            : submit without asking for confirmation";
+}
+
+while getopts ":hs:c:a:i:ty" arg; do
+    case ${arg} in
+        h)
+            help;
+            exit 0;
+            ;;
+        s)
+            semester=${OPTARG};
+            ;;
+        a)
+            assignment=${OPTARG};
+            ;;
+        t)
+            run_test=true;
+            ;;
+        i)
+            impersonate=${OPTARG};
+            ;;
+        y)
+            skip_confirmation=true;
+            ;;
+        :)
+            help;
+            exit 1;
+            ;;
+        ?)
+            help;
+            exit 1;
+            ;;
+    esac
+done
+
+echo "6.101 Lab Submission Script";
+echo "(Version $version)";
+echo "";
+
+ssh_command="ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 $user@$host";
+
+shift $(($OPTIND - 1));
+
+if [ "$run_test" == "true" ]; then
+    echo "Running authentication test.";
+    echo "$version" | $ssh_command test;
+    exit 0;
+fi
+
+case "$1" in
+    -)
+        input_file=-;
+        ;;
+    "")
+        echo "No file specified.  Exiting.";
+        exit 1;
+        ;;
+    *)
+        input_file="$1";
+        ;;
+esac
+
+if [ ! -z "$impersonate" ]; then
+    echo "Attempting to submit for $impersonate.  This will only work for staff members.";
+fi
+
+if [ ! -z "$assignment" ]; then
+    echo "Submitting $assignment";
+fi
+
+if [ ! -f "$input_file" ]; then
+    echo "ERROR: File $input_file does not exist.  Exiting."
+    exit 1;
+else
+    filedir="$(cd $(dirname "$input_file") && pwd)"
+    if [ -z "$assignment" ]; then
+        assignment="$(basename $filedir)";
+        echo "Guessing assignment name: $assignment";
+    fi
+    echo "Reading submission from file ($input_file)";
+    input_filename="$(basename "$input_file")";
+fi
+
+echo "";
+
+if [ "$skip_confirmation" != "true" ]; then
+    echo "Please double check the information above.";
+    while true; do
+        read -p "Would you like to proceed with making this submission? [y/N] " yn </dev/tty;
+        case $yn in
+            N|n|No|no|Nope|nope|"")
+                echo;
+                echo "Exiting.  No submission will be made.";
+                exit 1;
+                ;;
+            Y|y|Yes|yes|Yep|yep)
+                echo;
+                break;
+                ;;
+            *)
+                echo "Please enter yes or no";
+                ;;
+        esac
+    done
+fi
+
+echo "Proceeding with submission.";
+echo ""
+echo "$version" | cat - "$input_file" | $ssh_command submit "$assignment" "$input_filename" "$impersonate"

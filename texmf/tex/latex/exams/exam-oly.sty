@@ -82,6 +82,7 @@
 
 \newcommand\@dayinfo{}
 \newcommand\dayinfo[1]{\renewcommand\@dayinfo{#1}}
+\dayinfo{Day \thepage}
 
 % these are only useful for sexy; but let's define
 % the commands anyway in case we need to switch styles
@@ -107,7 +108,7 @@
 % Headers
     \renewcommand{\maketitle}{
         \begin{changemargin}{-0.7cm}{-0.7cm}
-            {\fontseries{b}\fontfamily{cmss}\fontsize{20}{22}\selectfont\@testlhead\hfill\@testrhead\par\noindent\rule{\textwidth+1.4cm}{0.4pt}}
+            {\fontfamily{cmss}\fontsize{20}{22}\selectfont\@testlhead\hfill\@testrhead\par\noindent\rule{\textwidth+1.4cm}{0.4pt}}
         \end{changemargin}
         \noindent
         \ifthenelse{\equal{\@date}{}}{\vspace{-0.5em}}{

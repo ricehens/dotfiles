@@ -1,0 +1,238 @@
+\ProvidesPackage{exam-oly}
+
+%%fakesection options
+\newif\iftestsexy\testsexyfalse
+\newif\iftestvonenabled\testvonenabledfalse
+\newif\iftestvonbrave\testvonbravefalse
+\newif\iftestdraft\testdraftfalse
+\newif\ifnoindent\noindentfalse
+\newif\ifspace\spacefalse
+
+% Pretty formatting
+\DeclareOption{sexy}{\testsexytrue}
+
+% Use von problem manager
+\DeclareOption{von}{\testvonenabledtrue}
+\DeclareOption{vonbrave}{\testvonenabledtrue\testvonbravetrue}
+
+% Draft watermark
+\DeclareOption{draft}{\testdrafttrue}
+
+% Indention
+\DeclareOption{noindent}{\noindenttrue}
+
+% Spacing
+\DeclareOption{space}{\spacetrue}
+\DeclareOption{nospace}{\spacefalse}
+
+\ProcessOptions\relax
+
+%%fakesection utilities
+\ifnoindent\PassOptionsToPackage{noindent}{shen}\fi
+\iftestvonenabled
+    \iftestvonbrave\PassOptionsToPackage{vonbrave}{shen}
+    \else\PassOptionsToPackage{von}{shen}
+    \fi
+\fi
+
+\iftestsexy\usepackage[default,t1,nofont,nofancy]{shen}
+\else\usepackage[plain,nofancy]{shen}
+\fi
+
+\makeatletter
+\newcommand\@probtype{Problem}
+\newcommand\probtype[1]{\renewcommand\@probtype{#1}}
+
+\ifspace
+    \newtheoremstyle{TST}%
+    {3ex} % space before
+    {5ex} % space after
+    {\normalfont} % body font
+    {0pt} % indent
+    {\bfseries} % head font
+    {.} % head punctuation
+    {0.7em plus 0.2em minus 0.2em} % space after head
+    {} % manually specify head
+\else
+    \newtheoremstyle{TST}%
+    {}%{3ex} % space before
+    {}%{5ex} % space after
+    {\normalfont} % body font
+    {0pt} % indent
+    {\bfseries} % head font
+    {.} % head punctuation
+    {0.7em plus 0.2em minus 0.2em} % space after head
+    {} % manually specify head
+\fi
+\theoremstyle{TST}
+\newcounter{prob}
+\newtheorem{innerprob}{}
+\newenvironment{prob}{
+    \stepcounter{prob}
+    \renewcommand\theinnerprob{\@probtype\ \arabic{prob}}\innerprob
+}{\endinnerprob}
+
+% footnotes
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\hypersetup{colorlinks=false}
+
+%%fakesection definitions
+\newcommand\@soltitle{\@title\ Solutions}
+\newcommand\soltitle[1]{\renewcommand\@soltitle{#1}}
+
+\newcommand\@dayinfo{}
+\newcommand\dayinfo[1]{\renewcommand\@dayinfo{#1}}
+
+% these are only useful for sexy; but let's define
+% the commands anyway in case we need to switch styles
+\newcommand\@testlhead\@title
+\newcommand\@testrhead{(\@dayinfo)}
+\newcommand\testlhead[1]{\renewcommand\@testlhead{#1}}
+\newcommand\testrhead[1]{\renewcommand\@testrhead{#1}}
+
+%%fakesection sexy format
+\iftestsexy
+    \newgeometry{margin=1.2in,top=1in,bottom=1.35in}
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \setlength{\headheight}{13.6pt}
+    \cfoot{}
+    \rfoot{\textit{\noindent Time: 4 hours and 30 minutes.\\ Each problem is worth 7 points.}}
+
+    \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+    \let\endchangemargin=\endlist
+
+% Headers
+    \renewcommand{\maketitle}{
+        \begin{changemargin}{-0.7cm}{-0.7cm}
+            {\fontseries{b}\fontfamily{cmss}\fontsize{20}{22}\selectfont\@testlhead\hfill\@testrhead\par\noindent\rule{\textwidth+1.4cm}{0.4pt}}
+        \end{changemargin}
+        \noindent
+        \ifthenelse{\equal{\@date}{}}{\vspace{-0.5em}}{
+            \begin{flushright}
+                \textit{\@date\\}
+            \end{flushright}
+            %\vspace{1em}
+        }
+    }
+
+% solution header
+    \newcommand{\solheader}{
+        \newgeometry{margin=1in}
+        \fancyhfoffset[E,O]{0pt}
+        \fontsize{10pt}{12pt}\selectfont
+        %        \pagenumbering{arabic}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}
+
+        \lhead{\fontsize{10pt}{12pt}\selectfont\@soltitle}
+        \rhead{\fontsize{10pt}{12pt}\selectfont\theauthor}
+        \lfoot{}
+        \cfoot{\fontsize{10pt}{12pt}\selectfont\thepage}
+        \rfoot{}
+        \renewcommand{\headrulewidth}{0.4pt}
+
+        \setlength{\headsep}{10pt}
+        \setlength{\oddsidemargin}{0in}
+        \setlength{\evensidemargin}{0in}
+    }
+    \makeatother
+\else
+%%fakesection standard format
+% see https://github.com/vEnhance/dotfiles/blob/master/texmf/tex/latex/TST/TST.sty
+    \usepackage{titling}
+    \usepackage{xifthen}
+    \newgeometry{margin=1.2in,top=1.1in,bottom=1.35in}
+    \setlength{\labelsep}{10pt}
+    \setlength{\droptitle}{-4em}
+    \renewcommand{\maketitlehooka}{\centering\bfseries}
+    \renewcommand{\maketitlehookd}{\par\vspace*{0.4in}}
+    \pretitle{\par}
+    \posttitle{\par\vspace{0.20in}}
+    \preauthor{\par}
+    \postauthor{\ifx\theauthor\empty\else\par\vspace{0.10in}\fi}
+    \predate{\par\ifx\@dayinfo\empty\else\@dayinfo\par\vspace{0.10in}\fi}
+    \postdate{}
+
+% for enumerate-style exam
+    \newlist{problems}{enumerate}{3}
+    \setlist*[problems]{topsep=6ex,itemsep=4ex,label=\arabic*.}
+
+% solution header
+    \newcommand{\solheader}{
+        \newgeometry{margin=1in}
+        \begin{Large}
+            \begin{center}
+                \textbf\@soltitle
+            \end{center}
+        \end{Large}
+    }
+\fi
+
+%%fakesection von
+\iftestvonenabled
+    \iftestsexy
+    \else
+        \iftestvonbrave
+            \usepackage[brave]{von}
+        \else
+            \usepackage{von}
+        \fi
+    \fi
+
+    \makeatletter
+    % custom environment von
+    \def\vontestenv{\@ifstar\@vontestenvstar\@vontestenv}
+    \newcommand{\@vontestenv}[2]{\begin{#2} \voninclude{#1} \end{#2}}
+    \newcommand{\@vontestenvstar}[2]{\begin{#2} $(*)$ \voninclude{#1} \end{#2}}
+
+% \von
+%    \def\von{\@ifstar\@vonstar\@von}
+    \renewcommand{\@von}[1]{\vontestenv{#1}{prob}}
+    \renewcommand{\@vonstar}[1]{\vontestenv*{#1}{prob}}
+
+% Show everything
+    \iftestsexy
+    \else
+        \newtheoremstyle{break}% name
+        {}%         Space above, empty = `usual value'
+        {}%         Space below
+        {}% Body font
+        {}%         Indent amount (empty = no indent, \parindent = para indent)
+        {\bfseries}% Thm head font
+        {.}%        Punctuation after thm head
+        {\newline}% Space after thm head: \newline = linebreak
+        {}%         Thm head spec
+        \theoremstyle{break}
+        \newcounter{sol}
+        \newtheorem{innersol}{}
+        \newenvironment{sol}{
+            \stepcounter{sol}
+            \renewcommand\theinnersol{\@probtype\ \arabic{sol}}\innersol
+        }{\endinnersol}
+        \renewcommand{\vonall}[2][]{
+            \ifthenelse{\isempty{#1}}
+            {\begin{sol}\voninclude[1]{#2}\end{sol}}
+            {\begin{sol}[#1]\voninclude[1]{#2}\end{sol}}
+        }
+        \renewcommand{\vonfull}[2][]{\vonall[#1]{#2}\newpage}
+    \fi
+    \makeatother
+\fi
+
+%%fakesection watermark
+\iftestdraft
+    \usepackage{draftwatermark}
+    \SetWatermarkAngle{32}
+    \SetWatermarkLightness{0.90}
+    \SetWatermarkFontSize{48pt}
+    \SetWatermarkScale{2.718}
+    \SetWatermarkText{\shortstack{DRAFT}}
+\fi
+
+%%fakesection Backwards compatibility
+\newcommand{\testheader}{\maketitle}
+
+\theoremstyle{TST}

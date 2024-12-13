@@ -1,0 +1,64 @@
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# update simple-bar
+osascript -e 'tell application id "tracesOf.Uebersicht" to refresh'
+
+# bsp or float (default: float)
+yabai -m config layout bsp
+
+# Override default layout for space 2 only
+# yabai -m config --space 2 layout float
+
+# New window spawns to the right if vertical split, or bottom if horizontal
+#yabai -m config window_placement second_child
+
+# Set all apdding and gaps to 20pt (default: 0)
+yabai -m config top_padding 5
+yabai -m config bottom_padding 5
+yabai -m config left_padding 5
+yabai -m config right_padding 5
+yabai -m config window_gap 5
+
+# Override gaps for space 2 only
+# yabai -m config --space 2 window_gap 0
+
+# on or off (default: off)
+yabai -m config auto_balance off
+# yabai -m config split_ratio 0.5
+
+# set mouse interaction modifier key (default: fn)
+yabai -m config mouse_modifier alt
+# set modifer + left-click drag to move windows (default: move)
+yabai -m config mouse_action1 move
+# set modifer + right-click drag to resize window (default: resize)
+yabai -m config mouse_action2 resize
+
+# set focus follows mouse mode (default: off, options: off, autoraise, autofocus)
+# yabai -m config focus_follows_mouse autoraise
+
+# set mouse follows focus mode (default: off)
+# yabai -m config mouse_follows_focus on
+
+# modify window shadows (default: on, options: on, off, float)
+# example: show shadows only for floating windows
+yabai -m config window_shadow float
+
+# window opacity (default: off)
+## example: render all unfocused windows with 90% opacity
+# yabai -m config window_opacity on
+# yabai -m config active_window_opacity 1.0
+# yabai -m config normal_window_opacity 0.9
+
+# Disable specific apps from being managed with yabai
+yabai -m rule --add app="^系统设置$" manage=off
+yabai -m rule --add app="^访达$" manage=off
+
+# floating windows always stay on top
+yabai -m config window_topmost on
+
+# add 20 padding to the top and bottom of all spaces regardless of the display it belongs to
+#yabai -m config external_bar all:48:0
+yabai -m config external_bar all:30:0

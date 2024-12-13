@@ -1,9 +1,22 @@
 \documentclass[8pt,ignorenonframetext,xcolor=dvipsnames]{beamer}
 \usepackage[beamer]{shen}
-\usepackage{mcgrep}
 \usepackage{tikz}
 \usetheme{Luebeck}
 \usecolortheme{beaver}
+\hypersetup{
+    colorlinks,
+    citecolor=ForestGreen,
+    filecolor=RubineRed,
+    linkcolor=RoyalBlue,
+    urlcolor=RubineRed
+}
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \raisebox{1.8pt}[0pt][0pt]{\insertframenumber/\inserttotalframenumber}
+}
+
 
 \title{Practice Test \#<++>}
 \date{\today}

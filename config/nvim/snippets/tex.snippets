@@ -1,0 +1,64 @@
+snippet beg \begin{} ... \end{} block
+	\\begin{${1}}
+		${0:${VISUAL}}
+	\\end{$1}
+snippet beg[] \begin{}[] ... \end{} block
+	\\begin{${1}}[${2}]
+		${0:${VISUAL}}
+	\\end{$1}
+snippet \ display mode \[ ... \]
+	\\[
+		${1}
+	\\]
+	${0:${VISUAL}}
+snippet enum enumerate environment
+	\\begin{enumerate}
+		\\item ${0}
+	\\end{enumerate}
+snippet enuma custom enumerate environment
+	\\begin{enumerate}[${1:label=(\alph*)}]
+		\\item ${0:${VISUAL}}
+	\\end{enumerate}
+snippet align align* environment
+	\\begin{align*}
+		${0:${VISUAL}}
+	\\end{align*}
+snippet center center environment
+	\\begin{center}
+		\\item ${0:${VISUAL}}
+	\\end{center}
+snippet asy centered asymptote environment
+	\\begin{center}
+	    \\begin{asy}
+	        ${0:${VISUAL}}
+	    \\end{asy}
+	\\end{center}
+snippet () \left( \right)
+	\\left(${1}\\right)
+snippet [] \left[ \right]
+	\\left[${1}\\right]
+snippet {} \left\{ \right\}
+	\\left\\{${1}\\right\\}
+snippet <> angle brackets
+	\\left\\langle ${1}\\right\\rangle
+snippet floor floor brackets
+	\\left\\lfloor ${1}\\right\\rfloor
+snippet ceil ceiling brackets
+	\\left\\lceil ${1}\\right\\rceil
+snippet || absolute value brackets
+	\\left\\lvert ${1}\\right\\rvert
+snippet |||| vector magnitude brackets
+	\\left\\| ${1}\\right\\|
+snippet sc0 set counter to 0
+	\\setcounter{$1}0
+snippet pf proof block
+	\\begin{proof}
+		${0:${VISUAL}}
+	\\end{proof}
+snippet pf[] proof[] block
+	\\begin{proof}[$1]
+		${0:${VISUAL}}
+	\\end{proof}
+snippet "" `` ''
+	\`\`${1}''
+

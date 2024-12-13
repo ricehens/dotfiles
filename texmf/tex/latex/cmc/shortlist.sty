@@ -21,7 +21,8 @@
 
 %%fakesection format details
 % Use \documentclass[11pt,oneside]{scrbook}
-\usepackage[default,plainsec]{shen}
+\usepackage[default,plainsec,vonbrave]{shen}
+\setlength{\headsep}{15pt}
 
 \setkomafont{title}{\Huge\bfseries}
 \setkomafont{subtitle}{\LARGE\bfseries}
@@ -70,6 +71,208 @@
 
         \medskip\hfill\textit{(\nextauth)}
     \end{slprob}
+}
+
+\newtheoremstyle{shortlistoneA}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{ForestGreen}}{.}{2ex}
+{\hyperlink{slprobtwoA.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlistoneC}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{ForestGreen}}{.}{2ex}
+{\hyperlink{slprobtwoC.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlistoneG}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{ForestGreen}}{.}{2ex}
+{\hyperlink{slprobtwoG.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlistoneN}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{ForestGreen}}{.}{2ex}
+{\hyperlink{slprobtwoN.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlisttwoA}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{ForestGreen}}{.}{2ex}
+{\hyperlink{slproboneA.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlisttwoC}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{ForestGreen}}{.}{2ex}
+{\hyperlink{slproboneC.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlisttwoG}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{ForestGreen}}{.}{2ex}
+{\hyperlink{slproboneG.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+\newtheoremstyle{shortlisttwoN}{3pt}{2em}{\normalfont}{0pt}{\Large\bfseries\color{ForestGreen}}{.}{2ex}
+{\hyperlink{slproboneN.\thmnumber{#2}}{\thmname{#1}\thmnumber{#2}}} % manually specify head
+
+\theoremstyle{shortlist}
+\newtheorem{slprobA}{A}
+\newtheorem{slprobC}{C}
+\newtheorem{slprobG}{G}
+\newtheorem{slprobN}{N}
+\theoremstyle{shortlistoneA}
+\newtheorem{slproboneA}{A}
+\theoremstyle{shortlistoneC}
+\newtheorem{slproboneC}{C}
+\theoremstyle{shortlistoneG}
+\newtheorem{slproboneG}{G}
+\theoremstyle{shortlistoneN}
+\newtheorem{slproboneN}{N}
+\theoremstyle{shortlisttwoA}
+\newtheorem{slprobtwoA}{A}
+\theoremstyle{shortlisttwoC}
+\newtheorem{slprobtwoC}{C}
+\theoremstyle{shortlisttwoG}
+\newtheorem{slprobtwoG}{G}
+\theoremstyle{shortlisttwoN}
+\newtheorem{slprobtwoN}{N}
+
+\newcommand{\auth}[1]{\medskip\hfill{\itshape(#1)}}
+
+\newenvironment{sloneA}{\slproboneA \addtocounter{section}{1}\addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem A\theslproboneA}}{\endslproboneA}
+\newenvironment{sltwoA}{\slprobtwoA \addtocounter{section}{1}\addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution A\theslprobtwoA}}{\endslprobtwoA}
+\newenvironment{sloneC}{\slproboneC \addtocounter{section}{1}\addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem C\theslproboneC}}{\endslproboneC}
+\newenvironment{sltwoC}{\slprobtwoC \addtocounter{section}{1}\addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution C\theslprobtwoC}}{\endslprobtwoC}
+\newenvironment{sloneG}{\slproboneG \addtocounter{section}{1}\addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem G\theslproboneG}}{\endslproboneG}
+\newenvironment{sltwoG}{\slprobtwoG \addtocounter{section}{1}\addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution G\theslprobtwoG}}{\endslprobtwoG}
+\newenvironment{sloneN}{\slproboneN \addtocounter{section}{1}\addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem N\theslproboneN}}{\endslproboneN}
+\newenvironment{sltwoN}{\slprobtwoN \addtocounter{section}{1}\addcontentsline{toc}{section}{\protect\numberline{\thesection}Solution N\theslprobtwoN}}{\endslprobtwoN}
+
+\def\loadAprob{\@ifstar\@loadAprobstar\@loadAprob}
+\newcommand{\@loadAprob}[2][]{%
+    \begin{sloneA}
+        \voninclude{#2}
+
+        \auth{#1}
+    \end{sloneA}%
+}
+\newcommand{\@loadAprobstar}[2][]{%
+    \begin{sloneA}
+        \voninclude{#2}
+        \auth{#1}
+    \end{sloneA}%
+}
+
+\def\loadAsol{\@ifstar\@loadAsolstar\@loadAsol}
+\newcommand{\@loadAsol}[2][]{%
+    \begin{sltwoA}
+        \voninclude{#2} 
+
+        \auth{#1}
+    \end{sltwoA}
+    \hrulebar
+
+    \voninclude[1]{#2}
+    \newpage%
+}
+\newcommand{\@loadAsolstar}[2][]{%
+    \begin{sltwoA}
+        \voninclude{#2} 
+        \auth{#1}
+    \end{sltwoA}
+    \hrulebar
+
+    \voninclude[1]{#2}
+    \newpage%
+}
+
+\def\loadCprob{\@ifstar\@loadCprobstar\@loadCprob}
+\newcommand{\@loadCprob}[2][]{%
+    \begin{sloneC}
+        \voninclude{#2}
+
+        \auth{#1}
+    \end{sloneC}%
+}
+\newcommand{\@loadCprobstar}[2][]{%
+    \begin{sloneC}
+        \voninclude{#2}
+        \auth{#1}
+    \end{sloneC}%
+}
+
+\def\loadCsol{\@ifstar\@loadCsolstar\@loadCsol}
+\newcommand{\@loadCsol}[2][]{%
+    \begin{sltwoC}
+        \voninclude{#2} 
+
+        \auth{#1}
+    \end{sltwoC}
+    \hrulebar
+
+    \voninclude[1]{#2}
+    \newpage%
+}
+\newcommand{\@loadCsolstar}[2][]{%
+    \begin{sltwoC}
+        \voninclude{#2} 
+        \auth{#1}
+    \end{sltwoC}
+    \hrulebar
+
+    \voninclude[1]{#2}
+    \newpage%
+}
+
+\def\loadGprob{\@ifstar\@loadGprobstar\@loadGprob}
+\newcommand{\@loadGprob}[2][]{%
+    \begin{sloneG}
+        \voninclude{#2}
+
+        \auth{#1}
+    \end{sloneG}%
+}
+\newcommand{\@loadGprobstar}[2][]{%
+    \begin{sloneG}
+        \voninclude{#2}
+        \auth{#1}
+    \end{sloneG}%
+}
+
+\def\loadGsol{\@ifstar\@loadGsolstar\@loadGsol}
+\newcommand{\@loadGsol}[2][]{%
+    \begin{sltwoG}
+        \voninclude{#2} 
+
+        \auth{#1}
+    \end{sltwoG}
+    \hrulebar
+
+    \voninclude[1]{#2}
+    \newpage%
+}
+\newcommand{\@loadGsolstar}[2][]{%
+    \begin{sltwoG}
+        \voninclude{#2} 
+        \auth{#1}
+    \end{sltwoG}
+    \hrulebar
+
+    \voninclude[1]{#2}
+    \newpage%
+}
+
+\def\loadNprob{\@ifstar\@loadNprobstar\@loadNprob}
+\newcommand{\@loadNprob}[2][]{%
+    \begin{sloneN}
+        \voninclude{#2}
+
+        \auth{#1}
+    \end{sloneN}%
+}
+\newcommand{\@loadNprobstar}[2][]{%
+    \begin{sloneN}
+        \voninclude{#2}
+        \auth{#1}
+    \end{sloneN}%
+}
+
+\def\loadNsol{\@ifstar\@loadNsolstar\@loadNsol}
+\newcommand{\@loadNsol}[2][]{%
+    \begin{sltwoN}
+        \voninclude{#2} 
+
+        \auth{#1}
+    \end{sltwoN}
+    \hrulebar
+
+    \voninclude[1]{#2}
+    \newpage%
+}
+\newcommand{\@loadNsolstar}[2][]{%
+    \begin{sltwoN}
+        \voninclude{#2} 
+        \auth{#1}
+    \end{sltwoN}
+    \hrulebar
+
+    \voninclude[1]{#2}
+    \newpage%
 }
 
 %%fakesection watermark and stuff

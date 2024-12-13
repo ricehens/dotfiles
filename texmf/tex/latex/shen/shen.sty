@@ -41,6 +41,7 @@
 \newif\ifchineseenabled\chineseenabledfalse
 \newif\ifchessdiagenabled\chessdiagenabledfalse
 \newif\ifcreateprob\createprobfalse
+\newif\ifxchineseenabled\xchineseenabledfalse
 
 \newif\ifvonstyexists
 \IfFileExists{von.sty}{\vonstyexiststrue}{\vonstyexistsfalse}
@@ -152,6 +153,7 @@
 
 % Chinese, Japanese, Korean font family
 \DeclareOption{chinese}{\chineseenabledtrue\setlinespacingfalse}
+\DeclareOption{xzh}{\xchineseenabledtrue}
 
 % Import skak
 \DeclareOption{chess}{\chessdiagenabledtrue}
@@ -199,6 +201,9 @@
 \definecolor{denimblue}{RGB}{0,35,102}
 \definecolor{turtle}{RGB}{0,64,64}
 
+% bold
+\newcommand\allbf[1]{{\boldmath\textbf{#1}}}
+
 % Olympiad
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\da}[0]{\measuredangle}
@@ -234,9 +239,13 @@
 \newcommand{\PP}{\mathbb P}
 \newcommand{\EE}{\mathbb E}
 \ifcolorsecstyle
-    \newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
+    %\newcommand{\vocab}[1]{\textbf{\color{astral}#1}}
+    \newcommand{\vocab}[1]{\allbf{\color{astral}#1}}
+    \newcommand{\mvocab}[1]{\pmb{\color{astral}#1}} 
 \else
-    \newcommand{\vocab}[1]{\textbf{#1}}
+    %\newcommand{\vocab}[1]{\textbf{#1}}
+    \newcommand{\vocab}[1]{\allbf{#1}}
+    \newcommand{\mvocab}[1]{\pmb{#1}} % obsolete
 \fi
 \newcommand{\sh}{\texttt{\color{MidnightBlue}\$\hspace{8pt}}}
 \newcommand{\shh}{\texttt{\color{MidnightBlue}\$\hspace{3pt}}}
@@ -268,6 +277,7 @@
 \DeclareMathOperator{\img}{im}
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Cov}{Cov}
+\newcommand{\qand}{\quad\text{and}\quad}
 
 % PROMYS Rational Points on Hyperelliptic Curves
 % taught by Jennifer Balakrishnan
@@ -299,9 +309,15 @@
 
 % 18.225
 \DeclareMathOperator{\ex}{ex}
+\DeclareMathOperator{\Hom}{Hom}
 
 % 6.046
 \DeclareMathOperator{\Prob}{Pr}
+
+% 18.702
+\DeclareMathOperator{\acts}{\curvearrowright}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\SO}{SO}
 
 % \wideparen for good-looking arc symbols
 \DeclareFontFamily{OMX}{yhex}{}
@@ -856,10 +872,10 @@
             \declaretheorem[style=thmbox,numbered=no,name=Note]{note}
             \declaretheorem[style=thmbox,sibling=theorem,name=Definition]{definition}
             \declaretheorem[style=thmbox,numbered=no,name=Definition]{definition*}
-            \newenvironment{moral}{%
-                \begin{mdframed}%
-                \bfseries}%
-            {\end{mdframed}}
+            %\newenvironment{moral}{%
+                %\begin{mdframed}%
+                %\bfseries}%
+            %{\end{mdframed}}
 
         \fi
     %%fakesection STANDARD THEOREMS
@@ -1178,6 +1194,10 @@
 
     \AtBeginDocument{\begin{CJK}{UTF8}{gbsn}}
     \AtEndDocument{\end{CJK}}
+\fi
+\ifxchineseenabled
+    \usepackage{xeCJK}
+    \xeCJKsetup{CJKecglue={}}
 \fi
 
 %%fakesection DEFAULT VALUES

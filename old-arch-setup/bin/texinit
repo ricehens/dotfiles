@@ -1,0 +1,25 @@
+#!/bin/bash
+TEMPLATEHOME='/home/ericshen/bin/templates'
+WHICHONE='standard'
+if [ -z "$2" ]
+then
+    echo "Copying standard TeX template to $1.tex."
+else
+    WHICHONE="$2"
+    echo "Copying '$WHICHONE' TeX template to $1.tex."
+fi
+if cp $TEMPLATEHOME/$WHICHONE.tex $PWD/$1.tex ; then
+    echo 'Copy success.'
+
+    if [[ "$WHICHONE" -ne "booklet" || "$WHICHONE" -ne "todo" ]]
+    then
+        echo 'Running initial compile of TeX file.'
+        pdflatex $1.tex &>/dev/null
+    fi
+
+    echo 'Starting TeX setup.'
+    texme $1
+else
+    echo 'Template not found.'
+fi
+

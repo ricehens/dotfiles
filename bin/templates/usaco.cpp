@@ -10,7 +10,7 @@ TASK: ${NAME}
 #define ll long long
 
 int main() {
-    std::ios::sync_with_stdio(0); std::cin.tie(0);
+    std::ios_base::sync_with_stdio(false); std::cin.tie(0);
     std::ifstream fin("${NAME}.in");
     std::ofstream fout("${NAME}.out");
 

@@ -4,9 +4,9 @@ if [ "$1" = "-x" ]
 then
     file="$2"
 #    zathura $PWD/$file.pdf &>/dev/null &
-    latexmk -pvc -xelatex $PWD/$file.tex &>/dev/null &
+    latexmk -pvc -xelatex "$PWD/$file.tex" &>/dev/null &
 else
 #    zathura $PWD/$file.pdf &>/dev/null &
-    latexmk -pvc -pdf $PWD/$file.tex &>/dev/null &
+    latexmk -pvc -pdf "$PWD/$file.tex" &>/dev/null &
 fi
-vim $PWD/$file.tex
+vim "$PWD/$file.tex"

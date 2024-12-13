@@ -1,0 +1,170 @@
+BG=0x651e1e2e
+
+FONT="CaskaydiaCove Nerd Font"
+FONT_SIZE=11.5
+FONT_COLOR=0xffcdd6f4
+ICON_FONT_SIZE=16
+
+ITEM_PADDING=8
+ITEM_COLOR=0x503d3c53
+GAP=6
+
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins2"
+PLUGIN1_DIR="$HOME/.config/sketchybar/plugins"
+
+#sketchybar --bar \
+#  margin=17 y_offset=12 height=38 \
+#  corner_radius=6 blur_radius=5 \
+#  border_width=1 border_color=0x28222222 \
+#padding_left=17 padding_right=20 \
+#  shadow.color=0x28000000 shadow.angle=0 \
+#  color=$BG
+
+sketchybar --bar \
+  margin=-1 height=33 \
+  corner_radius=0 blur_radius=5 \
+  border_width=1 border_color=0x28222222 \
+  shadow.color=0x28000000 shadow.angle=0 \
+  color=$BG
+
+sketchybar --default \
+  label.font="$FONT:Regular:$FONT_SIZE" label.color=$FONT_COLOR \
+  label.padding_left=$ITEM_PADDING label.padding_right=$ITEM_PADDING \
+  icon.font="$FONT:Regular:$ICON_FONT_SIZE"\
+  icon.padding_left=$ITEM_PADDING \
+  background.color=$ITEM_COLOR \
+  background.padding_right=$GAP background.height=22 \
+  background.corner_radius=6
+#background.height=25
+
+#sketchybar --add item os left \
+#  --set os \
+#icon= icon.color=0xfff5c2e7 \
+#  icon.font.size=21 icon.y_offset=2 \
+#  icon.padding_left=0 icon.padding_right=0 \
+#label.padding_left=0 label.padding_right=6 \
+#  background.drawing=off
+
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid="$(($i+1))"
+  space=(
+    space="$sid"
+#icon="${SPACE_ICONS[i]}"
+#icon.padding_left=7
+#icon.padding_right=7
+    background.color=0x40ffffff
+    background.corner_radius=5
+    background.height=22 #25
+#label.drawing=off
+    label="$sid"
+    icon.drawing=off
+    script="$PLUGIN1_DIR/space.sh"
+    click_script="yabai -m space --focus $sid"
+  )
+  sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
+done
+
+sketchybar --add item front-app left \
+  --set front-app \
+  script="$PLUGIN_DIR/front-app.sh" \
+  label.font.style="Bold" \
+  icon.padding_left=20 label.padding_right=20 \
+  --subscribe front-app front_app_switched
+
+#sketchybar --add item user left \
+#  --set user \
+#  label="$(whoami)" label.font.style="Bold" \
+#  icon=󰀄 icon.color=0xffc7ea46
+
+sketchybar --add item weather left \
+  --set weather \
+  icon=󰖐 \
+  script="$PLUGIN_DIR/weather.sh" \
+  update_freq=1500 \
+  --subscribe weather mouse.clicked
+
+sketchybar -m --add event song_update com.apple.iTunes.playerInfo
+sketchybar -m --add item music left \
+    --set music script="$PLUGIN_DIR/music.sh"  \
+    icon.color=0xfffc3c44 \
+    --subscribe music song_update
+
+#sketchybar --add item moon-phase left \
+#  --set moon-phase \
+#  icon= \
+#  script="$PLUGIN_DIR/moon-phase.sh" \
+#  update_freq=3600 \
+#  --subscribe moon-phase mouse.clicked
+
+sketchybar --add item clock right \
+  --set clock \
+  script="$PLUGIN_DIR/clock.sh" \
+  background.padding_right=0 \
+  update_freq=1
+
+sketchybar --add item battery right \
+  --set battery \
+  script="$PLUGIN_DIR/battery.sh" \
+  update_freq=60
+
+sketchybar --add item volume right\
+  --set volume script="$PLUGIN1_DIR/volume.sh" \
+  icon.color=0xffc7ea46 \
+  --subscribe volume volume_change
+
+#sketchybar --add item mic right\
+#  --set mic script="$PLUGIN_DIR/mic.sh" \
+#  icon.color=0xffc7ea46 \
+#  update_freq=5
+
+ sketchybar --add item wifi right \
+   --set wifi \
+   script="$PLUGIN_DIR/wifi.sh" \
+   --subscribe wifi wifi_change
+
+#sketchybar --add event spotify_change com.spotify.client.PlaybackStateChanged
+#sketchybar --add item spotify right \
+#  --set spotify \
+#  background.padding_left=$GAP \
+#  script="$PLUGIN_DIR/spotify.sh" \
+#  --subscribe spotify spotify_change mouse.clicked
+#
+#SPOTIFY_ICON_SIZE=19
+#SPOTIFY_CONTROL_GAP=0
+#
+#sketchybar --add item spotify.next right \
+#  --set spotify.next \
+#  icon=󰒭 icon.font.size=$SPOTIFY_ICON_SIZE \
+#  label.padding_left=0 label.padding_right=7 \
+#  background.drawing=off \
+#  background.padding_right=0 \
+#  script="$PLUGIN_DIR/spotify.sh" \
+#  --subscribe spotify.next mouse.clicked
+#
+#sketchybar --add item spotify.playpause right \
+#  --set spotify.playpause \
+#  icon= \
+#  icon.font.size=15 \
+#  icon.y_offset=1 icon.padding_left=9 \
+#  label.padding_left=0 label.padding_right=7 \
+#  background.drawing=off \
+#  background.padding_right=$SPOTIFY_CONTROL_GAP \
+#  script="$PLUGIN_DIR/spotify.sh" \
+#  --subscribe spotify.playpause mouse.clicked
+#
+#sketchybar --add item spotify.back right \
+#  --set spotify.back \
+#  icon=󰒮 \
+#  label.padding_left=0 label.padding_right=7 \
+#  icon.padding_left=8 icon.font.size=$SPOTIFY_ICON_SIZE \
+#  background.drawing=off \
+#  background.padding_right=$SPOTIFY_CONTROL_GAP \
+#  script="$PLUGIN_DIR/spotify.sh" \
+#  --subscribe spotify.back mouse.clicked
+#
+#sketchybar --add bracket spotify_controls \
+#  spotify.next spotfy.playpause spotify.back
+
+sketchybar --update

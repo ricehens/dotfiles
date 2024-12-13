@@ -1,15 +1,147 @@
-#!/bin/bash
-file="$(cmus-remote -Q 2> /dev/null | grep '^file ' | cut -c 6- | rev | cut -c 5- | rev).lrc"
+#!/usr/bin/env python3
 
-if [ ! -f "$file" ]; then
-    echo "'$file' not found"
-    if [ "$1" = "-g" ]; then
-        gvim "$file"
-    fi
-else
-    if [ "$1" = "-g" ]; then
-        gvim "$file"
-    else
-        cat "$file"
-    fi
-fi
+import curses
+import subprocess
+import os
+import re
+import time
+import wcwidth
+
+def get_current_song_info():
+    result = subprocess.run(["cmus-remote", "-Q"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    if result.returncode != 0:
+        return None
+    lines = result.stdout.splitlines()
+    song_info = {}
+    for line in lines:
+        if line.startswith("file "):
+            song_info['file'] = line[5:]
+        elif line.startswith("position "):
+            song_info['position'] = int(line[9:])
+        elif line.startswith("status "):
+            song_info['status'] = line[7:]
+        elif line.startswith("tag title "):
+            song_info['title'] = line[10:]
+        elif line.startswith("tag artist "):
+            song_info['artist'] = line[11:]
+    return song_info
+
+def get_lrc_file_path(song_file_path):
+    base, ext = os.path.splitext(song_file_path)
+    lrc_file_path = base + '.lrc'
+    return lrc_file_path
+
+def parse_lrc_file(lrc_file_path):
+    lrc_entries = []
+    time_tag_pattern = re.compile(r'\[(\d+):(\d+(\.\d+)?)\]')
+    try:
+        with open(lrc_file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                matches = list(time_tag_pattern.finditer(line))
+                if not matches:
+                    continue
+                content = time_tag_pattern.sub('', line).strip()
+                for match in matches:
+                    minutes = int(match.group(1))
+                    seconds = float(match.group(2))
+                    total_seconds = minutes * 60 + seconds
+                    lrc_entries.append((total_seconds, content))
+        lrc_entries.sort(key=lambda x: x[0])
+        return lrc_entries
+    except Exception:
+        return []
+
+def get_current_lyric_index(lrc_entries, current_position):
+    index = 0
+    while index < len(lrc_entries) and current_position >= lrc_entries[index][0]:
+        index += 1
+    return index - 1
+
+def main(stdscr):
+    curses.curs_set(0)
+    stdscr.nodelay(True)
+    curses.use_default_colors()
+    curses.start_color()
+    curses.init_pair(1, curses.COLOR_GREEN, -1)
+    last_song_file = None
+    lrc_entries = []
+    while True:
+        song_info = get_current_song_info()
+        if song_info is None:
+            stdscr.clear()
+            stdscr.addstr(0, 0, "错误：无法获取歌曲信息。", curses.A_BOLD)
+            stdscr.refresh()
+            time.sleep(1)
+            continue
+        if song_info.get('status') != 'playing':
+            stdscr.clear()
+            stdscr.addstr(0, 0, "当前没有正在播放的歌曲。", curses.A_BOLD)
+            stdscr.refresh()
+            time.sleep(1)
+            continue
+        current_song_file = song_info['file']
+        current_position = song_info['position']
+        if current_song_file != last_song_file:
+            lrc_file_path = get_lrc_file_path(current_song_file)
+            lrc_entries = parse_lrc_file(lrc_file_path)
+            last_song_file = current_song_file
+        current_index = get_current_lyric_index(lrc_entries, current_position)
+        stdscr.clear()
+        height, width = stdscr.getmaxyx()
+
+        # Display title and artist at the top
+        title = song_info.get('title', '未知标题')
+        artist = song_info.get('artist', '未知艺术家')
+        separator = '-' * width
+        try:
+            title_display_width = wcwidth.wcswidth(title)
+            artist_display_width = wcwidth.wcswidth(artist)
+            stdscr.addstr(0, max(0, (width - title_display_width) // 2), title, curses.A_BOLD)
+            stdscr.addstr(1, max(0, (width - artist_display_width) // 2), artist, curses.A_BOLD)
+            stdscr.addstr(2, 0, separator)
+        except curses.error:
+            pass  # Ignore errors when the text doesn't fit
+
+        if not lrc_entries:
+            try:
+                message = "未找到此歌曲的歌词。"
+                message_display_width = wcwidth.wcswidth(message)
+                stdscr.addstr(height // 2, max(0, (width - message_display_width) // 2), message, curses.A_BOLD)
+            except curses.error:
+                pass
+        else:
+            start_index = max(0, current_index - 2)
+            end_index = min(len(lrc_entries), current_index + 22)
+            lyrics_to_display = lrc_entries[start_index:end_index]
+            total_lines = len(lyrics_to_display)
+            y_offset = max(3, (height - total_lines) // 2)  # Start after title and separator
+            for i, entry in enumerate(lyrics_to_display):
+                y = y_offset + i
+                if y >= height:
+                    break  # Do not write beyond the window height
+                line = entry[1]
+                line_display_width = wcwidth.wcswidth(line)
+                x = max(0, (width - line_display_width) // 2)
+                if start_index + i == current_index:
+                    try:
+                        stdscr.addstr(y, x, line, curses.A_BOLD | curses.color_pair(1))
+                    except curses.error:
+                        pass
+                else:
+                    try:
+                        stdscr.addstr(y, x, line)
+                    except curses.error:
+                        pass
+        stdscr.refresh()
+        time.sleep(0.5)
+        try:
+            key = stdscr.getch()
+            if key == ord('q'):
+                break
+        except:
+            pass
+
+if __name__ == '__main__':
+    curses.wrapper(main)
+

@@ -9,4 +9,4 @@ else
 #    zathura $PWD/$file.pdf &>/dev/null &
     latexmk -pvc -pdf $PWD/$file.tex &>/dev/null &
 fi
-gvim $PWD/$file.tex &>/dev/null --servername GVIM
+gvim $PWD/$file.tex

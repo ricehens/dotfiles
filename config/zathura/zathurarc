@@ -1,3 +1,5 @@
+set selection-clipboard clipboard
+
 # Dracula color theme for Zathura
 # link:( https://github.com/dracula/dracula-theme#color-palette )
 # Swaps Foreground for Background to get a light version
@@ -31,11 +33,12 @@ set inputbar-fg                 "#f8f8f2" # Foreground
 set statusbar-bg                "#282a36" # Background
 set statusbar-fg                "#f8f8f2" # Foreground
 
-set highlight-color             "#ffb86c" # Orange
-set highlight-active-color      "#ff79c6" # Pink
+set highlight-color             rgba(255, 184, 108, 0.4) # Orange
+set highlight-active-color      rgba(255, 121, 198, 0.4) # Pink
 
 #set default-bg                  "#282a36" # Background
-set default-bg                  rgba(40,42,54,0.7)
+#set default-bg                  rgba(40,42,54,0.8)
+set default-bg                  rgba(40,42,54,1)
 set default-fg                  "#f8f8f2" # Foreground
 
 set render-loading              true
@@ -46,7 +49,8 @@ set render-loading-bg           "#f8f8f2" # Foreground
 #
 #
 #set recolor-lightcolor          "#282a36" # Background
-set recolor-lightcolor          rgba(40,42,54,0.6) # Background
+#set recolor-lightcolor          rgba(40,42,54,0.6) # Background
+set recolor-lightcolor          rgba(40,42,54,1) # Background
 set recolor-darkcolor           "#f8f8f2" # Foreground
 
 # Startup options
@@ -62,7 +66,10 @@ map <C--> zoom out
 map B jumplist backward
 map b jumplist forward
 
+map <C-[> set "first-page-column 1"
+map <C-]> set "first-page-column 2"
+
 # Forward-backward search
 set dbus-service true
 set synctex true
-set synctex-editor-command "gvim --servername GVIM --remote +%{line} %{input}"
+set synctex-editor-command "nvr --remote-silent +%{line} %{input}"

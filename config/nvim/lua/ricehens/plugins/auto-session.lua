@@ -10,7 +10,7 @@ return {
 
         local keymap = vim.keymap
 
-        keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" }) -- restore last workspace session for current directory
-        keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }) -- save workspace session for current working directory
+        keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "恢复当前目录的会话" }) -- 恢复当前目录下最近保存的工作区会话
+        keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "保存当前目录的会话" }) -- 保存当前工作目录的会话（自动以会话根目录命名）
     end,
 }

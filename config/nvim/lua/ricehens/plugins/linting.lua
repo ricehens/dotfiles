@@ -10,6 +10,7 @@ return {
             javascriptreact = { "eslint_d" },
             typescriptreact = { "eslint_d" },
             python = { "pylint" },
+            haskell = { "hlint" },
         }
 
         local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -23,7 +24,7 @@ return {
 
         vim.keymap.set("n", "<leader>i", function()
             lint.try_lint()
-        end, { desc = "Trigger linting for current file" })
+        end, { desc = "对当前文件执行 lint 检查" })
     end,
 }
 

@@ -7,6 +7,7 @@ return {
         configs.setup({
             ensure_installed = {
                 "java", "c", "cpp", "python", "lua", "vim", "vimdoc", "javascript", "html", "css", "typescript", "csv", "bash", "yaml",
+                "haskell",
                 -- "latex", "bibtex",
             },
             sync_install = false,

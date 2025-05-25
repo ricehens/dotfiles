@@ -14,8 +14,14 @@ return {
             require('nordic').setup({
                 after_palette = function(palette)
                     local U = require("nordic.utils")
-                    palette.bg_visual = U.blend(palette.blue0, palette.bg, .3)
+                    palette.bg_visual = U.blend(palette.blue0, palette.bg, .2)
+                    -- palette.comment = palette.gray5
+                    palette.comment = U.blend(palette.gray4, palette.white0, .6)
                 end,
+                swap_backgrounds = true,
+                -- cursorline = {
+                    -- blend = 2,
+                -- }
             })
             vim.cmd([[colorscheme nordic]])
         end,

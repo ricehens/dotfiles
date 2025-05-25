@@ -24,8 +24,7 @@ export PYTHONPATH=/Users/ericshen/.von:$PATH
 export SITE='eh2z5z1c0mo2@ericshen.net'
 export ATH='eys@athena.dialup.mit.edu'
 export MW='/Users/ericshen/Documents/Classes/LiJie'
-export SCH='/Users/ericshen/Dropbox (MIT)/MIT-2025'
-export MIT='/Users/ericshen/Dropbox (MIT)'
+export SCH='/Users/ericshen/Documents/MIT-2025'
 
 # Cleanup
 alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~' 
@@ -42,6 +41,7 @@ alias l='ls -alh'
 
 # git
 alias g='git'
+alias nvimdiff='nvim -d'
 
 # Be careful
 alias rm='rm -i'
@@ -59,7 +59,31 @@ alias pdf='zathura &>/dev/null'
 # I'm lazy so http://bashrcgenerator.com/
 #export PS1="\[$(tput bold)\]\[\033[38;5;43m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;38m\]@\[$(tput sgr0)\]\[\033[38;5;80m\]\h\[$(tput sgr0)\]\[\033[38;5;38m\]:\[$(tput bold)\]\[\033[38;5;45m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;38m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
 # zsh PS1
-PROMPT="%F{86}%n%F{75}@%F{87}%m%F{75}:%F{69}%~%F{75}$%f "
+
+function git_branch_name() {
+  # local branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+  local branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+  local color="%F{39}"
+  local git_status=$(git status --porcelain 2>/dev/null)
+  if echo "$git_status" | grep -q "^\s\?M"; then
+    branch="${branch}*"
+  fi
+  if echo "$git_status" | grep -qE "^\s\?A|^\?\?"; then
+    branch="${branch}+"
+  fi
+  if echo "$git_status" | grep -q "^\s\?D"; then
+    branch="${branch}-"
+  fi
+
+  if [[ -n "$branch" ]]; then
+    branch="${color} (${branch})"
+  fi
+
+  echo $branch
+}
+precmd() {
+    PROMPT="%F{86}%n%F{75}@%F{87}%m%F{75}:%F{69}%~%F{75}$(git_branch_name)%F{75}$%f "
+}
 
 # Extract files (thanks Reddit)
 extract() {
@@ -121,3 +145,12 @@ alias du1="du -hd1"
 export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
 export MY_SESSION_BUS_SOCKET="/tmp/dbus/$USER.session.usock"
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
+
+# 6.004
+export PATH=$(pyenv root)/shims:$PATH
+export PATH=~/bin/bsc/latest/bin:$PATH
+
+# llvm
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"

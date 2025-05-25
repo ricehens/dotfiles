@@ -6,10 +6,10 @@ return {
     },
     cmd = "Trouble",
     keys = {
-        { "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>", desc = "Open trouble workspace diagnostics" },
-        { "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Open trouble document diagnostics" },
-        { "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Open trouble quickfix list" },
-        { "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Open trouble location list" },
-        { "<leader>xt", "<cmd>Trouble todo toggle<CR>", desc = "Open todos in trouble" },
-    },
+        { "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>", desc = "打开 Trouble 中的工作区诊断信息" },
+        { "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "打开 Trouble 中的当前文件诊断信息" },
+        { "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "打开 Trouble 中的快速修复列表" },
+        { "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "打开 Trouble 中的位置列表" },
+        { "<leader>xt", "<cmd>Trouble todo toggle<CR>", desc = "在 Trouble 中查看 TODO 项" },
+    }
 }

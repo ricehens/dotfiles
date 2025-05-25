@@ -11,14 +11,14 @@ fi
 if cp "$TEMPLATEHOME/$WHICHONE.tex" "$PWD/$1.tex" ; then
     echo 'Copy success.'
 
-    if [[ "$WHICHONE" -ne "booklet" || "$WHICHONE" -ne "todo" ]]
-    then
-        echo 'Running initial compile of TeX file.'
-        pdflatex "$1.tex" &>/dev/null
-    fi
+    #if [[ "$WHICHONE" -ne "booklet" || "$WHICHONE" -ne "todo" ]]
+    #then
+        #echo 'Running initial compile of TeX file.'
+        #pdflatex "$1.tex" &>/dev/null
+    #fi
 
-    echo 'Starting TeX setup.'
-    texme "$1"
+    #echo 'Starting TeX setup.'
+    #texme "$1"
 else
     echo 'Template not found.'
 fi

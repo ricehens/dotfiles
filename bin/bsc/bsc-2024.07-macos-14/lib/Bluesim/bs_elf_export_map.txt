@@ -1,7 +1,0 @@
-VERS_1.0 {
-   global:
-      bk_*;
-      vpi_*;
-      vlog_*;
-      new_MODEL_*;
-};

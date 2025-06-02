@@ -23,7 +23,7 @@ return {
                     -- blend = 2,
                 -- }
             })
-            vim.cmd([[colorscheme nordic]])
+            -- vim.cmd([[colorscheme nordic]])
         end,
     },
     {
@@ -83,6 +83,14 @@ return {
         priority = 1000,
         config = function()
             -- vim.cmd([[colorscheme cyberdream]])
+        end,
+    },
+    {
+        "Mofiqul/vscode.nvim",
+        name = "vscode",
+        priority = 1000,
+        config = function()
+            vim.cmd([[colorscheme vscode]])
         end,
     },
 }

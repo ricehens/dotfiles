@@ -35,6 +35,7 @@ return {
                 "ts_ls",
                 "cssls",
                 "texlab",
+                "hls",
             },
         })
 
@@ -45,6 +46,9 @@ return {
                 "black", -- python formatter
                 "pylint", -- python linter
                 "eslint_d", -- js linter
+                "clang-format", -- c/c++ formatter
+                "hlint", -- haskell linter
+                "ormolu", -- haskell formatter
             },
         })
     end,

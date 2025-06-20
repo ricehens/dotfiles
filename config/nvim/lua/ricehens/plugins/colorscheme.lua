@@ -1,9 +1,4 @@
 return {
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000,
-        config = function()
-            -- vim.cmd([[colorscheme catppuccin]])
-        end,
-    },
     { "shaunsingh/nord.nvim", name = "nord", priority = 1000,
         config = function()
             -- vim.cmd([[colorscheme nord]])
@@ -78,14 +73,6 @@ return {
         end,
     },
     {
-        "scottmckendry/cyberdream.nvim",
-        name = "cyberdream",
-        priority = 1000,
-        config = function()
-            -- vim.cmd([[colorscheme cyberdream]])
-        end,
-    },
-    {
         "Mofiqul/vscode.nvim",
         name = "vscode",
         priority = 1000,
@@ -93,4 +80,21 @@ return {
             vim.cmd([[colorscheme vscode]])
         end,
     },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                flavour = "macchiato",
+                -- flavour = "mocha",
+                no_italic = true,
+                integrations = {
+                    mason = true,
+                    which_key = true,
+                }
+            })
+            -- vim.cmd([[colorscheme catppuccin]])
+        end,
+    }
 }

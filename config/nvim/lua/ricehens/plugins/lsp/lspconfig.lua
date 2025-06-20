@@ -7,6 +7,19 @@ return {
         { "folke/neodev.nvim", opts = {} },
     },
     config = function()
+        -- borders
+        -- deprecated
+        -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+            -- vim.lsp.handlers.hover, {
+                -- border = "rounded",
+            -- }
+        -- )
+        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+            vim.lsp.handlers.signature_help, {
+                border = "rounded",
+            }
+        )
+
         -- import lspconfig plugin
         local lspconfig = require("lspconfig")
 
@@ -60,7 +73,11 @@ return {
                 keymap.set("n", "]d", vim.diagnostic.goto_next, opts) 
 
                 opts.desc = "显示光标下的文档"
-                keymap.set("n", "K", vim.lsp.buf.hover, opts) 
+                keymap.set("n", "K", function ()
+                    vim.lsp.buf.hover({
+                        border = "rounded",
+                    })
+                end, opts) 
 
                 opts.desc = "重启 LSP"
                 keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) 
@@ -70,69 +87,102 @@ return {
         -- used to enable autocompletion (assign to every lsp server config)
         local capabilities = cmp_nvim_lsp.default_capabilities()
 
-        -- Change the Diagnostic symbols in the sign column (gutter)
-        -- (not in youtube nvim video)
-        local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-        for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-        end
+        -- borders
+        vim.diagnostic.config({
+            virtual_text = true,
+            float = {
+                border = "rounded",   -- try "single", "double", "shadow" or a custom eight‐element list
+                source = "always",    -- show source (e.g. “pyright”) in header
+                header = "",          -- or set a header string
+                prefix = "",          -- or a prefix character
+            },
+            signs = {
+                text = {
+                    [vim.diagnostic.severity.ERROR] = " ",
+                    [vim.diagnostic.severity.WARN]  = " ",
+                    [vim.diagnostic.severity.INFO]  = " ",
+                    [vim.diagnostic.severity.HINT]  = "󰠠 ",
+                },
+            },
+        })
 
-        mason_lspconfig.setup_handlers({
-            -- default handler for installed servers
-            function(server_name)
-                lspconfig[server_name].setup({
-                    capabilities = capabilities,
-                })
-            end,
-            ["bashls"] = function()
-                lspconfig["bashls"].setup({
-                    capabilities = capabilities,
-                    filetypes = { "sh", "bash" },
-                })
-            end,
-            ["clangd"] = function()
-                lspconfig["clangd"].setup({
-                    capabilities = capabilities,
-                    filetypes = { "c", "h", "cpp" },
-                })
-            end,
-            ["html"] = function()
-                lspconfig["html"].setup({
-                    capabilities = capabilities,
-                    filetypes = { "html" },
-                })
-            end,
-            ["jdtls"] = function()
-                lspconfig["jdtls"].setup({
-                    capabilities = capabilities,
-                    filetypes = { "java" },
-                })
-            end,
-            ["pyright"] = function()
-                lspconfig["pyright"].setup({
-                    capabilities = capabilities,
-                    filetypes = { "py", "python" },
-                })
-            end,
-            ["ts_ls"] = function()
-                lspconfig["ts_ls"].setup({
-                    capabilities = capabilities,
-                    filetypes = { "ts" },
-                })
-            end,
-            ["cssls"] = function()
-                lspconfig["cssls"].setup({
-                    capabilities = capabilities,
-                    filetypes = { "css" },
-                })
-            end,
-            ["hls"] = function()
-                lspconfig["hls"].setup({
-                    capabilities = capabilities,
-                    filetypes = { "haskell", "lhaskell", "cabal" },
-                })
-            end,
+        -- Change the Diagnostic symbols in the sign column (gutter)
+        -- local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+        -- for type, icon in pairs(signs) do
+            -- local hl = "DiagnosticSign" .. type
+            -- vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+        -- end
+
+        mason_lspconfig.setup({
+            ensure_installed = {
+                "jdtls",
+                "bashls",
+                "clangd",
+                "html",
+                "pyright",
+                "ts_ls",
+                "cssls",
+                "hls"
+            },
+            automatic_installation = true,
+            handlers = {
+                -- no generic lspconfig setup
+                ["jdtls"] = function() end,
+                -- default handler for installed servers
+                function(server_name)
+                    lspconfig[server_name].setup({
+                        capabilities = capabilities,
+                    })
+                end,
+                ["bashls"] = function()
+                    lspconfig["bashls"].setup({
+                        capabilities = capabilities,
+                        filetypes = { "sh", "bash" },
+                    })
+                end,
+                ["clangd"] = function()
+                    lspconfig["clangd"].setup({
+                        capabilities = capabilities,
+                        filetypes = { "c", "h", "cpp" },
+                    })
+                end,
+                ["html"] = function()
+                    lspconfig["html"].setup({
+                        capabilities = capabilities,
+                        filetypes = { "html" },
+                    })
+                end,
+                -- ["jdtls"] = function()
+                -- lspconfig["jdtls"].setup({
+                -- capabilities = capabilities,
+                -- filetypes = { "java" },
+                -- })
+                -- end,
+                ["pyright"] = function()
+                    lspconfig["pyright"].setup({
+                        capabilities = capabilities,
+                        filetypes = { "py", "python" },
+                    })
+                end,
+                ["ts_ls"] = function()
+                    lspconfig["ts_ls"].setup({
+                        capabilities = capabilities,
+                        filetypes = { "ts" },
+                    })
+                end,
+                ["cssls"] = function()
+                    lspconfig["cssls"].setup({
+                        capabilities = capabilities,
+                        filetypes = { "css" },
+                    })
+                end,
+                ["hls"] = function()
+                    lspconfig["hls"].setup({
+                        capabilities = capabilities,
+                        filetypes = { "haskell", "lhaskell", "cabal" },
+                    })
+                end,
+            },
         })
     end,
 }

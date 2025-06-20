@@ -9,7 +9,7 @@ opt.nrformats = "alpha" -- increment letters with <C-a>, <C-x> too
 -- opt.t_Co = "256"
 
 -- line numbers
-opt.relativenumber = false
+opt.relativenumber = true
 opt.number = true
 
 -- tabs
@@ -68,3 +68,6 @@ opt.wildmode = "longest,list"
 -- spell
 opt.spelllang = en_us
 opt.spell = true
+
+-- custom filetypes
+vim.filetype.add({ extension = { dcf = "decaf", ms = "bsv", rcf = "recaf" }, })

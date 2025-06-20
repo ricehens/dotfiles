@@ -51,7 +51,12 @@ alias cp='cp -i'
 # Fun!
 alias what='ping -c 3 google.com'
 # alias rvim='sudo -E vim' # sudo vim while preserving environment
+alias dog='pygmentize -g -O style=nord'
 alias shrug='echo "¯\_(ツ)_/¯"'
+
+# Locale
+alias english='export LANG=en_US.utf8'
+alias chinese='export LANG=zh_CN.utf8'
 
 # Useful
 alias pdf='zathura &>/dev/null'
@@ -84,6 +89,7 @@ function git_branch_name() {
 precmd() {
     PROMPT="%F{86}%n%F{75}@%F{87}%m%F{75}:%F{69}%~%F{75}$(git_branch_name)%F{75}$%f "
 }
+alias short='precmd() { PROMPT="%F{75}$%f " }'
 
 # Extract files (thanks Reddit)
 extract() {
@@ -114,8 +120,8 @@ extract() {
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # GCC
-alias gcc="/opt/homebrew/bin/gcc-14"
-alias g++="/opt/homebrew/bin/g++-14"
+alias gcc="/opt/homebrew/bin/gcc-15"
+alias g++="/opt/homebrew/bin/g++-15"
 
 # von
 alias von="python3 -m von"
@@ -142,9 +148,9 @@ export NVM_DIR="$HOME/.nvm"
 alias du1="du -hd1"
 
 # dbus setup (for vimtex-zathura interaction)
-export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
-export MY_SESSION_BUS_SOCKET="/tmp/dbus/$USER.session.usock"
-export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
+# export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
+# export MY_SESSION_BUS_SOCKET="/tmp/dbus/$USER.session.usock"
+# export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
 
 # 6.004
 export PATH=$(pyenv root)/shims:$PATH
@@ -154,3 +160,10 @@ export PATH=~/bin/bsc/latest/bin:$PATH
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
+# haskell
+export PATH="$HOME/.ghcup/bin:$PATH"
+
+# fzf
+bindkey -s '^Z' "fzf --bind 'enter:become(nvim {})'\n"
+

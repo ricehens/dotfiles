@@ -17,7 +17,6 @@ return {
                 markdown = { "prettier" },
                 python = { "isort", "black" },
                 tex = { "latexindent" },
-                java = { "lsp" },
                 c = { "clang-format" },
                 cpp = { "clang-format" },
                 haskell = { "ormolu" },

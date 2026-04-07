@@ -67,6 +67,7 @@
     \fancyusedfalse
     \marginsetfalse
     \colorthmonfalse
+    \colorsecstylefalse
 }
 
 % Beamer template
@@ -168,12 +169,15 @@
 \PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
 \usepackage{xcolor}
 \usepackage{graphicx}
-\ifteeonefontencoding
+\RequirePackage{iftex}
+\ifPDFTeX
+  \ifteeonefontencoding
     \usepackage[T1]{fontenc}
-\else
-    \usepackage{textcomp} % Text fonts
+  \else
+    \usepackage{textcomp}
+  \fi
+  \usepackage[utf8]{inputenc}
 \fi
-\usepackage[utf8]{inputenc} % Load after T1 if applicable
 \usepackage[english]{babel}
 \usepackage{mathdots} % Fancy dots
 \usepackage[final]{pdfpages} % Inserting PDF's
@@ -194,6 +198,7 @@
 \ifchessdiagenabled
     \usepackage{skak}
 \fi
+\usepackage{stmaryrd} 
 
 %%fakesection BASIC MACROS
 % Colorful text
@@ -269,6 +274,8 @@
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\pow}{Pow}
 \DeclareMathOperator{\rad}{rad}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\GL}{GL} 
 \DeclareMathOperator{\SL}{SL}
 \DeclareMathOperator{\pr}{Pr}
@@ -277,6 +284,8 @@
 \DeclareMathOperator{\img}{im}
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 \newcommand{\qand}{\quad\text{and}\quad}
 
 % PROMYS Rational Points on Hyperelliptic Curves
@@ -319,11 +328,20 @@
 \DeclareMathOperator{\SU}{SU}
 \DeclareMathOperator{\SO}{SO}
 
+% 18.715
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Mat}{Mat}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\slin}{\mathfrak{sl}}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\Sym}{Sym}
+
 % \wideparen for good-looking arc symbols
-\DeclareFontFamily{OMX}{yhex}{}
-\DeclareFontShape{OMX}{yhex}{m}{n}{<->yhcmex10}{}
-\DeclareSymbolFont{yhlargesymbols}{OMX}{yhex}{m}{n}
-\DeclareMathAccent{\wideparen}{\mathord}{yhlargesymbols}{"F3}
+%\DeclareFontFamily{OMX}{yhex}{}
+%\DeclareFontShape{OMX}{yhex}{m}{n}{<->yhcmex10}{}
+%\DeclareSymbolFont{yhlargesymbols}{OMX}{yhex}{m}{n}
+%\DeclareMathAccent{\wideparen}{\mathord}{yhlargesymbols}{"F3}
 
 % varying sizes in \pmod
 \DeclarePairedDelimiterX{\pmodx}[1]{(}{)}{{\operator@font mod}\mkern6mu#1}
@@ -755,49 +773,83 @@
             ]{thmblackbox}
         \fi
 
-%%fakesection BOXTHM
+        %%fakesection BOXTHM
         \ifcolorthmon
-        %\theoremstyle{plain}
-            \iftheorembychapter\declaretheorem[style=thmbluebox,parent=chapter,name=Theorem]{theorem}
-            \else
-                \iftheorembysection\declaretheorem[style=thmbluebox,parent=section,name=Theorem]{theorem}
-                \else\declaretheorem[style=thmbluebox,name=Theorem]{theorem}
+            %\theoremstyle{plain}
+            \ifxchineseenabled
+                \AtBeginDocument{\renewcommand\proofname{证明}}
+                \iftheorembychapter\declaretheorem[style=thmbluebox,parent=chapter,name=定理]{theorem}
+                \else
+                    \iftheorembysection\declaretheorem[style=thmbluebox,parent=section,name=定理]{theorem}
+                    \else\declaretheorem[style=thmbluebox,name=定理]{theorem}
+                    \fi
                 \fi
-            \fi
-            \declaretheorem[style=thmbluebox,numbered=no,name=Theorem]{theorem*}
-            \declaretheorem[style=thmbluebox,sibling=theorem,name=Corollary]{corollary}
-            \declaretheorem[style=thmbluebox,numbered=no,name=Corollary]{corollary*}
-            \declaretheorem[style=thmbluebox,sibling=theorem,name=Proposition]{proposition}
-            \declaretheorem[style=thmbluebox,numbered=no,name=Proposition]{proposition*}
-            \declaretheorem[style=thmbluebox,sibling=theorem,name=Conjecture]{conjecture}
-            \declaretheorem[style=thmbluebox,numbered=no,name=Conjecture]{conjecture*}
-            \declaretheorem[style=thminlinebluebox,numbered=no,name=\$]{shell}
-            \declaretheorem[style=thmbluebreakbox,sibling=theorem,name=Algorithm]{algorithm}
-            \declaretheorem[style=thmbluebreakbox,numbered=no,name=Algorithm]{algorithm*}
-            \declaretheorem[style=thmbluebreakbox,parent=section,name=Algorithm]{secalgo}
-            \ifrollingboxprob
-                \declaretheorem[style=thmgreenbox,sibling=theorem,name=Problem]{boxprob}
-                \declaretheorem[style=thmredbox,sibling=theorem,name=Lemma]{lemma}
+                \declaretheorem[style=thmbluebox,numbered=no,name=定理]{theorem*}
+                \declaretheorem[style=thmpurplebox,sibling=theorem,name=定义]{definition}
+                \declaretheorem[style=thmpurplebox,numbered=no,name=定义]{definition*}
+                \declaretheorem[style=thmbluebox,sibling=theorem,name=推论]{corollary}
+                \declaretheorem[style=thmbluebox,numbered=no,name=推论]{corollary*}
+                \declaretheorem[style=thmbluebox,sibling=theorem,name=命题]{proposition}
+                \declaretheorem[style=thmbluebox,numbered=no,name=命题]{proposition*}
+                \declaretheorem[style=thmbluebox,sibling=theorem,name=猜想]{conjecture}
+                \declaretheorem[style=thmbluebox,numbered=no,name=猜想]{conjecture*}
+                \declaretheorem[style=thminlineorangebox,name=结论]{claim}
+                \declaretheorem[style=thminlineorangebox,numbered=no,name=结论]{claim*}
+                \declaretheorem[style=thmblackbox,numbered=no,name=注]{remark}
+                \declaretheorem[style=thmbluebreakbox,sibling=theorem,name=算法]{algorithm}
+                \declaretheorem[style=thmbluebreakbox,numbered=no,name=算法]{algorithm*}
+                \declaretheorem[style=thmgreenborder,sibling=theorem,name=例]{example}
+                \ifrollingboxprob
+                    \declaretheorem[style=thmgreenbox,sibling=theorem,name=题]{boxprob}
+                    \declaretheorem[style=thmredbox,sibling=theorem,name=引理]{lemma}
+                \else
+                    \declaretheorem[style=thmgreenbox,name=题目]{boxprob}
+                    \declaretheorem[style=thmredbox,name=引理]{lemma}
+                \fi
+                \declaretheorem[style=thmgreenbox,numbered=no,name=题目]{boxprob*}
+                \declaretheorem[style=thmredbox,numbered=no,name=引理]{lemma*}
             \else
-                \declaretheorem[style=thmgreenbox,name=Problem]{boxprob}
-                \declaretheorem[style=thmredbox,name=Lemma]{lemma}
+                \iftheorembychapter\declaretheorem[style=thmbluebox,parent=chapter,name=Theorem]{theorem}
+                \else
+                    \iftheorembysection\declaretheorem[style=thmbluebox,parent=section,name=Theorem]{theorem}
+                    \else\declaretheorem[style=thmbluebox,name=Theorem]{theorem}
+                    \fi
+                \fi
+                \declaretheorem[style=thmbluebox,numbered=no,name=Theorem]{theorem*}
+                \declaretheorem[style=thmpurplebox,sibling=theorem,name=Definition]{definition}
+                \declaretheorem[style=thmpurplebox,numbered=no,name=Definition]{definition*}
+                \declaretheorem[style=thmbluebox,sibling=theorem,name=Corollary]{corollary}
+                \declaretheorem[style=thmbluebox,numbered=no,name=Corollary]{corollary*}
+                \declaretheorem[style=thmbluebox,sibling=theorem,name=Proposition]{proposition}
+                \declaretheorem[style=thmbluebox,numbered=no,name=Proposition]{proposition*}
+                \declaretheorem[style=thmbluebox,sibling=theorem,name=Conjecture]{conjecture}
+                \declaretheorem[style=thmbluebox,numbered=no,name=Conjecture]{conjecture*}
+                \declaretheorem[style=thminlineorangebox,name=Claim]{claim}
+                \declaretheorem[style=thminlineorangebox,numbered=no,name=Claim]{claim*}
+                \declaretheorem[style=thmblackbox,numbered=no,name=Remark]{remark}
+                \declaretheorem[style=thmbluebreakbox,sibling=theorem,name=Algorithm]{algorithm}
+                \declaretheorem[style=thmbluebreakbox,numbered=no,name=Algorithm]{algorithm*}
+                \declaretheorem[style=thmgreenborder,sibling=theorem,name=Example]{example}
+                \ifrollingboxprob
+                    \declaretheorem[style=thmgreenbox,sibling=theorem,name=Problem]{boxprob}
+                    \declaretheorem[style=thmredbox,sibling=theorem,name=Lemma]{lemma}
+                \else
+                    \declaretheorem[style=thmgreenbox,name=Problem]{boxprob}
+                    \declaretheorem[style=thmredbox,name=Lemma]{lemma}
+                \fi
+                \declaretheorem[style=thmgreenbox,numbered=no,name=Problem]{boxprob*}
+                \declaretheorem[style=thmredbox,numbered=no,name=Lemma]{lemma*}
             \fi
-            \declaretheorem[style=thmgreenbox,numbered=no,name=Problem]{boxprob*}
-            \declaretheorem[style=thmredbox,numbered=no,name=Lemma]{lemma*}
+            \declaretheorem[style=thminlinebluebox,numbered=no,name=\$]{shell}
+            \declaretheorem[style=thmbluebreakbox,parent=section,name=Algorithm]{secalgo}
             \declaretheorem[style=thmgreenbox,parent=section,name=Problem]{secprob}
-            \declaretheorem[style=thmgreenborder,sibling=theorem,name=Example]{example}
             \declaretheorem[style=thmlimeborder,numbered=no,name=Solution]{boxsol}
             \declaretheorem[style=thmlimeborder,numbered=no,name=Proof]{boxproof}
             \declaretheorem[style=thmredbox,numbered=no,name=Warning]{warning}
             \declaretheorem[style=thmorangebox,name=Claim]{boxclaim}
             \declaretheorem[style=thmorangebox,numbered=no,name=Claim]{boxclaim*}
-            \declaretheorem[style=thminlineorangebox,name=Claim]{claim}
-            \declaretheorem[style=thminlineorangebox,numbered=no,name=Claim]{claim*}
-            \declaretheorem[style=thmblackbox,numbered=no,name=Remark]{remark}
             \declaretheorem[style=thmblackbox,numbered=no,name=Note]{note}
             \declaretheorem[style=thmblackbox,sibling=theorem,name=Fact]{fact}
-            \declaretheorem[style=thmpurplebox,sibling=theorem,name=Definition]{definition}
-            \declaretheorem[style=thmpurplebox,numbered=no,name=Definition]{definition*}
             \newenvironment{moral}{%
                 \begin{mdframed}[style=mdinlineyellowbox]%
                     \bfseries
@@ -1198,6 +1250,28 @@
 \ifxchineseenabled
     \usepackage{xeCJK}
     \xeCJKsetup{CJKecglue={}}
+\fi
+
+% unicode fonts
+\RequirePackage{iftex}
+\ifXeTeX
+  \RequirePackage{fontspec}
+  \let\encodingdefault\relax
+  \let\rmdefault\relax
+  \let\sfdefault\relax
+  \let\ttdefault\relax
+  \setmainfont{Latin Modern Roman}
+  \setsansfont{Latin Modern Sans}
+  \setmonofont{Latin Modern Mono}
+  \RequirePackage{unicode-math}
+  \setmathfont{Latin Modern Math}
+  \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+  \let\mathbb\relax % remove the definition by unicode-math
+  \DeclareMathAlphabet{\mathbb}{U}{msb}{m}{n}
+  \DeclareMathAlphabet{\mathrm}{OT1}{cmr}{m}{n}
+  \AtBeginDocument{
+      \renewcommand{\varnothing}{\mathord{\symbol{"2300}}}
+  }
 \fi
 
 %%fakesection DEFAULT VALUES

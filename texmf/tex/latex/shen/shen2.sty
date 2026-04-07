@@ -1,0 +1,764 @@
+\ProvidesPackage{shen2}
+
+\newif\ifshenformat\shenformattrue
+\newif\ifshenchapter\shenchapterfalse
+\newif\ifshenbeamer\shenbeamerfalse
+\newif\ifshenchinese\shenchinesefalse
+\newif\ifshensection\shensectiontrue
+
+\DeclareOption{nofmt}{\shenformatfalse}
+\DeclareOption{chapter}{\shenchaptertrue}
+\DeclareOption{beamer}{\shenbeamertrue\shenformatfalse}
+\DeclareOption{zh}{\shenchinesetrue}
+\DeclareOption{global}{\shensectionfalse}
+
+\ProcessOptions\relax
+
+% 边距
+\ifshenformat
+    \usepackage[margin=1in]{geometry}
+\fi
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[usenames,svgnames,dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+
+% 本地化
+\ifshenchinese
+    \usepackage{ctex}
+    \setCJKfamilyfont{song}{Songti SC}[BoldFont = {Songti SC Bold}]
+    \newcommand{\songbf}[1]{{\CJKfamily{song}\bfseries #1}}
+\else
+    \usepackage[english]{babel}
+\fi
+
+\usepackage[framemethod=TikZ]{mdframed} % 框
+
+\ifshenbeamer\else
+    \usepackage[shortlabels]{enumitem} 
+\fi
+
+\usepackage{hyperref} 
+\usepackage{mathrsfs} % \mathscr 等
+
+% 颜色 
+\definecolor{astral}{RGB}{46,116,181}
+\definecolor{denimblue}{RGB}{0,35,102}
+\definecolor{turtle}{RGB}{0,64,64}
+
+% 奥数
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\da}[0]{\measuredangle}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\ray}[1]{\overrightarrow{#1}} 
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\widehat{#1}}
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+\newcommand{\opname}{\operatorname}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\vphi}{\varphi}
+\newcommand{\veps}{\varepsilon}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\EE}{\mathbb E}
+
+\ifshenchinese\newcommand\allbf[1]{{\boldmath\songbf{#1}}}
+\else\newcommand\allbf[1]{{\boldmath\textbf{#1}}}
+\fi
+\ifshenformat
+    \newcommand{\vocab}[1]{\allbf{\color{astral}#1}}
+    \newcommand{\mvocab}[1]{\pmb{\color{astral}#1}} 
+\else
+    \newcommand{\vocab}[1]{\allbf{#1}}
+    \newcommand{\mvocab}[1]{\pmb{#1}} 
+\fi
+
+\newcommand{\hrulebar}{
+    \begin{center}
+        \nointerlineskip\vspace{5pt}
+        \rule{0.95\linewidth}{.7pt}\hspace{\fill}
+    \end{center}
+}
+
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\pow}{Pow}
+\DeclareMathOperator{\rad}{rad}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\GL}{GL} 
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\pr}{Pr}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\img}{im}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\qand}{\quad\text{and}\quad}
+
+% Rational Points on Hyperelliptic Curves,
+% Jennifer Balakrishnan
+\newcommand{\tors}{_{\mathrm{tors}}}
+\newcommand{\sep}{^{\mathrm{sep}}}
+\newcommand{\aff}{_{\mathrm{aff}}}
+\newcommand{\reg}{^{\mathrm{reg}}}
+\newcommand{\Princ}{\mathrm{Princ}}
+\newcommand{\Div}{\mathrm{Div}}
+\newcommand{\Pic}{\mathrm{Pic}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\dv}{div}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\supp}{supp}
+
+% WVM Linalg
+% 增广矩阵（参数是竖线左侧的列数）
+\newenvironment{amatrix}[1]{%
+    \left[\begin{array}{@{}*{#1}{c}|c@{}}
+        }{%
+    \end{array}\right]
+}
+
+% 18.06 ASE HW
+% 调整矩阵格式
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+    \hskip -\arraycolsep
+    \let\@ifnextchar\new@ifnextchar
+\array{#1}}
+
+% 18.225
+\DeclareMathOperator{\ex}{ex}
+\DeclareMathOperator{\Hom}{Hom}
+
+% 6.046
+\DeclareMathOperator{\Prob}{Pr}
+
+% 18.702
+\DeclareMathOperator{\acts}{\curvearrowright}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\SO}{SO}
+
+% 18.715
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Mat}{Mat}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\slin}{\mathfrak{sl}}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\Sym}{Sym}
+
+% \pmod 的不同大小
+\usepackage{mathtools}
+\DeclarePairedDelimiterX{\pmodx}[1]{(}{)}{{\operator@font mod}\mkern6mu#1}
+\renewcommand{\pmod}{
+    \allowbreak
+    \if@display\mkern18mu\else\mkern8mu\fi
+    \pmodx
+}
+
+% 章节标记
+\ifshenchapter
+    \renewcommand{\chaptermark}[1]{%
+    \markboth{#1}{}}
+\fi
+
+% 格式
+\ifshenformat
+    \@ifundefined{KOMAClassName}{
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \ifshenchapter
+            \fancyhead[LO]{Ch. \thechapter: \nouppercase{\leftmark}}
+            \fancyhead[RE]{Ch. \thechapter: \nouppercase{\leftmark}}
+        \fi
+        \chead{}
+        \lhead{\@title}
+        \rhead{\@author}
+        \lfoot{}
+        \cfoot{\thepage}
+        \rfoot{}
+        \renewcommand{\headrulewidth}{0.4pt}
+
+        \setlength{\headsep}{10pt}
+        \setlength{\headheight}{13.6pt}
+        \setlength{\oddsidemargin}{0in}
+        \setlength{\evensidemargin}{0in}
+    }{
+        \usepackage[headsepline,automark]{scrlayer-scrpage}
+        \clearpairofpagestyles
+        \renewcommand{\headfont}{}
+        \setlength{\headsep}{10pt}
+
+        \automark[section]{section}
+        \renewcommand*\sectionmarkformat{\S\thesection\quad}
+        \ihead{\footnotesize\textbf{\thetitle}}
+        \ifshenchinese\ohead{\footnotesize\kaishu\rightmark}
+        \else\ohead{\footnotesize\rightmark}\fi
+        \cfoot{\pagemark}
+
+        \newcommand{\lhead}[1]{\ihead{#1}}
+        \newcommand{\rhead}[1]{\ohead{#1}}
+    }
+
+    \hypersetup{
+        colorlinks,
+        %citecolor=ForestGreen,
+        %filecolor=RubineRed,
+        citecolor=RoyalBlue,
+        filecolor=RoyalBlue,
+        linkcolor=RoyalBlue,
+        %urlcolor=RubineRed
+        urlcolor=RoyalBlue
+    }
+
+    \newcommand{\announcefont}{\bfseries\sffamily\boldmath\color{denimblue}}
+    \newcommand{\boldseriffont}{\bfseries\sffamily}
+    \newcommand{\seriffont}{\sffamily}
+
+    \@ifundefined{KOMAClassName}{
+        \usepackage{titling} 
+        \usepackage{titlesec}
+
+        \titleformat{\section}{\announcefont\Large}
+        {{\sffamily\S}\thesection}{1em}{}
+        \titleformat{\subsection}{\announcefont\large}
+        {{\sffamily\S}\thesubsection}{1em}{}
+        \titleformat{\subsubsection}{\announcefont\normalsize}
+        {{\sffamily\S}\thesubsubsection}{1em}{}
+
+        \pretitle{\begin{center}\LARGE\boldseriffont}
+        \posttitle{\par\end{center}\vskip 0.5em}
+        \preauthor{\begin{center}
+                \large \lineskip 0.5em%
+                \begin{tabular}[t]{c}
+                \seriffont}
+        \postauthor{\end{tabular}\par\end{center}}
+        \predate{\begin{center}\large\seriffont}
+        \postdate{\par\end{center}}
+
+        \setlength{\droptitle}{-2em}
+    }{
+        \providecommand{\thetitle}{\@title}
+        \providecommand{\thesubtitle}{\@subtitle}
+        \providecommand{\theauthor}{\@author}
+        \providecommand{\thedate}{\@date}
+
+        \addtokomafont{section}{\announcefont}
+        \addtokomafont{subsection}{\announcefont}
+        \addtokomafont{subsubsection}{\announcefont}
+        \renewcommand*{\@seccntformat}[1]{%
+            \announcefont{\rmfamily\S}\csname the#1\endcsname\quad
+        }
+
+        \addtokomafont{title}{\boldseriffont}
+        \addtokomafont{subtitle}{\Large}
+        \setkomafont{author}{\large\seriffont}
+        \setkomafont{date}{\large\seriffont}
+
+        \@ifundefined{chapter}{
+            \addtokomafont{sectionentry}{\sffamily}
+        }{
+            \addtokomafont{chapterentry}{\sffamily}
+        }
+
+        \usepackage[tocindentauto]{tocstyle}
+        \usetocstyle{KOMAlike}
+    }
+
+    \renewcommand{\baselinestretch}{1.05}
+\else
+    \providecommand{\thetitle}{\@title}
+    \providecommand{\theauthor}{\@author}
+    \providecommand{\thedate}{\@date}
+\fi
+
+% 绝对不分页
+\newenvironment{absolutelynopagebreak}
+{\par\nobreak\vfil\penalty0\vfilneg
+\vtop\bgroup}
+{\par\xdef\tpd{\the\prevdepth}\egroup
+\prevdepth=\tpd}
+
+\ifshenbeamer\else
+    \usepackage{amsthm,thmtools}
+    \mdfdefinestyle{mdbox}{%
+        linewidth=0.5pt,
+        skipabove=12pt,
+        frametitleaboveskip=5pt,
+        frametitlebelowskip=0pt,
+        skipbelow=2pt,
+        frametitlefont=\bfseries,
+        innertopmargin=4pt,
+        innerbottommargin=8pt,
+    }
+    \declaretheoremstyle[
+        headfont=\bfseries,
+        bodyfont=\normalfont,
+        spaceabove=2pt,
+        spacebelow=1pt,
+        mdframed={style=mdbox},
+    ]{thmbox}
+    \declaretheoremstyle[
+        headfont=\bfseries\small,
+        bodyfont=\normalfont\small,
+        spaceabove=2pt,
+        spacebelow=1pt,
+        mdframed={style=mdbox},
+    ]{thmsmallbox}
+
+    \ifshenformat
+        \mdfdefinestyle{mdbluebox}{
+            linewidth=0pt, 
+            skipabove=12pt,
+            innerbottommargin=9pt,
+            skipbelow=2pt,
+            linecolor=blue,
+            nobreak=true,
+            backgroundcolor=TealBlue!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{MidnightBlue},
+            mdframed={style=mdbluebox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt}
+        ]{thmbluebox}
+        \declaretheoremstyle[
+            headfont=\ttfamily\color{MidnightBlue},
+            bodyfont=\ttfamily,
+            mdframed={style=mdbluebox},
+            headpunct={},
+            postheadspace={8pt}
+        ]{thminlinebluebox}
+        \mdfdefinestyle{mdbluebreakbox}{
+            linewidth=0pt, 
+            skipabove=12pt,
+            innerbottommargin=9pt,
+            skipbelow=2pt,
+            linecolor=blue,
+            backgroundcolor=TealBlue!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{MidnightBlue},
+            mdframed={style=mdbluebreakbox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt}
+        ]{thmbluebreakbox}
+
+        \mdfdefinestyle{mdpurplebox}{
+            linewidth=0pt, 
+            skipabove=12pt,
+            innerbottommargin=9pt,
+            skipbelow=2pt,
+            linecolor=blue,
+            nobreak=true,
+            backgroundcolor=RoyalPurple!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{RoyalPurple},
+            mdframed={style=mdpurplebox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt}
+        ]{thmpurplebox}
+
+        \mdfdefinestyle{mdredbox}{
+            linewidth=0pt, 
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            nobreak=true,
+            backgroundcolor=Salmon!5,
+            linecolor=RawSienna,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{Mahogany},
+            mdframed={style=mdredbox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt},
+        ]{thmredbox}
+
+        \mdfdefinestyle{mdorangebox}{
+            linewidth=0pt, 
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            nobreak=true,
+            backgroundcolor=Peach!5,
+            linecolor=RedOrange,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{RedOrange},
+            mdframed={style=mdorangebox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt},
+        ]{thmorangebox}
+
+        \mdfdefinestyle{mdinlineorangebox}{
+            skipabove=8pt,
+            linewidth=3pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            linecolor=black,
+            linecolor=RedOrange,
+            nobreak=true,
+            backgroundcolor=Peach!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{RedOrange},
+            spaceabove=0pt,
+            spacebelow=0pt,
+            mdframed={style=mdinlineorangebox},
+            headpunct={.\;},
+        ]{thminlineorangebox}
+
+        % 实则非黄色，sorry
+        \mdfdefinestyle{mdinlineyellowbox}{
+            skipabove=8pt,
+            linewidth=3pt,
+            rightline=false,
+            leftline=false,
+            topline=false,
+            bottomline=false,
+            linecolor=black,
+            linecolor=RubineRed!70!black,
+            nobreak=true,
+            backgroundcolor=RubineRed!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{Dandelion},
+            spaceabove=0pt,
+            spacebelow=0pt,
+            mdframed={style=mdinlineyellowbox},
+            headpunct={},
+        ]{thminlineyellowbox}
+
+        \mdfdefinestyle{mdgreenbox}{%
+            skipabove=8pt,
+            linewidth=2pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            linecolor=ForestGreen,
+            backgroundcolor=ForestGreen!5,
+            nobreak=true,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{ForestGreen!70!black},
+            bodyfont=\normalfont,
+            spaceabove=2pt,
+            spacebelow=1pt,
+            mdframed={style=mdgreenbox},
+            headpunct={\\[3pt]},
+        ]{thmgreenbox}
+
+        \mdfdefinestyle{mdgreenborder}{
+            linewidth=0.5pt,
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            nobreak=true,
+            backgroundcolor=ForestGreen!5,
+            linecolor=ForestGreen,
+        }
+        \declaretheoremstyle[
+            headfont=\bfseries\color{ForestGreen},
+            mdframed={style=mdgreenborder},
+            headpunct={\\[3pt]},
+            postheadspace={0pt},
+        ]{thmgreenborder}
+
+        \mdfdefinestyle{mdlimebox}{
+            skipabove=8pt,
+            linewidth=2pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            linecolor=Goldenrod,
+            backgroundcolor=Goldenrod!5,
+        }
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{Goldenrod!70!black},
+            bodyfont=\normalfont,
+            spaceabove=2pt,
+            spacebelow=1pt,
+            mdframed={style=mdlimebox},
+            headpunct={\\[3pt]},
+        ]{thmlimebox}
+
+        \mdfdefinestyle{mdlimeborder}{
+            linewidth=0.5pt,
+            skipabove=12pt,
+            frametitleaboveskip=5pt,
+            frametitlebelowskip=0pt,
+            skipbelow=2pt,
+            frametitlefont=\bfseries,
+            innertopmargin=4pt,
+            innerbottommargin=8pt,
+            backgroundcolor=Goldenrod!5,
+            linecolor=Goldenrod,
+        }
+        \declaretheoremstyle[
+            headfont=\bfseries\color{Goldenrod!70!black},
+            mdframed={style=mdlimeborder},
+            headpunct={\\[3pt]},
+            postheadspace={0pt},
+        ]{thmlimeborder}
+
+        \mdfdefinestyle{mdblackbox}{
+            skipabove=8pt,
+            linewidth=3pt,
+            rightline=false,
+            leftline=true,
+            topline=false,
+            bottomline=false,
+            linecolor=black,
+            backgroundcolor=RedViolet!5!gray!5,
+        }
+        \declaretheoremstyle[
+            headfont=\bfseries,
+            bodyfont=\normalfont\small,
+            spaceabove=0pt,
+            spacebelow=0pt,
+            mdframed={style=mdblackbox}
+        ]{thmblackbox}
+
+        \ifshenchinese
+            \ifshenchapter\declaretheorem[style=thmbluebox,parent=chapter,name=定理]{theorem}
+            \else
+                \ifshensection\declaretheorem[style=thmbluebox,parent=section,name=定理]{theorem}
+                \else\declaretheorem[style=thmbluebox,name=定理]{theorem}
+                \fi
+            \fi
+            \declaretheorem[style=thmbluebox,numbered=no,name=定理]{theorem*}
+            \declaretheorem[style=thmpurplebox,sibling=theorem,name=定义]{definition}
+            \declaretheorem[style=thmpurplebox,numbered=no,name=定义]{definition*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=推论]{corollary}
+            \declaretheorem[style=thmbluebox,numbered=no,name=推论]{corollary*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=命题]{proposition}
+            \declaretheorem[style=thmbluebox,numbered=no,name=命题]{proposition*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=猜想]{conjecture}
+            \declaretheorem[style=thmbluebox,numbered=no,name=猜想]{conjecture*}
+            \declaretheorem[style=thminlineorangebox,sibling=theorem,name=结论]{claim}
+            \declaretheorem[style=thminlineorangebox,numbered=no,name=断言]{claim*}
+            \declaretheorem[style=thmblackbox,numbered=no,name=注]{remark}
+            \declaretheorem[style=thmbluebreakbox,sibling=theorem,name=算法]{algorithm}
+            \declaretheorem[style=thmbluebreakbox,numbered=no,name=算法]{algorithm*}
+            \declaretheorem[style=thmgreenborder,sibling=theorem,name=例]{example}
+            \declaretheorem[style=thmredbox,sibling=theorem,name=引理]{lemma}
+            \declaretheorem[style=thmgreenbox,name=问题]{boxprob}
+            \declaretheorem[style=thmgreenbox,numbered=no,name=问题]{boxprob*}
+            \declaretheorem[style=thmredbox,numbered=no,name=引理]{lemma*}
+            \declaretheorem[style=thmlimeborder,numbered=no,name=解答]{boxsol}
+            \declaretheorem[style=thmlimeborder,numbered=no,name=证明]{boxproof}
+            \declaretheorem[style=thmredbox,numbered=no,name=警告]{warning}
+            \declaretheorem[style=thmblackbox,numbered=no,name=备注]{note}
+            \declaretheorem[style=thmblackbox,sibling=theorem,name=事实]{fact}
+        \else
+            \ifshenchapter\declaretheorem[style=thmbluebox,parent=chapter,name=Theorem]{theorem}
+            \else
+                \ifshensection\declaretheorem[style=thmbluebox,parent=section,name=Theorem]{theorem}
+                \else\declaretheorem[style=thmbluebox,name=Theorem]{theorem}
+                \fi
+            \fi
+            \declaretheorem[style=thmbluebox,numbered=no,name=Theorem]{theorem*}
+            \declaretheorem[style=thmpurplebox,sibling=theorem,name=Definition]{definition}
+            \declaretheorem[style=thmpurplebox,numbered=no,name=Definition]{definition*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=Corollary]{corollary}
+            \declaretheorem[style=thmbluebox,numbered=no,name=Corollary]{corollary*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=Proposition]{proposition}
+            \declaretheorem[style=thmbluebox,numbered=no,name=Proposition]{proposition*}
+            \declaretheorem[style=thmbluebox,sibling=theorem,name=Conjecture]{conjecture}
+            \declaretheorem[style=thmbluebox,numbered=no,name=Conjecture]{conjecture*}
+            \declaretheorem[style=thminlineorangebox,sibling=theorem,name=Claim]{claim}
+            \declaretheorem[style=thminlineorangebox,numbered=no,name=Claim]{claim*}
+            \declaretheorem[style=thmblackbox,numbered=no,name=Remark]{remark}
+            \declaretheorem[style=thmbluebreakbox,sibling=theorem,name=Algorithm]{algorithm}
+            \declaretheorem[style=thmbluebreakbox,numbered=no,name=Algorithm]{algorithm*}
+            \declaretheorem[style=thmgreenborder,sibling=theorem,name=Example]{example}
+            \declaretheorem[style=thmredbox,sibling=theorem,name=Lemma]{lemma}
+            \declaretheorem[style=thmgreenbox,name=Problem]{boxprob}
+            \declaretheorem[style=thmgreenbox,numbered=no,name=Problem]{boxprob*}
+            \declaretheorem[style=thmredbox,numbered=no,name=Lemma]{lemma*}
+            \declaretheorem[style=thmlimeborder,numbered=no,name=Solution]{boxsol}
+            \declaretheorem[style=thmlimeborder,numbered=no,name=Proof]{boxproof}
+            \declaretheorem[style=thmredbox,numbered=no,name=Warning]{warning}
+            \declaretheorem[style=thmblackbox,numbered=no,name=Note]{note}
+            \declaretheorem[style=thmblackbox,sibling=theorem,name=Fact]{fact}
+        \fi
+
+        \newenvironment{moral}{
+            \begin{mdframed}[style=mdinlineyellowbox]
+                \bfseries
+                \sffamily
+                \color{RubineRed}
+            }
+        {\end{mdframed}}
+    \else
+        \theoremstyle{plain}
+        \ifshenchapter\newtheorem{theorem}{Theorem}[chapter]
+        \else
+            \ifshensection\newtheorem{theorem}{Theorem}[section]
+            \else\newtheorem{theorem}{Theorem}
+            \fi
+        \fi
+        \newtheorem*{theorem*}{Theorem}
+        \newtheorem{corollary}[theorem]{Corollary}
+        \newtheorem*{corollary*}{Corollary}
+        \newtheorem{proposition}[theorem]{Proposition}
+        \newtheorem*{proposition*}{Proposition}
+        \newtheorem{lemma}[theorem]{Lemma}
+        \newtheorem*{lemma*}{Lemma}
+
+        \declaretheorem[style=thmbox,name=Problem]{boxprob}
+        \declaretheorem[style=thmbox,numbered=no,name=Problem]{boxprob*}
+
+        \newtheorem*{fact}{Fact}
+        \newtheorem*{remark}{Remark}
+        \newtheorem*{note}{Note}
+
+        \theoremstyle{definition}
+        \newtheorem*{algorithm}{Algorithm}
+        \newtheorem{definition}[theorem]{Definition}
+        \newtheorem*{definition*}{Definition}
+        \newtheorem{claim}{Claim}
+        \newtheorem*{claim*}{Claim}
+        \newtheorem{example}[theorem]{Example}
+        \newtheorem*{example*}{Example}
+        \newtheorem*{warning}{Warning}
+    \fi
+
+    \newenvironment{prob}{\color{Purple}\small}{\hrulebar}
+
+    \newenvironment{subproof}[1][Proof]{
+        \begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}
+    }{\end{proof}}
+
+    \theoremstyle{definition}
+    \newtheorem{exercise}[theorem]{Exercise}
+    \newtheorem{question}[theorem]{Question}
+    \newtheorem*{exercise*}{Exercise}
+    \newtheorem*{walkthrough}{Walkthrough}
+\fi
+
+\usepackage{asymptote}
+\begin{asydef}
+    import olympiad;
+    defaultpen(fontsize(10pt));
+\end{asydef}
+
+% 代码
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numbersep=5pt,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    frame=single
+}
+
+% beamer
+\ifshenbeamer\AtBeginDocument{
+        \renewenvironment{theorem}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{block}{Theorem}}{\begin{block}{Theorem (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} 
+        }
+        \newenvironment{proposition}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{block}{Proposition}}{\begin{block}{Proposition (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}}  
+        }
+        \newenvironment{conjecture}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{block}{Conjecture}}{\begin{block}{Conjecture (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}}  
+        }
+        \renewenvironment{problem}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Problem}}{\begin{exampleblock}{Problem (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
+        }
+        \newenvironment{exercise}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{exampleblock}{Exercise}}{\begin{exampleblock}{Exercise (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{exampleblock}}{\end{exampleblock}}
+        }
+        \renewenvironment{lemma}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{alertblock}{Lemma}}{\begin{alertblock}{Lemma (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{alertblock}}{\end{alertblock}}
+        }
+        \renewenvironment{fact}[1][]{
+            \ifthenelse{\isempty{#1}}{\begin{alertblock}{Fact}}{\begin{alertblock}{Fact (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{alertblock}}{\end{alertblock}}
+        }
+        \newenvironment{claim}[1][]{
+            \setbeamercolor{block title}{bg=BurntOrange,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Claim}}{\begin{block}{Claim (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}}
+        }
+        \renewenvironment{definition}[1][]{
+            \setbeamercolor{block title}{bg=RoyalPurple,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Definition}}{\begin{block}{Definition (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} 
+        }
+        \renewenvironment{corollary}[1][]{
+            \setbeamercolor{block title}{bg=MidnightBlue,fg=white}
+            \ifthenelse{\isempty{#1}}{\begin{block}{Corollary}}{\begin{block}{Corollary (#1)}}
+            }{\ifthenelse{\isempty{}}{\end{block}}{\end{block}} 
+        }
+    }
+\fi
+
+\ifshenchinese
+    \author{沈皓彦}
+\else
+    \author{Eric Shen}
+\fi
+

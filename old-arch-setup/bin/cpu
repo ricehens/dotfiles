@@ -1,1 +1,0 @@
-lscpu | grep "CPU MHz"

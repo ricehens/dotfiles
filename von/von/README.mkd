@@ -1,4 +1,0 @@
-# VON: Problem Database
-See [orig]. This version is optimized for my setup and includes some cool additional features I use.
-
-[orig]: https://github.com/vEnhance/von

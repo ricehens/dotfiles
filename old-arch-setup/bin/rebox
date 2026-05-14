@@ -1,7 +1,0 @@
-#!/bin/bash
-
-for file in $*
-do
-# echo $file
-sed -i -e 's/problem}/boxprob}/' $file
-done

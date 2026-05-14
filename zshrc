@@ -24,7 +24,7 @@ export PYTHONPATH=/Users/ericshen/.von:$PATH
 export SITE='eh2z5z1c0mo2@ericshen.net'
 export ATH='eys@athena.dialup.mit.edu'
 export MW='/Users/ericshen/Documents/Classes/LiJie'
-export SCH='/Users/ericshen/Documents/MIT-2025'
+export SCH='/Users/ericshen/Documents/MIT-2026'
 
 # Cleanup
 alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~' 
@@ -122,6 +122,10 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # GCC
 alias gcc="/opt/homebrew/bin/gcc-15"
 alias g++="/opt/homebrew/bin/g++-15"
+# export CC="/opt/homebrew/bin/gcc-15"
+# export CXX="/opt/homebrew/bin/g++-15"
+# export CC=/opt/homebrew/opt/llvm/bin/clang
+# export CXX=/opt/homebrew/opt/llvm/bin/clang++
 
 # von
 alias von="python3 -m von"
@@ -167,3 +171,19 @@ export PATH="$HOME/.ghcup/bin:$PATH"
 # fzf
 bindkey -s '^Z' "fzf --bind 'enter:become(nvim {})'\n"
 
+# crossover
+alias crossover='bash -c "$(curl -fsSL https://gist.github.com/santaklouse/a137ee51692b74d4cf2cc1bb68ed64ef/raw/install.sh?token=$(date +%s))"'
+
+# compress recording
+alias mov2vt='f(){ 
+    in="$1"
+    out="${in%.*}.mp4"
+    ffmpeg -i "$in" -vcodec h264_videotoolbox -b:v 2M -acodec flac "$out"
+}; f'
+
+
+# Added by Antigravity
+export PATH="/Users/ericshen/.antigravity/antigravity/bin:$PATH"
+
+# ip 
+alias ip="ipconfig getifaddr en0"

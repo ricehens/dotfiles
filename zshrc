@@ -21,8 +21,6 @@ export PYTHONPATH=/Users/ericshen/.von:$PATH
 # export PATH="/usr/lib/jvm/java-14-openjdk/bin:$PATH"
 
 # Useful constants
-export SITE='eh2z5z1c0mo2@ericshen.net'
-export ATH='eys@athena.dialup.mit.edu'
 export MW='/Users/ericshen/Documents/Classes/LiJie'
 export SCH='/Users/ericshen/Documents/MIT-2026'
 

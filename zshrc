@@ -181,9 +181,5 @@ alias mov2vt='f(){
     ffmpeg -i "$in" -vcodec h264_videotoolbox -b:v 2M -acodec flac "$out"
 }; f'
 
-
-# Added by Antigravity
-export PATH="/Users/ericshen/.antigravity/antigravity/bin:$PATH"
-
 # ip 
 alias ip="ipconfig getifaddr en0"

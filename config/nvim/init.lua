@@ -87,6 +87,9 @@ do
 
     -- update time (e.g. for cursor hover)
     vim.opt.updatetime = 250
+
+    -- default do not fold
+    vim.opt.foldlevel = 99
 end
 
 -- BASE KEYMAPS
@@ -551,7 +554,7 @@ do
     end, { desc = "格式化" })
 end
 
--- AUTOCOMPLETE
+-- SNIPPETS
 do
     -- snippets
     vim.pack.add { gh 'L3MON4D3/LuaSnip' } 
@@ -570,7 +573,10 @@ do
     end, {silent = true})
 
     require("luasnip.loaders.from_snipmate").load({paths = "./snippets"})
+end
 
+-- AUTOCOMPLETE
+do
     vim.pack.add { gh 'saghen/blink.lib' }
     vim.pack.add { gh 'saghen/blink.cmp' }
     vim.pack.add { gh 'saghen/blink.compat' } -- for nvim-cmp plugins
@@ -583,7 +589,10 @@ do
             -- <c-n>/<c-p> or <up>/<down>: Select next/previous item
             -- <c-e>: Hide menu
             -- <c-k>: Toggle signature help
-            preset = 'default', -- <C-y> to accept; 'enter' for enter to accept
+            -- preset = 'default', -- <C-y> to accept; 'enter' for enter to accept
+            ['<C-y>'] = { 'accept', 'fallback' },
+            ['<C-n>'] = { 'select_next', 'fallback' },
+            ['<C-p>'] = { 'select_prev', 'fallback' },
 
             -- do not redefine tab >:(
             ['<Tab>'] = {},
@@ -596,6 +605,10 @@ do
 
         -- auto-show documentation
         completion = {
+            trigger = {
+                show_on_keyword = true,
+                show_on_trigger_character = true,
+            },
             documentation = {
                 auto_show = true,
                 auto_show_delay_ms = 0
@@ -608,7 +621,7 @@ do
                 vimtex = {
                     name = 'vimtex',
                     module = 'blink.compat.source',
-                    score_offset = 80
+                    score_offset = 200
                 },
                 codeium = {
                     name = 'Codeium',
@@ -634,7 +647,7 @@ do
     vim.pack.add { gh 'nvim-treesitter/nvim-treesitter' }
 
     local parsers = { 
-        "java", "c", "cpp", "python", "lua", "vim", "vimdoc", "javascript", "html", "css", "typescript", "csv", "bash", "yaml", "haskell",
+        "java", "c", "cpp", "python", "lua", "vim", "vimdoc", "javascript", "html", "css", "typescript", "csv", "bash", "yaml", "haskell", "pascal",
         "latex", "bibtex"
     }
     require('nvim-treesitter').install(parsers)
@@ -646,11 +659,10 @@ do
         -- treesitter-based folds
         vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         vim.wo.foldmethod = 'expr'
-        vim.opt.foldlevel = 99
 
         -- treesitter-based indentation
-        local has_indent_query = vim.treesitter.query.get(language, 'indents') ~= nil
-        if has_indent_query then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+        -- local has_indent_query = vim.treesitter.query.get(language, 'indents') ~= nil
+        -- if has_indent_query then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
     end
 
     local available_parsers = require('nvim-treesitter').get_available()
@@ -676,7 +688,7 @@ end
 
 -- LINT
 do
-    vim.pack.add { 'https://github.com/mfussenegger/nvim-lint' }
+    vim.pack.add { gh 'mfussenegger/nvim-lint' }
 
     local lint = require('lint')
     lint.linters_by_ft = {
@@ -734,6 +746,22 @@ do
         "--enable=F,E,W0611,W0612,W0621", -- 例：fatal/error + unused-import/unused-variable/redefined-outer-name
         -- "--score=n",
         })
+end
+
+-- AUTOPAIRS
+do
+    vim.pack.add { gh 'windwp/nvim-autopairs' }
+    local autopairs = require('nvim-autopairs')
+    autopairs.setup {
+        check_ts = true, 
+        ts_config = {
+            lua = { "string" }, 
+            javascript = { "template_string" }, 
+            java = false, 
+        },
+    }
+    autopairs.get_rules("'")[1].not_filetypes = { "tex", "latex" }
+    autopairs.get_rules("`")[1].not_filetypes = { "tex", "latex" }
 end
 
 -- LaTeX

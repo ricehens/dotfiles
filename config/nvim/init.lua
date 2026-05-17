@@ -583,6 +583,10 @@ do
     vim.pack.add { gh 'micangl/cmp-vimtex' } 
     require('cmp_vimtex').setup {}
     require('blink.cmp').setup {
+        enabled = function()
+            return vim.api.nvim_buf_get_name(0) ~= ''
+        end,
+
         keymap = {
             -- <tab>/<s-tab>: move to right/left of your snippet expansion
             -- <c-space>: Open menu or open docs if already open
@@ -628,12 +632,6 @@ do
                     module = 'codeium.blink',
                     async = true,
                     score_offset = 100,
-                },
-                path = {
-                    enabled = function(ctx)
-                        local bufnr = ctx and ctx.bufnr or vim.api.nvim_get_current_buf()
-                        return vim.api.nvim_buf_get_name(bufnr) ~= ''
-                    end,
                 },
             },
         },

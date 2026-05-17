@@ -626,18 +626,12 @@ do
         },
 
         sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer', 'vimtex', 'codeium' },
+            default = { 'lsp', 'path', 'snippets', 'buffer', 'vimtex' },
             providers = {
                 vimtex = {
                     name = 'vimtex',
                     module = 'blink.compat.source',
                     score_offset = 200
-                },
-                codeium = {
-                    name = 'Codeium',
-                    module = 'codeium.blink',
-                    async = true,
-                    score_offset = 100,
                 },
             },
         },

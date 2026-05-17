@@ -793,7 +793,15 @@ do
         'https://github.com/nvim-java/nvim-java',
     })
 
-    require('java').setup()
+    require('java').setup({
+        jdk = {
+            auto_install = false,
+        },
+    })
+
+    local function sdk(jdk)
+        return vim.fn.expand('~/.sdkman/candidates/java/' .. jdk)
+    end
 
     vim.lsp.config('jdtls', {
         settings = {
@@ -807,13 +815,17 @@ do
                 configuration = {
                     runtimes = {
                         {
-                            name = 'JavaSE-25',
-                            path = vim.fn.expand('~/.sdkman/candidates/java/25.0.3-graal'),
+                            name = 'JavaSE-21',
+                            path = sdk('21.0.11-oracle'),
                             default = true,
                         },
                         {
+                            name = 'JavaSE-25',
+                            path = sdk('25.0.3-graal'),
+                        },
+                        {
                             name = 'JavaSE-24',
-                            path = vim.fn.expand('~/.sdkman/candidates/java/24-oracle'),
+                            path = sdk('24.0.2-oracle'),
                         },
                     },
                 },

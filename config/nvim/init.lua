@@ -779,6 +779,7 @@ end
 
 -- Codeium
 vim.pack.add { gh 'Exafunction/windsurf.nvim' }
+-- note: :Codeium Toggle to toggle
 require('codeium').setup {
     enable_cmp_source = false,
     virtual_text = {

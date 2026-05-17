@@ -17,9 +17,6 @@ typeset -U PATH path
 export PATH=/Users/ericshen/bin:/Users/ericshen/.local/bin:$PATH
 export PYTHONPATH=/Users/ericshen/.von:$PATH
 
-# Java PATH
-# export PATH="/usr/lib/jvm/java-14-openjdk/bin:$PATH"
-
 # Useful constants
 export MW='/Users/ericshen/Documents/Classes/LiJie'
 export SCH='/Users/ericshen/Documents/MIT-2026'
@@ -58,10 +55,6 @@ alias chinese='export LANG=zh_CN.utf8'
 
 # Useful
 alias pdf='zathura &>/dev/null'
-
-# I'm lazy so http://bashrcgenerator.com/
-#export PS1="\[$(tput bold)\]\[\033[38;5;43m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;38m\]@\[$(tput sgr0)\]\[\033[38;5;80m\]\h\[$(tput sgr0)\]\[\033[38;5;38m\]:\[$(tput bold)\]\[\033[38;5;45m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;38m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
-# zsh PS1
 
 function git_branch_name() {
   # local branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
@@ -181,3 +174,8 @@ alias mov2vt='f(){
 
 # ip 
 alias ip="ipconfig getifaddr en0"
+
+# sdkman: java sdk manager
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -77,10 +77,18 @@ function git_branch_name() {
 
   echo $branch
 }
-precmd() {
-    PROMPT="%F{86}%n%F{75}@%F{87}%m%F{75}:%F{69}%~%F{75}$(git_branch_name)%F{75}$%f "
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+function venv_name() {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    print -r "%F{220}($(basename "$VIRTUAL_ENV"))%f "
+  fi
 }
-alias short='precmd() { PROMPT="%F{75}$%f " }'
+
+precmd() {
+    PROMPT="$(venv_name)%F{86}%n%F{75}@%F{87}%m%F{75}:%F{69}%~%F{75}$(git_branch_name)%F{75}$%f "
+}
+alias short='precmd() { PROMPT="$(venv_name)%F{75}$%f " }'
 
 # Extract files (thanks Reddit)
 extract() {

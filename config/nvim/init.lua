@@ -629,6 +629,12 @@ do
                     async = true,
                     score_offset = 100,
                 },
+                path = {
+                    enabled = function(ctx)
+                        local bufnr = ctx and ctx.bufnr or vim.api.nvim_get_current_buf()
+                        return vim.api.nvim_buf_get_name(bufnr) ~= ''
+                    end,
+                },
             },
         },
 
@@ -648,7 +654,7 @@ do
 
     local parsers = { 
         "java", "c", "cpp", "python", "lua", "vim", "vimdoc", "javascript", "html", "css", "typescript", "csv", "bash", "yaml", "haskell", "pascal",
-        "latex", "bibtex"
+        "latex", "bibtex", "make", "kotlin"
     }
     require('nvim-treesitter').install(parsers)
 

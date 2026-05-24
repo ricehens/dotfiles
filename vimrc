@@ -90,3 +90,32 @@ set foldlevel=99
 
 syntax enable
 filetype plugin indent on
+
+nnoremap r<Tab> r<Esc>
+vnoremap <Tab> <Esc>gV
+onoremap <Tab> <Esc>
+snoremap <Tab> <Esc>
+inoremap <Tab> <Esc>`^
+inoremap <Leader><Tab> <C-v><Tab>
+
+nnoremap <Tab> :nohlsearch<CR>
+
+nnoremap <C-'> <C-w>v
+nnoremap <C-;> <C-w>s
+nnoremap <C-\> :close<CR>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap <C-S-h> <C-w>H
+nnoremap <C-S-j> <C-w>J
+nnoremap <C-S-k> <C-w>K
+nnoremap <C-S-l> <C-w>L
+
+nnoremap <Leader>to :tabnew<CR>
+nnoremap <Leader>tx :tabclose<CR>
+nnoremap <Leader>tl :tabnext<CR>
+nnoremap <Leader>th :tabprevious<CR>
+nnoremap <Leader>tf :tabnew %<CR>

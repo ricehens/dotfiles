@@ -204,6 +204,10 @@ do
     vim.pack.add { gh 'shaunsingh/nord.nvim' }
     vim.pack.add { gh 'AlexvZyl/nordic.nvim' }
     vim.pack.add { gh 'Mofiqul/vscode.nvim' }
+    vim.pack.add { gh 'catppuccin/nvim' }
+    require('catppuccin').setup {
+        flavour = 'macchiato'
+    }
     vim.pack.add { gh 'rebelot/kanagawa.nvim' }
     require('kanagawa').setup {
         opts = {
@@ -213,7 +217,7 @@ do
             }
         },
     }
-    vim.cmd.colorscheme 'kanagawa'
+    vim.cmd.colorscheme 'catppuccin-macchiato'
 
     -- bufferline
     vim.pack.add { gh 'akinsho/bufferline.nvim' }
@@ -725,10 +729,6 @@ do
     clangtidy.args = {
         "--quiet",                 
         "--checks=bugprone*,performance*,misc*,clang-analyzer*",
-        -- "--checks=bugprone*,cppcoreguidelines*,modernize*,performance*,readability*,misc*,clang-analyzer*",
-        -- "--checks=bugprone*,modernize*,performance*,misc*,clang-analyzer*",
-        -- "%file",              
-        -- "--",
     }
 
     local eslint_d = lint.linters.eslint_d
@@ -744,12 +744,15 @@ do
     }
 
     local pylint = lint.linters.pylint
-    pylint.args = vim.list_extend(vim.deepcopy(pylint.args or {}), {
-        "--disable=all",
-        -- "--errors-only", -- 只输出 E/F（Error/Fatal）
-        "--enable=F,E,W0611,W0612,W0621", -- 例：fatal/error + unused-import/unused-variable/redefined-outer-name
-        -- "--score=n",
-        })
+    pylint.cmd = 'python3'
+    pylint.args = {
+        '-m', 'pylint', '-f', 'json',
+        "--from-stdin", function()
+            return vim.api.nvim_buf_get_name(0)
+        end,
+        '--disable=all',
+        '--enable=F,E,W0611,W0612,W0621', 
+    }
 end
 
 -- AUTOPAIRS
@@ -821,11 +824,7 @@ do
                         },
                         {
                             name = 'JavaSE-25',
-                            path = sdk('25.0.3-graal'),
-                        },
-                        {
-                            name = 'JavaSE-24',
-                            path = sdk('24.0.2-oracle'),
+                            path = sdk('25.0.3-oracle'),
                         },
                     },
                 },

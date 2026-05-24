@@ -1,4 +1,3 @@
-# Homebrew setup
 if [[ $(uname -m) == 'arm64' ]]; then
     BREWPATH=/opt/homebrew/bin
 else
@@ -9,52 +8,41 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
 
 alias syu='brew update && brew upgrade --ignore-pinned --formula'
 
-# Vim
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 export VISUAL='nvim'
 export EDITOR='nvim'
-# Custom scripts
+
 typeset -U PATH path
 export PATH=/Users/ericshen/bin:/Users/ericshen/.local/bin:$PATH
-export PYTHONPATH=/Users/ericshen/.von:$PATH
 
-# Useful constants
-export MW='/Users/ericshen/Documents/Classes/LiJie'
-export SCH='/Users/ericshen/Documents/MIT-2026'
-
-# Cleanup
 alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~' 
 alias cleanl='ls *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~' 
 alias cleanf='rm -f *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~' 
+
 setopt +o nomatch
 
-# ls preferences
-# alias ls='ls --color=tty --group-directories-first --quoting-style=literal -CF --time-style=long-iso'
 alias ls='ls -GCF -a'
 alias ll='ls -lh'
 # alias la='ls -a'
 alias l='ls -alh'
 
-# git
 alias g='git'
 alias nvimdiff='nvim -d'
 
-# Be careful
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
 
-# Fun!
 alias what='ping -c 3 google.com'
 # alias rvim='sudo -E vim' # sudo vim while preserving environment
 alias dog='pygmentize -g -O style=nord'
 alias shrug='echo "¯\_(ツ)_/¯"'
+alias ip="ipconfig getifaddr en0"
+alias pdf='zathura &>/dev/null'
 
-# Locale
 alias english='export LANG=en_US.utf8'
 alias chinese='export LANG=zh_CN.utf8'
-
-# Useful
-alias pdf='zathura &>/dev/null'
 
 function git_branch_name() {
   # local branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
@@ -90,7 +78,6 @@ precmd() {
 }
 alias short='precmd() { PROMPT="$(venv_name)%F{75}$%f " }'
 
-# Extract files (thanks Reddit)
 extract() {
  if [ -f $1 ] ; then
      case $1 in
@@ -115,22 +102,12 @@ extract() {
  fi
 }
 
-# Do not auto update homebrew
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-# GCC
 alias gcc="/opt/homebrew/bin/gcc-15"
 alias g++="/opt/homebrew/bin/g++-15"
 # export CC="/opt/homebrew/bin/gcc-15"
 # export CXX="/opt/homebrew/bin/g++-15"
 # export CC=/opt/homebrew/opt/llvm/bin/clang
 # export CXX=/opt/homebrew/opt/llvm/bin/clang++
-
-# von
-alias von="python3 -m von"
-# Python
-# alias python="python3.11"
-# alias idle="idle3.11"
 
 ## make zsh more like bash
 # back and forward word cut by slashes
@@ -140,38 +117,17 @@ select-word-style bash
 setopt noautomenu
 setopt nomenucomplete
 
-# NVM setup
+# nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # du --max-depth=1
 alias du1="du -hd1"
 
-# dbus setup (for vimtex-zathura interaction)
-# export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
-# export MY_SESSION_BUS_SOCKET="/tmp/dbus/$USER.session.usock"
-# export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
-
-# 6.004
-export PATH=$(pyenv root)/shims:$PATH
-export PATH=~/bin/bsc/latest/bin:$PATH
-
-# llvm
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
-
-# haskell
-export PATH="$HOME/.ghcup/bin:$PATH"
-
 # fzf
+source <(fzf --zsh)
 bindkey -s '^Z' "fzf --bind 'enter:become(nvim {})'\n"
-
-# crossover
-alias crossover='bash -c "$(curl -fsSL https://gist.github.com/santaklouse/a137ee51692b74d4cf2cc1bb68ed64ef/raw/install.sh?token=$(date +%s))"'
 
 # compress recording
 alias mov2vt='f(){ 
@@ -180,10 +136,10 @@ alias mov2vt='f(){
     ffmpeg -i "$in" -vcodec h264_videotoolbox -b:v 2M -acodec flac "$out"
 }; f'
 
-# ip 
-alias ip="ipconfig getifaddr en0"
-
 # sdkman: java sdk manager
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

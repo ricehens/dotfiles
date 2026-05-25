@@ -16,36 +16,33 @@ export EDITOR='nvim'
 typeset -U PATH path
 export PATH=/Users/ericshen/bin:/Users/ericshen/.local/bin:$PATH
 
-alias clean='rm *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~' 
-alias cleanl='ls *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~' 
-alias cleanf='rm -f *.aux *.fdb_latexmk *.fls *.log *.out *.pre *.class *.von *.mcgrep *~' 
-
 setopt +o nomatch
+autoload -U select-word-style
+select-word-style bash
+setopt noautomenu
+setopt nomenucomplete
 
 alias ls='ls -GCF -a'
 alias ll='ls -lh'
-# alias la='ls -a'
 alias l='ls -alh'
-
-alias g='git'
-alias nvimdiff='nvim -d'
 
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
 
-alias what='ping -c 3 google.com'
-# alias rvim='sudo -E vim' # sudo vim while preserving environment
+alias g='git'
+alias nvimdiff='nvim -d'
+
 alias dog='pygmentize -g -O style=nord'
-alias shrug='echo "¯\_(ツ)_/¯"'
-alias ip="ipconfig getifaddr en0"
+alias ip='ipconfig getifaddr en0'
 alias pdf='zathura &>/dev/null'
+alias fim='llama-server --fim-qwen-3b-default'
 
 alias english='export LANG=en_US.utf8'
 alias chinese='export LANG=zh_CN.utf8'
 
+# modify precmd
 function git_branch_name() {
-  # local branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
   local branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
   local color="%F{39}"
   local git_status=$(git status --porcelain 2>/dev/null)
@@ -102,20 +99,13 @@ extract() {
  fi
 }
 
+# homebrew gcc
 alias gcc="/opt/homebrew/bin/gcc-15"
 alias g++="/opt/homebrew/bin/g++-15"
 # export CC="/opt/homebrew/bin/gcc-15"
 # export CXX="/opt/homebrew/bin/g++-15"
 # export CC=/opt/homebrew/opt/llvm/bin/clang
 # export CXX=/opt/homebrew/opt/llvm/bin/clang++
-
-## make zsh more like bash
-# back and forward word cut by slashes
-autoload -U select-word-style
-select-word-style bash
-# autocomplete
-setopt noautomenu
-setopt nomenucomplete
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -137,9 +127,9 @@ alias mov2vt='f(){
 }; f'
 
 # sdkman: java sdk manager
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+# iterm2 integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 

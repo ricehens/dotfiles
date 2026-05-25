@@ -106,17 +106,17 @@ do
     vim.keymap.set('n', '<Tab>', '<cmd>nohlsearch<CR>')
 
     -- split navigation
-    vim.keymap.set("n", "<C-'>", "<C-w>v", { desc = "新右窗" }) 
-    vim.keymap.set("n", "<C-;>", "<C-w>s", { desc = "新下窗" }) 
+    vim.keymap.set("n", "<C-;>", "<C-w>v", { desc = "新右窗" }) 
+    vim.keymap.set("n", "<C-'>", "<C-w>s", { desc = "新下窗" }) 
     vim.keymap.set("n", "<C-\\>", "<cmd>close<CR>", { desc = "关此窗" }) 
     vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "去左窗" }) 
     vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "去下窗" })
     vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "去上窗" })
     vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "去右窗" })
-    vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "移窗左" })
-    vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "移窗下" })
-    vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "移窗上" })
-    vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "移窗右" })
+    vim.keymap.set("n", "<C-M-h>", "<C-w>H", { desc = "移窗左" })
+    vim.keymap.set("n", "<C-M-j>", "<C-w>J", { desc = "移窗下" })
+    vim.keymap.set("n", "<C-M-k>", "<C-w>K", { desc = "移窗上" })
+    vim.keymap.set("n", "<C-M-l>", "<C-w>L", { desc = "移窗右" })
 
     -- tab navigation
     vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "打开新标签页" }) 
@@ -126,7 +126,7 @@ do
     vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "在新标签页中打开当前缓冲区" }) 
 end
 
--- PLUGINS special plugin that require build
+-- special plugin that require build
 do
  local function run_build(name, cmd, cwd)
     local result = vim.system(cmd, { cwd = cwd }):wait()
@@ -166,7 +166,7 @@ end
 
 local gh = function(x) return 'https://github.com/' .. x end
 
--- PLUGINS small ui/ux
+-- small ui/ux
 do
     -- nerd icons
     if vim.g.have_nerd_font then
@@ -191,6 +191,14 @@ do
         delay = 0,
         icons = { mappings = vim.g.have_nerd_font },
     }
+
+    -- resize pane
+    vim.pack.add { gh 'mrjones2014/smart-splits.nvim' }
+    local smart_splits = require 'smart-splits'
+    vim.keymap.set('n', '<M-h>', smart_splits.resize_left, { desc = '窗左胀' })
+    vim.keymap.set('n', '<M-j>', smart_splits.resize_down, { desc = '窗下胀' })
+    vim.keymap.set('n', '<M-k>', smart_splits.resize_up, { desc = '窗上胀' })
+    vim.keymap.set('n', '<M-l>', smart_splits.resize_right, { desc = '窗右胀' })
 
     -- infer indentation style
     vim.pack.add { gh 'NMAC427/guess-indent.nvim' }
@@ -293,7 +301,7 @@ do
 
 end
 
--- PLUGINS file explorer: nvim-tree
+-- file explorer: nvim-tree
 do
     vim.pack.add { gh 'nvim-tree/nvim-tree.lua' }
     require('nvim-tree').setup {
@@ -322,7 +330,7 @@ do
     vim.keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "刷新 nvim-tree" }) 
 end
 
--- PLUGINS search: fzf, telescope
+-- search: fzf, telescope
 do
     vim.pack.add {
         gh 'nvim-lua/plenary.nvim',
@@ -835,19 +843,34 @@ do
     vim.lsp.enable('jdtls')
 end
 
--- Codeium
-vim.pack.add { gh 'Exafunction/windsurf.nvim' }
--- note: :Codeium Toggle to toggle
-require('codeium').setup {
-    enable_cmp_source = false,
-    virtual_text = {
-        enabled = true,
-        key_bindings = {
-            accept = "<C-g>",
-            next = "<C-.>",
-            prev = "<C-,>",
-            clear = "<C-x>",
-        },
-    },
-}
+-- llama
+do
+    vim.pack.add { gh 'ggml-org/llama.vim' }
+    -- $ llama-server --fim-qwen-3b-default
+    vim.g.llama_config = {
+        keymap_fim_accept_full = "<C-g>",
+        keymap_fim_accept_line = "<C-S-g>",
+        keymap_inst_accept     = "<C-g>",
+        keymap_inst_cancel     = "<Tab>",
+    }
+end
 
+-- Codeium
+--[[
+do
+    vim.pack.add { gh 'Exafunction/windsurf.nvim' }
+    -- note: :Codeium Toggle to toggle
+    require('codeium').setup {
+        enable_cmp_source = false,
+        virtual_text = {
+            enabled = true,
+            key_bindings = {
+                accept = "<C-g>",
+                next = "<C-.>",
+                prev = "<C-,>",
+                clear = "<C-x>",
+            },
+        },
+    }
+end
+]]--

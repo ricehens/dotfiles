@@ -100,8 +100,8 @@ inoremap <Leader><Tab> <C-v><Tab>
 
 nnoremap <Tab> :nohlsearch<CR>
 
-nnoremap <C-'> <C-w>v
-nnoremap <C-;> <C-w>s
+nnoremap <C-;> <C-w>v
+nnoremap <C-'> <C-w>s
 nnoremap <C-\> :close<CR>
 
 nnoremap <C-h> <C-w>h
@@ -109,10 +109,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <C-S-h> <C-w>H
-nnoremap <C-S-j> <C-w>J
-nnoremap <C-S-k> <C-w>K
-nnoremap <C-S-l> <C-w>L
+nnoremap <C-M-h> <C-w>H
+nnoremap <C-M-j> <C-w>J
+nnoremap <C-M-k> <C-w>K
+nnoremap <C-M-l> <C-w>L
 
 nnoremap <Leader>to :tabnew<CR>
 nnoremap <Leader>tx :tabclose<CR>

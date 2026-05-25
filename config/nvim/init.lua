@@ -100,7 +100,7 @@ do
     vim.keymap.set("o", "<Tab>", "<Esc>")
     vim.keymap.set("s", "<Tab>", "<Esc>")
     vim.keymap.set("i", "<Tab>", "<Esc>`^")
-    vim.keymap.set("i", "<Leader><Tab>", "<C-v><Tab>")
+    -- vim.keymap.set("i", "<Leader><Tab>", "<C-v><Tab>")
 
     -- clear search
     vim.keymap.set('n', '<Tab>', '<cmd>nohlsearch<CR>')

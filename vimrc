@@ -96,7 +96,7 @@ vnoremap <Tab> <Esc>gV
 onoremap <Tab> <Esc>
 snoremap <Tab> <Esc>
 inoremap <Tab> <Esc>`^
-inoremap <Leader><Tab> <C-v><Tab>
+" inoremap <Leader><Tab> <C-v><Tab>
 
 nnoremap <Tab> :nohlsearch<CR>
 

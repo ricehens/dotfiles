@@ -108,7 +108,7 @@ do
     -- split navigation
     vim.keymap.set("n", "<C-;>", "<C-w>v", { desc = "新右窗" }) 
     vim.keymap.set("n", "<C-'>", "<C-w>s", { desc = "新下窗" }) 
-    vim.keymap.set("n", "<C-\\>", "<cmd>close<CR>", { desc = "关此窗" }) 
+    vim.keymap.set("n", "<C-x>", "<cmd>close<CR>", { desc = "关此窗" }) 
     vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "去左窗" }) 
     vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "去下窗" })
     vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "去上窗" })

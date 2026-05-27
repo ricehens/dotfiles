@@ -102,7 +102,7 @@ nnoremap <Tab> :nohlsearch<CR>
 
 nnoremap <C-;> <C-w>v
 nnoremap <C-'> <C-w>s
-nnoremap <C-\> :close<CR>
+nnoremap <C-x> :close<CR>
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

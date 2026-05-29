@@ -1,0 +1,1 @@
+alt - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance --directory "$HOME"

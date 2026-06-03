@@ -22,6 +22,7 @@ do
     vim.opt.shiftwidth = 4
     vim.opt.expandtab = true
     vim.opt.autoindent = true
+    vim.opt.smartindent = true
 
     -- line wrapping
     vim.opt.wrap = true
@@ -118,6 +119,10 @@ do
     vim.keymap.set("n", "<C-M-k>", "<C-w>K", { desc = "移窗上" })
     vim.keymap.set("n", "<C-M-l>", "<C-w>L", { desc = "移窗右" })
 
+    -- backup keybinds for tmux 
+    vim.keymap.set("n", "<leader>s;", "<C-w>v", { desc = "新右窗" }) 
+    vim.keymap.set("n", "<leader>s'", "<C-w>s", { desc = "新下窗" }) 
+
     -- tab navigation
     vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "打开新标签页" }) 
     vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "关闭当前标签页" }) 
@@ -200,9 +205,15 @@ do
     vim.keymap.set('n', '<M-k>', smart_splits.resize_up, { desc = '窗上胀' })
     vim.keymap.set('n', '<M-l>', smart_splits.resize_right, { desc = '窗右胀' })
 
+    -- align
+    vim.pack.add { gh 'junegunn/vim-easy-align' }
+    vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)', { desc = 'EasyAlign (Visual)' })
+    vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)', { desc = 'EasyAlign (Normal)' })
+
+
     -- infer indentation style
-    vim.pack.add { gh 'NMAC427/guess-indent.nvim' }
-    require('guess-indent').setup {}
+    -- vim.pack.add { gh 'NMAC427/guess-indent.nvim' }
+    -- require('guess-indent').setup {}
 
     -- highlight todo comments 
     vim.pack.add { gh 'folke/todo-comments.nvim' }
@@ -764,6 +775,7 @@ do
 end
 
 -- AUTOPAIRS
+--[[
 do
     vim.pack.add { gh 'windwp/nvim-autopairs' }
     local autopairs = require('nvim-autopairs')
@@ -778,6 +790,7 @@ do
     autopairs.get_rules("'")[1].not_filetypes = { "tex", "latex" }
     autopairs.get_rules("`")[1].not_filetypes = { "tex", "latex" }
 end
+]]--
 
 -- LaTeX
 do
